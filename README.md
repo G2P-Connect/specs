@@ -1,7 +1,9 @@
 # G2P Connect Specifications
 
 ## Latest Release
-comming soon...
+1. [G2P Authz APIs](api/g2p-authz.yaml)
+2. [G2P Payments APIs](api/g2p-payments.yaml)
+
 
 ## Current Working Draft Version: 
 0.1.0-draft
