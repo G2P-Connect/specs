@@ -2,5 +2,11 @@
   $ref: "./200SuccessResponse.yaml"
 400ErrorResponse:
   $ref: "./400ErrorResponse.yaml"
+401ErrorResponse:
+  $ref: "./401ErrorResponse.yaml"
 500ErrorResponse:
   $ref: "./500ErrorResponse.yaml"
+
+#OAuth2 Definitions
+200SuccessOAuth2ClientTokenResponse:
+  $ref: "./oauth2/200SuccessOAuth2ClientTokenResponse.yaml"

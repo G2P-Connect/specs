@@ -22,6 +22,9 @@ info:
     <b>Digital Signatures:</b> <br>  
     1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br><br>
     
+    <b>Callback URLs:</b> <br>  
+    1. */callback/* endpoints are to be implemented by the calling systems <br><br>
+
     <b>TODOs</b>: <br>
       a. Define reversal APIs <br>
       b. Error codes standardisation for each payment status <br>
@@ -60,6 +63,8 @@ paths:
         $ref: "../components/responses/200SuccessResponse.yaml"
       '400':
          $ref: "../components/responses/400ErrorResponse.yaml"
+      '401':
+         $ref: "../components/responses/401ErrorResponse.yaml"
       '500':
          $ref: "../components/responses/500ErrorResponse.yaml"
     security:
@@ -91,6 +96,8 @@ paths:
         $ref: "../components/responses/200SuccessResponse.yaml"
       '400':
          $ref: "../components/responses/400ErrorResponse.yaml"
+      '401':
+         $ref: "../components/responses/401ErrorResponse.yaml"
       '500':
          $ref: "../components/responses/500ErrorResponse.yaml"
     security:
@@ -126,6 +133,8 @@ paths:
               $ref: "../components/schemas/PaymentBatchStatus.yaml"
       '400':
          $ref: "../components/responses/400ErrorResponse.yaml"
+      '401':
+         $ref: "../components/responses/401ErrorResponse.yaml"
       '500':
          $ref: "../components/responses/500ErrorResponse.yaml"
     security:
@@ -164,12 +173,14 @@ paths:
               $ref: "../components/schemas/PaymentStatusFile.yaml"    
       '400':
         $ref: "../components/responses/400ErrorResponse.yaml"
+      '401':
+         $ref: "../components/responses/401ErrorResponse.yaml"
       '500':
         $ref: "../components/responses/500ErrorResponse.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false
- /v1.0/g2p/callback/payment/status:
+ /v1.0/g2p/callback/payment/on-status:
   post: 
     tags: 
       - 2. Payment disbursement status
@@ -192,12 +203,14 @@ paths:
         $ref: "../components/responses/200SuccessResponse.yaml"
       '400':
          $ref: "../components/responses/400ErrorResponse.yaml"
+      '401':
+         $ref: "../components/responses/401ErrorResponse.yaml"
       '500':
          $ref: "../components/responses/500ErrorResponse.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false
- /v1.0/g2p/callback/payment/batch-status:
+ /v1.0/g2p/callback/payment/on-batch-status:
   post: 
     tags: 
       - 2. Payment disbursement status
@@ -223,6 +236,8 @@ paths:
         $ref: "../components/responses/200SuccessResponse.yaml"
       '400':
          $ref: "../components/responses/400ErrorResponse.yaml"
+      '401':
+         $ref: "../components/responses/401ErrorResponse.yaml"
       '500':
          $ref: "../components/responses/500ErrorResponse.yaml"
     security:

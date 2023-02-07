@@ -1,4 +1,4 @@
-Authorization:
-  $ref: "./Authorization.yaml"
+# Authorization:
+#  $ref: "./Authorization.yaml"
 x-access-token:
   $ref: "./x-access-token.yaml"

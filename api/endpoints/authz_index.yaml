@@ -1,0 +1,64 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect authorization  APIs
+  description: "This is an adaptation of G2P Connect core version 0.1.0. <br><br>
+   <b>Overview:</b> <br>  
+    1. The scope of these end points to standarise issuance of access tokens using existing standards like oauth2 and oidc flows. <br>
+    2. Helps standarises end point access across g2p complaint api stack. <br>
+    3. Additional security like IP white listing, private networks, etc are outside the scope of G2P Connect standards. <br>
+    4. Each country shall decide such operational models based on country requirements. <br>
+    "
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+   name: G2P Connect License
+   url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+tags:
+- name: 1. OAuth2 / OIDC enabled authorization services
+paths:
+ /g2p/v0.1/oauth2/client/token:
+  post: 
+    tags: 
+      - 1. OAuth2 / OIDC enabled authorization services
+    summary: "Provide access_token to registered clients/services."
+    description: "<b>Client integration notes: </b><br>
+       1. This end point is in compliance with OAuth2 RFC 6749 to authenticate registered confidential clients with grant_type=client_credentials over HTTPS channel. <br>
+       2. Clients MUST obtain client_id, client_secret as part of client registration. <br>
+       2. Clients MUST ensure to secure sensitive information e.g, client_secret,  access_token, etc., <br>
+       3. RFC 6749 section 4.4.3 recommends NO support for refresh access_token. <br>
+       4. Successfully authenticated clients SHALL receive bearer type access_token. <br>
+       5. Clients MUST set access_token to x-access-token in HTTP header to access any g2p compliant api end points.<br>
+       6. Rest end points SHALL return <b>http status 401</b> when access_token is invalid or expired.<br>"
+    operationId: post_oauth2_client_token
+    parameters:
+      - $ref: "../components/parameters/date.yaml"
+      - $ref: "../components/parameters/x-request-id.yaml"
+      - $ref: "../components/parameters/accept-language.yaml"
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: "../components/schemas/oauth2/OAuth2ClientTokenRequest.yaml"
+    responses:
+      '200':
+        $ref: "../components/responses/oauth2/200SuccessOAuth2ClientTokenResponse.yaml"
+      '400':
+         $ref: "../components/responses/400ErrorResponse.yaml"
+      '401':
+         $ref: "../components/responses/401ErrorResponse.yaml"
+      '500':
+         $ref: "../components/responses/500ErrorResponse.yaml"
+    deprecated: false
+components:
+  schemas:
+    $ref: "../components/schemas/index.yaml"
+  responses:
+    $ref: "../components/responses/index.yaml"
+  headers:
+    $ref: "../components/headers/index.yaml"
+  parameters:
+    $ref: "../components/parameters/index.yaml"

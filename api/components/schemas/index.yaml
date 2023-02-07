@@ -1,3 +1,4 @@
+#Payments Definitions
 PaymentBatch:
   $ref: "./PaymentBatch.yaml"
 PaymentBatchStatus:
@@ -16,6 +17,8 @@ PaymentFile:
   $ref: "./PaymentFile.yaml"
 PaymentStatusFile:
   $ref: "./PaymentStatusFile.yaml"
+
+#OAuth2 Definitions
 CurrencyCode:
   $ref: "./common/CurrencyCode.yaml"
 Amount:
@@ -26,3 +29,11 @@ TransactionId:
   $ref: "./common/TransactionId.yaml"
 ErrorResponse:
   $ref: "./common/ErrorResponse.yaml"
+
+#OAuth2 Definitions
+OAuth2ClientToken:
+  $ref: "./oauth2/OAuth2ClientToken.yaml"
+OAuth2ClientTokenRequest:
+  $ref: "./oauth2/OAuth2ClientTokenRequest.yaml"
+OidcScope:
+  $ref: "./oauth2/OidcScope.yaml"

@@ -1,0 +1,16 @@
+type: array
+description: "Space delimited scopes requested or issued by an authorization service for OAuth2 client, OIDC complaint auth tokens. <br><br>
+  <b>This is an indicative list... </b>"
+items:
+  type: string
+  enum:
+    - payment-disburse
+    - payment-status
+    - id-account-link
+    - id-account-status
+    - <etc>
+example: 
+  - payment-disburse
+  - paymnet-status
+  - id-account-link
+  - id-account-status

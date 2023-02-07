@@ -1,0 +1,18 @@
+type: object
+properties:
+  access_token:
+    description: "Clients to share access_token in x-api-token HTTP header."
+    type: string
+    example: "2YotnFZFEjr1zCsicMWpAA"
+  token_type:
+    description: ""
+    type: string
+    example: "bearer"
+  expires_in:
+    description: "The lifetime in seconds of the access token.  For example, the value \"3600\" denotes that the access token will expire in one hour from the time the response was generated. If omitted, the authorization server SHOULD provide the expiration time via other means or document the default value."
+    type: string
+    example: "36000"
+required:
+  - access_token
+  - token_type
+description: ""
