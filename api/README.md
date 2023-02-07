@@ -1,8 +1,13 @@
 # How to build G2P Connect specifications
 
+## IMPORTANT NOTES: 
+1. Please do not direclty edit /specs/api/g2p-*.yaml files directly. 
+2. Recommend reviewers to edit the respective .yaml files in sub folders.
+3. g2p-*.yaml files are auto generated using below steps.
+
 ## Folder Structure
-1. Specification root folder: specs/api
-2. Documentation root folder: specs/docs
+1. G2P Specification root folder: specs/api
+2. G2P Documentation root folder: specs/docs
 
 ## Organization of Open API Specficaition 
 1. All openapi api endpoints are list in folder: specs/api/endpoints/ <<br>
