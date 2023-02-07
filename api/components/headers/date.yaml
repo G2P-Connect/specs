@@ -1,0 +1,5 @@
+schema:
+  type: string
+  example: "Tue, 06 Mar 2020 21:00:00 GMT"
+description: "HTTP header format"
+required: true

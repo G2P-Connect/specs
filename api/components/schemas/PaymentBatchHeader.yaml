@@ -1,0 +1,19 @@
+type: object
+description: "Header to manage payment disbursement cycle"    
+properties:
+  batch_id:
+    type: string
+    description: Unique id to manage payment disbursement cycle
+  datetime:
+    description: "Batch requested date-time"
+    type: string
+    format: date-time
+    example: '2022-12-04T18:01:07+00:00'
+  total_count:
+    description: "Total no of payment instructions in the batch request"
+    type: integer
+    example: 20800
+required:
+  - batch_id
+  - datetime
+  - total_count

@@ -1,0 +1,16 @@
+type: string
+description: "<br>
+  1. Payment address is a normative represenation of a financial address represented as account@provider <br>
+  3. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br>
+  4. Few examples: <br>
+      - uid@pymt-rail e.g 12345@bsp <br>
+      - uid@id-provider e.g 12345@mosip <br>
+      - mobile@mobile-provider e.g 12345@m-pesa
+      - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br>
+      - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br>
+      - user-id@psp-code e.g. joeuser@mypsp <br>
+      - token@psp-code e.g ot123456@mypsp <br>
+      - cdbc-id@cdbc e.g. 12345@DCash"
+
+format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
+example: 12345@mosip"

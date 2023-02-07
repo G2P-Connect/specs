@@ -1,0 +1,4 @@
+schema:
+  type: string
+  example: "no-cache"
+required: true

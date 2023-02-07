@@ -1,0 +1,426 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect Scehme Management Definitions
+  description: G2P Connect scehmas to interface between social protection systems, payment rails. This is an adaptation of G2P Connect core version 0.1.0
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+paths: {}
+components:
+  schemas:
+    Program:
+      description: "Entity to define all components of a benefit program"
+      type: object
+      properties:
+        code: 
+          description: "Program code"
+          type: string
+          maxLength: 40
+          example: "DRAUGHT-2022-SL-001"
+        parent_code: 
+          description: "Parent program code, if needs to be linked for reporting, monitoring reasons"
+          type: string
+          maxLength: 40
+          example: "DRAUGHT-2022-SL"
+        name: 
+          description: "Program name"
+          type: string
+          maxLength: 500
+          example: "Sierra Leone framer distress/draught relief for 2022"
+        description:  
+          description: "Program detailed description"
+          type: string
+          maxLength: 2048
+          example: ""
+        sponsor:
+          $ref: "#/components/schema/ProgramSponsor"
+        source_of_funds:
+          $ref: "#/components/schema/SourceOfFunds"
+        target_group:
+          $ref: "#/components/schema/TargetGroup"
+        disbursement:
+          $ref: "#/components/schema/Disbursement"
+        enrolment:
+          $ref: "#/components/schema/Enrolment"
+        idenity_proofs:
+          $ref: "#/components/schema/IdentityProofs"
+        eligibility:
+          $ref: "#/components/schema/Eligibility"
+        eligibility_exclusions:
+          $ref: "#/components/schema/EligibilityExclusions"
+        locale:
+          $ref: "#/components/schemas/LanguageCode"
+        uri:
+          description: "uri to program definition"
+        version:
+          description: "version of this program entity"
+
+
+    ProgramSponsor:
+      description: "Program sponsor information"
+      type: object
+      properties:
+        department_name:
+          description: "Program sponsoring department code"
+          type: string
+          maxLength: 200
+          example: "SLL Agriculture Ministry"
+        contact:
+          $ref: "#/components/schema/Contact"
+    SourceOfFunds:
+      description: "Program source of funds"
+      type: object
+      properties:
+        account_identifier:
+          description: "account number to fund the program"
+        amount_allocated:
+          description: "amount allocated"
+    TargetGroup:
+      description: "Program target group definition"
+      type: object
+      properties:
+        type:
+          description: "target group type"
+          type: string
+          enum: ["Individual, "Family", "Household", "Community", "Other"]
+          example: "Community"
+        minLimit:
+          description: "If not Individual, Minimum number of persons eligibile in target group type"
+          type: integer
+          example: 1
+        maxLimit:
+          description: "If not Individual, Minimum number of persons eligibile in target group type"
+          type: integer
+          example: 1
+        other_info:
+          $ref: "#/community/schema/OtherInfo"
+    Disbursement:
+      description: "Program disbursement info"
+      type: object
+      properties:
+        currency_code:
+          $ref: "#/components/schema/CurrencyCode"
+        amount: 
+           $ref: "#/components/schema/Amount"
+        frequency:
+          description: "Disbursment frequency"
+          type: integer
+          example: 1
+        frequency_unit:
+          type: string
+          enum: ["Days", "Weeks", "Months", Years"]
+        start_datetime:
+          description: "Program start date and time"
+          type: string
+          format: datetime
+        end_datetime:
+          description: "Program end date and time"
+          type: string
+          format: datetime
+        modes:
+          type: array
+          items:
+            $ref: "#/components/schema/DisbursementMode"
+        other_info_list:
+          $ref: "#/components/schema/OtherInfoList"
+    enrolment:
+      description: "Program enrolment detials"
+      type: object
+      properties:
+        start_datetime:
+          description: "Program enrolment start date and time"
+          type: string
+          format: datetime
+        end_datetime:
+          description: "Program enrolment end date and time"
+          type: string
+          format: datetime
+        modes:
+          description: "Program enrolment modes allowed"
+          type: array
+          items:
+            $ref: "#/components/schema/EnrolmentMode"
+        other_info_list:
+          $ref: "#/components/schema/OtherInfoList"
+    identity_proofs:
+      $ref: "#/components/schema/IdentityProofList"
+    eligibility_criteria:
+      description: "Program eligibility definition entity"
+      type: object
+      properties:
+        identity:
+          $ref: "#/components/schema/E_META_DATA"
+        demographics: 
+          $ref: "#/components/schema/E_DEOMGRAPHICS"
+        socioeconomic_status:
+          $ref: "#/components/schema/E_SOCIAECONIMIC_STATUS"
+        labor_force_status:
+          $ref: "#/components/schema/E_LOBOR_FORCE_STATUS_INFO"
+        disabilities:
+          $ref: "#/components/schema/E_DISABILITY_INFO"
+        social_risks:
+          $ref: "#/components/schema/E_SOCIAL_RISKS"
+        target_areas:
+          $ref: "#/components/schema/E_TARGET_AREAS"
+        program_codes:
+          $ref: "#/components/schema/E_PROGRAM_CODES"
+      
+    E_IDENTITY_INFO:
+      description: "individual identity info"
+      type: object
+      properties:
+        idType:
+          description: "Primary individual identifier type. e.g National ID, Driving License, Passport, School ID, Farmer ID, etc.,"
+          type: string
+          maxLength: 100
+        id:
+          description: "Primary identifier of the individual as mentioned in idType"
+          type: string
+    E_DEOMGRAPHICS:
+      description: ""
+      type: object
+      properties:
+        account_identifier: 
+          type: string
+        dob:
+          type: string
+          format: date
+        gender:
+          type: string
+    E_SOCIAECONIMIC_STATUS:
+      income:
+        $ref: "#/components/schema/E_INCOME"
+      assets:
+        $ref: "#/components/schema/E_ASSETS"
+      expenditure:
+        $ref: "#/components/schema/E_EXPENDITURE"
+      occupation:
+        $ref: "#/components/schema/E_OCCUPATION"
+      other_info_list:  
+        $ref: "#/components/schema/OtherInfoList"
+    E_LOBOR_FORCE_STATUS_INFO:
+      description: "Labor force status"
+      type: object
+      properties:
+        status: 
+          type: string
+          enum: ["Employed", "Unemployed", "Inactive", "Job Seeker", "Other"]
+        other_info:
+          $ref: "#/components/schema/OtherInfo"
+        start_date:
+          description: "Aprox start date in YYYY-MM-DD format since labour force status is effective"
+          type: string
+          format: date
+          example: "2018-01-01"
+    E_DISABILITY_INFO:
+      description: "Disability info"
+      type: object
+      properties:
+        status: 
+          type: string
+          enum: ["Moderate", "Severe", "Medical Impairements", "Functional Limitations", "Other"]
+        other_info:
+          $ref: "#/components/schema/OtherInfo"
+        start_date:
+          description: "Aprox start date in YYYY-MM-DD format since disability status is effective"
+          type: string
+          format: date
+          example: "2018-01-01"
+          
+    
+    E_SOCIAL_RISKS:
+
+    E_TARGET_AREAS:
+
+    E_PROGRAM_CODES:
+
+
+            - income
+                - wages
+                - professional
+                - salaries
+                - others
+            - assest
+                - house
+                - vehicle
+                - land
+                - others
+            - expenditure
+                - electricity consumption
+                - others
+            - occupation
+                - farmer
+                - daily wager
+            - others
+                - others
+        - labor_force_status
+            - employed
+            - unemployed
+            - inactive
+            - job seekers
+            - others
+        - disabilities
+            - moderate
+            - severe
+            - short term
+            - long term
+            - medical impairements
+            - functional limitations
+            - others
+        - social_risks
+            - lgbt
+            - pregnant wowmen
+            - post natal
+            - marital status
+            - natural disaster
+            - minority (religion, caste)
+            - ethnicity
+            - others
+        - target_areas
+            - zip codes
+            - others
+        - program_codes 
+
+
+
+
+    DisbursementMode:
+      description: "Disbursement modes"
+      type: string
+      enum:
+        - bank account
+        - mobile money
+        - wallet
+        - cash
+        - card
+        - voucher
+    EnrolmentMode:
+      description: "Enrolment modes"
+      type: string
+      enum:
+        - self
+        - assisted
+    IdentityProof:
+      description: "Identity Proof"
+      type: string
+      enum:
+        - Proof Of Document
+        - Proof Of Auth
+        - Proof Of Presence
+        - Proof Of Record
+    IdentityProofList:
+      description: "Identity proof list"
+      type: array
+      items:
+        $ref: "#/components/schema/IdentityProof"
+    Contact:  
+      description: "Contact info of a person or entity"
+      type: string
+      properties:
+        type:
+          description: "Contact type"
+          type: string
+          enum: ["Organisation", "Person", "Other"]
+          example: "Person"
+        id:
+          description: "contact identity number"
+          type: string
+          example: "1234-5678-8765"
+        name: 
+          description: "contact name"
+          type: string
+          example: "John D"
+        phone_number: 
+          description: "Contact phone number"
+          type: string
+          example: "+232 888 555 9876"
+        email:  
+          description: "Contact email id"
+          type: string
+          example: ""
+    LanguageCode:
+      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
+      type: string   
+      pattern: '^[a-z]{3,3}$'
+      example: "kri"
+    CurrencyCode:
+      description: Currency code allocated as per ISO 4217 format; Codes for the representation of currencies and funds.
+      type: string
+      pattern: '^[A-Z]{3,3}$'
+      example: "SLL"
+    Amount:
+      description: Describes amount in decimal value format
+      type: string
+      pattern: '^\d{1,13}\.\d{1,2}$'
+    OtherInfo:
+      description: "Other key/value info"
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+    OtherInfoList:
+      description: "Other key/value info list"
+      type: array
+      items:
+        $ref: "#/components/schema/OtherInfo"
+
+    - eligibility
+        - demographic
+            - age
+            - gender
+        - socioeconomic_status
+            - income
+                - wages
+                - professional
+                - salaries
+                - others
+            - assest
+                - house
+                - vehicle
+                - land
+                - others
+            - expenditure
+                - electricity consumption
+                - others
+            - occupation
+                - farmer
+                - daily wager
+            - others
+                - others
+        - labor_force_status
+            - employed
+            - unemployed
+            - inactive
+            - job seekers
+            - others
+        - disabilities
+            - moderate
+            - severe
+            - short term
+            - long term
+            - medical impairements
+            - functional limitations
+            - others
+        - social_risks
+            - lgbt
+            - pregnant wowmen
+            - post natal
+            - marital status
+            - natural disaster
+            - minority (religion, caste)
+            - ethnicity
+            - others
+        - target_areas
+            - zip codes
+            - others
+        - program_codes 
+    - eligibility_exclusion
+        - $ref: eligibility
+    - locale
+    - uri
+    - version
+    
+

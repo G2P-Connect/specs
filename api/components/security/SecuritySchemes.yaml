@@ -1,0 +1,10 @@
+Authorization:
+  description: "User/System authenticated access token; (jwt bearer) token returned from implementing system's authentication/token api end points. All systems must implement token api."
+  type: http
+  scheme: bearer
+  bearerFormat: jwt
+x-access-token:
+  description: "Systems authenticated using client id & secrect using gateway's session token apis"    
+  type: http
+  scheme: bearer
+  bearerFormat: jwt

@@ -1,0 +1,5 @@
+schema:
+  type: string
+  enum: ["no-store"]
+  example: "no-store"
+required: true

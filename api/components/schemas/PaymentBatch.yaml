@@ -1,0 +1,12 @@
+type: object
+description: 'Payment list as a collection for bulk processing'
+properties:
+  header:
+    $ref: "./PaymentBatchHeader.yaml"
+  payments:
+    type: array
+    items:
+      $ref: "./Payment.yaml"
+required:
+  - header
+  - payments

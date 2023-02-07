@@ -1,0 +1,28 @@
+PaymentBatch:
+  $ref: "./PaymentBatch.yaml"
+PaymentBatchStatus:
+  $ref: "./PaymentBatchStatus.yaml"
+Payment:
+  $ref: "./Payment.yaml"
+PaymentStatus:
+  $ref: "./PaymentStatus.yaml"
+PaymentAddress:
+  $ref: "./PaymentAddress.yaml"
+PaymentBatchHeader:
+  $ref: "./PaymentBatchHeader.yaml"
+PaymentBatchStatusHeader:
+  $ref: "./PaymentBatchStatusHeader.yaml"
+PaymentFile:
+  $ref: "./PaymentFile.yaml"
+PaymentStatusFile:
+  $ref: "./PaymentStatusFile.yaml"
+CurrencyCode:
+  $ref: "./common/CurrencyCode.yaml"
+Amount:
+  $ref: "./common/Amount.yaml"
+LanguageCode:
+  $ref: "./common/LanguageCode.yaml"
+TransactionId:
+  $ref: "./common/TransactionId.yaml"
+ErrorResponse:
+  $ref: "./common/ErrorResponse.yaml"

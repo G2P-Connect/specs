@@ -1,0 +1,14 @@
+cache-control-nostore:
+  $ref: "./cache-control-nostore.yaml"
+cache-control-private:
+  $ref: "./cache-control-private.yaml"
+date:
+  $ref: "./date.yaml"
+pragma:
+  $ref: "./pragma.yaml"
+x-correlation-id:
+  $ref: "./x-correlation-id.yaml"
+x-processing-time:
+  $ref: "./x-processing-time.yaml"
+x-request-id:
+  $ref: "./x-request-id.yaml"

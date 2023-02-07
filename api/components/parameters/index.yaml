@@ -1,0 +1,8 @@
+accept-language:
+  $ref: "./accept-language.yaml"
+date: 
+  $ref: "./date.yaml"
+transaction_id:
+  $ref: "./transaction_id.yaml"
+x-request-id: 
+  $ref: "./x-request-id.yaml"

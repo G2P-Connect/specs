@@ -1,0 +1,4 @@
+schema:
+  type: string
+  example: 12
+description: 'api process time in ms'

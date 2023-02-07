@@ -1,0 +1,653 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect payment disbursement APIs
+  description: |-
+    This is an adaptation of G2P Connect core version 0.1.0. <br><br> <b>Overview:</b> <br>   1. <b>G2P Connect</b> payment disbursement APIs intent is to enable standrdisation between  social protection and payment processing/rails systems integration<br> 2. Payment and PaymentStatus are core entities to enable generation of payment instruction and reconcile payment processing status <br> 3. These entites are common between API and File based data exchange <br> 4. All dates represented in ISO 8601 format including timezone e.g., 2022-12-04T18:01:07+00:00 <br> 5. All currency codes represented in ISO 4217 format <br><br>
+    <b>API Security:</b> <br>   1. Considering countries operates G2P schemes using various payment systems for <b>e.g.,</b> central bank payment rails, mobile money networks, directly with govt/private operated financial instituations, etc., the network operating model may vary.<br> 2. G2P Connect reccommends implementing systems to add <b>additional</b> security measures: <br> a. Transport layer security using TLS <br> b. End point security using x-access-token issued using client id / secret <br> c. Role based access controls <br> d. sFTP based solutions for file based exchange <br> 3. Impelementing systems shall document these as part of operational manuals <br> 4. x-signature-key in http header enables non-repudiability. <br><br>
+    <b>Digital Signatures:</b> <br>   1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br><br>
+    <b>TODOs</b>: <br> a. Define reversal APIs <br> b. Error codes standardisation for each payment status <br> 
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+    name: G2P Connect License
+    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+tags:
+  - name: 1. Payment disbursement
+  - name: 2. Payment disbursement status
+paths:
+  /v1.0/g2p/payment/disburse:
+    post:
+      tags:
+        - 1. Payment disbursement
+      summary: Social protection system initiating g2p payments
+      description: ''
+      operationId: post_g2p_payment_disburse
+      parameters:
+        - in: header
+          name: date
+          description: 'request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
+          required: true
+          schema:
+            type: string
+            example: 'Tue, 06 Mar 2020 21:00:00 GMT'
+        - in: header
+          name: x-request-id
+          description: x-request-id to correlate every request across backend services
+          required: true
+          schema:
+            type: string
+            example: 18f484bd-3321-4754-b95e-8abed0c97b5d
+        - in: header
+          name: accept-language
+          description: 'Default value: en'
+          required: false
+          schema:
+            type: string
+            example: en
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Payment'
+      responses:
+        '200':
+          description: ''
+          headers:
+            x-request-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-request-id'
+            x-correlation-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-correlation-id'
+            date:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/date'
+            x-processing-time:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-processing-time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionId'
+        '400':
+          description: 'Syntactic errors <br> <b>code : message</b> <br> 400-1000 : tbd <br> 400-1001: tbd <br>'
+          headers:
+            x-request-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-request-id'
+            x-correlation-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-correlation-id'
+            date:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/date'
+            x-processing-time:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-processing-time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: 'Internal server error, Please retry with exponential backup strategies and contact tech support: <br> <b>code : message</b> <br> 500-1000 : tbd <br> 500-1001 : tbd <br>'
+          headers:
+            x-request-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-request-id'
+            x-correlation-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-correlation-id'
+            date:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/date'
+            x-processing-time:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-processing-time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /v1.0/g2p/payment/batch-disburse:
+    post:
+      tags:
+        - 1. Payment disbursement
+      summary: Social protection system initiating g2p payments in a batch. Supports both api and .csv file interfaces.
+      description: ''
+      operationId: post_g2p_payment_batch-disburse
+      parameters:
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/1'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/0'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/2'
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Payment list as a collection for bulk processing
+              properties:
+                header:
+                  $ref: '#/components/schemas/PaymentBatchHeader'
+                payments:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Payment'
+              required:
+                - header
+                - payments
+          multipart/form-data:
+            schema:
+              type: object
+              description: Payment disbursement file for bulk processing of Payment entity in csv format
+              properties:
+                batch_id:
+                  type: string
+                  description: Unique id to manage payment disbursement cycle
+                datetime:
+                  description: Batch requested date-time
+                  type: string
+                  format: date-time
+                  example: '2022-12-04T18:01:07+00:00'
+                total_count:
+                  description: Total no of payment instructions in the batch request
+                  type: integer
+                  example: 20800
+                fileName:
+                  description: payment instruction file representing Payment entity in csv format as *.txt file
+                  type: string
+                  format: binary
+              required:
+                - batch_id
+                - datetime
+                - total_count
+                - fileName
+      responses:
+        '200':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/200'
+        '400':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/400'
+        '500':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  '/v1.0/g2p/payment/status/{transaction_id}':
+    get:
+      tags:
+        - 2. Payment disbursement status
+      summary: Get payment disbursement status.
+      description: ''
+      operationId: get_g2p_payment_status
+      parameters:
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/1'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/0'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/2'
+        - in: path
+          name: transaction_id
+          description: transaction id
+          required: true
+          schema:
+            type: string
+            example: '123456789020211216223812'
+      responses:
+        '200':
+          description: Success
+          headers:
+            x-request-id:
+              schema:
+                type: string
+                example: 18f484bd-3321-4754-b95e-8abed0c97b5d
+              description: echo back from request
+            x-correlation-id:
+              schema:
+                type: string
+                example: f16115fa-6c4a-4a8a-9856-08ea467f131b
+              description: 'unique correlation id for each request '
+            date:
+              schema:
+                type: string
+                example: 'Tue, 06 Mar 2020 21:00:00 GMT'
+              description: HTTP header format
+              required: true
+            x-processing-time:
+              schema:
+                type: string
+                example: 12
+              description: api process time in ms
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1v1.0~1g2p~1callback~1payment~1batch-status/post/requestBody/content/application~1json/schema'
+        '400':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/400'
+        '500':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  '/v1.0/g2p/payment/batch-status/{transaction_id}':
+    get:
+      tags:
+        - 2. Payment disbursement status
+      summary: Get payment disbursement batch status.
+      description: ''
+      operationId: get_g2p_payment_batch-status
+      parameters:
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/1'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/0'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/2'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/parameters/3'
+      responses:
+        '200':
+          description: Success
+          headers:
+            x-request-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-request-id'
+            x-correlation-id:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-correlation-id'
+            date:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/date'
+            x-processing-time:
+              $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-processing-time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1v1.0~1g2p~1callback~1payment~1batch-status/post/requestBody/content/application~1json/schema'
+            multipart/form-data:
+              schema:
+                $ref: '#/paths/~1v1.0~1g2p~1callback~1payment~1batch-status/post/requestBody/content/multipart~1form-data/schema'
+        '400':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/400'
+        '500':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /v1.0/g2p/callback/payment/status:
+    post:
+      tags:
+        - 2. Payment disbursement status
+      summary: Social protection system hosted callback to receive payment status updates
+      description: This end point is hosted by social protection system and called by payment processing/rails to push disbursement status notications
+      operationId: post_g2p_payment_status
+      parameters:
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/1'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/0'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/2'
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Payment disbursement status for reconciliation at social protection system end
+              properties:
+                locale:
+                  $ref: '#/components/schemas/LanguageCode'
+                reference_code:
+                  description: Unique uuid set by payment sytem while processing the payment
+                  type: string
+                request_id:
+                  description: Unique uuid set by social protect sytem while initiating the payment
+                  type: string
+                datetime:
+                  description: Payment status as on date-time
+                  type: string
+                  format: date-time
+                  example: '2022-12-04T18:01:07+00:00'
+                payer:
+                  $ref: '#/components/schemas/PaymentAddress'
+                payee:
+                  $ref: '#/components/schemas/PaymentAddress'
+                amount:
+                  $ref: '#/components/schemas/Amount'
+                currency_code:
+                  $ref: '#/components/schemas/CurrencyCode'
+                status:
+                  description: 'Status definitions: <br> 1. RCVD: Received; payment received <br> 2. PDNG: Pending; payment initiated <br> 3. RJCT: Rejected; payment initiated and has been rejected  <br> 4. ACSP: AcceptedSettlementInProcess; All preceding checks such as technical validation and customer profile are successful. Paymnet has been accepted for execution <br> 5. ACSC: AcceptedSettlementCompleted; Settlement on the Debtor''s account has been completed <br> 6. ACCC: AcceptedCreditSettlementCompleted; Settlement on the Creditor''s account has been completed'
+                  type: string
+                  enum:
+                    - RCVD
+                    - PDNG
+                    - RJCT
+                    - ACSP
+                    - ACSC
+                    - ACCC
+                error_code:
+                  description: 'Additional error codes. TODO: enumurate detailed error codes!'
+                  type: string
+                  enum:
+                    - '1000'
+                    - '2000'
+                    - '3000'
+                    - '4000'
+                    - '5000'
+                    - '6000'
+                    - '7000'
+                    - '8000'
+                    - '9000'
+                error_message:
+                  description: Additional error messages
+                  type: string
+                  enum:
+                    - '1000: Payment request entity errors'
+                    - '2000: Payment address resolution errors of payer/payee'
+                    - '3000: Payment processing related errors on payer side'
+                    - '4000: Payment processing related errors on payee side'
+                    - '5000: Reserved for future use'
+                    - '6000: Reserved for future use'
+                    - '7000: Reserved for future use'
+                    - '8000: Reserved for future use'
+                    - '9000: Technical errors'
+                additional_info:
+                  description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data.'
+                  type: string
+                  maxLength: 1024
+              required:
+                - locale
+                - reference_code
+                - request_id
+                - datetime
+                - payer
+                - payee
+                - amount
+                - currency_code
+                - status
+      responses:
+        '200':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/200'
+        '400':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/400'
+        '500':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /v1.0/g2p/callback/payment/batch-status:
+    post:
+      tags:
+        - 2. Payment disbursement status
+      summary: Social protection system hosted callback to receive status updates for batch payments. Supports both api and .csv file interfaces.
+      description: This end point is hosted by social protection system and called by payment processing/rails to push disbursement batch status notications
+      operationId: post_g2p_payment_batch-status
+      parameters:
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/1'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/0'
+        - $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/2'
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Payments status list as a collection for bulk processing
+              properties:
+                header:
+                  $ref: '#/components/schemas/PaymentBatchStatusHeader'
+                payments_status:
+                  type: array
+                  items:
+                    $ref: '#/paths/~1v1.0~1g2p~1callback~1payment~1status/post/requestBody/content/application~1json/schema'
+              required:
+                - header
+                - payments_status
+          multipart/form-data:
+            schema:
+              type: object
+              description: Payment disbursement status for reconciliation at social protection system end representing PaymentStatus entity in csv file format
+              properties:
+                batch_id:
+                  type: string
+                  description: Unique id to manage payment disbursement cycle
+                datetime:
+                  description: Batch response date-time
+                  type: string
+                  format: date-time
+                  example: '2022-12-04T18:01:07+00:00'
+                total_count:
+                  description: Total no of payment instructions in the batch request
+                  type: integer
+                  example: 20800
+                inprocess_count:
+                  description: 'No of payment instructions in process state. Status codes: RCVD, ACSP'
+                  type: integer
+                  example: 450
+                success_count:
+                  description: 'Total no of payment instructions successfully processed. Status codes: ACSC, ACCC'
+                  type: integer
+                  example: 20300
+                reject_count:
+                  description: 'Total no of payment instructions failed to process. Status codes: RJCT'
+                  type: integer
+                  example: 50
+                fileName:
+                  description: payment disbursement status file representing PaymentStatus entity in csv format as *.txt file
+                  type: string
+                  format: binary
+              required:
+                - batch_id
+                - datetime
+                - total_count
+                - inprocess_count
+                - success_count
+                - reject_count
+                - fileName
+      responses:
+        '200':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/200'
+        '400':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/400'
+        '500':
+          $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+components:
+  schemas:
+    PaymentBatch:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1batch-disburse/post/requestBody/content/application~1json/schema'
+    PaymentBatchStatus:
+      $ref: '#/paths/~1v1.0~1g2p~1callback~1payment~1batch-status/post/requestBody/content/application~1json/schema'
+    Payment:
+      type: object
+      description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
+      properties:
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+        request_id:
+          description: Unique uuid set by social protect sytem while initiating the payment
+          type: string
+        request_datetime:
+          description: Payment initiation request data time
+          type: string
+          format: date-time
+          example: '2022-12-04T18:01:07+00:00'
+        scheduled_datetime:
+          description: 'For immediate payments, scheduled_datetime can be same as request_datetime'
+          type: string
+          format: date-time
+          example: '2022-12-04T18:01:07+00:00'
+        payer:
+          $ref: '#/components/schemas/PaymentAddress'
+        payee:
+          $ref: '#/components/schemas/PaymentAddress'
+        amount:
+          $ref: '#/components/schemas/Amount'
+        currency_code:
+          $ref: '#/components/schemas/CurrencyCode'
+        info:
+          description: Info to payer/payee.
+          type: string
+          maxLength: 40
+        scheme_code:
+          description: G2P social protection system defined scheme short code for easy reference
+          type: string
+          maxLength: 40
+        additional_info:
+          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile'
+          type: string
+          maxLength: 1024
+      required:
+        - locale
+        - request_id
+        - date
+        - payer
+        - payee
+        - amount
+        - currency_code
+    PaymentStatus:
+      $ref: '#/paths/~1v1.0~1g2p~1callback~1payment~1status/post/requestBody/content/application~1json/schema'
+    PaymentAddress:
+      type: string
+      description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 3. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br> 4. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@mosip <br> - mobile@mobile-provider e.g 12345@m-pesa - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - cdbc-id@cdbc e.g. 12345@DCash'
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 12345@mosip"
+    PaymentBatchHeader:
+      type: object
+      description: Header to manage payment disbursement cycle
+      properties:
+        batch_id:
+          type: string
+          description: Unique id to manage payment disbursement cycle
+        datetime:
+          description: Batch requested date-time
+          type: string
+          format: date-time
+          example: '2022-12-04T18:01:07+00:00'
+        total_count:
+          description: Total no of payment instructions in the batch request
+          type: integer
+          example: 20800
+      required:
+        - batch_id
+        - datetime
+        - total_count
+    PaymentBatchStatusHeader:
+      type: object
+      description: Batch status header info to provide summary details on payment processing status
+      properties:
+        batch_id:
+          type: string
+          description: Unique id to manage payment disbursement cycle
+        datetime:
+          description: Batch response date-time
+          type: string
+          format: date-time
+          example: '2022-12-04T18:01:07+00:00'
+        total_count:
+          description: Total no of payment instructions in the batch request
+          type: integer
+          example: 20800
+        inprocess_count:
+          description: 'No of payment instructions in process state. Status codes: RCVD, ACSP'
+          type: integer
+          example: 450
+        success_count:
+          description: 'Total no of payment instructions successfully processed. Status codes: ACSC, ACCC'
+          type: integer
+          example: 20300
+        reject_count:
+          description: 'Total no of payment instructions failed to process. Status codes: RJCT'
+          type: integer
+          example: 50
+      required:
+        - batch_id
+        - datetime
+        - total_count
+        - inprocess_count
+        - success_count
+        - reject_count
+    PaymentFile:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1batch-disburse/post/requestBody/content/multipart~1form-data/schema'
+    PaymentStatusFile:
+      $ref: '#/paths/~1v1.0~1g2p~1callback~1payment~1batch-status/post/requestBody/content/multipart~1form-data/schema'
+    CurrencyCode:
+      description: <br> 1. Currency code allocated as per ISO 4217 format.<br> 2. Codes for the representation of currencies and funds.
+      type: string
+      pattern: '^[A-Z]{3,3}$'
+      example: SLL
+    Amount:
+      type: string
+      description: Describes amount in decimal value format
+      pattern: '^\d{1,13}\.\d{1,2}$'
+    LanguageCode:
+      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
+      type: string
+      pattern: '^[a-z]{3,3}$'
+      example: kri
+    TransactionId:
+      description: ''
+      type: object
+      properties:
+        transaction_id:
+          type: string
+          minLength: 0
+          maxLength: 40
+          example: '123456789020211216223812'
+    ErrorResponse:
+      type: object
+      description: ''
+      properties:
+        error:
+          type: object
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+      required:
+        - code
+        - message
+  responses:
+    200SuccessResponse:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/200'
+    400ErrorResponse:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/400'
+    500ErrorResponse:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/responses/500'
+  headers:
+    cache-control-nostore:
+      schema:
+        type: string
+        enum:
+          - no-store
+        example: no-store
+      required: true
+    cache-control-private:
+      schema:
+        type: string
+        enum:
+          - private
+        example: private
+      required: true
+    date:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/date'
+    pragma:
+      schema:
+        type: string
+        example: no-cache
+      required: true
+    x-correlation-id:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-correlation-id'
+    x-processing-time:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-processing-time'
+    x-request-id:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/responses/200/headers/x-request-id'
+  parameters:
+    accept-language:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/2'
+    date:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/0'
+    transaction_id:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1status~1%7Btransaction_id%7D/get/parameters/3'
+    x-request-id:
+      $ref: '#/paths/~1v1.0~1g2p~1payment~1disburse/post/parameters/1'
+  securitySchemes:
+    Authorization:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt
+      description: User/System authenticated access token; (jwt bearer) token returned from implementing system's authentication/token api end points. All systems must implement token api.
+    x-access-token:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt
+      description: Systems authenticated using client id & secrect using gateway's session token apis

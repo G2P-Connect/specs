@@ -1,0 +1,4 @@
+type: http
+scheme: bearer
+bearerFormat: jwt
+description: "User/System authenticated access token; (jwt bearer) token returned from implementing system's authentication/token api end points. All systems must implement token api."

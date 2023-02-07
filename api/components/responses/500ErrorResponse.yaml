@@ -1,0 +1,17 @@
+description: "Internal server error, Please retry with exponential backup strategies and contact tech support: <br>
+  <b>code : message</b> <br>
+  500-1000 : tbd <br>
+  500-1001 : tbd <br>"
+headers:
+  x-request-id:
+    $ref: '../headers/x-request-id.yaml'
+  x-correlation-id:
+    $ref: '../headers/x-correlation-id.yaml'
+  date:
+    $ref: "../headers/date.yaml"
+  x-processing-time:
+    $ref: "../headers/x-processing-time.yaml"
+content:
+  application/json:
+    schema:
+      $ref: "../schemas/common/ErrorResponse.yaml"

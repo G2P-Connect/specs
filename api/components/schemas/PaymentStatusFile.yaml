@@ -1,0 +1,39 @@
+type: object
+description: 'Payment disbursement status for reconciliation at social protection system end representing PaymentStatus entity in csv file format'
+properties:
+  batch_id:
+    type: string
+    description: Unique id to manage payment disbursement cycle
+  datetime:
+    description: "Batch response date-time"
+    type: string
+    format: date-time
+    example: '2022-12-04T18:01:07+00:00'
+  total_count:
+    description: "Total no of payment instructions in the batch request"
+    type: integer
+    example: 20800
+  inprocess_count:
+    description: "No of payment instructions in process state. Status codes: RCVD, ACSP"
+    type: integer
+    example: 450
+  success_count:
+    description: "Total no of payment instructions successfully processed. Status codes: ACSC, ACCC"
+    type: integer
+    example: 20300
+  reject_count:
+    description: "Total no of payment instructions failed to process. Status codes: RJCT"
+    type: integer
+    example: 50
+  fileName:
+    description: "payment disbursement status file representing PaymentStatus entity in csv format as *.txt file"
+    type: string
+    format: binary
+required: 
+  - batch_id
+  - datetime
+  - total_count
+  - inprocess_count
+  - success_count
+  - reject_count
+  - fileName
