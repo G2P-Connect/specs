@@ -1,0 +1,117 @@
+program
+    - code
+    - parent_program_code
+    - name
+    - description
+    - sponsor
+        - department
+        - contact 
+            - id
+            - name
+            - phone number
+            - email
+    - source_of_funds
+        - account_identifier
+        - amount_allocated
+        - amount_disbursed
+    - target
+        - individual
+        - family
+            - min
+            - max
+            - limit
+        - household
+            - min
+            - max
+            - limit
+        - community
+            - min
+            - max
+            - limit
+        - others
+    - disbursement
+        - currency
+        - amount
+        - cycles
+            - repeat
+            - frequency 
+                - value (1..n)
+                - unit [days, weeks, months, years]
+        - start datetime
+        - end datetime
+        - mode
+            - bank account
+            - mobile money
+            - wallet
+            - cash
+            - card
+            - voucher
+        - others
+    - enrolment
+        - start datetime
+        - end datetime
+        - self enrolment
+        - assisted enrolment
+        - others 
+     - identity proof
+        - proof of document
+        - proof of auth
+        - proof of presence
+        - proof of record
+        - others
+    - eligibility
+        - demographic
+            - age
+            - gender
+        - socioeconomic_status
+            - income
+                - wages
+                - professional
+                - salaries
+                - others
+            - assest
+                - house
+                - vehicle
+                - land
+                - others
+            - expenditure
+                - electricity consumption
+                - others
+            - occupation
+                - farmer
+                - daily wager
+            - others
+                - others
+        - labor_force_status
+            - employed
+            - unemployed
+            - inactive
+            - job seekers
+            - others
+        - disabilities
+            - moderate
+            - severe
+            - short term
+            - long term
+            - medical impairements
+            - functional limitations
+            - others
+        - social_risks
+            - lgbt
+            - pregnant wowmen
+            - post natal
+            - marital status
+            - natural disaster
+            - minority (religion, caste)
+            - ethnicity
+            - others
+        - target_areas
+            - zip codes
+            - others
+        - program_codes 
+    - eligibility_exclusion
+        - $ref: eligibility
+    - locale
+    - uri
+    - version
+    

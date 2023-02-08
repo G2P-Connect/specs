@@ -1,12 +1,19 @@
 200SuccessResponse:
-  $ref: "./200SuccessResponse.yaml"
+  $ref: "./200Response.yaml"
 400ErrorResponse:
-  $ref: "./400ErrorResponse.yaml"
+  $ref: "./400Response.yaml"
 401ErrorResponse:
-  $ref: "./401ErrorResponse.yaml"
+  $ref: "./401Response.yaml"
 500ErrorResponse:
-  $ref: "./500ErrorResponse.yaml"
+  $ref: "./500Response.yaml"
 
 #OAuth2 Definitions
 200SuccessOAuth2ClientTokenResponse:
-  $ref: "./oauth2/200SuccessOAuth2ClientTokenResponse.yaml"
+  $ref: "./oauth2/201OAuth2ClientTokenResponse.yaml"
+
+#ID Account Mapper 
+200LinkingStatusResponse:
+  $ref: "./account-mapper/200LinkingStatusResponse.yaml"
+
+400AccountMapperErrorResponse:
+  $ref: "./account-mapper/400AccountMapperErrorResponse.yaml"

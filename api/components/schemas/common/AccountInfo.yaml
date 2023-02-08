@@ -1,0 +1,32 @@
+type: object
+description: 'Beneficiary account info'
+properties:
+  name: 
+    $ref: "./BeneficiaryName.yaml"
+  contact_info:
+    $ref: "./BeneficiaryContact.yaml"
+  account_info:
+    type: object
+    properties:
+      entity_name:
+        type: string
+        description: "entity name like bank name, prepaid card/voucher issuing system, etc.,"
+      entity_code:
+        type: string
+        description: "code to identify the entity like bank, prepaid card/voucher issuing system, etc.,"
+      entity_subcode:
+        type: string
+        description: "sub code like entity's branch code"
+      account_type:
+        type: string
+        description: ""
+      account_number:
+        type: string
+      additional_info:
+        description: "Additional info, if any"
+        type: string
+        maxLength: 1024
+required:
+  - name
+  - contact_info
+  - account_info

@@ -15,10 +15,13 @@ info:
   license:
    name: G2P Connect License
    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: https://sandbox.dpg.org/v0.1.0
+    description: Sandbox Server
 tags:
 - name: 1. OAuth2 / OIDC enabled authorization services
 paths:
- /g2p/v0.1/oauth2/client/token:
+ /g2p/oauth2/client/token:
   post: 
     tags: 
       - 1. OAuth2 / OIDC enabled authorization services
@@ -45,13 +48,13 @@ paths:
             $ref: "../components/schemas/oauth2/OAuth2ClientTokenRequest.yaml"
     responses:
       '200':
-        $ref: "../components/responses/oauth2/200SuccessOAuth2ClientTokenResponse.yaml"
+        $ref: "../components/responses/oauth2/201OAuth2ClientTokenResponse.yaml"
       '400':
-         $ref: "../components/responses/400ErrorResponse.yaml"
+         $ref: "../components/responses/400Response.yaml"
       '401':
-         $ref: "../components/responses/401ErrorResponse.yaml"
+         $ref: "../components/responses/401Response.yaml"
       '500':
-         $ref: "../components/responses/500ErrorResponse.yaml"
+         $ref: "../components/responses/500Response.yaml"
     deprecated: false
 components:
   schemas:

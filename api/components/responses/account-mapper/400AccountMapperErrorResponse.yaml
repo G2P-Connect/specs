@@ -1,0 +1,20 @@
+description: "Syntactic errors <br>
+  <b>code : message</b> <br>
+  400-INVALID_PYMT_ADDR : invalid payment address <br>
+  400-INVALID_TXN_ID    : invalid transaction id <br>
+  400-INVLAID_LINK_REQ  : Invalid linking request <br>
+  400-INVLAID_UNLINK_REQ  : Invalid linking request <br>
+  "
+headers:
+  x-request-id:
+    $ref: '../../headers/x-request-id.yaml'
+  x-correlation-id:
+    $ref: '../../headers/x-correlation-id.yaml'
+  date:
+    $ref: "../../headers/date.yaml"
+  x-processing-time:
+    $ref: "../../headers/x-processing-time.yaml"
+content:
+  application/json:
+    schema:
+      $ref: "../../schemas/common/ErrorResponse.yaml"

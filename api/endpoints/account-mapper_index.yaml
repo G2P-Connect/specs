@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect id to account mapper APIs
+  description: "This is an adaptation of G2P Connect core version 0.1.0. <br><br>
+   <b>Overview:</b> <br>  
+    1. <b>G2P Connect</b> enables social protection systems to initiate payment disbursement instruction using financial account identifiers that is mapped to an individual identifier. <br>
+    2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms. <br>
+    3. Country operational model shall decide the entity that manages one or more ID to Account Mapper registries. <br>
+    4. These APIs enable standradizing linking, unliking, status check capabilities between G2P enabling DPGS/Products. <br>
+    
+    <b>API Security:</b> <br>  
+    1. Considering countries operates G2P schemes using various payment systems for <b>e.g.,</b> central bank payment rails, mobile money networks, directly with govt/private operated financial instituations, etc., the network operating model may vary.<br>
+    2. G2P Connect reccommends implementing systems to add <b>additional</b> security measures: <br>
+      a. Transport layer security using TLS <br>
+      b. End point security using x-access-token issued using client id / secret <br>
+      c. Role based access controls <br>
+      d. sFTP based solutions for file based exchange <br>
+    3. Impelementing systems shall document these as part of operational manuals <br>
+    
+    <b>Digital Signatures:</b> <br>  
+    1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br>
+    2. x-signature-key in http header enables non-repudiability. <br><br>
+    
+    <b>Callback URLs:</b> <br>  
+    1. */callback/* endpoints are to be implemented by the calling systems <br><br>
+
+    <b>TODOs</b>: <br>
+    1. Error codes standardisation for each payment status <br>
+    "
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+   name: G2P Connect License
+   url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: https://sandbox.dpg.org/v0.1.0
+    description: Sandbox Server
+ 
+tags:
+- name: 1. ID to Account mapper Liking/Unlinking
+- name: 2. ID to Account mapper Status lookups
+
+paths:
+ /g2p/id-account-mapper/link:
+  post: 
+    tags: 
+      - 1. ID to Account mapper Liking/Unlinking
+    summary: "Social protection or Payment Processing/Rails or Banking systems initiated linking"
+    description: ""
+    operationId: post_g2p_id2accountmap_link
+    parameters:
+      - $ref: "../components/parameters/date.yaml"
+      - $ref: "../components/parameters/x-request-id.yaml"
+      - $ref: "../components/parameters/accept-language.yaml"
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Beneficiary2AccountMap.yaml"
+    responses:  
+      '200':
+        $ref: "../components/responses/200Response.yaml"
+      '400':
+        $ref: "../components/responses/account-mapper/400AccountMapperErrorResponse.yaml"
+      '401':
+        $ref: "../components/responses/401Response.yaml"
+      '500':
+        $ref: "../components/responses/500Response.yaml"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /g2p/id-account-mapper/update:
+  put: 
+    tags: 
+      - 1. ID to Account mapper Liking/Unlinking
+    summary: "Social protection or Payment Processing/Rails or Banking systems initiated linking info update. Allows update to Account Info or Scheme details"
+    description: ""
+    operationId: put_g2p_id2accountmap_update
+    parameters:
+      - $ref: "../components/parameters/date.yaml"
+      - $ref: "../components/parameters/x-request-id.yaml"
+      - $ref: "../components/parameters/accept-language.yaml"
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "../components/schemas/Beneficiary2AccountMapUpdate.yaml"
+    responses:  
+      '200':
+        $ref: "../components/responses/200Response.yaml"
+      '400':
+        $ref: "../components/responses/account-mapper/400AccountMapperErrorResponse.yaml"
+      '401':
+        $ref: "../components/responses/401Response.yaml"
+      '500':
+        $ref: "../components/responses/500Response.yaml"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+
+ /g2p/id-account-mapper/unlink/by/payment_address/{payment_address}:
+  delete: 
+    tags: 
+      - 1. ID to Account mapper Liking/Unlinking
+    summary: "Social protection or Payment Processing/Rails or Banking systems initiated unlinking"
+    description: ""
+    operationId: delete_g2p_id2accountmap_unlink
+    parameters:
+      - $ref: "../components/parameters/date.yaml"
+      - $ref: "../components/parameters/x-request-id.yaml"
+      - $ref: "../components/parameters/accept-language.yaml"
+      - $ref: "../components/parameters/payment_address.yaml"
+    responses:  
+      '200':
+        $ref: "../components/responses/200Response.yaml"
+      '400':
+        $ref: "../components/responses/account-mapper/400AccountMapperErrorResponse.yaml"
+      '401':
+        $ref: "../components/responses/401Response.yaml"
+      '500':
+        $ref: "../components/responses/500Response.yaml"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /g2p/id-account-mapper/status/by/payment_address/{payment_address}:
+   get: 
+    tags: 
+      - 2. ID to Account mapper Status lookups
+    summary: "Get payment disbursement status."
+    description: "Beneficiary id to account map link status lookup using beneficiary payment address"
+    operationId: get_g2p_id2accountmap_status_by_payment_address
+    parameters:
+      - $ref: "../components/parameters/x-request-id.yaml"
+      - $ref: "../components/parameters/date.yaml"
+      - $ref: "../components/parameters/accept-language.yaml"
+      - $ref: "../components/parameters/payment_address.yaml"
+    responses:
+      '200':
+        $ref: "../components/responses/account-mapper/200LinkingStatusResponse.yaml"
+      '400':
+        $ref: "../components/responses/account-mapper/400AccountMapperErrorResponse.yaml"
+      '401':
+        $ref: "../components/responses/401Response.yaml"
+      '500':
+        $ref: "../components/responses/500Response.yaml"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /g2p/id-account-mapper/status/by/transaction_id/{transaction_id}:
+   get: 
+    tags: 
+      - 2. ID to Account mapper Status lookups
+    summary: "Get payment disbursement status."
+    description: "Beneficiary id to account map link status lookup using link/unlink request transaction_id"
+    operationId: get_g2p_id2accountmap_status_by_transaction_id
+    parameters:
+      - $ref: "../components/parameters/x-request-id.yaml"
+      - $ref: "../components/parameters/date.yaml"
+      - $ref: "../components/parameters/accept-language.yaml"
+      - $ref: "../components/parameters/transaction_id.yaml"
+    responses:
+      '200':
+        $ref: "../components/responses/account-mapper/200LinkingStatusResponse.yaml"
+      '400':
+        $ref: "../components/responses/account-mapper/400AccountMapperErrorResponse.yaml"
+      '401':
+        $ref: "../components/responses/401Response.yaml"
+      '500':
+        $ref: "../components/responses/500Response.yaml"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+components:
+  schemas:
+    $ref: "../components/schemas/index.yaml"
+  responses:
+    $ref: "../components/responses/index.yaml"
+  headers:
+    $ref: "../components/headers/index.yaml"
+  parameters:
+    $ref: "../components/parameters/index.yaml"
+  securitySchemes:
+    $ref: "../components/security/index.yaml"

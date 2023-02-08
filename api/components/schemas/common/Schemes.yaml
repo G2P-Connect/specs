@@ -1,0 +1,7 @@
+description: "G2P social protection system defined scheme codes. Countries may extend g2p specification to enumurate scehmes as master data"
+items:
+  type: string
+  maxLength: 40  
+example:
+  - farmer_subsidy
+  - earth_quake_2023_02_0001

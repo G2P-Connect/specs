@@ -1,4 +1,6 @@
-type: string
+in: path
+name: payment_address
+required: true
 description: "<br>
   1. Payment address is a normative represenation of a financial address represented as account@provider <br>
   2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br>
@@ -12,5 +14,7 @@ description: "<br>
       - token@psp-code e.g ot123456@mypsp <br>
       - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br>
       - cdbc-id@cdbc e.g. 12345@DCash"
-format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
-example: "12345@PhilID"
+schema:
+  type: string
+  format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
+  example: "12345@PhilID"

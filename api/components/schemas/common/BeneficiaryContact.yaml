@@ -1,0 +1,9 @@
+type: object
+description: 'Beneficiary contact details'
+properties:
+  mobile_number:
+    type: string
+  email_address:
+    type: string
+  address:
+    type: string

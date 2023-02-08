@@ -1,7 +1,8 @@
 description: "Authorization errors due to invalid authorization / access token<br>
   <b>code : message</b> <br>
-  401-1000 : tbd <br>
-  401-1001: tbd <br>"
+  401-INVLAID_ACCESS-TOKEN : Invalid x-access-token <br>
+  401-EXPIRED_ACCESS-TOKEN : Expired x-access-token <br>
+  "
 headers:
   x-request-id:
     $ref: '../headers/x-request-id.yaml'

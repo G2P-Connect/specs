@@ -17,17 +17,17 @@ info:
       c. Role based access controls <br>
       d. sFTP based solutions for file based exchange <br>
     3. Impelementing systems shall document these as part of operational manuals <br>
-    4. x-signature-key in http header enables non-repudiability. <br><br>
-    
+
     <b>Digital Signatures:</b> <br>  
-    1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br><br>
+    1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br>
+    2. x-signature-key in http header enables non-repudiability. <br><br>
     
     <b>Callback URLs:</b> <br>  
     1. */callback/* endpoints are to be implemented by the calling systems <br><br>
 
     <b>TODOs</b>: <br>
-      a. Define reversal APIs <br>
-      b. Error codes standardisation for each payment status <br>
+    1. Define reversal APIs <br>
+    2. Error codes standardisation for each payment status <br>
     "
   version: 0.1.0
   contact:
@@ -36,11 +36,14 @@ info:
   license:
    name: G2P Connect License
    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: https://sandbox.dpg.org/v0.1.0
+    description: Sandbox Server
 tags:
 - name: 1. Payment disbursement
 - name: 2. Payment disbursement status
 paths:
- /v1.0/g2p/payment/disburse:
+ /g2p/payment/disburse:
   post: 
     tags: 
       - 1. Payment disbursement
@@ -60,17 +63,17 @@ paths:
             $ref: "#/components/schemas/Payment"
     responses:
       '200':
-        $ref: "../components/responses/200SuccessResponse.yaml"
+        $ref: "../components/responses/200Response.yaml"
       '400':
-         $ref: "../components/responses/400ErrorResponse.yaml"
+         $ref: "../components/responses/400Response.yaml"
       '401':
-         $ref: "../components/responses/401ErrorResponse.yaml"
+         $ref: "../components/responses/401Response.yaml"
       '500':
-         $ref: "../components/responses/500ErrorResponse.yaml"
+         $ref: "../components/responses/500Response.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false
- /v1.0/g2p/payment/batch-disburse:
+ /g2p/payment/batch-disburse:
   post: 
     tags: 
       - 1. Payment disbursement
@@ -93,17 +96,17 @@ paths:
             $ref: '../components/schemas/PaymentFile.yaml' 
     responses:
       '200':
-        $ref: "../components/responses/200SuccessResponse.yaml"
+        $ref: "../components/responses/200Response.yaml"
       '400':
-         $ref: "../components/responses/400ErrorResponse.yaml"
+         $ref: "../components/responses/400Response.yaml"
       '401':
-         $ref: "../components/responses/401ErrorResponse.yaml"
+         $ref: "../components/responses/401Response.yaml"
       '500':
-         $ref: "../components/responses/500ErrorResponse.yaml"
+         $ref: "../components/responses/500Response.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false
- /v1.0/g2p/payment/status/{transaction_id}:
+ /g2p/payment/status/{transaction_id}:
    get: 
     tags: 
       - 2. Payment disbursement status
@@ -132,15 +135,15 @@ paths:
             schema:
               $ref: "../components/schemas/PaymentBatchStatus.yaml"
       '400':
-         $ref: "../components/responses/400ErrorResponse.yaml"
+         $ref: "../components/responses/400Response.yaml"
       '401':
-         $ref: "../components/responses/401ErrorResponse.yaml"
+         $ref: "../components/responses/401Response.yaml"
       '500':
-         $ref: "../components/responses/500ErrorResponse.yaml"
+         $ref: "../components/responses/500Response.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false
- /v1.0/g2p/payment/batch-status/{transaction_id}:
+ /g2p/payment/batch-status/{transaction_id}:
    get: 
     tags: 
       - 2. Payment disbursement status
@@ -172,15 +175,15 @@ paths:
             schema:
               $ref: "../components/schemas/PaymentStatusFile.yaml"    
       '400':
-        $ref: "../components/responses/400ErrorResponse.yaml"
+         $ref: "../components/responses/400Response.yaml"
       '401':
-         $ref: "../components/responses/401ErrorResponse.yaml"
+         $ref: "../components/responses/401Response.yaml"
       '500':
-        $ref: "../components/responses/500ErrorResponse.yaml"
+         $ref: "../components/responses/500Response.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false
- /v1.0/g2p/callback/payment/on-status:
+ /g2p/callback/payment/on-status:
   post: 
     tags: 
       - 2. Payment disbursement status
@@ -200,17 +203,17 @@ paths:
             $ref: '../components/schemas/PaymentStatus.yaml'
     responses:
       '200':
-        $ref: "../components/responses/200SuccessResponse.yaml"
+        $ref: "../components/responses/200Response.yaml"
       '400':
-         $ref: "../components/responses/400ErrorResponse.yaml"
+         $ref: "../components/responses/400Response.yaml"
       '401':
-         $ref: "../components/responses/401ErrorResponse.yaml"
+         $ref: "../components/responses/401Response.yaml"
       '500':
-         $ref: "../components/responses/500ErrorResponse.yaml"
+         $ref: "../components/responses/500Response.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false
- /v1.0/g2p/callback/payment/on-batch-status:
+ /g2p/callback/payment/on-batch-status:
   post: 
     tags: 
       - 2. Payment disbursement status
@@ -233,13 +236,13 @@ paths:
               $ref: "../components/schemas/PaymentStatusFile.yaml"    
     responses:
       '200':
-        $ref: "../components/responses/200SuccessResponse.yaml"
+        $ref: "../components/responses/200Response.yaml"
       '400':
-         $ref: "../components/responses/400ErrorResponse.yaml"
+         $ref: "../components/responses/400Response.yaml"
       '401':
-         $ref: "../components/responses/401ErrorResponse.yaml"
+         $ref: "../components/responses/401Response.yaml"
       '500':
-         $ref: "../components/responses/500ErrorResponse.yaml"
+         $ref: "../components/responses/500Response.yaml"
     security:
       - x-access-token: [ ]
     deprecated: false

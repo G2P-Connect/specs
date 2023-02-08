@@ -34,7 +34,8 @@ sudo npm install -g swagger-cli
 ```
 2. Generate the resolved OpenAPI definition file
     a. Go to the root directory of this project <br>
-    b. Run the following command for each index file in api/endpoints folder <br>
+    b. Run the swagger-build.cmd file <br>
+    b. Alternatively, Run the following command for each index file in api/endpoints folder. for e.g., <br>
 
 ```
 swagger-cli bundle api/endpoints/payment-index.yaml --outfile api/g2p-payments.yaml --type yaml

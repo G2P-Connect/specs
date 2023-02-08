@@ -1,7 +1,12 @@
 openapi: 3.0.0
 info:
-  title: G2P Connect authorization  APIs
-  description: 'This is an adaptation of G2P Connect core version 0.1.0. <br><br> <b>Overview:</b> <br>   1. The scope of these end points to standarise issuance of access tokens using existing standards like oauth2 and oidc flows. <br> 2. Helps standarises end point access across g2p complaint api stack. <br> 3. Additional security like IP white listing, private networks, etc are outside the scope of G2P Connect standards. <br> 4. Each country shall decide such operational models based on country requirements. <br> '
+  title: G2P Connect id to account mapper APIs
+  description: |-
+    This is an adaptation of G2P Connect core version 0.1.0. <br><br> <b>Overview:</b> <br>   1. <b>G2P Connect</b> enables social protection systems to initiate payment disbursement instruction using financial account identifiers that is mapped to an individual identifier. <br> 2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms. <br> 3. Country operational model shall decide the entity that manages one or more ID to Account Mapper registries. <br> 4. These APIs enable standradizing linking, unliking, status check capabilities between G2P enabling DPGS/Products. <br>
+    <b>API Security:</b> <br>   1. Considering countries operates G2P schemes using various payment systems for <b>e.g.,</b> central bank payment rails, mobile money networks, directly with govt/private operated financial instituations, etc., the network operating model may vary.<br> 2. G2P Connect reccommends implementing systems to add <b>additional</b> security measures: <br> a. Transport layer security using TLS <br> b. End point security using x-access-token issued using client id / secret <br> c. Role based access controls <br> d. sFTP based solutions for file based exchange <br> 3. Impelementing systems shall document these as part of operational manuals <br>
+    <b>Digital Signatures:</b> <br>   1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br> 2. x-signature-key in http header enables non-repudiability. <br><br>
+    <b>Callback URLs:</b> <br>   1. */callback/* endpoints are to be implemented by the calling systems <br><br>
+    <b>TODOs</b>: <br> 1. Error codes standardisation for each payment status <br> 
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -13,15 +18,16 @@ servers:
   - url: 'https://sandbox.dpg.org/v0.1.0'
     description: Sandbox Server
 tags:
-  - name: 1. OAuth2 / OIDC enabled authorization services
+  - name: 1. ID to Account mapper Liking/Unlinking
+  - name: 2. ID to Account mapper Status lookups
 paths:
-  /g2p/oauth2/client/token:
+  /g2p/id-account-mapper/link:
     post:
       tags:
-        - 1. OAuth2 / OIDC enabled authorization services
-      summary: Provide access_token to registered clients/services.
-      description: '<b>Client integration notes: </b><br> 1. This end point is in compliance with OAuth2 RFC 6749 to authenticate registered confidential clients with grant_type=client_credentials over HTTPS channel. <br> 2. Clients MUST obtain client_id, client_secret as part of client registration. <br> 2. Clients MUST ensure to secure sensitive information e.g, client_secret,  access_token, etc., <br> 3. RFC 6749 section 4.4.3 recommends NO support for refresh access_token. <br> 4. Successfully authenticated clients SHALL receive bearer type access_token. <br> 5. Clients MUST set access_token to x-access-token in HTTP header to access any g2p compliant api end points.<br> 6. Rest end points SHALL return <b>http status 401</b> when access_token is invalid or expired.<br>'
-      operationId: post_oauth2_client_token
+        - 1. ID to Account mapper Liking/Unlinking
+      summary: Social protection or Payment Processing/Rails or Banking systems initiated linking
+      description: ''
+      operationId: post_g2p_id2accountmap_link
       parameters:
         - in: header
           name: date
@@ -48,29 +54,37 @@ paths:
         description: ''
         required: true
         content:
-          application/x-www-form-urlencoded:
+          application/json:
             schema:
               type: object
+              description: Beneficiary ID to Account link info
               properties:
-                grant_type:
+                locale:
+                  $ref: '#/components/schemas/LanguageCode'
+                request_id:
+                  description: Unique uuid set by social protect sytem while initiating the payment
                   type: string
-                  description: Value must be set to client_credentials
-                  example: client_credentials
-                client_id:
+                request_datetime:
+                  description: Payment initiation request data time
                   type: string
-                  description: The client identifier issued to the client during the registration process described by RFC 6749 Section 2.2.
-                  example: '1001'
-                client_secret:
+                  format: date-time
+                  example: '2022-12-04T18:01:07+00:00'
+                beneficiary_info:
+                  $ref: '#/components/schemas/Beneficiary'
+                account_info:
+                  $ref: '#/components/schemas/AccountInfo'
+                scheme_codes:
+                  $ref: '#/components/schemas/Schemes'
+                additional_info:
+                  description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
                   type: string
-                  description: client secret shared to clients as part of client registration process or regualar rotation of client_secret.
-                  example: 7Fjfp0ZBr1KtDRbnfVdmIw
-                scope:
-                  $ref: '#/components/schemas/OidcScope'
+                  maxLength: 1024
               required:
-                - grant_type
-                - client_id
-                - client_secret
-              description: Request entity to obtain access token using gant_type = client_credential
+                - locale
+                - request_id
+                - request_datetime
+                - beneficiary_info
+                - account_info
       responses:
         '200':
           description: ''
@@ -86,9 +100,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/OAuth2ClientToken'
+                $ref: '#/components/schemas/TransactionId'
         '400':
-          description: 'Syntactic errors <br> <b>code : message</b> <br> 400-1000 : tbd <br> 400-1001: tbd <br>'
+          description: 'Syntactic errors <br> <b>code : message</b> <br> 400-INVALID_PYMT_ADDR : invalid payment address <br> 400-INVALID_TXN_ID    : invalid transaction id <br> 400-INVLAID_LINK_REQ  : Invalid linking request <br> 400-INVLAID_UNLINK_REQ  : Invalid linking request <br> '
           headers:
             x-request-id:
               $ref: '#/components/headers/x-request-id'
@@ -132,39 +146,168 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /g2p/id-account-mapper/update:
+    put:
+      tags:
+        - 1. ID to Account mapper Liking/Unlinking
+      summary: Social protection or Payment Processing/Rails or Banking systems initiated linking info update. Allows update to Account Info or Scheme details
+      description: ''
+      operationId: put_g2p_id2accountmap_update
+      parameters:
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Beneficiary ID to Account link info updates - scheme or account info
+              properties:
+                locale:
+                  $ref: '#/components/schemas/LanguageCode'
+                request_id:
+                  description: Unique uuid set by social protect sytem while initiating the payment
+                  type: string
+                request_datetime:
+                  description: Payment initiation request data time
+                  type: string
+                  format: date-time
+                  example: '2022-12-04T18:01:07+00:00'
+                payment_address:
+                  $ref: '#/components/schemas/PaymentAddress'
+                account_info:
+                  $ref: '#/components/schemas/AccountInfo'
+                scheme_codes:
+                  $ref: '#/components/schemas/Schemes'
+                additional_info:
+                  description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
+                  type: string
+                  maxLength: 1024
+              required:
+                - locale
+                - request_id
+                - request_datetime
+                - payment_address
+      responses:
+        '200':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/200'
+        '400':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+        '401':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+        '500':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  '/g2p/id-account-mapper/unlink/by/payment_address/{payment_address}':
+    delete:
+      tags:
+        - 1. ID to Account mapper Liking/Unlinking
+      summary: Social protection or Payment Processing/Rails or Banking systems initiated unlinking
+      description: ''
+      operationId: delete_g2p_id2accountmap_unlink
+      parameters:
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1payment_address~1%7Bpayment_address%7D/get/parameters/3'
+      responses:
+        '200':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/200'
+        '400':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+        '401':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+        '500':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  '/g2p/id-account-mapper/status/by/payment_address/{payment_address}':
+    get:
+      tags:
+        - 2. ID to Account mapper Status lookups
+      summary: Get payment disbursement status.
+      description: Beneficiary id to account map link status lookup using beneficiary payment address
+      operationId: get_g2p_id2accountmap_status_by_payment_address
+      parameters:
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+        - in: path
+          name: payment_address
+          required: true
+          description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
+          schema:
+            type: string
+            format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+            example: 12345@PhilID
+      responses:
+        '200':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/responses/200'
+        '400':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+        '401':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+        '500':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  '/g2p/id-account-mapper/status/by/transaction_id/{transaction_id}':
+    get:
+      tags:
+        - 2. ID to Account mapper Status lookups
+      summary: Get payment disbursement status.
+      description: Beneficiary id to account map link status lookup using link/unlink request transaction_id
+      operationId: get_g2p_id2accountmap_status_by_transaction_id
+      parameters:
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
+        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+        - in: path
+          name: transaction_id
+          description: transaction id
+          required: true
+          schema:
+            type: string
+            example: '123456789020211216223812'
+      responses:
+        '200':
+          description: ''
+          headers:
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-correlation-id:
+              $ref: '#/components/headers/x-correlation-id'
+            date:
+              $ref: '#/components/headers/date'
+            x-processing-time:
+              $ref: '#/components/headers/x-processing-time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary2AccountMapStatus'
+        '400':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+        '401':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+        '500':
+          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+      security:
+        - x-access-token: []
       deprecated: false
 components:
   schemas:
     Beneficiary2AccountMap:
-      type: object
-      description: Beneficiary ID to Account link info
-      properties:
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-        request_id:
-          description: Unique uuid set by social protect sytem while initiating the payment
-          type: string
-        request_datetime:
-          description: Payment initiation request data time
-          type: string
-          format: date-time
-          example: '2022-12-04T18:01:07+00:00'
-        beneficiary_info:
-          $ref: '#/components/schemas/Beneficiary'
-        account_info:
-          $ref: '#/components/schemas/AccountInfo'
-        scheme_codes:
-          $ref: '#/components/schemas/Schemes'
-        additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
-          type: string
-          maxLength: 1024
-      required:
-        - locale
-        - request_id
-        - request_datetime
-        - beneficiary_info
-        - account_info
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/requestBody/content/application~1json/schema'
     Beneficiary2AccountMapStatus:
       type: object
       description: Beneficiary ID to Account map linking status
@@ -200,34 +343,7 @@ components:
         - beneficiary_info
         - linking_status
     Beneficiary2AccountMapUpdate:
-      type: object
-      description: Beneficiary ID to Account link info updates - scheme or account info
-      properties:
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-        request_id:
-          description: Unique uuid set by social protect sytem while initiating the payment
-          type: string
-        request_datetime:
-          description: Payment initiation request data time
-          type: string
-          format: date-time
-          example: '2022-12-04T18:01:07+00:00'
-        payment_address:
-          $ref: '#/components/schemas/PaymentAddress'
-        account_info:
-          $ref: '#/components/schemas/AccountInfo'
-        scheme_codes:
-          $ref: '#/components/schemas/Schemes'
-        additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
-          type: string
-          maxLength: 1024
-      required:
-        - locale
-        - request_id
-        - request_datetime
-        - payment_address
+      $ref: '#/paths/~1g2p~1id-account-mapper~1update/put/requestBody/content/application~1json/schema'
     Payment:
       type: object
       description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
@@ -664,7 +780,27 @@ components:
         - token_type
       description: ''
     OAuth2ClientTokenRequest:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/requestBody/content/application~1x-www-form-urlencoded/schema'
+      type: object
+      properties:
+        grant_type:
+          type: string
+          description: Value must be set to client_credentials
+          example: client_credentials
+        client_id:
+          type: string
+          description: The client identifier issued to the client during the registration process described by RFC 6749 Section 2.2.
+          example: '1001'
+        client_secret:
+          type: string
+          description: client secret shared to clients as part of client registration process or regualar rotation of client_secret.
+          example: 7Fjfp0ZBr1KtDRbnfVdmIw
+        scope:
+          $ref: '#/components/schemas/OidcScope'
+      required:
+        - grant_type
+        - client_id
+        - client_secret
+      description: Request entity to obtain access token using gant_type = client_credential
     OidcScope:
       type: array
       description: 'Space delimited scopes requested or issued by an authorization service for OAuth2 client, OIDC complaint auth tokens. <br><br> <b>This is an indicative list... </b>'
@@ -683,45 +819,9 @@ components:
         - id-account-status
   responses:
     200SuccessResponse:
-      description: ''
-      headers:
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-correlation-id:
-          $ref: '#/components/headers/x-correlation-id'
-        date:
-          $ref: '#/components/headers/date'
-        x-processing-time:
-          $ref: '#/components/headers/x-processing-time'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/TransactionId'
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/200'
     400ErrorResponse:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/400'
-    401ErrorResponse:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/401'
-    500ErrorResponse:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/500'
-    200SuccessOAuth2ClientTokenResponse:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/200'
-    200LinkingStatusResponse:
-      description: ''
-      headers:
-        x-request-id:
-          $ref: '#/components/headers/x-request-id'
-        x-correlation-id:
-          $ref: '#/components/headers/x-correlation-id'
-        date:
-          $ref: '#/components/headers/date'
-        x-processing-time:
-          $ref: '#/components/headers/x-processing-time'
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Beneficiary2AccountMapStatus'
-    400AccountMapperErrorResponse:
-      description: 'Syntactic errors <br> <b>code : message</b> <br> 400-INVALID_PYMT_ADDR : invalid payment address <br> 400-INVALID_TXN_ID    : invalid transaction id <br> 400-INVLAID_LINK_REQ  : Invalid linking request <br> 400-INVLAID_UNLINK_REQ  : Invalid linking request <br> '
+      description: 'Syntactic errors <br> <b>code : message</b> <br> 400-1000 : tbd <br> 400-1001: tbd <br>'
       headers:
         x-request-id:
           $ref: '#/components/headers/x-request-id'
@@ -735,6 +835,29 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    401ErrorResponse:
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+    500ErrorResponse:
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+    200SuccessOAuth2ClientTokenResponse:
+      description: ''
+      headers:
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-correlation-id:
+          $ref: '#/components/headers/x-correlation-id'
+        date:
+          $ref: '#/components/headers/date'
+        x-processing-time:
+          $ref: '#/components/headers/x-processing-time'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/OAuth2ClientToken'
+    200LinkingStatusResponse:
+      $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/responses/200'
+    400AccountMapperErrorResponse:
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
   headers:
     cache-control-nostore:
       schema:
@@ -778,25 +901,18 @@ components:
       description: echo back from request
   parameters:
     accept-language:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/parameters/2'
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
     date:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/parameters/0'
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
     payment_address:
-      in: path
-      name: payment_address
-      required: true
-      description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
-      schema:
-        type: string
-        format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-        example: 12345@PhilID
+      $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1payment_address~1%7Bpayment_address%7D/get/parameters/3'
     transaction_id:
-      in: path
-      name: transaction_id
-      description: transaction id
-      required: true
-      schema:
-        type: string
-        example: '123456789020211216223812'
+      $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/parameters/3'
     x-request-id:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/parameters/1'
+      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
+  securitySchemes:
+    x-access-token:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt
+      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret

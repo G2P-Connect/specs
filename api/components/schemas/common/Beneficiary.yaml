@@ -1,0 +1,11 @@
+type: object
+description: 'Beneficiary indentity info'
+properties:
+  name: 
+    $ref: "./BeneficiaryName.yaml"
+  contact_info:
+    $ref: "./BeneficiaryContact.yaml"
+  identity_info:
+    $ref: "./BeneficiaryId.yaml"
+required:
+  - name
