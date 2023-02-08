@@ -2,6 +2,7 @@
 
 ## Latest Release
 1. [G2P Authz APIs](api/g2p-authz.yaml)
+2. [G2P ID to Account Mapper APIs](api/g2p-account-mapper.yaml)
 2. [G2P Payments APIs](api/g2p-payments.yaml)
 
 
