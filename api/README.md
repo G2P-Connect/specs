@@ -2,7 +2,7 @@
 
 ## IMPORTANT NOTES: 
 1. Please do not direclty edit /specs/api/g2p-*.yaml files directly. 
-2. Request reviewers to edit the respective .yaml files in sub below folders.
+2. Request reviewers to edit the respective .yaml files in below sub folders.
 3. <b>g2p-*.yaml</b> files are auto generated using below steps.
 
 ## Folder Structure
@@ -32,8 +32,8 @@
 ```
 sudo npm install -g swagger-cli
 ```
-2. Generate the resolved OpenAPI definition file
-    a. Go to the root directory of this project <br>
+2. Generate the resolved OpenAPI definition file <br>
+    a. Go to the root directory of this repository i.e specs/ <br>
     b. Run the swagger-build.cmd file <br>
     b. Alternatively, Run the following command for each index file in api/endpoints folder. for e.g., <br>
 

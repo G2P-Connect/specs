@@ -656,7 +656,7 @@ components:
           type: string
           example: bearer
         expires_in:
-          description: 'The lifetime in seconds of the access token.  For example, the value "3600" denotes that the access token will expire in one hour from the time the response was generated. If omitted, the authorization server SHOULD provide the expiration time via other means or document the default value.'
+          description: 'The lifetime in seconds of the access token.  <br> 1. For example, the value "3600" denotes that the access token will expire in one hour from the time the response was generated. <br> 2. If omitted, the authorization server SHOULD provide the expiration time via other means or document the default value.'
           type: string
           example: '36000'
       required:
@@ -666,10 +666,9 @@ components:
     OAuth2ClientTokenRequest:
       $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/requestBody/content/application~1x-www-form-urlencoded/schema'
     OidcScope:
-      type: array
-      description: 'Space delimited scopes requested or issued by an authorization service for OAuth2 client, OIDC complaint auth tokens. <br><br> <b>This is an indicative list... </b>'
+      type: string
+      description: 'Space delimited scopes requested or issued by an authorization service for OAuth2 client, OIDC complaint auth tokens. <br><br> <b>This is an indicative list... </b> <br> 1. payment-disburse <br> 2. paymnet-status <br> 3. id-account-link <br> 4. id-account-status'
       items:
-        type: string
         enum:
           - payment-disburse
           - payment-status

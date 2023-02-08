@@ -9,7 +9,9 @@ properties:
     type: string
     example: "bearer"
   expires_in:
-    description: "The lifetime in seconds of the access token.  For example, the value \"3600\" denotes that the access token will expire in one hour from the time the response was generated. If omitted, the authorization server SHOULD provide the expiration time via other means or document the default value."
+    description: "The lifetime in seconds of the access token.  <br>
+       1. For example, the value \"3600\" denotes that the access token will expire in one hour from the time the response was generated. <br>
+       2. If omitted, the authorization server SHOULD provide the expiration time via other means or document the default value."
     type: string
     example: "36000"
 required:
