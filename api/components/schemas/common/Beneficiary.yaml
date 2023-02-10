@@ -6,6 +6,6 @@ properties:
   contact_info:
     $ref: "./BeneficiaryContact.yaml"
   identity_info:
-    $ref: "./BeneficiaryId.yaml"
+    $ref: "./BeneficiaryIdInfo.yaml"
 required:
   - name

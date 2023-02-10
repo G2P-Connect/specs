@@ -23,6 +23,8 @@ PaymentFile:
   $ref: "./PaymentFile.yaml"
 PaymentStatus:
   $ref: "./PaymentStatus.yaml"
+PaymentStatusError:
+  $ref: "./PaymentStatusError.yaml"
 PaymentStatusFile:
   $ref: "./PaymentStatusFile.yaml"
 
@@ -32,18 +34,22 @@ Amount:
   $ref: "./common/Amount.yaml"
 AccountInfo:
   $ref: "./common/AccountInfo.yaml"
+AccountProviderInfo:
+  $ref: "./common/AccountProviderInfo.yaml"
 Beneficiary:
   $ref: "./common/Beneficiary.yaml"
 BeneficiaryContact:
   $ref: "./common/BeneficiaryContact.yaml"
 BeneficiaryId:
-  $ref: "./common/BeneficiaryId.yaml"
+  $ref: "./common/BeneficiaryIdInfo.yaml"
 BeneficiaryName:
   $ref: "./common/BeneficiaryName.yaml"
 CurrencyCode:
   $ref: "./common/CurrencyCode.yaml"
 ErrorResponse:
   $ref: "./common/ErrorResponse.yaml"
+ErrorsResponse:
+  $ref: "./common/ErrorsResponse.yaml"
 LanguageCode:
   $ref: "./common/LanguageCode.yaml"
 Schemes:

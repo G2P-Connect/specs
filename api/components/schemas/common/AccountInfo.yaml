@@ -1,5 +1,5 @@
 type: object
-description: 'Beneficiary account info'
+description: 'Beneficiary store of value account info'
 properties:
   name: 
     $ref: "./BeneficiaryName.yaml"
@@ -8,24 +8,24 @@ properties:
   account_info:
     type: object
     properties:
-      entity_name:
+      type:
         type: string
-        description: "entity name like bank name, prepaid card/voucher issuing system, etc.,"
-      entity_code:
+        description: "store of  value account type. e.g savings, checking, pre-paid, voucher, mobile-wallet, etc.,"
+        example: "savings"
+      number:
         type: string
-        description: "code to identify the entity like bank, prepaid card/voucher issuing system, etc.,"
-      entity_subcode:
-        type: string
-        description: "sub code like entity's branch code"
-      account_type:
-        type: string
-        description: ""
-      account_number:
-        type: string
+        description: "store of value account number"
+        example: "12345"
+      privider_info:
+        $ref: "./AccountProviderInfo.yaml"
       additional_info:
         description: "Additional info, if any"
         type: string
         maxLength: 1024
+    required: 
+      - type
+      - number
+      - provider_info
 required:
   - name
   - contact_info

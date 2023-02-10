@@ -12,8 +12,9 @@
   $ref: "./oauth2/201OAuth2ClientTokenResponse.yaml"
 
 #ID Account Mapper 
+200AccountInfoResponse:
+  $ref: "./mapper/200AccountInfoResponse.yaml"
 200LinkingStatusResponse:
-  $ref: "./account-mapper/200LinkingStatusResponse.yaml"
-
+  $ref: "./mapper/200LinkingStatusResponse.yaml"
 400AccountMapperErrorResponse:
-  $ref: "./account-mapper/400AccountMapperErrorResponse.yaml"
+  $ref: "./mapper/400AccountMapperErrorResponse.yaml"

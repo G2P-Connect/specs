@@ -1,8 +1,8 @@
 openapi: 3.0.0
 info:
-  title: G2P Connect id to account mapper APIs
+  title: G2P Connect id to financial address mapper APIs
   description: |-
-    This is an adaptation of G2P Connect core version 0.1.0. <br><br> <b>Overview:</b> <br>   1. <b>G2P Connect</b> enables social protection systems to initiate payment disbursement instruction using financial account identifiers that is mapped to an individual identifier. <br> 2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms. <br> 3. Country operational model shall decide the entity that manages one or more ID to Account Mapper registries. <br> 4. These APIs enable standradizing linking, unliking, status check capabilities between G2P enabling DPGS/Products. <br>
+    This is an adaptation of G2P Connect core version 0.1.0. <br><br> <b>Overview:</b> <br>   1. <b>G2P Connect</b> enables social protection systems to initiate payment disbursement instruction using financial account/address identifiers that is mapped to an individual identifier. <br> 2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's etc that are supported by underlying payment processing/rails platforms. <br> 3. Country operational model shall decide the entity that manages one or more ID to Account Mapper registries. <br> 4. These APIs enable standradizing linking, unliking, status check capabilities between G2P enabling DPGS/Products. <br>
     <b>API Security:</b> <br>   1. Considering countries operates G2P schemes using various payment systems for <b>e.g.,</b> central bank payment rails, mobile money networks, directly with govt/private operated financial instituations, etc., the network operating model may vary.<br> 2. G2P Connect reccommends implementing systems to add <b>additional</b> security measures: <br> a. Transport layer security using TLS <br> b. End point security using x-access-token issued using client id / secret <br> c. Role based access controls <br> d. sFTP based solutions for file based exchange <br> 3. Impelementing systems shall document these as part of operational manuals <br>
     <b>Digital Signatures:</b> <br>   1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br> 2. x-signature-key in http header enables non-repudiability. <br><br>
     <b>Callback URLs:</b> <br>   1. */callback/* endpoints are to be implemented by the calling systems <br><br>
@@ -18,16 +18,16 @@ servers:
   - url: 'https://sandbox.dpg.org/v0.1.0'
     description: Sandbox Server
 tags:
-  - name: 1. ID to Account mapper Liking/Unlinking
-  - name: 2. ID to Account mapper Status lookups
+  - name: 1. Account mapper Linking/Unlinking
+  - name: 2. Account mapper lookups
 paths:
-  /g2p/id-account-mapper/link:
+  /g2p/mapper/link:
     post:
       tags:
-        - 1. ID to Account mapper Liking/Unlinking
+        - 1. Account mapper Linking/Unlinking
       summary: Social protection or Payment Processing/Rails or Banking systems initiated linking
       description: ''
-      operationId: post_g2p_id2accountmap_link
+      operationId: post_g2p_mapper_link
       parameters:
         - in: header
           name: date
@@ -115,7 +115,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorsResponse'
         '401':
           description: 'Authorization errors due to invalid authorization / access token<br> <b>code : message</b> <br> 401-INVLAID_ACCESS-TOKEN : Invalid x-access-token <br> 401-EXPIRED_ACCESS-TOKEN : Expired x-access-token <br> '
           headers:
@@ -130,7 +130,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorsResponse'
         '500':
           description: 'Internal server error, Please retry with exponential backup strategies and contact tech support: <br> <b>code : message</b> <br> 500-1000 : tbd <br> 500-1001 : tbd <br>'
           headers:
@@ -145,21 +145,21 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorsResponse'
       security:
         - x-access-token: []
       deprecated: false
-  /g2p/id-account-mapper/update:
+  /g2p/mapper/update:
     put:
       tags:
-        - 1. ID to Account mapper Liking/Unlinking
+        - 1. Account mapper Linking/Unlinking
       summary: Social protection or Payment Processing/Rails or Banking systems initiated linking info update. Allows update to Account Info or Scheme details
       description: ''
-      operationId: put_g2p_id2accountmap_update
+      operationId: put_g2p_mapper_update
       parameters:
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/0'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/2'
       requestBody:
         description: ''
         required: true
@@ -196,82 +196,169 @@ paths:
                 - payment_address
       responses:
         '200':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/200'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/200'
         '400':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/400'
         '401':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/401'
         '500':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/500'
       security:
         - x-access-token: []
       deprecated: false
-  '/g2p/id-account-mapper/unlink/by/payment_address/{payment_address}':
+  '/g2p/mapper/unlink/payment_address/{payment_address}':
     delete:
       tags:
-        - 1. ID to Account mapper Liking/Unlinking
+        - 1. Account mapper Linking/Unlinking
       summary: Social protection or Payment Processing/Rails or Banking systems initiated unlinking
       description: ''
-      operationId: delete_g2p_id2accountmap_unlink
+      operationId: delete_g2p_mapper_unlink
       parameters:
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1payment_address~1%7Bpayment_address%7D/get/parameters/3'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/0'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/2'
+        - $ref: '#/paths/~1g2p~1mapper~1resolve~1payment_address~1%7Bpayment_address%7D/get/parameters/3'
       responses:
         '200':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/200'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/200'
         '400':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/400'
         '401':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/401'
         '500':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/500'
       security:
         - x-access-token: []
       deprecated: false
-  '/g2p/id-account-mapper/status/by/payment_address/{payment_address}':
+  '/g2p/mapper/resolve/beneficairy_id/{beneficiary_id}':
     get:
       tags:
-        - 2. ID to Account mapper Status lookups
-      summary: Get payment disbursement status.
-      description: Beneficiary id to account map link status lookup using beneficiary payment address
-      operationId: get_g2p_id2accountmap_status_by_payment_address
+        - 2. Account mapper lookups
+      summary: Resolve payment address to store of value account provider details.
+      description: ''
+      operationId: get_g2p_mapper_resolve_beneficiaryid
       parameters:
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/1'
+        - in: header
+          name: date
+          description: 'request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
+          required: true
+          schema:
+            type: string
+            example: 'Tue, 06 Mar 2020 21:00:00 GMT'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/2'
+        - in: path
+          name: beneficiary_id
+          required: true
+          description: '<br> 1. Beneficiary id is a normative represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. Few examples: <br> - id@id-provider e.g 12345@mosip, 12345@PhilID <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+          schema:
+            type: string
+            format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+            example: 12345@mosip
+      responses:
+        '200':
+          description: 'TODO: <br> 1. Should payment_address be included? <br>  2. Should any additiona information be removed from the response?'
+          headers:
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-correlation-id:
+              $ref: '#/components/headers/x-correlation-id'
+            date:
+              $ref: '#/components/headers/date'
+            x-processing-time:
+              $ref: '#/components/headers/x-processing-time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountProviderInfo'
+        '400':
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/400'
+        '401':
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/401'
+        '500':
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  '/g2p/mapper/resolve/payment_address/{payment_address}':
+    get:
+      tags:
+        - 2. Account mapper lookups
+      summary: Resolve payment address to store of value account details.
+      description: ''
+      operationId: get_g2p_mapper_resolve_pymtaddr
+      parameters:
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1mapper~1resolve~1beneficairy_id~1%7Bbeneficiary_id%7D/get/parameters/1'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/2'
         - in: path
           name: payment_address
           required: true
-          description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
+          description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction <br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
           schema:
             type: string
             format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
             example: 12345@PhilID
       responses:
         '200':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/responses/200'
+          description: 'TODO: <br> 1. Should payment_address be included? <br>  2. Should any additiona information be removed from the response?'
+          headers:
+            x-request-id:
+              $ref: '#/components/headers/x-request-id'
+            x-correlation-id:
+              $ref: '#/components/headers/x-correlation-id'
+            date:
+              $ref: '#/components/headers/date'
+            x-processing-time:
+              $ref: '#/components/headers/x-processing-time'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountInfo'
         '400':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/400'
         '401':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/401'
         '500':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/500'
       security:
         - x-access-token: []
       deprecated: false
-  '/g2p/id-account-mapper/status/by/transaction_id/{transaction_id}':
+  '/g2p/mapper/status/by/payment_address/{payment_address}':
     get:
       tags:
-        - 2. ID to Account mapper Status lookups
+        - 2. Account mapper lookups
+      summary: Get payment disbursement status.
+      description: Beneficiary id to account map link status lookup using beneficiary payment address
+      operationId: get_g2p_mapper_status_by_pymtaddr
+      parameters:
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1mapper~1resolve~1beneficairy_id~1%7Bbeneficiary_id%7D/get/parameters/1'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/2'
+        - $ref: '#/paths/~1g2p~1mapper~1resolve~1payment_address~1%7Bpayment_address%7D/get/parameters/3'
+      responses:
+        '200':
+          $ref: '#/paths/~1g2p~1mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/responses/200'
+        '400':
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/400'
+        '401':
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/401'
+        '500':
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/500'
+      security:
+        - x-access-token: []
+      deprecated: false
+  '/g2p/mapper/status/by/transaction_id/{transaction_id}':
+    get:
+      tags:
+        - 2. Account mapper lookups
       summary: Get payment disbursement status.
       description: Beneficiary id to account map link status lookup using link/unlink request transaction_id
-      operationId: get_g2p_id2accountmap_status_by_transaction_id
+      operationId: get_g2p_mapper_status_by_txnid
       parameters:
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
-        - $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/1'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/0'
+        - $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/2'
         - in: path
           name: transaction_id
           description: transaction id
@@ -296,18 +383,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/Beneficiary2AccountMapStatus'
         '400':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/400'
         '401':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/401'
         '500':
-          $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+          $ref: '#/paths/~1g2p~1mapper~1link/post/responses/500'
       security:
         - x-access-token: []
       deprecated: false
 components:
   schemas:
     Beneficiary2AccountMap:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/requestBody/content/application~1json/schema'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/requestBody/content/application~1json/schema'
     Beneficiary2AccountMapStatus:
       type: object
       description: Beneficiary ID to Account map linking status
@@ -343,7 +430,7 @@ components:
         - beneficiary_info
         - linking_status
     Beneficiary2AccountMapUpdate:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1update/put/requestBody/content/application~1json/schema'
+      $ref: '#/paths/~1g2p~1mapper~1update/put/requestBody/content/application~1json/schema'
     Payment:
       type: object
       description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
@@ -470,6 +557,8 @@ components:
           description: 'Total no of payment instructions failed to process. Status codes: RJCT'
           type: integer
           example: 50
+        error:
+          $ref: '#/components/schemas/PaymentStatusError'
       required:
         - batch_id
         - datetime
@@ -537,32 +626,8 @@ components:
             - ACSP
             - ACSC
             - ACCC
-        error_code:
-          description: 'Additional error codes. TODO: enumurate detailed error codes!'
-          type: string
-          enum:
-            - '1000'
-            - '2000'
-            - '3000'
-            - '4000'
-            - '5000'
-            - '6000'
-            - '7000'
-            - '8000'
-            - '9000'
-        error_message:
-          description: Additional error messages
-          type: string
-          enum:
-            - '1000: Payment request entity errors'
-            - '2000: Payment address resolution errors of payer/payee'
-            - '3000: Payment processing related errors on payer side'
-            - '4000: Payment processing related errors on payee side'
-            - '5000: Reserved for future use'
-            - '6000: Reserved for future use'
-            - '7000: Reserved for future use'
-            - '8000: Reserved for future use'
-            - '9000: Technical errors'
+        error:
+          $ref: '#/components/schemas/PaymentStatusError'
         additional_info:
           description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data.'
           type: string
@@ -577,6 +642,39 @@ components:
         - amount
         - currency_code
         - status
+    PaymentStatusError:
+      type: object
+      description: 'Payment status error code, message to track at individual payment instruction or at batch status header level'
+      properties:
+        code:
+          description: 'Additional error codes. TODO: enumurate detailed error codes!'
+          type: string
+          enum:
+            - '1000'
+            - '2000'
+            - '3000'
+            - '4000'
+            - '5000'
+            - '6000'
+            - '7000'
+            - '8000'
+            - '9000'
+        message:
+          description: Additional error messages
+          type: string
+          enum:
+            - '1000: Payment request entity errors'
+            - '2000: Payment address resolution errors of payer/payee'
+            - '3000: Payment processing related errors on payer side'
+            - '4000: Payment processing related errors on payee side'
+            - '5000: Reserved for future use'
+            - '6000: Reserved for future use'
+            - '7000: Reserved for future use'
+            - '8000: Reserved for future use'
+            - '9000: Technical errors'
+      required:
+        - code
+        - message
     PaymentStatusFile:
       type: object
       description: Payment disbursement status for reconciliation at social protection system end representing PaymentStatus entity in csv file format
@@ -623,7 +721,7 @@ components:
       pattern: '^\d{1,13}\.\d{1,2}$'
     AccountInfo:
       type: object
-      description: Beneficiary account info
+      description: Beneficiary store of value account info
       properties:
         name:
           $ref: '#/components/schemas/BeneficiaryName'
@@ -632,28 +730,50 @@ components:
         account_info:
           type: object
           properties:
-            entity_name:
+            type:
               type: string
-              description: 'entity name like bank name, prepaid card/voucher issuing system, etc.,'
-            entity_code:
+              description: 'store of  value account type. e.g savings, checking, pre-paid, voucher, mobile-wallet, etc.,'
+              example: savings
+            number:
               type: string
-              description: 'code to identify the entity like bank, prepaid card/voucher issuing system, etc.,'
-            entity_subcode:
-              type: string
-              description: sub code like entity's branch code
-            account_type:
-              type: string
-              description: ''
-            account_number:
-              type: string
+              description: store of value account number
+              example: '12345'
+            privider_info:
+              $ref: '#/components/schemas/AccountProviderInfo'
             additional_info:
               description: 'Additional info, if any'
               type: string
               maxLength: 1024
+          required:
+            - type
+            - number
+            - provider_info
       required:
         - name
         - contact_info
         - account_info
+    AccountProviderInfo:
+      type: object
+      description: Store of value account provider info
+      properties:
+        name:
+          type: string
+          description: 'entity name like bank name, prepaid card/voucher issuing system, etc.,'
+          example: GT Bank Rawanda
+        code:
+          type: string
+          description: 'code to identify the entity like bank, prepaid card/voucher issuing system, etc.,'
+          example: GTBIRWRKXXX
+        subcode:
+          type: string
+          description: 'sub code like entity''s branch code, etc.,'
+        additional_info:
+          description: 'Additional info, if any'
+          type: string
+          maxLength: 1024
+      required:
+        - name
+        - code
     Beneficiary:
       type: object
       description: Beneficiary indentity info
@@ -738,6 +858,14 @@ components:
       required:
         - code
         - message
+    ErrorsResponse:
+      type: object
+      description: ''
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponse'
     LanguageCode:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
@@ -818,7 +946,7 @@ components:
         - id-account-status
   responses:
     200SuccessResponse:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/200'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/responses/200'
     400ErrorResponse:
       description: 'Syntactic errors <br> <b>code : message</b> <br> 400-1000 : tbd <br> 400-1001: tbd <br>'
       headers:
@@ -833,11 +961,11 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ErrorsResponse'
     401ErrorResponse:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/401'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/responses/401'
     500ErrorResponse:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/500'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/responses/500'
     200SuccessOAuth2ClientTokenResponse:
       description: ''
       headers:
@@ -853,10 +981,12 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/OAuth2ClientToken'
+    200AccountInfoResponse:
+      $ref: '#/paths/~1g2p~1mapper~1resolve~1payment_address~1%7Bpayment_address%7D/get/responses/200'
     200LinkingStatusResponse:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/responses/200'
+      $ref: '#/paths/~1g2p~1mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/responses/200'
     400AccountMapperErrorResponse:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/responses/400'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/responses/400'
   headers:
     cache-control-nostore:
       schema:
@@ -900,15 +1030,17 @@ components:
       description: echo back from request
   parameters:
     accept-language:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/2'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/2'
+    beneficiary_id:
+      $ref: '#/paths/~1g2p~1mapper~1resolve~1beneficairy_id~1%7Bbeneficiary_id%7D/get/parameters/3'
     date:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/0'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/0'
     payment_address:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1payment_address~1%7Bpayment_address%7D/get/parameters/3'
+      $ref: '#/paths/~1g2p~1mapper~1resolve~1payment_address~1%7Bpayment_address%7D/get/parameters/3'
     transaction_id:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/parameters/3'
+      $ref: '#/paths/~1g2p~1mapper~1status~1by~1transaction_id~1%7Btransaction_id%7D/get/parameters/3'
     x-request-id:
-      $ref: '#/paths/~1g2p~1id-account-mapper~1link/post/parameters/1'
+      $ref: '#/paths/~1g2p~1mapper~1link/post/parameters/1'
   securitySchemes:
     x-access-token:
       type: http

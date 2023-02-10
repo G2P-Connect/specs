@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: G2P Connect authorization  APIs
-  description: 'This is an adaptation of G2P Connect core version 0.1.0. <br><br> <b>Overview:</b> <br>   1. The scope of these end points to standarise issuance of access tokens using existing standards like oauth2 and oidc flows. <br> 2. Helps standarises end point access across g2p complaint api stack. <br> 3. Additional security like IP white listing, private networks, etc are outside the scope of G2P Connect standards. <br> 4. Each country shall decide such operational models based on country requirements. <br> '
+  description: 'This is an adaptation of G2P Connect core version 0.1.0. <br><br> <b>Overview:</b> <br>   1. The scope of these end points is to standarise issuance of access tokens using existing oauth2/oidc standards. <br> 2. Helps standarise end point access across g2p complaint api stack using x-access-token that is <b>compliant with JWT specs</b>. <br> 3. DPGs & COTS Products may also provide similar authz api end points with g2p connect documented scopes as part of each country specific implemenation (if any). <br> 3. Additional security like IP white listing, private networks, etc are outside the scope of G2P Connect standards. <br> 4. Each country shall decide required operational models based on country requirements. <br> '
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -101,7 +101,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorsResponse'
         '401':
           description: 'Authorization errors due to invalid authorization / access token<br> <b>code : message</b> <br> 401-INVLAID_ACCESS-TOKEN : Invalid x-access-token <br> 401-EXPIRED_ACCESS-TOKEN : Expired x-access-token <br> '
           headers:
@@ -116,7 +116,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorsResponse'
         '500':
           description: 'Internal server error, Please retry with exponential backup strategies and contact tech support: <br> <b>code : message</b> <br> 500-1000 : tbd <br> 500-1001 : tbd <br>'
           headers:
@@ -131,7 +131,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrorsResponse'
       deprecated: false
 components:
   schemas:
@@ -354,6 +354,8 @@ components:
           description: 'Total no of payment instructions failed to process. Status codes: RJCT'
           type: integer
           example: 50
+        error:
+          $ref: '#/components/schemas/PaymentStatusError'
       required:
         - batch_id
         - datetime
@@ -421,32 +423,8 @@ components:
             - ACSP
             - ACSC
             - ACCC
-        error_code:
-          description: 'Additional error codes. TODO: enumurate detailed error codes!'
-          type: string
-          enum:
-            - '1000'
-            - '2000'
-            - '3000'
-            - '4000'
-            - '5000'
-            - '6000'
-            - '7000'
-            - '8000'
-            - '9000'
-        error_message:
-          description: Additional error messages
-          type: string
-          enum:
-            - '1000: Payment request entity errors'
-            - '2000: Payment address resolution errors of payer/payee'
-            - '3000: Payment processing related errors on payer side'
-            - '4000: Payment processing related errors on payee side'
-            - '5000: Reserved for future use'
-            - '6000: Reserved for future use'
-            - '7000: Reserved for future use'
-            - '8000: Reserved for future use'
-            - '9000: Technical errors'
+        error:
+          $ref: '#/components/schemas/PaymentStatusError'
         additional_info:
           description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data.'
           type: string
@@ -461,6 +439,39 @@ components:
         - amount
         - currency_code
         - status
+    PaymentStatusError:
+      type: object
+      description: 'Payment status error code, message to track at individual payment instruction or at batch status header level'
+      properties:
+        code:
+          description: 'Additional error codes. TODO: enumurate detailed error codes!'
+          type: string
+          enum:
+            - '1000'
+            - '2000'
+            - '3000'
+            - '4000'
+            - '5000'
+            - '6000'
+            - '7000'
+            - '8000'
+            - '9000'
+        message:
+          description: Additional error messages
+          type: string
+          enum:
+            - '1000: Payment request entity errors'
+            - '2000: Payment address resolution errors of payer/payee'
+            - '3000: Payment processing related errors on payer side'
+            - '4000: Payment processing related errors on payee side'
+            - '5000: Reserved for future use'
+            - '6000: Reserved for future use'
+            - '7000: Reserved for future use'
+            - '8000: Reserved for future use'
+            - '9000: Technical errors'
+      required:
+        - code
+        - message
     PaymentStatusFile:
       type: object
       description: Payment disbursement status for reconciliation at social protection system end representing PaymentStatus entity in csv file format
@@ -507,7 +518,7 @@ components:
       pattern: '^\d{1,13}\.\d{1,2}$'
     AccountInfo:
       type: object
-      description: Beneficiary account info
+      description: Beneficiary store of value account info
       properties:
         name:
           $ref: '#/components/schemas/BeneficiaryName'
@@ -516,28 +527,50 @@ components:
         account_info:
           type: object
           properties:
-            entity_name:
+            type:
               type: string
-              description: 'entity name like bank name, prepaid card/voucher issuing system, etc.,'
-            entity_code:
+              description: 'store of  value account type. e.g savings, checking, pre-paid, voucher, mobile-wallet, etc.,'
+              example: savings
+            number:
               type: string
-              description: 'code to identify the entity like bank, prepaid card/voucher issuing system, etc.,'
-            entity_subcode:
-              type: string
-              description: sub code like entity's branch code
-            account_type:
-              type: string
-              description: ''
-            account_number:
-              type: string
+              description: store of value account number
+              example: '12345'
+            privider_info:
+              $ref: '#/components/schemas/AccountProviderInfo'
             additional_info:
               description: 'Additional info, if any'
               type: string
               maxLength: 1024
+          required:
+            - type
+            - number
+            - provider_info
       required:
         - name
         - contact_info
         - account_info
+    AccountProviderInfo:
+      type: object
+      description: Store of value account provider info
+      properties:
+        name:
+          type: string
+          description: 'entity name like bank name, prepaid card/voucher issuing system, etc.,'
+          example: GT Bank Rawanda
+        code:
+          type: string
+          description: 'code to identify the entity like bank, prepaid card/voucher issuing system, etc.,'
+          example: GTBIRWRKXXX
+        subcode:
+          type: string
+          description: 'sub code like entity''s branch code, etc.,'
+        additional_info:
+          description: 'Additional info, if any'
+          type: string
+          maxLength: 1024
+      required:
+        - name
+        - code
     Beneficiary:
       type: object
       description: Beneficiary indentity info
@@ -622,6 +655,14 @@ components:
       required:
         - code
         - message
+    ErrorsResponse:
+      type: object
+      description: ''
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ErrorResponse'
     LanguageCode:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
@@ -704,6 +745,21 @@ components:
       $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/500'
     200SuccessOAuth2ClientTokenResponse:
       $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/200'
+    200AccountInfoResponse:
+      description: 'TODO: <br> 1. Should payment_address be included? <br>  2. Should any additiona information be removed from the response?'
+      headers:
+        x-request-id:
+          $ref: '#/components/headers/x-request-id'
+        x-correlation-id:
+          $ref: '#/components/headers/x-correlation-id'
+        date:
+          $ref: '#/components/headers/date'
+        x-processing-time:
+          $ref: '#/components/headers/x-processing-time'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AccountInfo'
     200LinkingStatusResponse:
       description: ''
       headers:
@@ -733,7 +789,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ErrorResponse'
+            $ref: '#/components/schemas/ErrorsResponse'
   headers:
     cache-control-nostore:
       schema:
@@ -778,13 +834,22 @@ components:
   parameters:
     accept-language:
       $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/parameters/2'
+    beneficiary_id:
+      in: path
+      name: beneficiary_id
+      required: true
+      description: '<br> 1. Beneficiary id is a normative represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. Few examples: <br> - id@id-provider e.g 12345@mosip, 12345@PhilID <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+      schema:
+        type: string
+        format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+        example: 12345@mosip
     date:
       $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/parameters/0'
     payment_address:
       in: path
       name: payment_address
       required: true
-      description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
+      description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction <br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
       schema:
         type: string
         format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'

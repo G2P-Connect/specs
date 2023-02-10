@@ -17,4 +17,4 @@ headers:
 content:
   application/json:
     schema:
-      $ref: "../../schemas/common/ErrorResponse.yaml"
+      $ref: "../../schemas/common/ErrorsResponse.yaml"

@@ -3,10 +3,11 @@ info:
   title: G2P Connect authorization  APIs
   description: "This is an adaptation of G2P Connect core version 0.1.0. <br><br>
    <b>Overview:</b> <br>  
-    1. The scope of these end points to standarise issuance of access tokens using existing standards like oauth2 and oidc flows. <br>
-    2. Helps standarises end point access across g2p complaint api stack. <br>
+    1. The scope of these end points is to standarise issuance of access tokens using existing oauth2/oidc standards. <br>
+    2. Helps standarise end point access across g2p complaint api stack using x-access-token that is <b>compliant with JWT specs</b>. <br>
+    3. DPGs & COTS Products may also provide similar authz api end points with g2p connect documented scopes as part of each country specific implemenation (if any). <br>
     3. Additional security like IP white listing, private networks, etc are outside the scope of G2P Connect standards. <br>
-    4. Each country shall decide such operational models based on country requirements. <br>
+    4. Each country shall decide required operational models based on country requirements. <br>
     "
   version: 0.1.0
   contact:

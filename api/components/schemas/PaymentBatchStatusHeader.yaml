@@ -25,6 +25,8 @@ properties:
     description: "Total no of payment instructions failed to process. Status codes: RJCT"
     type: integer
     example: 50
+  error:
+    $ref: "./PaymentStatusError.yaml"
 required:
   - batch_id
   - datetime
