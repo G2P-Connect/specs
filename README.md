@@ -20,4 +20,4 @@ G2P Connect specs is maintained by community to define specifications, schemas a
 
 Please see [G2P Connect website](https://g2pconnect.global) for understanding purpose, architecture, participating DPGs / Products. 
 
-Participate in the [Github discussions](https://github.com/orgs/G2P-Connect/discussions) and [Slack Channel](TBD) to collaborate and contribute towards G2P Connect sepcification, ideas, reporting issues and integrating with participating DPGs / Products to solve for efficeint delivery of g2p digital payments.
+Request all to participate in the Github discussions to [collaborate](https://github.com/orgs/G2P-Connect/discussions) and [contribute](./api) towards G2P Connect sepcification.
