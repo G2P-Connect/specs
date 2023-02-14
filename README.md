@@ -1,4 +1,4 @@
 
-## Specification [Wiki Pages](https://github.com/G2P-Connect/specs/wiki)
+### Specifications [Wiki Pages](https://github.com/G2P-Connect/specs/wiki)
 
 
