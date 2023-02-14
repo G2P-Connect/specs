@@ -1,5 +1,7 @@
 # How to build G2P Connect specifications
 
+## Specifications [Wiki Pages](https://github.com/G2P-Connect/specs/wiki)
+
 ## IMPORTANT NOTES: 
 1. Please do not direclty edit /specs/api/g2p-*.yaml files directly. 
 2. Request reviewers to edit the respective .yaml files in below sub folders.
