@@ -247,8 +247,6 @@ If a Pull Request causes a merge conflict, the reviewer should respond with a co
 
 # Release Process
 
-[Semantic Versioning Scheme 2.0.0](https://semver.org/)
-
 A release requires a vote on the release notes by G2P Connect Working Group members within the voting period. Major or minor release voting periods will be announced by the G2P Connect Working Group admin in the Slack channel and noted on the calendar at least 6 days in advance. During this time, G2P Connect Working Group members who have not yet voted must note their approval on the GitHub pull request for the release notes. Patch releases must happen at the first G2P Connect Working Group meeting of a calendar month. The admin is responsible for coordinating the actual merge to main with marketing support, if any.
 
 * Patch-level releases require majority approval by WG members. (Max voting period 3 days)
@@ -256,6 +254,8 @@ A release requires a vote on the release notes by G2P Connect Working Group memb
 * Major: requires approval by 66% of WG members. (Max voting period 14 days)
 
 The above policies apply to the G2P Connect Working Group. However, a WG Admin may override the majority percentage and voting period depending on the area and size of the group.
+
+[Semantic Versioning Scheme 2.0.0](https://semver.org/)
 
 # Transparency
 
