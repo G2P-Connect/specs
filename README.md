@@ -1,23 +1,4 @@
-# G2P Connect Specifications
 
-## Latest Release
-1. [G2P Authz APIs](api/g2p-authz.yaml)
-2. [G2P Account Mapper APIs](api/g2p-account-mapper.yaml)
-2. [G2P Payments APIs](api/g2p-payments.yaml)
+## Specification [Wiki Pages](https://github.com/G2P-Connect/specs/wiki)
 
 
-## Current Working Draft Version: 
-0.1.0-draft
-
-## Versioning Scheme
-[Semantic Version Scheme 2.0.0](https://semver.org/)
-
-## About G2P Connect
-
-G2P Connect is an open source effort to enable government-to-people digital payments built through interoperable standards and design templates.
-
-G2P Connect specs is maintained by community to define specifications, schemas and taxonmy for solving government-to-person payments digitally. 
-
-Please see [G2P Connect website](https://g2pconnect.global) for understanding purpose, architecture, participating DPGs / Products. 
-
-Request all to participate in the Github discussions to [collaborate](https://github.com/orgs/G2P-Connect/discussions) and [contribute](./api) towards G2P Connect sepcification.
