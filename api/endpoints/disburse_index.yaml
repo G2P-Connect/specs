@@ -4,8 +4,8 @@ info:
   description: "This is an adaptation of G2P Connect core version 0.1.0. <br><br>
    <b>Overview:</b> <br>  
     1. <b>G2P Connect</b> payment disbursement APIs intent is to enable standrdisation between  social protection and payment processing/rails systems integration<br>
-    2. Payment and PaymentStatus are core entities to enable generation of payment instruction and reconcile payment processing status <br>
-    3. These entites are common between API and File based data exchange <br>
+    2. Disburse and DisburseStatue are core entities to enable generation of payment instruction and reconcile processing status <br>
+    3. These entites are common between API and File based data exchange. <br>
     4. All dates represented in ISO 8601 format including timezone e.g., 2022-12-04T18:01:07+00:00 <br>
     5. All currency codes represented in ISO 4217 format <br><br>
      
@@ -17,10 +17,6 @@ info:
       c. Role based access controls <br>
       d. sFTP based solutions for file based exchange <br>
     3. Impelementing systems shall document these as part of operational manuals <br>
-
-    <b>Digital Signatures:</b> <br>  
-    1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br>
-    2. x-signature-key in http header enables non-repudiability. <br><br>
     
     <b>Callback URLs:</b> <br>  
     1. */callback/* endpoints are to be implemented by the calling systems <br><br>
@@ -43,40 +39,10 @@ tags:
 - name: 1. Payment disbursement
 - name: 2. Payment disbursement status
 paths:
- /g2p/payment/disburse:
+ /g2p/disburse:
   post: 
     tags: 
-      - 1. Payment disbursement
-    summary: "Social protection system initiating g2p payments"
-    description: ""
-    operationId: post_g2p_payment_disburse
-    parameters:
-      - $ref: "../components/parameters/date.yaml"
-      - $ref: "../components/parameters/x-request-id.yaml"
-      - $ref: "../components/parameters/accept-language.yaml"
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: "#/components/schemas/Payment"
-    responses:
-      '200':
-        $ref: "../components/responses/200Response.yaml"
-      '400':
-         $ref: "../components/responses/400Response.yaml"
-      '401':
-         $ref: "../components/responses/401Response.yaml"
-      '500':
-         $ref: "../components/responses/500Response.yaml"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /g2p/payment/batch-disburse:
-  post: 
-    tags: 
-      - 1. Payment disbursement
+      - 1. Disbursement
     summary: "Social protection system initiating g2p payments in a batch. Supports both api and .csv file interfaces."
     description: ""
     operationId: post_g2p_payment_batch-disburse
@@ -106,50 +72,13 @@ paths:
     security:
       - x-access-token: [ ]
     deprecated: false
- /g2p/payment/status/{transaction_id}:
+ /g2p/disburse/status/{transaction_id}/{only_summary}:
    get: 
     tags: 
-      - 2. Payment disbursement status
-    summary: "Get payment disbursement status."
-    description: ""
-    operationId: get_g2p_payment_status
-    parameters:
-      - $ref: "../components/parameters/x-request-id.yaml"
-      - $ref: "../components/parameters/date.yaml"
-      - $ref: "../components/parameters/accept-language.yaml"
-      - $ref: "../components/parameters/transaction_id.yaml"
-    responses:
-      '200':
-        description: "Success"
-        headers:
-          x-request-id:
-            $ref: '../components/headers/x-request-id.yaml'
-          x-correlation-id:
-            $ref: '../components/headers/x-correlation-id.yaml'
-          date:
-            $ref: "../components/headers/date.yaml"
-          x-processing-time:
-            $ref: "../components/headers/x-processing-time.yaml"
-        content:
-          application/json:
-            schema:
-              $ref: "../components/schemas/PaymentStatus.yaml"
-      '400':
-         $ref: "../components/responses/400Response.yaml"
-      '401':
-         $ref: "../components/responses/401Response.yaml"
-      '500':
-         $ref: "../components/responses/500Response.yaml"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /g2p/payment/batch-status/{transaction_id}:
-   get: 
-    tags: 
-      - 2. Payment disbursement status
+      - 1. Disbursement
     summary: "Get payment disbursement batch status."
     description: ""
-    operationId: get_g2p_payment_batch-status
+    operationId: get_g2p_disburse_status
     parameters:
       - $ref: "../components/parameters/x-request-id.yaml"
       - $ref: "../components/parameters/date.yaml"
@@ -183,10 +112,10 @@ paths:
     security:
       - x-access-token: [ ]
     deprecated: false
- /g2p/callback/payment/on-status:
+ /g2p/callback/disburse/on-status:
   post: 
     tags: 
-      - 2. Payment disbursement status
+      - 1. Disbursement
     summary: "Social protection system hosted callback to receive payment status updates"
     description: "This end point is hosted by social protection system and called by payment processing/rails to push disbursement status notications"
     operationId: post_g2p_payment_status
@@ -216,7 +145,7 @@ paths:
  /g2p/callback/payment/on-batch-status:
   post: 
     tags: 
-      - 2. Payment disbursement status
+      - 1. Disbursement
     summary: "Social protection system hosted callback to receive status updates for batch payments. Supports both api and .csv file interfaces."
     description: "This end point is hosted by social protection system and called by payment processing/rails to push disbursement batch status notications"
     operationId: post_g2p_payment_batch-status
