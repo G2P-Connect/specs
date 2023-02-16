@@ -1,9 +1,9 @@
 openapi: 3.0.0
 info:
-  title: G2P Connect payment disbursement APIs
+  title: G2P Connect payment disbursements
   description: |-
     <br> <b>Reference Links:</b> <br> 1. G2P Connect Specifications <a href="https://github.com/G2P-Connect/specs/wiki " >wiki pages</a><br> 2. G2P Connect GitHub <a href="https://github.com/G2P-Connect/specs/ " >links</a><br> 3. Disbursement feature relate <a href= "https://github.com/G2P-Connect/.github/discussions">discussion thread</a> <br>
-    <br><b>TODOs</b>: <br> 1. Define reversal APIs <br> 2. transport layer errror codes standardisation  <br> 
+    <br><b>TODOs</b>: <br> 1. Define reversal APIs <br> 2. Standardisae <a href="https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md">errror codes</a> <br> 
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -145,20 +145,10 @@ paths:
       description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at message_id level to avoid request flooding.'
       operationId: get_g2p_disburse_status
       parameters:
-        - in: path
-          name: message_id
-          description: message id
-          required: true
-          schema:
-            type: string
-            example: '123456789020211216223812'
-        - in: path
-          name: summary_only
-          description: 'Optional. Defualt is false, If summary_only set to true then only the message header with stats / status to be returend as part of implementation'
-          required: true
-          schema:
-            type: boolean
-            default: true
+        - $ref: '#/components/parameters/accept-language'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/message_id'
+        - $ref: '#/components/parameters/summary_only'
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -339,6 +329,7 @@ components:
         message_id:
           description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations
           type: string
+          example: '123456789020211216223812'
         timestamp:
           description: Time of request generation in RFC3339 format
           type: string
@@ -388,6 +379,7 @@ components:
         message_id:
           description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
           type: string
+          example: '123456789020211216223812'
         timestamp:
           description: Time of request generation in RFC3339 format
           type: string
@@ -434,6 +426,39 @@ components:
       maxLength: 999
       example:
         - farmer_subsidy
+  parameters:
+    accept-language:
+      in: header
+      name: accept-language
+      description: 'Default value: en'
+      required: false
+      schema:
+        type: string
+        example: en
+    timestamp:
+      in: header
+      name: timestamp
+      description: 'request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
+      required: true
+      schema:
+        type: string
+        example: 'Tue, 06 Mar 2020 21:00:00 GMT'
+    message_id:
+      in: path
+      name: message_id
+      description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
+      required: true
+      schema:
+        type: string
+        example: '123456789020211216223812'
+    summary_only:
+      in: path
+      name: summary_only
+      description: 'Optional. Defualt is false, If summary_only set to true then only the message header with stats / status to be returend as part of implementation'
+      required: true
+      schema:
+        type: boolean
+        default: true
   responses:
     HttpErrorResponse:
       description: HTTP layer error details

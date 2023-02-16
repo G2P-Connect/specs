@@ -1,4 +1,0 @@
-schema:
-  type: 'string'
-  example: "18f484bd-3321-4754-b95e-8abed0c97b5d"
-description: "echo back from request"

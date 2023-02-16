@@ -1,0 +1,75 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect authorization APIs to get required oauth2 compliant authorization token to connect
+  description: "<br>
+    <b>Reference Links:</b> <br>
+      1. G2P Connect Specifications <a href=\"https://github.com/G2P-Connect/specs/wiki \" >wiki pages</a><br>
+      2. G2P Connect GitHub <a href=\"https://github.com/G2P-Connect/specs/ \" >links</a><br>
+      3. Disbursement feature relate <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
+
+    <br><b>TODOs</b>: <br>
+    1.  Standardise <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
+    "
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+   name: G2P Connect License
+   url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: https://sandbox.dpg.org/v0.1.0
+    description: Sandbox Server
+tags:
+- name: 1. OAuth2 / OIDC enabled authorization services
+paths:
+ /g2p/oauth2/client/token:
+  post: 
+    tags: 
+      - 1. OAuth2 / OIDC enabled authorization services
+    summary: "AUTHZ-001 : Provide access_token to registered clients/services."
+    description: "<b>Client integration notes: </b><br>
+       1. This end point is in compliance with OAuth2 RFC 6749 to authenticate registered confidential clients with grant_type=client_credentials over HTTPS channel. <br>
+       2. Clients MUST obtain client_id, client_secret as part of client registration. <br>
+       2. Clients MUST ensure to secure sensitive information e.g, client_secret,  access_token, etc., <br>
+       3. RFC 6749 section 4.4.3 recommends NO support for refresh access_token. <br>
+       4. Successfully authenticated clients SHALL receive bearer type access_token. <br>
+       5. Clients MUST set access_token to x-access-token in HTTP header to access any g2p compliant api end points.<br>
+       6. Rest end points SHALL return <b>http status 401</b> when access_token is invalid or expired.<br>"
+    operationId: post_oauth2_client_token
+    parameters:
+      - $ref: "#/components/parameters/accept-language"
+      - $ref: "#/components/parameters/timestamp"
+      - $ref: "#/components/parameters/message_id_hdr"
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/x-www-form-urlencoded:
+          schema:
+            $ref: "./io/OAuth2ClientTokenRequest.yaml"
+    responses:
+      '200': 
+        description: "Acknowledgement of message received after successful validation of message and signature"
+        content:
+          application/json:
+            schema:
+              $ref: "./io/OAuth2ClientTokenResponse.yaml"
+      '404':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    deprecated: false
+components:
+  schemas:
+    $ref: "./schemas/index.yaml"
+  parameters:
+    accept-language:
+      $ref: "../../../component/parameter/accept-language.yaml"
+    timestamp:
+      $ref: "../../../component/parameter/timestamp.yaml"
+    message_id_hdr:
+      $ref: "../../../component/parameter/message_id_hdr.yaml"
+  responses:
+    HttpErrorResponse:
+      $ref: "../../../component/response/HttpErrorResponse.yaml"        

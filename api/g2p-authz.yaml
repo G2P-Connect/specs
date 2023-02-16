@@ -1,0 +1,146 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect authorization APIs to get required oauth2 compliant authorization token to connect
+  description: |-
+    <br> <b>Reference Links:</b> <br> 1. G2P Connect Specifications <a href="https://github.com/G2P-Connect/specs/wiki " >wiki pages</a><br> 2. G2P Connect GitHub <a href="https://github.com/G2P-Connect/specs/ " >links</a><br> 3. Disbursement feature relate <a href= "https://github.com/G2P-Connect/.github/discussions">discussion thread</a> <br>
+    <br><b>TODOs</b>: <br> 1.  Standardise <a href="https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md">errror codes</a> <br> 
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+    name: G2P Connect License
+    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: 'https://sandbox.dpg.org/v0.1.0'
+    description: Sandbox Server
+tags:
+  - name: 1. OAuth2 / OIDC enabled authorization services
+paths:
+  /g2p/oauth2/client/token:
+    post:
+      tags:
+        - 1. OAuth2 / OIDC enabled authorization services
+      summary: 'AUTHZ-001 : Provide access_token to registered clients/services.'
+      description: '<b>Client integration notes: </b><br> 1. This end point is in compliance with OAuth2 RFC 6749 to authenticate registered confidential clients with grant_type=client_credentials over HTTPS channel. <br> 2. Clients MUST obtain client_id, client_secret as part of client registration. <br> 2. Clients MUST ensure to secure sensitive information e.g, client_secret,  access_token, etc., <br> 3. RFC 6749 section 4.4.3 recommends NO support for refresh access_token. <br> 4. Successfully authenticated clients SHALL receive bearer type access_token. <br> 5. Clients MUST set access_token to x-access-token in HTTP header to access any g2p compliant api end points.<br> 6. Rest end points SHALL return <b>http status 401</b> when access_token is invalid or expired.<br>'
+      operationId: post_oauth2_client_token
+      parameters:
+        - $ref: '#/components/parameters/accept-language'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/message_id_hdr'
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                grant_type:
+                  type: string
+                  description: Value must be set to client_credentials
+                  example: client_credentials
+                client_id:
+                  type: string
+                  description: The client identifier issued to the client during the registration process described by RFC 6749 Section 2.2.
+                  example: '1001'
+                client_secret:
+                  type: string
+                  description: client secret shared to clients as part of client registration process or regualar rotation of client_secret.
+                  example: 7Fjfp0ZBr1KtDRbnfVdmIw
+                scope:
+                  $ref: '#/components/schemas/OidcScope'
+              required:
+                - grant_type
+                - client_id
+                - client_secret
+              description: Request entity to obtain access token using gant_type = client_credential
+      responses:
+        '200':
+          description: Acknowledgement of message received after successful validation of message and signature
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    description: Clients to share access_token in x-api-token HTTP header.
+                    type: string
+                    example: 2YotnFZFEjr1zCsicMWpAA
+                  token_type:
+                    description: ''
+                    type: string
+                    example: bearer
+                  expires_in:
+                    description: 'The lifetime in seconds of the access token.  <br> 1. For example, the value "3600" denotes that the access token will expire in one hour from the time the response was generated. <br> 2. If omitted, the authorization server SHOULD provide the expiration time via other means or document the default value.'
+                    type: string
+                    example: '36000'
+                required:
+                  - access_token
+                  - token_type
+                description: ''
+        '404':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+      deprecated: false
+components:
+  schemas:
+    OAuth2ClientTokenRequest:
+      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/requestBody/content/application~1x-www-form-urlencoded/schema'
+    OAuth2ClientTokenResponse:
+      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/200/content/application~1json/schema'
+    OidcScope:
+      type: string
+      description: 'Space delimited scopes requested or issued by an authorization service for OAuth2 client, OIDC complaint auth tokens. <br><br> <b>This is an indicative list... </b> <br> 1. disburse <br> 2. on-disburse <br> 3. famap_link '
+      items:
+        enum:
+          - disburse
+          - on-disburse
+          - famap_link
+          - <etc>
+      example:
+        - disburse
+        - famap_link
+  parameters:
+    accept-language:
+      in: header
+      name: accept-language
+      description: 'Default value: en'
+      required: false
+      schema:
+        type: string
+        example: en
+    timestamp:
+      in: header
+      name: timestamp
+      description: 'request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
+      required: true
+      schema:
+        type: string
+        example: 'Tue, 06 Mar 2020 21:00:00 GMT'
+    message_id_hdr:
+      in: header
+      name: message_id
+      description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
+      schema:
+        type: string
+        example: '123456789020211216223812'
+  responses:
+    HttpErrorResponse:
+      description: HTTP layer error details
+      content:
+        application/json:
+          schema:
+            type: object
+            description: 'HTTP layer error codes. Used by components like gateways, LB responding with HTTP status codes.'
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    description: error code
+                  message:
+                    type: string
+                    description: error message

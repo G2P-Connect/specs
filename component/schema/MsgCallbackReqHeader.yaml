@@ -8,6 +8,7 @@ properties:
   message_id: 
     description: "Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations."
     type: string
+    example: "123456789020211216223812"
   timestamp:
     description: 'Time of request generation in RFC3339 format'
     type: string
