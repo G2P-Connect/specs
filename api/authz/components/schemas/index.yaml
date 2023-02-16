@@ -1,0 +1,67 @@
+#ID 2 Account mapper Definitions
+Beneficiary2AccountMap:
+  $ref: "./Beneficiary2AccountMap.yaml"
+Beneficiary2AccountMapStatus:
+  $ref: "./Beneficiary2AccountMapStatus.yaml"
+Beneficiary2AccountMapUpdate:
+  $ref: "./Beneficiary2AccountMapUpdate.yaml"
+
+#Payments Definitions
+Payment:
+  $ref: "./Payment.yaml"
+PaymentAddress:
+  $ref: "./PaymentAddress.yaml"
+PaymentBatch:
+  $ref: "./PaymentBatch.yaml"
+PaymentBatchHeader:
+  $ref: "./PaymentBatchHeader.yaml"
+PaymentBatchStatus:
+  $ref: "./PaymentBatchStatus.yaml"
+PaymentBatchStatusHeader:
+  $ref: "./PaymentBatchStatusHeader.yaml"
+PaymentFile:
+  $ref: "./PaymentFile.yaml"
+PaymentStatus:
+  $ref: "./PaymentStatus.yaml"
+PaymentStatusError:
+  $ref: "./PaymentStatusError.yaml"
+PaymentStatusFile:
+  $ref: "./PaymentStatusFile.yaml"
+
+
+#Common Definitions
+Amount:
+  $ref: "./common/Amount.yaml"
+AccountInfo:
+  $ref: "./common/AccountInfo.yaml"
+AccountProviderInfo:
+  $ref: "./common/AccountProviderInfo.yaml"
+Beneficiary:
+  $ref: "./common/Beneficiary.yaml"
+BeneficiaryContact:
+  $ref: "./common/BeneficiaryContact.yaml"
+BeneficiaryId:
+  $ref: "./common/BeneficiaryIdInfo.yaml"
+BeneficiaryName:
+  $ref: "./common/BeneficiaryName.yaml"
+CurrencyCode:
+  $ref: "./common/CurrencyCode.yaml"
+ErrorResponse:
+  $ref: "./common/ErrorResponse.yaml"
+ErrorsResponse:
+  $ref: "./common/ErrorsResponse.yaml"
+LanguageCode:
+  $ref: "./common/LanguageCode.yaml"
+Schemes:
+  $ref: "./common/Schemes.yaml"
+TransactionId:
+  $ref: "./common/TransactionId.yaml"
+
+
+#OAuth2 Definitions
+OAuth2ClientToken:
+  $ref: "./oauth2/OAuth2ClientToken.yaml"
+OAuth2ClientTokenRequest:
+  $ref: "./oauth2/OAuth2ClientTokenRequest.yaml"
+OidcScope:
+  $ref: "./oauth2/OidcScope.yaml"

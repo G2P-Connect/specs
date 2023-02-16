@@ -1,0 +1,3 @@
+description: "List of G2P social protection system defined scheme short codes"
+items:
+  - $ref: "./SchemeCode.yaml"

@@ -1,0 +1,16 @@
+type: object
+description: 'First, Middle and Last name of a person'
+properties:
+  name: 
+    type: object
+    properties: 
+      first_name:
+        type: string
+      middle_name:
+        type: string
+      last_name:
+        type: string
+    required: 
+      - first_name
+required:
+  - name

@@ -1,0 +1,14 @@
+accept-language:
+  $ref: "./accept-language.yaml"
+beneficiary_id:
+  $ref: "./beneficiary_id.yaml"
+date: 
+  $ref: "./date.yaml"
+payment_address:
+  $ref: "./payment_address.yaml"
+summary_only:
+  $ref: "./summary_only.yaml"
+message_id:
+  $ref: "./message_id.yaml"
+x-request-id: 
+  $ref: "./x-request-id.yaml"

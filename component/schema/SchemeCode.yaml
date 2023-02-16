@@ -1,0 +1,5 @@
+description: "G2P social protection system defined scheme short code for easy reference"
+type: string
+maxLength: 999
+example:
+  - farmer_subsidy

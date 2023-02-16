@@ -1,0 +1,7 @@
+in: path
+name: summary_only
+description: "Optional. Defualt is false, If summary_only set to true then only the message header with stats / status to be returend as part of implementation"
+required: true
+schema:
+  type: boolean
+  default: true

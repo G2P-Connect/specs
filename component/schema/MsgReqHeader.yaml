@@ -1,0 +1,48 @@
+type: object
+description: 'Message header'
+properties:
+  version:  
+    description: "g2p connect specification version being used"
+    type: string
+    example: "0.1.0"
+  message_id: 
+    description: "Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations"
+    type: string
+  timestamp:
+    description: 'Time of request generation in RFC3339 format'
+    type: string
+    format: date-time
+    example: '2022-12-04T18:01:07+00:00'
+  sender_id:
+    description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+    type: string
+    example: '10089'
+  sender_uri:
+    description: "sender url to accept callbacks"
+    type: string
+    format: uri
+    example: "https://pymts.sender.org/callback/g2p/on-disburse"
+  receiver_id:
+    description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+    type: string
+    example: '52077'
+  receiver_uri:
+    description: "receiver url to accept callbacks"
+    type: string
+    format: uri
+    example: ""
+  total_count:
+    description: "Total no of requests present in the message request"
+    type: integer
+    example: 21800
+  digest_algo:
+    description: "Message digest hash algo used"
+    type: string
+    example: "SHA2"
+  digest:
+    description: "Message digest hash along with header/message elements before any crypto functions like encryption"
+    type: string
+    example: "SHA2(header().message())"
+required:
+  - message_id
+  - timestamp

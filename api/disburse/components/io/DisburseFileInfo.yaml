@@ -1,0 +1,13 @@
+type: object
+description: 'Disbursement file info. Used in file upload using HTTPS'
+properties:
+  fileName:
+    description: "Disbursement instruction file representing Disburse or OnDisburse entity as a file"
+    type: string
+    format: binary
+  fileFormat:
+    description: "File content format. e.g json, csv, etc.,"
+    type: string
+required:
+  - fileName
+  - fileFormat

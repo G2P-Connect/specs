@@ -1,0 +1,14 @@
+type: object
+properties:
+  header:
+    $ref: "../../../../component/schema/MsgReqHeader.yaml"
+  message:
+    type: object
+    properties:
+      disburse:
+        type: array
+        items:
+          $ref: "./DisburseRequest.yaml"
+required:
+  - header
+  - message

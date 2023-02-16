@@ -1,0 +1,7 @@
+in: path
+name: message_id
+description: "message id"
+required: true
+schema:
+  type: string
+  example: "123456789020211216223812"

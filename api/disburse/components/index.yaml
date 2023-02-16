@@ -1,0 +1,131 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect payment disbursement APIs
+  description: "<br>
+    <b>Reference Links:</b> <br>
+      1. G2P Connect Specifications <a href=\"https://github.com/G2P-Connect/specs/wiki \" >wiki pages</a><br>
+      2. G2P Connect GitHub <a href=\"https://github.com/G2P-Connect/specs/ \" >links</a><br>
+      3. Disbursement feature relate <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
+
+    <br><b>TODOs</b>: <br>
+    1. Define reversal APIs <br>
+    2. transport layer errror codes standardisation  <br>
+    "
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+   name: G2P Connect License
+   url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: https://sandbox.dpg.org/v0.1.0
+    description: Sandbox Server
+tags:
+- name: 1. Disbursement
+paths:
+ /g2p/disburse:
+  post: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-001 : Social protection platofrom initiating g2p disbursements. Supports api, events and file based messaging"
+    description: ""
+    operationId: post_g2p_disburse
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './io/Disburse.yaml'
+        multipart/form-data:
+          schema:
+            $ref: './io/DisburseFileInfo.yaml'
+    responses:
+        default:
+          $ref: "./io/Response.yaml"
+        '401':
+          $ref: "../../../component/response/HttpErrorResponse.yaml"
+        '403':
+          $ref: "../../../component/response/HttpErrorResponse.yaml"
+        '404':
+          $ref: "../../../component/response/HttpErrorResponse.yaml"
+        '500':
+          $ref: "../../../component/response/HttpErrorResponse.yaml"
+    security:
+      - x-access-token: [ ]
+      - Signature: [ ]
+    deprecated: false
+ /g2p/on-disburse:
+  post: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-002 : Disbursement initating systems receive disbursement status info through callback end points. Supports api, events and file based messaging"
+    description: "The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals "
+    operationId: post_g2p_on-disburse
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: './io/OnDisburse.yaml'
+        multipart/form-data:
+          schema:
+            $ref: './io/DisburseFileInfo.yaml'
+    responses:
+      default:
+          $ref: "./io/Response.yaml"
+      '401':
+        $ref: "../../../component/response/HttpErrorResponse.yaml"
+      '403':
+        $ref: "../../../component/response/HttpErrorResponse.yaml"
+      '404':
+         $ref: "../../../component/response/HttpErrorResponse.yaml"
+      '500':
+         $ref: "../../../component/response/HttpErrorResponse.yaml"
+    security:
+      - x-access-token: [ ]
+      - Signature: [ ]
+    deprecated: false
+ /g2p/disburse/status/{message_id}/{summary_only}:
+   get: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-003 : Get disbursement processing status by polling"
+    description: " <br>
+        1. This end point is avaiable to poll disbursement processing status info. <br>
+        2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br>
+        3. Disbursement processing systems may chose to implement rate limiting at message_id level to avoid request flooding."
+    operationId: get_g2p_disburse_status
+    parameters:
+      - $ref: "../../../component/parameter/message_id.yaml"
+      - $ref: "../../../component/parameter/summary_only.yaml"
+    responses:
+      default:
+        description: "Acknowledgement of message received after successful validation of message and signature"
+        content:
+          application/json:
+            schema:
+              $ref: './io/OnDisburse.yaml'
+      '401':
+        $ref: "../../../component/response/HttpErrorResponse.yaml"
+      '403':
+        $ref: "../../../component/response/HttpErrorResponse.yaml"
+      '404':
+         $ref: "../../../component/response/HttpErrorResponse.yaml"
+      '500':
+         $ref: "../../../component/response/HttpErrorResponse.yaml"
+    security:
+      - x-access-token: [ ]
+      - Signature: [ ]
+    deprecated: false
+ 
+components:
+  schemas:
+    $ref: "./schemas/index.yaml"
+  responses:
+    HttpErrorResponse:
+      $ref: "../../../component/response/HttpErrorResponse.yaml"        
+  securitySchemes:
+    $ref: "../../../component/security/index.yaml"

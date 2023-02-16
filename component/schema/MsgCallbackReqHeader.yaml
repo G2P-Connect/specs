@@ -1,0 +1,48 @@
+type: object
+description: 'Message header'
+properties:
+  version:  
+    description: "g2p connect specification version being used"
+    type: string
+    example: "0.1.0"
+  message_id: 
+    description: "Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations."
+    type: string
+  timestamp:
+    description: 'Time of request generation in RFC3339 format'
+    type: string
+    format: date-time
+    example: '2022-12-04T18:02:35+00:00'
+  sender_id:
+    description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+    type: string
+    example: '10089'
+  sender_uri:
+    description: "sender url to accept callbacks"
+    type: string
+    format: uri
+    example: ""
+  receiver_id:
+    description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+    type: string
+    example: '52077'
+  receiver_uri:
+    description: "receiver url to accept callbacks"
+    type: string
+    format: uri
+    example: ""
+  status_code:
+    description: "Message processing status code"
+    type: string
+    enum: ["IN_PROCESS", "COMPLETED"]
+  total_count:
+    description: "Total no of requests present in the message request"
+    type: integer
+    example: 21800
+  completed_count:
+    description: "No of requests in complteed state. Complete includes success and error requests due to funcational errors"
+    type: integer
+    example: 50
+required:
+  - message_id
+  - message_ts

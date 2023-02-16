@@ -1,0 +1,16 @@
+type: object
+properties:
+  header:
+    $ref: "../../../../component/schema/MsgCallbackReqHeader.yaml"
+  message:
+    type: object
+    properties:
+      on_disburse:
+        type: array
+        items:
+          $ref: "./DisburseResponse.yaml"
+  error:
+    $ref: "../../../../component/schema/Error.yaml"
+required:
+  - header
+  - message
