@@ -1,0 +1,7 @@
+in: path
+name: request_id
+description: "Unique request id set by sending system sytem while initiating the disbursement instruction"
+required: true
+schema:
+  type: string
+  example: "12345678901234567890"

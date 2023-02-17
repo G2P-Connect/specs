@@ -3,7 +3,7 @@ info:
   title: G2P Connect payment disbursements
   description: |-
     <br> <b>Reference Links:</b> <br> 1. G2P Connect Specifications <a href="https://github.com/G2P-Connect/specs/wiki " >wiki pages</a><br> 2. G2P Connect GitHub <a href="https://github.com/G2P-Connect/specs/ " >links</a><br> 3. Disbursement feature relate <a href= "https://github.com/G2P-Connect/.github/discussions">discussion thread</a> <br>
-    <br><b>TODOs</b>: <br> 1. Define reversal APIs <br> 2. Standardisae <a href="https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md">errror codes</a> <br> 
+    <br><b>TODOs</b>: <br> 1. Standardisae <a href="https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md">errror codes</a> <br> 
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -33,7 +33,12 @@ paths:
               type: object
               properties:
                 header:
-                  $ref: '#/components/schemas/MsgReqHeader'
+                  allOf:
+                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - properties:
+                        purpose:
+                          enum:
+                            - disburse
                 message:
                   type: object
                   properties:
@@ -46,19 +51,57 @@ paths:
                 - message
           multipart/form-data:
             schema:
+              $ref: '#/components/schemas/DisburseFileInfo'
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '404':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
+      security:
+        - x-access-token: []
+        - Signature: []
+      deprecated: false
+  /g2p/on-disburse:
+    post:
+      tags:
+        - 1. Disbursement
+      summary: 'DSBT-002 : Disbursement initiating systems receive disbursement status info through callback end points. Supports api, events and file based messaging'
+      description: 'The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals '
+      operationId: post_g2p_on-disburse
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
               type: object
-              description: Disbursement file info. Used in file upload using HTTPS
               properties:
-                fileName:
-                  description: Disbursement instruction file representing Disburse or OnDisburse entity as a file
-                  type: string
-                  format: binary
-                fileFormat:
-                  description: 'File content format. e.g json, csv, etc.,'
-                  type: string
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - properties:
+                        purpose:
+                          enum:
+                            - on-disburse
+                message:
+                  type: object
+                  properties:
+                    disburse_status:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/DisburseResponse'
               required:
-                - fileName
-                - fileFormat
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DisburseFileInfo'
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -90,13 +133,13 @@ paths:
         - x-access-token: []
         - Signature: []
       deprecated: false
-  /g2p/on-disburse:
+  /g2p/disburse/status:
     post:
       tags:
         - 1. Disbursement
-      summary: 'DSBT-002 : Disbursement initating systems receive disbursement status info through callback end points. Supports api, events and file based messaging'
-      description: 'The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals '
-      operationId: post_g2p_on-disburse
+      summary: 'DSBT-003 : Request for disbursement status from (e.g) social protection, Treasury systems'
+      description: ''
+      operationId: post_g2p_disburse_status
       requestBody:
         description: ''
         required: true
@@ -106,22 +149,25 @@ paths:
               type: object
               properties:
                 header:
-                  $ref: '#/components/schemas/MsgCallbackReqHeader'
+                  allOf:
+                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - properties:
+                        purpose:
+                          enum:
+                            - status
                 message:
                   type: object
                   properties:
-                    on_disburse:
+                    request_ids:
                       type: array
                       items:
-                        $ref: '#/components/schemas/DisburseResponse'
-                error:
-                  $ref: '#/components/schemas/Error'
+                        $ref: '#/components/schemas/StatusRequest'
               required:
                 - header
                 - message
           multipart/form-data:
             schema:
-              $ref: '#/paths/~1g2p~1disburse/post/requestBody/content/multipart~1form-data/schema'
+              $ref: '#/components/schemas/StatusFileInfo'
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -132,22 +178,72 @@ paths:
         '500':
           $ref: '#/components/responses/HttpErrorResponse'
         default:
-          $ref: '#/paths/~1g2p~1disburse/post/responses/default'
+          $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
       security:
         - x-access-token: []
         - Signature: []
       deprecated: false
-  '/g2p/disburse/status/{message_id}/{summary_only}':
+  /g2p/disburse/on-status:
+    post:
+      tags:
+        - 1. Disbursement
+      summary: 'DSBT-004 : Disbursement initating systems receive disbursement status info through callback end points. Supports api, events and file based messaging'
+      description: 'The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals '
+      operationId: post_g2p_disburse_on-status
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - properties:
+                        purpose:
+                          enum:
+                            - on-status
+                message:
+                  type: object
+                  properties:
+                    disburse:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/DisburseResponse'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/StatusFileInfo'
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '404':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
+      security:
+        - x-access-token: []
+        - Signature: []
+      deprecated: false
+  '/g2p/disburse/status/{transaction_id}/{summary_only}':
     get:
       tags:
         - 1. Disbursement
-      summary: 'DSBT-003 : Get disbursement processing status by polling'
+      summary: 'DSBT-005: Get disbursement processing status by polling'
       description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at message_id level to avoid request flooding.'
-      operationId: get_g2p_disburse_status
+      operationId: get_g2p_disburse_status_by_msg_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
         - $ref: '#/components/parameters/timestamp'
-        - $ref: '#/components/parameters/message_id'
+        - $ref: '#/components/parameters/transaction_id'
         - $ref: '#/components/parameters/summary_only'
       responses:
         '401':
@@ -163,17 +259,93 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/paths/~1g2p~1on-disburse/post/requestBody/content/application~1json/schema'
+                type: object
+                properties:
+                  header:
+                    allOf:
+                      - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                      - properties:
+                          purpose:
+                            enum:
+                              - status
+                  message:
+                    type: object
+                    properties:
+                      disburse:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/DisburseResponse'
+                required:
+                  - header
+                  - message
+      security:
+        - x-access-token: []
+        - Signature: []
+      deprecated: false
+  '/g2p/disburse/status/{request_id}':
+    get:
+      tags:
+        - 1. Disbursement
+      summary: 'DSBT-005 : Get disbursement processing status by polling using request_id'
+      description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at request_id level to avoid request flooding.'
+      operationId: get_g2p_disburse_status_by_req_id
+      parameters:
+        - $ref: '#/components/parameters/accept-language'
+        - $ref: '#/components/parameters/timestamp'
+        - $ref: '#/components/parameters/request_id'
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '404':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Acknowledgement of message received after successful validation of message and signature
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  header:
+                    allOf:
+                      - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                      - properties:
+                          purpose:
+                            enum:
+                              - status
+                  message:
+                    type: object
+                    properties:
+                      disburse:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/DisburseResponse'
+                required:
+                  - header
+                  - message
       security:
         - x-access-token: []
         - Signature: []
       deprecated: false
 components:
   schemas:
-    Disburse:
-      $ref: '#/paths/~1g2p~1disburse/post/requestBody/content/application~1json/schema'
     DisburseFileInfo:
-      $ref: '#/paths/~1g2p~1disburse/post/requestBody/content/multipart~1form-data/schema'
+      type: object
+      description: Disbursement file info. Used in file upload using HTTPS
+      properties:
+        fileName:
+          description: Disbursement instruction file representing Disburse or OnDisburse entity as a file
+          type: string
+          format: binary
+        fileFormat:
+          description: 'File content format. e.g json, csv, etc.,'
+          type: string
+      required:
+        - fileName
+        - fileFormat
     DisburseRequest:
       type: object
       description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
@@ -183,6 +355,7 @@ components:
         request_id:
           description: Unique request id set by sending system sytem while initiating the disbursement instruction
           type: string
+          example: '1234567890'
         scheduled_timestamp:
           description: Disbursement initiation schedule timestamp in RFC3339 format.
           type: string
@@ -217,7 +390,7 @@ components:
       required:
         - locale
         - request_id
-        - scheduled_timestampte
+        - scheduled_timestampt
         - payer_fa
         - payee_fa
         - amount
@@ -237,8 +410,16 @@ components:
           example: '2022-12-04T17:20:07-04:00'
         payer_fa:
           $ref: '#/components/schemas/FinancialAddress'
+        payer_name:
+          description: Payer account name for easy reference. Usually each scheme may have a seperate holding account.
+          type: string
+          example: Farmer draught relief scheme 2023
         payee_fa:
           $ref: '#/components/schemas/FinancialAddress'
+        payee_name:
+          description: Payer name for easy reference. Usually beneficiary name as per scheme registration info
+          type: string
+          example: Joe John
         amount:
           $ref: '#/components/schemas/Amount'
         currency_code:
@@ -251,10 +432,11 @@ components:
         reason_message:
           description: Disbursement status reason message as shared by processing entity for the users
           type: string
+          maxLength: 99
         instruction:
           description: 'Additional instruction for interfacing systems to integrate, reconcile, etc.,'
           type: string
-          maxLength: 1024
+          maxLength: 999
       required:
         - request_id
         - timestamp
@@ -272,14 +454,38 @@ components:
         - ACSP
         - ACSC
         - ACCC
-    OnDisburse:
-      $ref: '#/paths/~1g2p~1on-disburse/post/requestBody/content/application~1json/schema'
     Response:
-      $ref: '#/paths/~1g2p~1disburse/post/responses/default'
+      $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
+    StatusFileInfo:
+      type: object
+      description: Disburse Status request file info. Used in file upload using HTTPS
+      properties:
+        fileName:
+          description: Disburse Status request file representing Status or OnStatus entity as a file
+          type: string
+          format: binary
+        fileFormat:
+          description: 'File content format. e.g json, csv, etc.,'
+          type: string
+      required:
+        - fileName
+        - fileFormat
+    StatusRequest:
+      type: object
+      description: Request latest status on disbursement status.
+      properties:
+        request_id:
+          description: Unique request id set by sending system sytem while initiating the disbursement instruction
+          type: string
+          example: '1234567890'
+      required:
+        - request_id
     Ack:
       description: 'Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK'
       type: object
       properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
         status:
           type: string
           description: 'The status of the acknowledgement.<br> 1. If the request passes the validation criteria of the receiver, then this is set to ACK. <br> 2. If a receiver responds with status = `ACK` to a request, it is required to respond with a callback. <br> 3. If the request fails the validation criteria, then this is set to NACK. <br> 4. Additionally, if a receiver does not intend to respond with a callback even after the request meets the validation criteria, it should set this value to `NACK`. '
@@ -326,10 +532,15 @@ components:
           description: g2p connect specification version being used
           type: string
           example: 0.1.0
+        purpose:
+          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
         message_id:
           description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations
           type: string
           example: '123456789020211216223812'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
         timestamp:
           description: Time of request generation in RFC3339 format
           type: string
@@ -368,6 +579,30 @@ components:
       required:
         - message_id
         - timestamp
+    MsgRespHeader:
+      type: object
+      description: Message header that is part of async ACK/NACK response
+      properties:
+        version:
+          description: g2p connect specification version being used
+          type: string
+          example: 0.1.0
+        message_id:
+          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations
+          type: string
+          example: '123456789020211216223812'
+        transaction_id:
+          description: 'Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,'
+          type: string
+          example: 0123456789012345
+        timestamp:
+          description: Time of request generation in RFC3339 format
+          type: string
+          format: date-time
+          example: '2022-12-04T18:01:07+00:00'
+      required:
+        - message_id
+        - timestamp
     MsgCallbackReqHeader:
       type: object
       description: Message header
@@ -376,10 +611,15 @@ components:
           description: g2p connect specification version being used
           type: string
           example: 0.1.0
+        purpose:
+          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
         message_id:
           description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
           type: string
           example: '123456789020211216223812'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
         timestamp:
           description: Time of request generation in RFC3339 format
           type: string
@@ -426,6 +666,11 @@ components:
       maxLength: 999
       example:
         - farmer_subsidy
+    TransactionId:
+      description: 'Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,'
+      type: string
+      maxLength: 99
+      example: 012345678901234567890
   parameters:
     accept-language:
       in: header
@@ -443,14 +688,15 @@ components:
       schema:
         type: string
         example: 'Tue, 06 Mar 2020 21:00:00 GMT'
-    message_id:
+    transaction_id:
       in: path
-      name: message_id
-      description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
+      name: transaction_id
+      description: 'Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.'
       required: true
       schema:
         type: string
-        example: '123456789020211216223812'
+        maxLength: 99
+        example: 012345678901234567890
     summary_only:
       in: path
       name: summary_only
@@ -459,6 +705,14 @@ components:
       schema:
         type: boolean
         default: true
+    request_id:
+      in: path
+      name: request_id
+      description: Unique request id set by sending system sytem while initiating the disbursement instruction
+      required: true
+      schema:
+        type: string
+        example: '12345678901234567890'
   responses:
     HttpErrorResponse:
       description: HTTP layer error details

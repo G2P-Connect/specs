@@ -1,31 +1,15 @@
 openapi: 3.0.0
 info:
-  title: G2P Connect id to financial address mapper APIs
-  description: "This is an adaptation of G2P Connect core version 0.1.0. <br><br>
-   <b>Overview:</b> <br>  
-    1. <b>G2P Connect</b> enables social protection systems to initiate payment disbursement instruction using financial account/address identifiers that is mapped to an individual identifier. <br>
-    2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's etc that are supported by underlying payment processing/rails platforms. <br>
-    3. Country operational model shall decide the entity that manages one or more ID to Account Mapper registries. <br>
-    4. These APIs enable standradizing linking, unliking, status check capabilities between G2P enabling DPGS/Products. <br>
-    
-    <b>API Security:</b> <br>  
-    1. Considering countries operates G2P schemes using various payment systems for <b>e.g.,</b> central bank payment rails, mobile money networks, directly with govt/private operated financial instituations, etc., the network operating model may vary.<br>
-    2. G2P Connect reccommends implementing systems to add <b>additional</b> security measures: <br>
-      a. Transport layer security using TLS <br>
-      b. End point security using x-access-token issued using client id / secret <br>
-      c. Role based access controls <br>
-      d. sFTP based solutions for file based exchange <br>
-    3. Impelementing systems shall document these as part of operational manuals <br>
-    
-    <b>Digital Signatures:</b> <br>  
-    1. x-signature-key shall hold hash value of the request payload for receiving end point to ensure integrity of the data. <br>
-    2. x-signature-key in http header enables non-repudiability. <br><br>
-    
-    <b>Callback URLs:</b> <br>  
-    1. */callback/* endpoints are to be implemented by the calling systems <br><br>
+  title: Manage ID to financial address mapper registry
+  description: "<br>
+    <b>Reference Links:</b> <br>
+      1. G2P Connect Specifications <a href=\"https://github.com/G2P-Connect/specs/wiki \" >wiki pages</a><br>
+      2. G2P Connect GitHub <a href=\"https://github.com/G2P-Connect/specs/ \" >links</a><br>
+      3. Disbursement feature relate <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
 
-    <b>TODOs</b>: <br>
-    1. Error codes standardisation for each payment status <br>
+    <br><b>TODOs</b>: <br>
+    1. Define reversal APIs <br>
+    2. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
     "
   version: 0.1.0
   contact:
@@ -39,15 +23,15 @@ servers:
     description: Sandbox Server
  
 tags:
-- name: 1. Account mapper Linking/Unlinking
-- name: 2. Account mapper lookups
+- name: 1. Financial Address Mapper Linking/Unlinking
+- name: 2. Financial Address Mapper lookups
 
 paths:
  /g2p/mapper/link:
   post: 
     tags: 
-      - 1. Account mapper Linking/Unlinking
-    summary: "Social protection or Payment Processing/Rails or Banking systems initiated linking"
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "MAPPER-001 : Linking id / fa to mapper registry"
     description: ""
     operationId: post_g2p_mapper_link
     parameters:
@@ -76,8 +60,8 @@ paths:
  /g2p/mapper/update:
   put: 
     tags: 
-      - 1. Account mapper Linking/Unlinking
-    summary: "Social protection or Payment Processing/Rails or Banking systems initiated linking info update. Allows update to Account Info or Scheme details"
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "Updating fa or scheme details to mapper registry"
     description: ""
     operationId: put_g2p_mapper_update
     parameters:
@@ -106,7 +90,7 @@ paths:
  /g2p/mapper/unlink/payment_address/{payment_address}:
   delete: 
     tags: 
-      - 1. Account mapper Linking/Unlinking
+      - 1. Financial Address Mapper Linking/Unlinking
     summary: "Social protection or Payment Processing/Rails or Banking systems initiated unlinking"
     description: ""
     operationId: delete_g2p_mapper_unlink
@@ -130,7 +114,7 @@ paths:
  /g2p/mapper/resolve/beneficairy_id/{beneficiary_id}:
   get: 
     tags: 
-      - 2. Account mapper lookups
+      - 2. Financial Address Mapper lookups
     summary: "Resolve payment address to store of value account provider details."
     description: ""
     operationId: get_g2p_mapper_resolve_beneficiaryid
@@ -154,7 +138,7 @@ paths:
  /g2p/mapper/resolve/payment_address/{payment_address}:
   get: 
     tags: 
-      - 2. Account mapper lookups
+      - 2. Financial Address Mapper lookups
     summary: "Resolve payment address to store of value account details."
     description: ""
     operationId: get_g2p_mapper_resolve_pymtaddr
@@ -178,7 +162,7 @@ paths:
  /g2p/mapper/status/by/payment_address/{payment_address}:
   get: 
     tags: 
-      - 2. Account mapper lookups
+      - 2. Financial Address Mapper lookups
     summary: "Get payment disbursement status."
     description: "Beneficiary id to account map link status lookup using beneficiary payment address"
     operationId: get_g2p_mapper_status_by_pymtaddr
@@ -202,7 +186,7 @@ paths:
  /g2p/mapper/status/by/transaction_id/{transaction_id}:
   get: 
     tags: 
-      - 2. Account mapper lookups
+      - 2. Financial Address Mapper lookups
     summary: "Get payment disbursement status."
     description: "Beneficiary id to account map link status lookup using link/unlink request transaction_id"
     operationId: get_g2p_mapper_status_by_txnid
@@ -225,12 +209,20 @@ paths:
     deprecated: false
 components:
   schemas:
-    $ref: "../components/schemas/index.yaml"
-  responses:
-    $ref: "../components/responses/index.yaml"
-  headers:
-    $ref: "../components/headers/index.yaml"
+    $ref: "./schemas/index.yaml"
   parameters:
-    $ref: "../components/parameters/index.yaml"
+    accept-language:
+      $ref: "../../../component/parameter/accept-language.yaml"
+    timestamp:
+      $ref: "../../../component/parameter/timestamp.yaml"
+    message_id:
+      $ref: "../../../component/parameter/message_id.yaml"
+    summary_only:
+      $ref: "../../../component/parameter/summary_only.yaml"
+    request_id:
+      $ref: "./io/request_id.yaml"
+  responses:
+    HttpErrorResponse:
+      $ref: "../../../component/response/HttpErrorResponse.yaml"        
   securitySchemes:
-    $ref: "../components/security/index.yaml"
+    $ref: "../../../component/security/index.yaml"

@@ -1,0 +1,8 @@
+in: path
+name: transaction_id
+description: "Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc."
+required: true
+schema:
+  type: string
+  maxLength: 99
+  example: "012345678901234567890"

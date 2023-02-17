@@ -6,6 +6,7 @@ properties:
   request_id:
     description: "Unique request id set by sending system sytem while initiating the disbursement instruction"
     type: string
+    example: "1234567890"
   scheduled_timestamp: 
     description: "Disbursement initiation schedule timestamp in RFC3339 format."
     type: string
@@ -40,7 +41,7 @@ properties:
 required:
 - locale
 - request_id
-- scheduled_timestampte
+- scheduled_timestampt
 - payer_fa
 - payee_fa
 - amount

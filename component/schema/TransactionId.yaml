@@ -1,8 +1,4 @@
-description: ""
-type: object
-properties:
-  transaction_id:
-    type: string
-    minLength: 0
-    maxLength: 40
-    example: "123456789020211216223812"
+description: "Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,"
+type: string
+maxLength: 99
+example: "012345678901234567890"

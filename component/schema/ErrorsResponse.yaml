@@ -1,7 +1,0 @@
-type: object
-description: ""
-properties:
-  errors:
-    type: array
-    items:
-      $ref: "./ErrorResponse.yaml"

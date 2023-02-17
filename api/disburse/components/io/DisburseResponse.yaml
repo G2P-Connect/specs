@@ -13,8 +13,16 @@ properties:
     example: '2022-12-04T17:20:07-04:00'
   payer_fa:
     $ref: "../../../../component/schema/FinancialAddress.yaml"
+  payer_name:
+    description: "Payer account name for easy reference. Usually each scheme may have a seperate holding account."
+    type: string
+    example: "Farmer draught relief scheme 2023"  
   payee_fa:
     $ref: "../../../../component/schema/FinancialAddress.yaml"
+  payee_name:
+    description: "Payer name for easy reference. Usually beneficiary name as per scheme registration info"
+    type: string
+    example: "Joe John"
   amount:
     $ref: "../../../../component/schema/Amount.yaml"
   currency_code:
@@ -27,10 +35,11 @@ properties:
   reason_message:
     description: "Disbursement status reason message as shared by processing entity for the users"
     type: string
+    maxLength: 99
   instruction:
     description: "Additional instruction for interfacing systems to integrate, reconcile, etc.,"
     type: string
-    maxLength: 1024
+    maxLength: 999
 required:
   - request_id
   - timestamp

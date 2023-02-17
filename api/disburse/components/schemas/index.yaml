@@ -1,5 +1,3 @@
-Disburse:
-  $ref: "../io/Disburse.yaml"
 DisburseFileInfo:
   $ref: "../io/DisburseFileInfo.yaml"
 DisburseRequest:
@@ -8,10 +6,12 @@ DisburseResponse:
   $ref: "../io/DisburseResponse.yaml"
 DisburseStatus:
   $ref: "../io/DisburseStatus.yaml"
-OnDisburse:
-  $ref: "../io/OnDisburse.yaml"
 Response:
   $ref: "../io/Response.yaml"
+StatusFileInfo:
+  $ref: "../io/StatusFileInfo.yaml"
+StatusRequest:
+  $ref: "../io/StatusRequest.yaml"
 Ack:
   $ref: "../../../../component/schema/Ack.yaml"
 Amount:
@@ -26,7 +26,11 @@ LanguageCode:
   $ref: "../../../../component/schema/LanguageCode.yaml"
 MsgReqHeader:
   $ref: "../../../../component/schema/MsgReqHeader.yaml"
+MsgRespHeader:
+  $ref: "../../../../component/schema/MsgRespHeader.yaml"
 MsgCallbackReqHeader:
   $ref: "../../../../component/schema/MsgCallbackReqHeader.yaml"
 SchemeCode:
   $ref: "../../../../component/schema/SchemeCode.yaml"
+TransactionId:
+  $ref: "../../../../component/schema/TransactionId.yaml"

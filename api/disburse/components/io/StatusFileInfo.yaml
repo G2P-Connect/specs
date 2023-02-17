@@ -1,0 +1,13 @@
+type: object
+description: 'Disburse Status request file info. Used in file upload using HTTPS'
+properties:
+  fileName:
+    description: "Disburse Status request file representing Status or OnStatus entity as a file"
+    type: string
+    format: binary
+  fileFormat:
+    description: "File content format. e.g json, csv, etc.,"
+    type: string
+required:
+  - fileName
+  - fileFormat

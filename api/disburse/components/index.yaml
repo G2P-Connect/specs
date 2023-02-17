@@ -8,8 +8,7 @@ info:
       3. Disbursement feature relate <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
 
     <br><b>TODOs</b>: <br>
-    1. Define reversal APIs <br>
-    2. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
+    1. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
     "
   version: 0.1.0
   contact:
@@ -37,13 +36,31 @@ paths:
       content:
         application/json:
           schema:
-            $ref: './io/Disburse.yaml'
+              type: object
+              properties:
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        purpose:
+                          enum:
+                            - disburse
+                message:
+                  type: object
+                  properties:
+                    disburse:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseRequest"
+              required:
+                - header
+                - message
         multipart/form-data:
           schema:
-            $ref: './io/DisburseFileInfo.yaml'
+            $ref: "#/components/schemas/DisburseFileInfo"
     responses:
         default:
-          $ref: "./io/Response.yaml"
+          $ref: "#/components/schemas/Response"
         '401':
           $ref: "#/components/responses/HttpErrorResponse"
         '403':
@@ -60,7 +77,7 @@ paths:
   post: 
     tags: 
       - 1. Disbursement
-    summary: "DSBT-002 : Disbursement initating systems receive disbursement status info through callback end points. Supports api, events and file based messaging"
+    summary: "DSBT-002 : Disbursement initiating systems receive disbursement status info through callback end points. Supports api, events and file based messaging"
     description: "The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals "
     operationId: post_g2p_on-disburse
     requestBody:
@@ -69,10 +86,28 @@ paths:
       content:
         application/json:
           schema:
-            $ref: './io/OnDisburse.yaml'
+              type: object
+              properties:
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        purpose:
+                          enum:
+                            - on-disburse
+                message:
+                  type: object
+                  properties:
+                    disburse_status:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+                - message
         multipart/form-data:
           schema:
-            $ref: './io/DisburseFileInfo.yaml'
+            $ref: '#/components/schemas/DisburseFileInfo'
     responses:
       default:
           $ref: "./io/Response.yaml"
@@ -88,28 +123,94 @@ paths:
       - x-access-token: [ ]
       - Signature: [ ]
     deprecated: false
- /g2p/disburse/status/{message_id}/{summary_only}:
-   get: 
+ /g2p/disburse/status:
+  post: 
     tags: 
       - 1. Disbursement
-    summary: "DSBT-003 : Get disbursement processing status by polling"
-    description: " <br>
-        1. This end point is avaiable to poll disbursement processing status info. <br>
-        2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br>
-        3. Disbursement processing systems may chose to implement rate limiting at message_id level to avoid request flooding."
-    operationId: get_g2p_disburse_status
-    parameters:
-      - $ref: "#/components/parameters/accept-language"
-      - $ref: "#/components/parameters/timestamp"
-      - $ref: "#/components/parameters/message_id"
-      - $ref: "#/components/parameters/summary_only"
+    summary: "DSBT-003 : Request for disbursement status from (e.g) social protection, Treasury systems"
+    description: ""
+    operationId: post_g2p_disburse_status
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        purpose:
+                          enum:
+                            - status
+                message:
+                  type: object
+                  properties:
+                    request_ids:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/StatusRequest"
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            $ref: "#/components/schemas/StatusFileInfo"
+    responses:
+        default:
+          $ref: "#/components/schemas/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '404':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      - Signature: [ ]
+    deprecated: false
+ /g2p/disburse/on-status:
+  post: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-004 : Disbursement initating systems receive disbursement status info through callback end points. Supports api, events and file based messaging"
+    description: "The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals "
+    operationId: post_g2p_disburse_on-status
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        purpose:
+                          enum:
+                            - on-status
+                message:
+                  type: object
+                  properties:
+                    disburse:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            $ref: '#/components/schemas/StatusFileInfo'
     responses:
       default:
-        description: "Acknowledgement of message received after successful validation of message and signature"
-        content:
-          application/json:
-            schema:
-              $ref: './io/OnDisburse.yaml'
+          $ref: "./io/Response.yaml"
       '401':
           $ref: "#/components/responses/HttpErrorResponse"
       '403':
@@ -122,7 +223,108 @@ paths:
       - x-access-token: [ ]
       - Signature: [ ]
     deprecated: false
- 
+ /g2p/disburse/status/{transaction_id}/{summary_only}:
+   get: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-005: Get disbursement processing status by polling"
+    description: " <br>
+        1. This end point is avaiable to poll disbursement processing status info. <br>
+        2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br>
+        3. Disbursement processing systems may chose to implement rate limiting at message_id level to avoid request flooding."
+    operationId: get_g2p_disburse_status_by_msg_id
+    parameters:
+      - $ref: "#/components/parameters/accept-language"
+      - $ref: "#/components/parameters/timestamp"
+      - $ref: "#/components/parameters/transaction_id"
+      - $ref: "#/components/parameters/summary_only"
+    responses:
+      default:
+        description: "Acknowledgement of message received after successful validation of message and signature"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        purpose:
+                          enum:
+                            - status
+                message:
+                  type: object
+                  properties:
+                    disburse:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+                - message
+      '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '404':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      - Signature: [ ]
+    deprecated: false
+ /g2p/disburse/status/{request_id}:
+   get: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-005 : Get disbursement processing status by polling using request_id"
+    description: " <br>
+        1. This end point is avaiable to poll disbursement processing status info. <br>
+        2. Disbursement processing systems may chose to implement rate limiting at request_id level to avoid request flooding."
+    operationId: get_g2p_disburse_status_by_req_id
+    parameters:
+      - $ref: "#/components/parameters/accept-language"
+      - $ref: "#/components/parameters/timestamp"
+      - $ref: "#/components/parameters/request_id"
+    responses:
+      default:
+        description: "Acknowledgement of message received after successful validation of message and signature"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        purpose:
+                          enum:
+                            - status
+                message:
+                  type: object
+                  properties:
+                    disburse:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+                - message
+      '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '404':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      - Signature: [ ]
+    deprecated: false
 components:
   schemas:
     $ref: "./schemas/index.yaml"
@@ -131,10 +333,12 @@ components:
       $ref: "../../../component/parameter/accept-language.yaml"
     timestamp:
       $ref: "../../../component/parameter/timestamp.yaml"
-    message_id:
-      $ref: "../../../component/parameter/message_id.yaml"
+    transaction_id:
+      $ref: "../../../component/parameter/transaction_id.yaml"
     summary_only:
       $ref: "../../../component/parameter/summary_only.yaml"
+    request_id:
+      $ref: "./io/request_id.yaml"
   responses:
     HttpErrorResponse:
       $ref: "../../../component/response/HttpErrorResponse.yaml"        

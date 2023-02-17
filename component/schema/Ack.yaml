@@ -1,6 +1,8 @@
 description: Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK
 type: object
 properties:
+  transaction_id: 
+    $ref: "./TransactionId.yaml"
   status:
     type: string
     description: "The status of the acknowledgement.<br>
