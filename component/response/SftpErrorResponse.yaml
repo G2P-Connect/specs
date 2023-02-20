@@ -1,9 +1,9 @@
-description: "HTTP layer error details"
+description: "SFTP transport layer error codes"
 content:
   application/json:
     schema:
       type: object
-      description: "HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx"
+      description: "SFTP transport layer error codes. These codes may vary based on various flavors of SFTP implementation"
       properties:
         error:
           type: object

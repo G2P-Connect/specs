@@ -63,13 +63,9 @@ paths:
     responses:
         default:
           $ref: "#/components/schemas/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '404':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
+        'XXX':
+          $ref: "#/components/responses/SftpErrorResponse"
+        'xxx':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
@@ -114,14 +110,10 @@ paths:
             $ref: '#/components/schemas/DisburseFileInfo'
     responses:
       default:
-          $ref: "./io/Response.yaml"
-      '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '404':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
+        $ref: "./io/Response.yaml"
+      'x-*':
+        $ref: "#/components/responses/SftpErrorResponse"
+      'xxx':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
@@ -165,16 +157,12 @@ paths:
           schema:
             $ref: "#/components/schemas/StatusFileInfo"
     responses:
-        default:
-          $ref: "#/components/schemas/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '404':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+      default:
+        $ref: "#/components/schemas/Response"
+      'x-*':
+        $ref: "#/components/responses/SftpErrorResponse"
+      'xxx':
+        $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
       - Signature: [ ]
@@ -218,14 +206,10 @@ paths:
             $ref: '#/components/schemas/StatusFileInfo'
     responses:
       default:
-          $ref: "./io/Response.yaml"
-      '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '404':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
+        $ref: "./io/Response.yaml"
+      'x-*':
+        $ref: "#/components/responses/SftpErrorResponse"
+      'xxx':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
@@ -239,7 +223,7 @@ paths:
     description: " <br>
         1. This end point is avaiable to poll disbursement processing status info. <br>
         2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br>
-        3. Disbursement processing systems may chose to implement rate limiting at message_id level to avoid request flooding."
+        3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding."
     operationId: get_g2p_disburse_status_by_msg_id
     parameters:
       - $ref: "#/components/parameters/accept-language"
@@ -271,13 +255,9 @@ paths:
               required:
                 - header
                 - message
-      '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '404':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
+      'x-*':
+        $ref: "#/components/responses/SftpErrorResponse"
+      'xxx':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
@@ -287,10 +267,10 @@ paths:
    get: 
     tags: 
       - 1. Disbursement
-    summary: "DSBT-005 : Get disbursement processing status by polling using request_id"
+    summary: "DSBT-005 : Get disbursement processing status by polling using reference_id"
     description: " <br>
         1. This end point is avaiable to poll disbursement processing status info. <br>
-        2. Disbursement processing systems may chose to implement rate limiting at request_id level to avoid request flooding."
+        2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding."
     operationId: get_g2p_disburse_status_by_req_id
     parameters:
       - $ref: "#/components/parameters/accept-language"
@@ -311,13 +291,9 @@ paths:
                       $ref: "#/components/schemas/DisburseResponse"
               required:
                 - message
-      '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '404':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
+      'x-*':
+        $ref: "#/components/responses/SftpErrorResponse"
+      'xxx':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
@@ -339,6 +315,8 @@ components:
       $ref: "./io/reference_id.yaml"
   responses:
     HttpErrorResponse:
-      $ref: "../../../component/response/HttpErrorResponse.yaml"        
+      $ref: "../../../component/response/HttpErrorResponse.yaml"    
+    SftpErrorResponse:
+      $ref: "../../../component/response/SftpErrorResponse.yaml"    
   securitySchemes:
     $ref: "../../../component/security/index.yaml"

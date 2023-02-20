@@ -55,16 +55,12 @@ paths:
             schema:
               $ref: '#/components/schemas/DisburseFileInfo'
       responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '404':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
         default:
           $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
+        XXX:
+          $ref: '#/components/responses/SftpErrorResponse'
+        xxx:
+          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
         - Signature: []
@@ -107,14 +103,6 @@ paths:
             schema:
               $ref: '#/components/schemas/DisburseFileInfo'
       responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '404':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
         default:
           description: Acknowledgement of message received after successful validation of message and signature
           content:
@@ -133,6 +121,10 @@ paths:
                     $ref: '#/components/schemas/Error'
                 required:
                   - message
+        x-*:
+          $ref: '#/components/responses/SftpErrorResponse'
+        xxx:
+          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
         - Signature: []
@@ -175,16 +167,12 @@ paths:
             schema:
               $ref: '#/components/schemas/StatusFileInfo'
       responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '404':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
         default:
           $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
+        x-*:
+          $ref: '#/components/responses/SftpErrorResponse'
+        xxx:
+          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
         - Signature: []
@@ -227,16 +215,12 @@ paths:
             schema:
               $ref: '#/components/schemas/StatusFileInfo'
       responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '404':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
         default:
           $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
+        x-*:
+          $ref: '#/components/responses/SftpErrorResponse'
+        xxx:
+          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
         - Signature: []
@@ -246,7 +230,7 @@ paths:
       tags:
         - 1. Disbursement
       summary: 'DSBT-005: Get disbursement processing status by polling'
-      description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at message_id level to avoid request flooding.'
+      description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding.'
       operationId: get_g2p_disburse_status_by_msg_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
@@ -254,14 +238,6 @@ paths:
         - $ref: '#/components/parameters/transaction_id'
         - $ref: '#/components/parameters/summary_only'
       responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '404':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
         default:
           description: Acknowledgement of message received after successful validation of message and signature
           content:
@@ -286,6 +262,10 @@ paths:
                 required:
                   - header
                   - message
+        x-*:
+          $ref: '#/components/responses/SftpErrorResponse'
+        xxx:
+          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
         - Signature: []
@@ -294,22 +274,14 @@ paths:
     get:
       tags:
         - 1. Disbursement
-      summary: 'DSBT-005 : Get disbursement processing status by polling using request_id'
-      description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at request_id level to avoid request flooding.'
+      summary: 'DSBT-005 : Get disbursement processing status by polling using reference_id'
+      description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding.'
       operationId: get_g2p_disburse_status_by_req_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
         - $ref: '#/components/parameters/timestamp'
         - $ref: '#/components/parameters/reference_id'
       responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '404':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
         default:
           description: Acknowledgement of message received after successful validation of message and signature
           content:
@@ -324,6 +296,10 @@ paths:
                         $ref: '#/components/schemas/DisburseResponse'
                 required:
                   - message
+        x-*:
+          $ref: '#/components/responses/SftpErrorResponse'
+        xxx:
+          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
         - Signature: []
@@ -415,6 +391,8 @@ components:
           description: 'Additional instruction shared by payment processing entity for interfacing systems to integrate, reconcile, etc.,'
           type: string
           maxLength: 999
+        amount:
+          $ref: '#/components/schemas/Amount'
         payer_fa:
           $ref: '#/components/schemas/FinancialAddress'
         payer_name:
@@ -427,8 +405,6 @@ components:
           description: Payer name for easy reference. Usually beneficiary name as per scheme registration info
           type: string
           example: Joe John
-        amount:
-          $ref: '#/components/schemas/Amount'
         currency_code:
           $ref: '#/components/schemas/CurrencyCode'
         locale:
@@ -700,7 +676,24 @@ components:
         application/json:
           schema:
             type: object
-            description: 'HTTP layer error codes. Used by components like gateways, LB responding with HTTP status codes.'
+            description: 'HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx'
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    description: error code
+                  message:
+                    type: string
+                    description: error message
+    SftpErrorResponse:
+      description: SFTP transport layer error codes
+      content:
+        application/json:
+          schema:
+            type: object
+            description: SFTP transport layer error codes. These codes may vary based on various flavors of SFTP implementation
             properties:
               error:
                 type: object

@@ -133,7 +133,7 @@ components:
         application/json:
           schema:
             type: object
-            description: 'HTTP layer error codes. Used by components like gateways, LB responding with HTTP status codes.'
+            description: 'HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx'
             properties:
               error:
                 type: object

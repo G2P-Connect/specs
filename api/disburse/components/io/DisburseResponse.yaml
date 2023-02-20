@@ -22,6 +22,8 @@ properties:
     description: "Additional instruction shared by payment processing entity for interfacing systems to integrate, reconcile, etc.,"
     type: string
     maxLength: 999
+  amount:
+    $ref: "../../../../component/schema/Amount.yaml"
   payer_fa:
     $ref: "../../../../component/schema/FinancialAddress.yaml"
   payer_name:
@@ -34,8 +36,6 @@ properties:
     description: "Payer name for easy reference. Usually beneficiary name as per scheme registration info"
     type: string
     example: "Joe John"
-  amount:
-    $ref: "../../../../component/schema/Amount.yaml"
   currency_code:
     $ref: "../../../../component/schema/CurrencyCode.yaml"
   locale:
