@@ -122,7 +122,7 @@ components:
     message_id_hdr:
       in: header
       name: message_id
-      description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
+      description: Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver.
       schema:
         type: string
         example: '123456789020211216223812'

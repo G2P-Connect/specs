@@ -42,12 +42,14 @@ paths:
                   allOf:
                     - $ref: "#/components/schemas/MsgReqHeader"
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - disburse
                 message:
                   type: object
                   properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
                     disburse:
                       type: array
                       items:
@@ -92,12 +94,14 @@ paths:
                   allOf:
                     - $ref: "#/components/schemas/MsgCallbackReqHeader"
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - on-disburse
                 message:
                   type: object
                   properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
                     disburse_status:
                       type: array
                       items:
@@ -142,12 +146,14 @@ paths:
                   allOf:
                     - $ref: "#/components/schemas/MsgReqHeader"
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - status
                 message:
                   type: object
                   properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
                     request_ids:
                       type: array
                       items:
@@ -192,13 +198,15 @@ paths:
                   allOf:
                     - $ref: "#/components/schemas/MsgCallbackReqHeader"
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - on-status
                 message:
                   type: object
                   properties:
-                    disburse:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    disburse_status:
                       type: array
                       items:
                         $ref: "#/components/schemas/DisburseResponse"
@@ -250,13 +258,13 @@ paths:
                   allOf:
                     - $ref: "#/components/schemas/MsgCallbackReqHeader"
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - status
                 message:
                   type: object
                   properties:
-                    disburse:
+                    disburse_status:
                       type: array
                       items:
                         $ref: "#/components/schemas/DisburseResponse"
@@ -275,7 +283,7 @@ paths:
       - x-access-token: [ ]
       - Signature: [ ]
     deprecated: false
- /g2p/disburse/status/{request_id}:
+ /g2p/disburse/status/{reference_id}:
    get: 
     tags: 
       - 1. Disbursement
@@ -287,7 +295,7 @@ paths:
     parameters:
       - $ref: "#/components/parameters/accept-language"
       - $ref: "#/components/parameters/timestamp"
-      - $ref: "#/components/parameters/request_id"
+      - $ref: "#/components/parameters/reference_id"
     responses:
       default:
         description: "Acknowledgement of message received after successful validation of message and signature"
@@ -296,22 +304,12 @@ paths:
             schema:
               type: object
               properties:
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
-                    - properties:
-                        purpose:
-                          enum:
-                            - status
                 message:
                   type: object
                   properties:
-                    disburse:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/DisburseResponse"
+                    disburse_status:
+                      $ref: "#/components/schemas/DisburseResponse"
               required:
-                - header
                 - message
       '401':
           $ref: "#/components/responses/HttpErrorResponse"
@@ -337,8 +335,8 @@ components:
       $ref: "../../../component/parameter/transaction_id.yaml"
     summary_only:
       $ref: "../../../component/parameter/summary_only.yaml"
-    request_id:
-      $ref: "./io/request_id.yaml"
+    reference_id:
+      $ref: "./io/reference_id.yaml"
   responses:
     HttpErrorResponse:
       $ref: "../../../component/response/HttpErrorResponse.yaml"        

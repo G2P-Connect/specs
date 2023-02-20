@@ -3,7 +3,5 @@ description: "Disburse status definitions: <br>
         1. RCVD: Received; payment received <br>
         2. PDNG: Pending; payment initiated <br>
         3. RJCT: Rejected; payment initiated and has been rejected  <br>
-        4. ACSP: AcceptedSettlementInProcess; All preceding checks such as technical validation and customer profile are successful. Paymnet has been accepted for execution <br>
-        5. ACSC: AcceptedSettlementCompleted; Settlement on the Debtor's account has been completed <br>
-        6. ACCC: AcceptedCreditSettlementCompleted; Settlement on the Creditor's account has been completed"
-enum: ["RCVD", "PDNG", "RJCT", "ACSP", "ACSC", "ACCC"]
+        4. SUCC: Success; payment is successful"
+enum: ["RCVD", "PDNG", "RJCT", "SUCC"]

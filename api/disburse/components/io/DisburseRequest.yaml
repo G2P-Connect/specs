@@ -1,10 +1,8 @@
 type: object
 description: "Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity."
 properties:
-  locale:
-    $ref: "../../../../component/schema/LanguageCode.yaml"
-  request_id:
-    description: "Unique request id set by sending system sytem while initiating the disbursement instruction"
+  reference_id:
+    description: "Unique reference id set by sending system sytem while initiating the disbursement instruction"
     type: string
     example: "1234567890"
   scheduled_timestamp: 
@@ -26,22 +24,22 @@ properties:
     example: "Joe John"
   amount:
     $ref: "../../../../component/schema/Amount.yaml"
+  purpose:
+    $ref: "../../../../component/schema/Purpose.yaml"
   currency_code:
     $ref: "../../../../component/schema/CurrencyCode.yaml"
   note:
     description: "Note to payer/payee to reflect on statements"
     type: string
     maxLength: 99
-  scheme_code:
-    $ref: "../../../../component/schema/SchemeCode.yaml"
   instruction:
     description: "Additional instruction for interfacing DPGs platforms to integrate, reconcile"
     type: string
     maxLength: 999
+  locale:
+    $ref: "../../../../component/schema/LanguageCode.yaml"
 required:
-- locale
-- request_id
-- scheduled_timestampt
+- reference_id
 - payer_fa
 - payee_fa
 - amount

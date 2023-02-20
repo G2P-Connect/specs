@@ -1,16 +1,27 @@
 type: object
 description: "G2P Disbursement response i.e status of each disburemsent request for reconciliation by sender system"
 properties:
-  locale:
-    $ref: "../../../../component/schema/LanguageCode.yaml"
-  request_id:
-    description: 'Unique request id set by sending system sytem while initiating the disbursement instruction'
+  reference_id:
+    description: 'Unique reference id set by sending system sytem while initiating the disbursement instruction'
     type: string
   timestamp: 
     description: "Disbursement response status datetime in RFC3339 format"
     type: string
     format: date-time
     example: '2022-12-04T17:20:07-04:00'
+  status:
+     $ref: "./DisburseStatus.yaml"
+  reason_code:
+    description: "Disbursement status reason code as shared by payment processing entity"
+    type: string
+  reason_message:
+    description: "Disbursement status reason message as shared by processing entity"
+    type: string
+    maxLength: 99
+  instruction:
+    description: "Additional instruction shared by payment processing entity for interfacing systems to integrate, reconcile, etc.,"
+    type: string
+    maxLength: 999
   payer_fa:
     $ref: "../../../../component/schema/FinancialAddress.yaml"
   payer_name:
@@ -27,23 +38,9 @@ properties:
     $ref: "../../../../component/schema/Amount.yaml"
   currency_code:
     $ref: "../../../../component/schema/CurrencyCode.yaml"
-  status:
-     $ref: "./DisburseStatus.yaml"
-  reason_code:
-    description: "Disbursement status reason code as shared by processing entity"
-    type: string
-  reason_message:
-    description: "Disbursement status reason message as shared by processing entity for the users"
-    type: string
-    maxLength: 99
-  instruction:
-    description: "Additional instruction for interfacing systems to integrate, reconcile, etc.,"
-    type: string
-    maxLength: 999
+  locale:
+    $ref: "../../../../component/schema/LanguageCode.yaml"
 required:
-  - request_id
+  - reference_id
   - timestamp
-  - payer_fa
-  - payee_fa
-  - amount
   - status

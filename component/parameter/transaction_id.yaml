@@ -1,6 +1,6 @@
 in: path
 name: transaction_id
-description: "Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc."
+description: "Unique transaction id set by sender as part of the initiating request to co-relate requests across interface end point, sessions, etc., For e.g transaction_id be used to find status using GET call or correlate the transaction as part of the callback call."
 required: true
 schema:
   type: string

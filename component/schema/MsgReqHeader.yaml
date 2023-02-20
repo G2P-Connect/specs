@@ -5,24 +5,18 @@ properties:
     description: "g2p connect specification version being used"
     type: string
     example: "0.1.0"
-  purpose:
-    description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
-    type: string
   message_id: 
-    description: "Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations"
+    description: "Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver."
     type: string
     example: "123456789020211216223812"
-  transaction_id: 
-    $ref: "./TransactionId.yaml"
-  #transaction_id: 
-   # description: "Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,"
-    #type: string
-    #example: "0123456789012345"
   timestamp:
     description: 'Time of request generation in RFC3339 format'
     type: string
     format: date-time
     example: '2022-12-04T18:01:07+00:00'
+  action:
+    description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+    type: string
   sender_id:
     description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
     type: string

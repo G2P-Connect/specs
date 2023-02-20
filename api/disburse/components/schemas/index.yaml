@@ -30,7 +30,7 @@ MsgRespHeader:
   $ref: "../../../../component/schema/MsgRespHeader.yaml"
 MsgCallbackReqHeader:
   $ref: "../../../../component/schema/MsgCallbackReqHeader.yaml"
-SchemeCode:
-  $ref: "../../../../component/schema/SchemeCode.yaml"
+Purpose:
+  $ref: "../../../../component/schema/Purpose.yaml"
 TransactionId:
   $ref: "../../../../component/schema/TransactionId.yaml"

@@ -6,13 +6,9 @@ properties:
     type: string
     example: "0.1.0"
   message_id: 
-    description: "Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations"
+    description: "Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver."
     type: string
     example: "123456789020211216223812"
-  transaction_id: 
-    description: "Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,"
-    type: string
-    example: "0123456789012345"
   timestamp:
     description: 'Time of request generation in RFC3339 format'
     type: string

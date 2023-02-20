@@ -1,0 +1,4 @@
+description: "Payment disbursement purpose e.g Salary, Farmer Relief 2023, etc.,"
+type: string
+maxLength: 99
+example: "Farmer Relief 2023"

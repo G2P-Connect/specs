@@ -1,4 +1,4 @@
-description: "Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,"
+description: "Unique transaction id set by sender to co-relate requests across interface end point, sessions, etc.,"
 type: string
 maxLength: 99
 example: "012345678901234567890"

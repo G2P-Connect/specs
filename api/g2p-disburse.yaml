@@ -36,12 +36,14 @@ paths:
                   allOf:
                     - $ref: '#/components/schemas/MsgReqHeader'
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - disburse
                 message:
                   type: object
                   properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
                     disburse:
                       type: array
                       items:
@@ -86,12 +88,14 @@ paths:
                   allOf:
                     - $ref: '#/components/schemas/MsgCallbackReqHeader'
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - on-disburse
                 message:
                   type: object
                   properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
                     disburse_status:
                       type: array
                       items:
@@ -152,12 +156,14 @@ paths:
                   allOf:
                     - $ref: '#/components/schemas/MsgReqHeader'
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - status
                 message:
                   type: object
                   properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
                     request_ids:
                       type: array
                       items:
@@ -202,13 +208,15 @@ paths:
                   allOf:
                     - $ref: '#/components/schemas/MsgCallbackReqHeader'
                     - properties:
-                        purpose:
+                        action:
                           enum:
                             - on-status
                 message:
                   type: object
                   properties:
-                    disburse:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    disburse_status:
                       type: array
                       items:
                         $ref: '#/components/schemas/DisburseResponse'
@@ -265,13 +273,13 @@ paths:
                     allOf:
                       - $ref: '#/components/schemas/MsgCallbackReqHeader'
                       - properties:
-                          purpose:
+                          action:
                             enum:
                               - status
                   message:
                     type: object
                     properties:
-                      disburse:
+                      disburse_status:
                         type: array
                         items:
                           $ref: '#/components/schemas/DisburseResponse'
@@ -282,7 +290,7 @@ paths:
         - x-access-token: []
         - Signature: []
       deprecated: false
-  '/g2p/disburse/status/{request_id}':
+  '/g2p/disburse/status/{reference_id}':
     get:
       tags:
         - 1. Disbursement
@@ -292,7 +300,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/accept-language'
         - $ref: '#/components/parameters/timestamp'
-        - $ref: '#/components/parameters/request_id'
+        - $ref: '#/components/parameters/reference_id'
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -309,22 +317,12 @@ paths:
               schema:
                 type: object
                 properties:
-                  header:
-                    allOf:
-                      - $ref: '#/components/schemas/MsgCallbackReqHeader'
-                      - properties:
-                          purpose:
-                            enum:
-                              - status
                   message:
                     type: object
                     properties:
-                      disburse:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/DisburseResponse'
+                      disburse_status:
+                        $ref: '#/components/schemas/DisburseResponse'
                 required:
-                  - header
                   - message
       security:
         - x-access-token: []
@@ -337,7 +335,7 @@ components:
       description: Disbursement file info. Used in file upload using HTTPS
       properties:
         fileName:
-          description: Disbursement instruction file representing Disburse or OnDisburse entity as a file
+          description: Disbursement instruction file representing Disburse or OnDisburse header/message end point entities as a file record
           type: string
           format: binary
         fileFormat:
@@ -350,10 +348,8 @@ components:
       type: object
       description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
       properties:
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-        request_id:
-          description: Unique request id set by sending system sytem while initiating the disbursement instruction
+        reference_id:
+          description: Unique reference id set by sending system sytem while initiating the disbursement instruction
           type: string
           example: '1234567890'
         scheduled_timestamp:
@@ -375,22 +371,22 @@ components:
           example: Joe John
         amount:
           $ref: '#/components/schemas/Amount'
+        purpose:
+          $ref: '#/components/schemas/Purpose'
         currency_code:
           $ref: '#/components/schemas/CurrencyCode'
         note:
           description: Note to payer/payee to reflect on statements
           type: string
           maxLength: 99
-        scheme_code:
-          $ref: '#/components/schemas/SchemeCode'
         instruction:
           description: 'Additional instruction for interfacing DPGs platforms to integrate, reconcile'
           type: string
           maxLength: 999
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
       required:
-        - locale
-        - request_id
-        - scheduled_timestampt
+        - reference_id
         - payer_fa
         - payee_fa
         - amount
@@ -398,16 +394,27 @@ components:
       type: object
       description: G2P Disbursement response i.e status of each disburemsent request for reconciliation by sender system
       properties:
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-        request_id:
-          description: Unique request id set by sending system sytem while initiating the disbursement instruction
+        reference_id:
+          description: Unique reference id set by sending system sytem while initiating the disbursement instruction
           type: string
         timestamp:
           description: Disbursement response status datetime in RFC3339 format
           type: string
           format: date-time
           example: '2022-12-04T17:20:07-04:00'
+        status:
+          $ref: '#/components/schemas/DisburseStatus'
+        reason_code:
+          description: Disbursement status reason code as shared by payment processing entity
+          type: string
+        reason_message:
+          description: Disbursement status reason message as shared by processing entity
+          type: string
+          maxLength: 99
+        instruction:
+          description: 'Additional instruction shared by payment processing entity for interfacing systems to integrate, reconcile, etc.,'
+          type: string
+          maxLength: 999
         payer_fa:
           $ref: '#/components/schemas/FinancialAddress'
         payer_name:
@@ -424,36 +431,20 @@ components:
           $ref: '#/components/schemas/Amount'
         currency_code:
           $ref: '#/components/schemas/CurrencyCode'
-        status:
-          $ref: '#/components/schemas/DisburseStatus'
-        reason_code:
-          description: Disbursement status reason code as shared by processing entity
-          type: string
-        reason_message:
-          description: Disbursement status reason message as shared by processing entity for the users
-          type: string
-          maxLength: 99
-        instruction:
-          description: 'Additional instruction for interfacing systems to integrate, reconcile, etc.,'
-          type: string
-          maxLength: 999
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
       required:
-        - request_id
+        - reference_id
         - timestamp
-        - payer_fa
-        - payee_fa
-        - amount
         - status
     DisburseStatus:
       type: string
-      description: 'Disburse status definitions: <br> 1. RCVD: Received; payment received <br> 2. PDNG: Pending; payment initiated <br> 3. RJCT: Rejected; payment initiated and has been rejected  <br> 4. ACSP: AcceptedSettlementInProcess; All preceding checks such as technical validation and customer profile are successful. Paymnet has been accepted for execution <br> 5. ACSC: AcceptedSettlementCompleted; Settlement on the Debtor''s account has been completed <br> 6. ACCC: AcceptedCreditSettlementCompleted; Settlement on the Creditor''s account has been completed'
+      description: 'Disburse status definitions: <br> 1. RCVD: Received; payment received <br> 2. PDNG: Pending; payment initiated <br> 3. RJCT: Rejected; payment initiated and has been rejected  <br> 4. SUCC: Success; payment is successful'
       enum:
         - RCVD
         - PDNG
         - RJCT
-        - ACSP
-        - ACSC
-        - ACCC
+        - SUCC
     Response:
       $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
     StatusFileInfo:
@@ -461,7 +452,7 @@ components:
       description: Disburse Status request file info. Used in file upload using HTTPS
       properties:
         fileName:
-          description: Disburse Status request file representing Status or OnStatus entity as a file
+          description: Disburse Status request file representing Status or OnStatus end point entity as a file record
           type: string
           format: binary
         fileFormat:
@@ -474,18 +465,16 @@ components:
       type: object
       description: Request latest status on disbursement status.
       properties:
-        request_id:
-          description: Unique request id set by sending system sytem while initiating the disbursement instruction
+        reference_id:
+          description: Unique reference id set by sending system sytem while initiating the disbursement instruction
           type: string
           example: '1234567890'
       required:
-        - request_id
+        - reference_id
     Ack:
       description: 'Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK'
       type: object
       properties:
-        transaction_id:
-          $ref: '#/components/schemas/TransactionId'
         status:
           type: string
           description: 'The status of the acknowledgement.<br> 1. If the request passes the validation criteria of the receiver, then this is set to ACK. <br> 2. If a receiver responds with status = `ACK` to a request, it is required to respond with a callback. <br> 3. If the request fails the validation criteria, then this is set to NACK. <br> 4. Additionally, if a receiver does not intend to respond with a callback even after the request meets the validation criteria, it should set this value to `NACK`. '
@@ -532,20 +521,18 @@ components:
           description: g2p connect specification version being used
           type: string
           example: 0.1.0
-        purpose:
-          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
-          type: string
         message_id:
-          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations
+          description: Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver.
           type: string
           example: '123456789020211216223812'
-        transaction_id:
-          $ref: '#/components/schemas/TransactionId'
         timestamp:
           description: Time of request generation in RFC3339 format
           type: string
           format: date-time
           example: '2022-12-04T18:01:07+00:00'
+        action:
+          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
@@ -588,13 +575,9 @@ components:
           type: string
           example: 0.1.0
         message_id:
-          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the message_id for correlations
+          description: Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver.
           type: string
           example: '123456789020211216223812'
-        transaction_id:
-          description: 'Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,'
-          type: string
-          example: 0123456789012345
         timestamp:
           description: Time of request generation in RFC3339 format
           type: string
@@ -611,20 +594,18 @@ components:
           description: g2p connect specification version being used
           type: string
           example: 0.1.0
-        purpose:
-          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
-          type: string
         message_id:
           description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
           type: string
           example: '123456789020211216223812'
-        transaction_id:
-          $ref: '#/components/schemas/TransactionId'
         timestamp:
           description: Time of request generation in RFC3339 format
           type: string
           format: date-time
           example: '2022-12-04T18:02:35+00:00'
+        action:
+          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
@@ -660,14 +641,13 @@ components:
       required:
         - message_id
         - message_ts
-    SchemeCode:
-      description: G2P social protection system defined scheme short code for easy reference
+    Purpose:
+      description: 'Payment disbursement purpose e.g Salary, Farmer Relief 2023, etc.,'
       type: string
-      maxLength: 999
-      example:
-        - farmer_subsidy
+      maxLength: 99
+      example: Farmer Relief 2023
     TransactionId:
-      description: 'Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.,'
+      description: 'Unique transaction id set by sender to co-relate requests across interface end point, sessions, etc.,'
       type: string
       maxLength: 99
       example: 012345678901234567890
@@ -691,7 +671,7 @@ components:
     transaction_id:
       in: path
       name: transaction_id
-      description: 'Unique transaction id set by receivier system to co-relate requests across end points, sessions, etc.'
+      description: 'Unique transaction id set by sender as part of the initiating request to co-relate requests across interface end point, sessions, etc., For e.g transaction_id be used to find status using GET call or correlate the transaction as part of the callback call.'
       required: true
       schema:
         type: string
@@ -705,10 +685,10 @@ components:
       schema:
         type: boolean
         default: true
-    request_id:
+    reference_id:
       in: path
-      name: request_id
-      description: Unique request id set by sending system sytem while initiating the disbursement instruction
+      name: reference_id
+      description: Unique reference id set by sending system sytem while initiating the disbursement instruction
       required: true
       schema:
         type: string

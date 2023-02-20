@@ -2,7 +2,7 @@ type: object
 description: 'Disbursement file info. Used in file upload using HTTPS'
 properties:
   fileName:
-    description: "Disbursement instruction file representing Disburse or OnDisburse entity as a file"
+    description: "Disbursement instruction file representing Disburse or OnDisburse header/message end point entities as a file record"
     type: string
     format: binary
   fileFormat:

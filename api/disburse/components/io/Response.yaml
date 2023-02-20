@@ -7,8 +7,6 @@ content:
         message:
           type: object
           properties:
-            # header:
-            #  $ref: "../../../../component/schema/MsgRespHeader.yaml"
             ack:
               $ref: "../../../../component/schema/Ack.yaml"
           required:
