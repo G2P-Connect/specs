@@ -54,7 +54,12 @@ paths:
                 - header
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/DisburseFileInfo'
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - disburse
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -63,7 +68,7 @@ paths:
         '500':
           $ref: '#/components/responses/HttpErrorResponse'
         default:
-          $ref: '#/paths/~1on-disburse/post/responses/default'
+          $ref: '#/components/responses/Response'
       security:
         - x-access-token: []
       deprecated: false
@@ -104,7 +109,12 @@ paths:
                 - header
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/DisburseFileInfo'
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-disburse
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -113,23 +123,7 @@ paths:
         '500':
           $ref: '#/components/responses/HttpErrorResponse'
         default:
-          description: Acknowledgement of message received after successful validation of message and signature
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: object
-                    properties:
-                      ack:
-                        $ref: '#/components/schemas/Ack'
-                    required:
-                      - ack
-                  error:
-                    $ref: '#/components/schemas/Error'
-                required:
-                  - message
+          $ref: '#/components/responses/Response'
       security:
         - x-access-token: []
       deprecated: false
@@ -170,7 +164,12 @@ paths:
                 - header
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/StatusFileInfo'
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - status
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -179,7 +178,7 @@ paths:
         '500':
           $ref: '#/components/responses/HttpErrorResponse'
         default:
-          $ref: '#/paths/~1on-disburse/post/responses/default'
+          $ref: '#/components/responses/Response'
       security:
         - x-access-token: []
       deprecated: false
@@ -220,7 +219,12 @@ paths:
                 - header
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/StatusFileInfo'
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - status'
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -229,7 +233,7 @@ paths:
         '500':
           $ref: '#/components/responses/HttpErrorResponse'
         default:
-          $ref: '#/paths/~1on-disburse/post/responses/default'
+          $ref: '#/components/responses/Response'
       security:
         - x-access-token: []
       deprecated: false
@@ -326,28 +330,12 @@ paths:
       deprecated: false
 components:
   schemas:
-    DisburseFileInfo:
-      type: object
-      description: Disbursement file info. Used in file upload using HTTPS
-      properties:
-        fileName:
-          description: Disbursement instruction file representing Disburse or OnDisburse end point elements i.e signature/header/message entities as a file record
-          type: string
-          format: binary
-        fileFormat:
-          description: 'File content format. e.g json, csv, etc.,'
-          type: string
-      required:
-        - fileName
-        - fileFormat
     DisburseRequest:
       type: object
       description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
       properties:
         reference_id:
-          description: Unique reference id set by sending system sytem while initiating the disbursement instruction
-          type: string
-          example: '1234567890'
+          $ref: '#/components/schemas/ReferenceId'
         scheduled_timestamp:
           description: Disbursement initiation schedule timestamp in RFC3339 format. If not present the disbursement is for immediate purpose.
           type: string
@@ -391,8 +379,7 @@ components:
       description: G2P Disbursement response i.e status of each disburemsent request for reconciliation by sender system
       properties:
         reference_id:
-          description: Unique reference id set by sending system sytem while initiating the disbursement instruction
-          type: string
+          $ref: '#/components/schemas/ReferenceId'
         timestamp:
           description: Disbursement response status datetime in RFC3339 format
           type: string
@@ -442,32 +429,6 @@ components:
         - PDNG
         - RJCT
         - SUCC
-    ReferenceId:
-      type: object
-      description: Request latest status on disbursement by reference_id.
-      properties:
-        reference_id:
-          description: Unique reference id set by sending system sytem while initiating the disbursement request
-          type: string
-          example: '12345678901234567890'
-      required:
-        - reference_id
-    Response:
-      $ref: '#/paths/~1on-disburse/post/responses/default'
-    StatusFileInfo:
-      type: object
-      description: Disburse Status request file info. Used in file upload using HTTPS
-      properties:
-        fileName:
-          description: Disburse Status request file representing Status or OnStatus end point elements i.e signature/header/message entities as a file record
-          type: string
-          format: binary
-        fileFormat:
-          description: 'File content format. e.g json, csv, etc.,'
-          type: string
-      required:
-        - fileName
-        - fileFormat
     Ack:
       description: 'Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK'
       type: object
@@ -488,7 +449,7 @@ components:
       pattern: '^[A-Z]{3,3}$'
       example: SLL
     Error:
-      description: 'Describes an error object that is returned by sender, receiver through request or callback response. <br> 1. This object is sent when any request received by a participant is unacceptable. <br> 2. This object can be sent either during Ack or with the callback calls. '
+      description: Describes an error object that is returned to standard post call request in sync manner. <br> 1. This object shall be sent when any request received by a participant is unacceptable. <br> 2. This object shall be sent either during Ack or with the callback calls. <br> 3. This object may be used for non HTTPS transport mechanism to acknowledge the receipt of a message. <br>
       type: object
       properties:
         code:
@@ -500,9 +461,28 @@ components:
         message:
           type: string
           description: Human readable message describing the error. Used mainly for logging. Not recommended to be shown to the user.
+    FileInfo:
+      type: object
+      description: File info. Used in file upload feature using HTTPS
+      properties:
+        action:
+          description: G2P Connect specific actions. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
+        fileName:
+          description: Disbursement instruction file representing Disburse or OnDisburse end point elements i.e signature/header/message entities as a file record
+          type: string
+          format: binary
+        fileFormat:
+          description: 'File content format. e.g json, csv, etc.,'
+          type: string
+          default: json
+          example: csv
+      required:
+        - action
+        - fileName
     FinancialAddress:
       type: string
-      description: '<br> 1. Payment address is a normative represenation of a financial address represented as account@provider <br> 2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction<br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
+      description: '<br> 1. Financial address is a normative represenation of a store of value account represented as account@provider <br> 2. Every payer/payee financial address must be resolved to an actual store of value account number for processing the payment instruction <br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
       example: 12345@PhilID
     LanguageCode:
@@ -528,7 +508,7 @@ components:
           format: date-time
           example: '2022-12-04T18:02:35+00:00'
         action:
-          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
           type: string
         status:
           description: Message processing status code
@@ -594,7 +574,7 @@ components:
           format: date-time
           example: '2022-12-04T18:01:07+00:00'
         action:
-          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
           type: string
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
@@ -624,11 +604,21 @@ components:
     MsgSignature:
       type: string
       description: 'Signature of message body verified using sender''s signing public key. <br/><br/> 1. <code>Signature : keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)"</code>'
+      example: 'keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)'
     Purpose:
       description: 'Payment disbursement purpose e.g Salary, Farmer Relief 2023, etc.,'
       type: string
       maxLength: 99
       example: Farmer Relief 2023
+    ReferenceId:
+      type: string
+      description: Unique reference id set by business txn initiating system. Used for co-relating the callback requests and to get status info
+      example: '12345678901234567890'
+    Timestamp:
+      type: string
+      description: datetime in RFC3339 format
+      format: date-time
+      example: '2022-12-04T17:20:07-04:00'
     TransactionId:
       description: 'Unique transaction id set by sender to co-relate requests across interface end point, sessions, etc.,'
       type: string
@@ -671,7 +661,7 @@ components:
     reference_id:
       in: path
       name: reference_id
-      description: Unique reference id set by sending system sytem while initiating the disbursement instruction
+      description: Unique reference id set by business txn initiating system. Used for co-relating the callback requests and to get status info
       required: true
       schema:
         type: string
@@ -694,23 +684,20 @@ components:
                   message:
                     type: string
                     description: error message
-    SftpErrorResponse:
-      description: SFTP transport layer error codes
+    Response:
+      description: Acknowledgement of message received after successful validation of message and signature
       content:
         application/json:
           schema:
             type: object
-            description: SFTP transport layer error codes. These codes may vary based on various flavors of SFTP implementation
             properties:
-              error:
+              message:
                 type: object
                 properties:
-                  code:
-                    type: string
-                    description: error code
-                  message:
-                    type: string
-                    description: error message
+                  ack:
+                    $ref: '#/components/schemas/Ack'
+              error:
+                $ref: '#/components/schemas/Error'
   securitySchemes:
     x-access-token:
       type: http

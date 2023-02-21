@@ -1,7 +1,0 @@
-in: path
-name: reference_id
-description: "Unique reference id set by sending system sytem while initiating the disbursement instruction"
-required: true
-schema:
-  type: string
-  example: "12345678901234567890"

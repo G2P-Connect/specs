@@ -1,6 +1,9 @@
 type: object
-description: 'Disbursement file info. Used in file upload using HTTPS'
+description: 'File info. Used in file upload feature using HTTPS'
 properties:
+  action:
+    description: G2P Connect specific actions. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+    type: string
   fileName:
     description: "Disbursement instruction file representing Disburse or OnDisburse end point elements i.e signature/header/message entities as a file record"
     type: string
@@ -8,6 +11,8 @@ properties:
   fileFormat:
     description: "File content format. e.g json, csv, etc.,"
     type: string
+    default: "json"
+    example: "csv"
 required:
+  - action
   - fileName
-  - fileFormat

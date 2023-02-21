@@ -60,10 +60,15 @@ paths:
                 - header
         multipart/form-data:
           schema:
-            $ref: "#/components/schemas/DisburseFileInfo"
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - disburse
     responses:
         default:
-          $ref: "#/components/schemas/Response"
+          $ref: "#/components/responses/Response"
         '401':
           $ref: "#/components/responses/HttpErrorResponse"
         '403':
@@ -111,10 +116,15 @@ paths:
                 - header
         multipart/form-data:
           schema:
-            $ref: '#/components/schemas/DisburseFileInfo'
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-disburse
     responses:
       default:
-        $ref: "./io/Response.yaml"
+        $ref: "#/components/responses/Response"
       '401':
         $ref: "#/components/responses/HttpErrorResponse"
       '403':
@@ -162,10 +172,15 @@ paths:
                 - header
         multipart/form-data:
           schema:
-            $ref: "#/components/schemas/StatusFileInfo"
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - status
     responses:
       default:
-        $ref: "#/components/schemas/Response"
+        $ref: "#/components/responses/Response"
       '401':
         $ref: "#/components/responses/HttpErrorResponse"
       '403':
@@ -213,10 +228,15 @@ paths:
                 - header
         multipart/form-data:
           schema:
-            $ref: '#/components/schemas/StatusFileInfo'
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - status'
     responses:
       default:
-        $ref: "./io/Response.yaml"
+        $ref: "#/components/responses/Response"
       '401':
         $ref: "#/components/responses/HttpErrorResponse"
       '403':
@@ -338,11 +358,11 @@ components:
     summary_only:
       $ref: "../../../component/parameter/summary_only.yaml"
     reference_id:
-      $ref: "./io/reference_id.yaml"
+      $ref: "../../../component/parameter/reference_id.yaml"
   responses:
     HttpErrorResponse:
       $ref: "../../../component/response/HttpErrorResponse.yaml"    
-    SftpErrorResponse:
-      $ref: "../../../component/response/SftpErrorResponse.yaml"    
+    Response:
+      $ref: "../../../component/response/Response.yaml"    
   securitySchemes:
     $ref: "../../../component/security/index.yaml"

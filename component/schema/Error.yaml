@@ -1,6 +1,7 @@
-description: "Describes an error object that is returned by sender, receiver through request or callback response. <br>
-  1. This object is sent when any request received by a participant is unacceptable. <br>
-  2. This object can be sent either during Ack or with the callback calls. "
+description: "Describes an error object that is returned to standard post call request in sync manner. <br>
+  1. This object shall be sent when any request received by a participant is unacceptable. <br>
+  2. This object shall be sent either during Ack or with the callback calls. <br>
+  3. This object may be used for non HTTPS transport mechanism to acknowledge the receipt of a message. <br>"
 type: object
 properties:
   code:

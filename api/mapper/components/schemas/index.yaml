@@ -1,67 +1,50 @@
-#ID 2 Account mapper Definitions
-Beneficiary2AccountMap:
-  $ref: "./Beneficiary2AccountMap.yaml"
-Beneficiary2AccountMapStatus:
-  $ref: "./Beneficiary2AccountMapStatus.yaml"
-Beneficiary2AccountMapUpdate:
-  $ref: "./Beneficiary2AccountMapUpdate.yaml"
-
-#Payments Definitions
-Payment:
-  $ref: "./Payment.yaml"
-PaymentAddress:
-  $ref: "./PaymentAddress.yaml"
-PaymentBatch:
-  $ref: "./PaymentBatch.yaml"
-PaymentBatchHeader:
-  $ref: "./PaymentBatchHeader.yaml"
-PaymentBatchStatus:
-  $ref: "./PaymentBatchStatus.yaml"
-PaymentBatchStatusHeader:
-  $ref: "./PaymentBatchStatusHeader.yaml"
-PaymentFile:
-  $ref: "./PaymentFile.yaml"
-PaymentStatus:
-  $ref: "./PaymentStatus.yaml"
-PaymentStatusError:
-  $ref: "./PaymentStatusError.yaml"
-PaymentStatusFile:
-  $ref: "./PaymentStatusFile.yaml"
-
-
-#Common Definitions
-Amount:
-  $ref: "./common/Amount.yaml"
+LinkRequest:
+  $ref: "../io/LinkRequest.yaml"
+LinkResponse:
+  $ref: "../io/LinkResponse.yaml"
+ResolveRequest:
+  $ref: "../io/ResolveRequest.yaml"
+ResolveResponse:
+  $ref: "../io/ResolveResponse.yaml"
+StatusRequest:
+  $ref: "../io/StatusRequest.yaml"
+StatusResponse:
+  $ref: "../io/StatusResponse.yaml"
+UnlinkRequest:
+  $ref: "../io/UnlinkRequest.yaml"
+UnlinkResponse:
+  $ref: "../io/UnlinkResponse.yaml"
+UpdateRequest:
+  $ref: "../io/UpdateRequest.yaml"
+UpdateResponse:
+  $ref: "../io/UpdateResponse.yaml"
 AccountInfo:
-  $ref: "./common/AccountInfo.yaml"
+  $ref: "../../../../component/schema/AccountInfo.yaml" 
 AccountProviderInfo:
-  $ref: "./common/AccountProviderInfo.yaml"
+  $ref: "../../../../component/schema/AccountProviderInfo.yaml" 
+Ack:
+  $ref: "../../../../component/schema/Ack.yaml"
 Beneficiary:
-  $ref: "./common/Beneficiary.yaml"
-BeneficiaryContact:
-  $ref: "./common/BeneficiaryContact.yaml"
+  $ref: "../../../../component/schema/Beneficiary.yaml"
 BeneficiaryId:
-  $ref: "./common/BeneficiaryIdInfo.yaml"
-BeneficiaryName:
-  $ref: "./common/BeneficiaryName.yaml"
-CurrencyCode:
-  $ref: "./common/CurrencyCode.yaml"
-ErrorResponse:
-  $ref: "./common/ErrorResponse.yaml"
-ErrorsResponse:
-  $ref: "./common/ErrorsResponse.yaml"
+  $ref: "../../../../component/schema/BeneficiaryId.yaml"
+Error:
+  $ref: "../../../../component/schema/Error.yaml"
+FileInfo:
+  $ref: "../../../../component/schema/FileInfo.yaml"
+FinancialAddress:
+  $ref: "../../../../component/schema/FinancialAddress.yaml"
 LanguageCode:
-  $ref: "./common/LanguageCode.yaml"
-Schemes:
-  $ref: "./common/Schemes.yaml"
+  $ref: "../../../../component/schema/LanguageCode.yaml"
+MsgCallbackReqHeader:
+  $ref: "../../../../component/schema/MsgCallbackReqHeader.yaml"
+MsgReqHeader:
+  $ref: "../../../../component/schema/MsgReqHeader.yaml"
+MsgSignature:
+  $ref: "../../../../component/schema/MsgSignature.yaml"
+ReferenceId:
+  $ref: "../../../../component/schema/ReferenceId.yaml"
+Timestamp:
+  $ref: "../../../../component/schema/Timestamp.yaml"
 TransactionId:
-  $ref: "./common/TransactionId.yaml"
-
-
-#OAuth2 Definitions
-OAuth2ClientToken:
-  $ref: "./oauth2/OAuth2ClientToken.yaml"
-OAuth2ClientTokenRequest:
-  $ref: "./oauth2/OAuth2ClientTokenRequest.yaml"
-OidcScope:
-  $ref: "./oauth2/OidcScope.yaml"
+  $ref: "../../../../component/schema/TransactionId.yaml"

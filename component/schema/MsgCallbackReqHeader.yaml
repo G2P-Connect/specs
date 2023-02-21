@@ -15,7 +15,7 @@ properties:
     format: date-time
     example: '2022-12-04T18:02:35+00:00'
   action:
-    description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+    description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
     type: string
   status:
     description: "Message processing status code"

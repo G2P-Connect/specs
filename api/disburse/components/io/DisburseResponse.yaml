@@ -2,8 +2,7 @@ type: object
 description: "G2P Disbursement response i.e status of each disburemsent request for reconciliation by sender system"
 properties:
   reference_id:
-    description: 'Unique reference id set by sending system sytem while initiating the disbursement instruction'
-    type: string
+    $ref: "../../../../component/schema/ReferenceId.yaml"
   timestamp: 
     description: "Disbursement response status datetime in RFC3339 format"
     type: string

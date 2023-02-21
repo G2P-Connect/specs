@@ -1,9 +1,9 @@
 in: path
-name: payment_address
+name: financial_address
 required: true
 description: "<br>
-  1. Payment address is a normative represenation of a financial address represented as account@provider <br>
-  2. Every payer/payee payment address must be resolved to an actual account number for processing the payment instruction <br>
+  1. Financial address is a normative represenation of a store of value account represented as account@provider <br>
+  2. Every payer/payee financial address must be resolved to an actual store of value account number for processing the payment instruction <br>
   3. Few examples: <br>
       - uid@pymt-rail e.g 12345@bsp <br>
       - uid@id-provider e.g 12345@PhilID <br>

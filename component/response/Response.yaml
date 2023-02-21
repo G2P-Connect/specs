@@ -8,10 +8,6 @@ content:
           type: object
           properties:
             ack:
-              $ref: "../../../../component/schema/Ack.yaml"
-          required:
-            - ack
+              $ref: "../schema/Ack.yaml"
         error:
-          $ref: "../../../../component/schema/Error.yaml"
-      required:
-        - message
+          $ref: "../schema/Error.yaml"

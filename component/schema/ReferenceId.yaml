@@ -1,0 +1,3 @@
+type: string
+description: "Unique reference id set by business txn initiating system. Used for co-relating the callback requests and to get status info"
+example: "12345678901234567890"
