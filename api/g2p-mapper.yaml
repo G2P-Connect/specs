@@ -128,7 +128,7 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /g2p/mapper/update:
+  /mapper/update:
     post:
       tags:
         - 1. Financial Address Mapper Linking/Unlinking
@@ -183,7 +183,7 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /g2p/mapper/on-update:
+  /mapper/on-update:
     post:
       tags:
         - 1. Financial Address Mapper Linking/Unlinking
