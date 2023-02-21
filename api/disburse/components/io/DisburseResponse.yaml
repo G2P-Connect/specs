@@ -11,15 +11,16 @@ properties:
     example: '2022-12-04T17:20:07-04:00'
   status:
      $ref: "./DisburseStatus.yaml"
-  reason_code:
-    description: "Disbursement status reason code as shared by payment processing entity"
-    type: string
-  reason_message:
-    description: "Disbursement status reason message as shared by processing entity"
+  status_reason_code:
+    description: "Status reason code, if any. Helps for systems integration"
     type: string
     maxLength: 99
+  status_reason_message:
+    description: "Status reascon code message, if any, Helps actionanble messaging for systems/end users"
+    type: string
+    maxLength: 999
   instruction:
-    description: "Additional instruction shared by payment processing entity for interfacing systems to integrate, reconcile, etc.,"
+    description: "Additional systems instruction for interfacing systems/platforms to integrate, reconcile"
     type: string
     maxLength: 999
   amount:

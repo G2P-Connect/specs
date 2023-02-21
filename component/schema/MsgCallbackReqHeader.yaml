@@ -17,6 +17,26 @@ properties:
   action:
     description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
     type: string
+  status:
+    description: "Message processing status code"
+    type: string
+    enum: ["REJECTED", "IN_PROGRESS", "COMPLETED"]
+  status_reason_code:
+    description: "Status reason code, if any. Helps for systems integration"
+    type: string
+    maxLength: 99
+  status_reason_message:
+    description: "Status reascon code message, if any, Helps actionanble messaging for system/end users"
+    type: string
+    maxLength: 999
+  total_count:
+    description: "Total no of requests present in the message request"
+    type: integer
+    example: 21800
+  completed_count:
+    description: "No of requests in complteed state. Complete includes success and error requests due to funcational errors"
+    type: integer
+    example: 50
   sender_id:
     description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
     type: string
@@ -35,18 +55,8 @@ properties:
     type: string
     format: uri
     example: ""
-  status_code:
-    description: "Message processing status code"
-    type: string
-    enum: ["IN_PROCESS", "COMPLETED"]
-  total_count:
-    description: "Total no of requests present in the message request"
-    type: integer
-    example: 21800
-  completed_count:
-    description: "No of requests in complteed state. Complete includes success and error requests due to funcational errors"
-    type: integer
-    example: 50
 required:
   - message_id
-  - message_ts
+  - timestamp
+  - action
+  - status

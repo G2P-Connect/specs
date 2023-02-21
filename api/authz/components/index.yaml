@@ -23,7 +23,7 @@ servers:
 tags:
 - name: 1. OAuth2 / OIDC enabled authorization services
 paths:
- /g2p/oauth2/client/token:
+ /oauth2/client/token:
   post: 
     tags: 
       - 1. OAuth2 / OIDC enabled authorization services

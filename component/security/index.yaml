@@ -2,5 +2,5 @@
 #  $ref: "./Authorization.yaml"
 x-access-token:
   $ref: "./x-access-token.yaml"
-Signature:
-  $ref: "./Signature.yaml"
+# Signature:
+#  $ref: "./Signature.yaml"

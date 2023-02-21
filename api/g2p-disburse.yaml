@@ -17,7 +17,7 @@ servers:
 tags:
   - name: 1. Disbursement
 paths:
-  /g2p/disburse:
+  /disburse:
     post:
       tags:
         - 1. Disbursement
@@ -32,6 +32,8 @@ paths:
             schema:
               type: object
               properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
                     - $ref: '#/components/schemas/MsgReqHeader'
@@ -50,22 +52,22 @@ paths:
                         $ref: '#/components/schemas/DisburseRequest'
               required:
                 - header
-                - message
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/DisburseFileInfo'
       responses:
-        default:
-          $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
-        XXX:
-          $ref: '#/components/responses/SftpErrorResponse'
-        xxx:
+        '401':
           $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/paths/~1on-disburse/post/responses/default'
       security:
         - x-access-token: []
-        - Signature: []
       deprecated: false
-  /g2p/on-disburse:
+  /on-disburse:
     post:
       tags:
         - 1. Disbursement
@@ -80,6 +82,8 @@ paths:
             schema:
               type: object
               properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
                     - $ref: '#/components/schemas/MsgCallbackReqHeader'
@@ -98,11 +102,16 @@ paths:
                         $ref: '#/components/schemas/DisburseResponse'
               required:
                 - header
-                - message
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/DisburseFileInfo'
       responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
         default:
           description: Acknowledgement of message received after successful validation of message and signature
           content:
@@ -121,15 +130,10 @@ paths:
                     $ref: '#/components/schemas/Error'
                 required:
                   - message
-        x-*:
-          $ref: '#/components/responses/SftpErrorResponse'
-        xxx:
-          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
-        - Signature: []
       deprecated: false
-  /g2p/disburse/status:
+  /disburse/status:
     post:
       tags:
         - 1. Disbursement
@@ -144,6 +148,8 @@ paths:
             schema:
               type: object
               properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
                     - $ref: '#/components/schemas/MsgReqHeader'
@@ -156,28 +162,28 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    request_ids:
+                    reference_ids:
                       type: array
                       items:
-                        $ref: '#/components/schemas/StatusRequest'
+                        $ref: '#/components/schemas/ReferenceId'
               required:
                 - header
-                - message
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/StatusFileInfo'
       responses:
-        default:
-          $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
-        x-*:
-          $ref: '#/components/responses/SftpErrorResponse'
-        xxx:
+        '401':
           $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/paths/~1on-disburse/post/responses/default'
       security:
         - x-access-token: []
-        - Signature: []
       deprecated: false
-  /g2p/disburse/on-status:
+  /disburse/on-status:
     post:
       tags:
         - 1. Disbursement
@@ -192,6 +198,8 @@ paths:
             schema:
               type: object
               properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
                     - $ref: '#/components/schemas/MsgCallbackReqHeader'
@@ -210,22 +218,22 @@ paths:
                         $ref: '#/components/schemas/DisburseResponse'
               required:
                 - header
-                - message
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/StatusFileInfo'
       responses:
-        default:
-          $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
-        x-*:
-          $ref: '#/components/responses/SftpErrorResponse'
-        xxx:
+        '401':
           $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/paths/~1on-disburse/post/responses/default'
       security:
         - x-access-token: []
-        - Signature: []
       deprecated: false
-  '/g2p/disburse/status/{transaction_id}/{summary_only}':
+  '/disburse/status/{transaction_id}/{summary_only}':
     get:
       tags:
         - 1. Disbursement
@@ -238,6 +246,12 @@ paths:
         - $ref: '#/components/parameters/transaction_id'
         - $ref: '#/components/parameters/summary_only'
       responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
         default:
           description: Acknowledgement of message received after successful validation of message and signature
           content:
@@ -245,6 +259,8 @@ paths:
               schema:
                 type: object
                 properties:
+                  signature:
+                    $ref: '#/components/schemas/MsgSignature'
                   header:
                     allOf:
                       - $ref: '#/components/schemas/MsgCallbackReqHeader'
@@ -261,20 +277,14 @@ paths:
                           $ref: '#/components/schemas/DisburseResponse'
                 required:
                   - header
-                  - message
-        x-*:
-          $ref: '#/components/responses/SftpErrorResponse'
-        xxx:
-          $ref: '#/components/responses/HttpErrorResponse'
       security:
         - x-access-token: []
-        - Signature: []
       deprecated: false
-  '/g2p/disburse/status/{reference_id}':
+  '/disburse/status/{reference_id}':
     get:
       tags:
         - 1. Disbursement
-      summary: 'DSBT-005 : Get disbursement processing status by polling using reference_id'
+      summary: 'DSBT-006 : Get disbursement processing status by polling using reference_id'
       description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding.'
       operationId: get_g2p_disburse_status_by_req_id
       parameters:
@@ -282,6 +292,12 @@ paths:
         - $ref: '#/components/parameters/timestamp'
         - $ref: '#/components/parameters/reference_id'
       responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
         default:
           description: Acknowledgement of message received after successful validation of message and signature
           content:
@@ -289,20 +305,24 @@ paths:
               schema:
                 type: object
                 properties:
+                  signature:
+                    $ref: '#/components/schemas/MsgSignature'
+                  header:
+                    allOf:
+                      - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                      - properties:
+                          action:
+                            enum:
+                              - status
                   message:
                     type: object
                     properties:
                       disburse_status:
                         $ref: '#/components/schemas/DisburseResponse'
                 required:
-                  - message
-        x-*:
-          $ref: '#/components/responses/SftpErrorResponse'
-        xxx:
-          $ref: '#/components/responses/HttpErrorResponse'
+                  - header
       security:
         - x-access-token: []
-        - Signature: []
       deprecated: false
 components:
   schemas:
@@ -311,7 +331,7 @@ components:
       description: Disbursement file info. Used in file upload using HTTPS
       properties:
         fileName:
-          description: Disbursement instruction file representing Disburse or OnDisburse header/message end point entities as a file record
+          description: Disbursement instruction file representing Disburse or OnDisburse end point elements i.e signature/header/message entities as a file record
           type: string
           format: binary
         fileFormat:
@@ -329,7 +349,7 @@ components:
           type: string
           example: '1234567890'
         scheduled_timestamp:
-          description: Disbursement initiation schedule timestamp in RFC3339 format.
+          description: Disbursement initiation schedule timestamp in RFC3339 format. If not present the disbursement is for immediate purpose.
           type: string
           format: date-time
           example: '2022-12-04T17:00:00-04:00'
@@ -347,18 +367,18 @@ components:
           example: Joe John
         amount:
           $ref: '#/components/schemas/Amount'
-        purpose:
-          $ref: '#/components/schemas/Purpose'
-        currency_code:
-          $ref: '#/components/schemas/CurrencyCode'
         note:
           description: Note to payer/payee to reflect on statements
           type: string
           maxLength: 99
         instruction:
-          description: 'Additional instruction for interfacing DPGs platforms to integrate, reconcile'
+          description: 'Additional systems instruction for interfacing systems/platforms to integrate, reconcile'
           type: string
           maxLength: 999
+        purpose:
+          $ref: '#/components/schemas/Purpose'
+        currency_code:
+          $ref: '#/components/schemas/CurrencyCode'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -380,15 +400,16 @@ components:
           example: '2022-12-04T17:20:07-04:00'
         status:
           $ref: '#/components/schemas/DisburseStatus'
-        reason_code:
-          description: Disbursement status reason code as shared by payment processing entity
-          type: string
-        reason_message:
-          description: Disbursement status reason message as shared by processing entity
+        status_reason_code:
+          description: 'Status reason code, if any. Helps for systems integration'
           type: string
           maxLength: 99
+        status_reason_message:
+          description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
+          type: string
+          maxLength: 999
         instruction:
-          description: 'Additional instruction shared by payment processing entity for interfacing systems to integrate, reconcile, etc.,'
+          description: 'Additional systems instruction for interfacing systems/platforms to integrate, reconcile'
           type: string
           maxLength: 999
         amount:
@@ -421,14 +442,24 @@ components:
         - PDNG
         - RJCT
         - SUCC
+    ReferenceId:
+      type: object
+      description: Request latest status on disbursement by reference_id.
+      properties:
+        reference_id:
+          description: Unique reference id set by sending system sytem while initiating the disbursement request
+          type: string
+          example: '12345678901234567890'
+      required:
+        - reference_id
     Response:
-      $ref: '#/paths/~1g2p~1on-disburse/post/responses/default'
+      $ref: '#/paths/~1on-disburse/post/responses/default'
     StatusFileInfo:
       type: object
       description: Disburse Status request file info. Used in file upload using HTTPS
       properties:
         fileName:
-          description: Disburse Status request file representing Status or OnStatus end point entity as a file record
+          description: Disburse Status request file representing Status or OnStatus end point elements i.e signature/header/message entities as a file record
           type: string
           format: binary
         fileFormat:
@@ -437,16 +468,6 @@ components:
       required:
         - fileName
         - fileFormat
-    StatusRequest:
-      type: object
-      description: Request latest status on disbursement status.
-      properties:
-        reference_id:
-          description: Unique reference id set by sending system sytem while initiating the disbursement instruction
-          type: string
-          example: '1234567890'
-      required:
-        - reference_id
     Ack:
       description: 'Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK'
       type: object
@@ -489,6 +510,72 @@ components:
       type: string
       pattern: '^[a-z]{3,3}$'
       example: kri
+    MsgCallbackReqHeader:
+      type: object
+      description: Message header
+      properties:
+        version:
+          description: g2p connect specification version being used
+          type: string
+          example: 0.1.0
+        message_id:
+          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
+          type: string
+          example: '123456789020211216223812'
+        timestamp:
+          description: Time of request generation in RFC3339 format
+          type: string
+          format: date-time
+          example: '2022-12-04T18:02:35+00:00'
+        action:
+          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
+        status:
+          description: Message processing status code
+          type: string
+          enum:
+            - REJECTED
+            - IN_PROGRESS
+            - COMPLETED
+        status_reason_code:
+          description: 'Status reason code, if any. Helps for systems integration'
+          type: string
+          maxLength: 99
+        status_reason_message:
+          description: 'Status reascon code message, if any, Helps actionanble messaging for system/end users'
+          type: string
+          maxLength: 999
+        total_count:
+          description: Total no of requests present in the message request
+          type: integer
+          example: 21800
+        completed_count:
+          description: No of requests in complteed state. Complete includes success and error requests due to funcational errors
+          type: integer
+          example: 50
+        sender_id:
+          description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+          type: string
+          example: '10089'
+        sender_uri:
+          description: sender url to accept callbacks
+          type: string
+          format: uri
+          example: ''
+        receiver_id:
+          description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+          type: string
+          example: '52077'
+        receiver_uri:
+          description: receiver url to accept callbacks
+          type: string
+          format: uri
+          example: ''
+      required:
+        - message_id
+        - timestamp
+        - action
+        - status
     MsgReqHeader:
       type: object
       description: Message header
@@ -531,92 +618,12 @@ components:
           description: Total no of requests present in the message request
           type: integer
           example: 21800
-        digest_algo:
-          description: Message digest hash algo used
-          type: string
-          example: SHA2
-        digest:
-          description: Message digest hash along with header/message elements before any crypto functions like encryption
-          type: string
-          example: SHA2(header().message())
       required:
         - message_id
         - timestamp
-    MsgRespHeader:
-      type: object
-      description: Message header that is part of async ACK/NACK response
-      properties:
-        version:
-          description: g2p connect specification version being used
-          type: string
-          example: 0.1.0
-        message_id:
-          description: Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver.
-          type: string
-          example: '123456789020211216223812'
-        timestamp:
-          description: Time of request generation in RFC3339 format
-          type: string
-          format: date-time
-          example: '2022-12-04T18:01:07+00:00'
-      required:
-        - message_id
-        - timestamp
-    MsgCallbackReqHeader:
-      type: object
-      description: Message header
-      properties:
-        version:
-          description: g2p connect specification version being used
-          type: string
-          example: 0.1.0
-        message_id:
-          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
-          type: string
-          example: '123456789020211216223812'
-        timestamp:
-          description: Time of request generation in RFC3339 format
-          type: string
-          format: date-time
-          example: '2022-12-04T18:02:35+00:00'
-        action:
-          description: G2P Connect specific purpose. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
-          type: string
-        sender_id:
-          description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
-          type: string
-          example: '10089'
-        sender_uri:
-          description: sender url to accept callbacks
-          type: string
-          format: uri
-          example: ''
-        receiver_id:
-          description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
-          type: string
-          example: '52077'
-        receiver_uri:
-          description: receiver url to accept callbacks
-          type: string
-          format: uri
-          example: ''
-        status_code:
-          description: Message processing status code
-          type: string
-          enum:
-            - IN_PROCESS
-            - COMPLETED
-        total_count:
-          description: Total no of requests present in the message request
-          type: integer
-          example: 21800
-        completed_count:
-          description: No of requests in complteed state. Complete includes success and error requests due to funcational errors
-          type: integer
-          example: 50
-      required:
-        - message_id
-        - message_ts
+    MsgSignature:
+      type: string
+      description: 'Signature of message body verified using sender''s signing public key. <br/><br/> 1. <code>Signature : keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)"</code>'
     Purpose:
       description: 'Payment disbursement purpose e.g Salary, Farmer Relief 2023, etc.,'
       type: string
@@ -710,8 +717,3 @@ components:
       scheme: bearer
       bearerFormat: jwt
       description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
-    Signature:
-      type: apiKey
-      in: header
-      name: Signature
-      description: 'Signature of message body verified using sender''s signing public key. <br/><br/> 1. <code>Signature : keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)"</code>'

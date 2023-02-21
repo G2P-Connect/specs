@@ -23,7 +23,7 @@ servers:
 tags:
 - name: 1. Disbursement
 paths:
- /g2p/disburse:
+ /disburse:
   post: 
     tags: 
       - 1. Disbursement
@@ -38,6 +38,8 @@ paths:
           schema:
               type: object
               properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
                     - $ref: "#/components/schemas/MsgReqHeader"
@@ -56,22 +58,23 @@ paths:
                         $ref: "#/components/schemas/DisburseRequest"
               required:
                 - header
-                - message
         multipart/form-data:
           schema:
             $ref: "#/components/schemas/DisburseFileInfo"
     responses:
         default:
           $ref: "#/components/schemas/Response"
-        'XXX':
-          $ref: "#/components/responses/SftpErrorResponse"
-        'xxx':
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
-      - Signature: [ ]
+      # - Signature: [ ]
     deprecated: false
- /g2p/on-disburse:
+ /on-disburse:
   post: 
     tags: 
       - 1. Disbursement
@@ -86,6 +89,8 @@ paths:
           schema:
               type: object
               properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
                     - $ref: "#/components/schemas/MsgCallbackReqHeader"
@@ -104,22 +109,23 @@ paths:
                         $ref: "#/components/schemas/DisburseResponse"
               required:
                 - header
-                - message
         multipart/form-data:
           schema:
             $ref: '#/components/schemas/DisburseFileInfo'
     responses:
       default:
         $ref: "./io/Response.yaml"
-      'x-*':
-        $ref: "#/components/responses/SftpErrorResponse"
-      'xxx':
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
-      - Signature: [ ]
+      # - Signature: [ ]
     deprecated: false
- /g2p/disburse/status:
+ /disburse/status:
   post: 
     tags: 
       - 1. Disbursement
@@ -134,6 +140,8 @@ paths:
           schema:
               type: object
               properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
                     - $ref: "#/components/schemas/MsgReqHeader"
@@ -146,28 +154,29 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    request_ids:
+                    reference_ids:
                       type: array
                       items:
-                        $ref: "#/components/schemas/StatusRequest"
+                        $ref: "#/components/schemas/ReferenceId"
               required:
                 - header
-                - message
         multipart/form-data:
           schema:
             $ref: "#/components/schemas/StatusFileInfo"
     responses:
       default:
         $ref: "#/components/schemas/Response"
-      'x-*':
-        $ref: "#/components/responses/SftpErrorResponse"
-      'xxx':
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
-      - Signature: [ ]
+     # - Signature: [ ]
     deprecated: false
- /g2p/disburse/on-status:
+ /disburse/on-status:
   post: 
     tags: 
       - 1. Disbursement
@@ -182,6 +191,8 @@ paths:
           schema:
               type: object
               properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
                     - $ref: "#/components/schemas/MsgCallbackReqHeader"
@@ -200,22 +211,23 @@ paths:
                         $ref: "#/components/schemas/DisburseResponse"
               required:
                 - header
-                - message
         multipart/form-data:
           schema:
             $ref: '#/components/schemas/StatusFileInfo'
     responses:
       default:
         $ref: "./io/Response.yaml"
-      'x-*':
-        $ref: "#/components/responses/SftpErrorResponse"
-      'xxx':
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
-      - Signature: [ ]
+      # - Signature: [ ]
     deprecated: false
- /g2p/disburse/status/{transaction_id}/{summary_only}:
+ /disburse/status/{transaction_id}/{summary_only}:
    get: 
     tags: 
       - 1. Disbursement
@@ -238,6 +250,8 @@ paths:
             schema:
               type: object
               properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
                     - $ref: "#/components/schemas/MsgCallbackReqHeader"
@@ -254,20 +268,21 @@ paths:
                         $ref: "#/components/schemas/DisburseResponse"
               required:
                 - header
-                - message
-      'x-*':
-        $ref: "#/components/responses/SftpErrorResponse"
-      'xxx':
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
-      - Signature: [ ]
+      # - Signature: [ ]
     deprecated: false
- /g2p/disburse/status/{reference_id}:
+ /disburse/status/{reference_id}:
    get: 
     tags: 
       - 1. Disbursement
-    summary: "DSBT-005 : Get disbursement processing status by polling using reference_id"
+    summary: "DSBT-006 : Get disbursement processing status by polling using reference_id"
     description: " <br>
         1. This end point is avaiable to poll disbursement processing status info. <br>
         2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding."
@@ -284,20 +299,31 @@ paths:
             schema:
               type: object
               properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - status
                 message:
                   type: object
                   properties:
                     disburse_status:
                       $ref: "#/components/schemas/DisburseResponse"
               required:
-                - message
-      'x-*':
-        $ref: "#/components/responses/SftpErrorResponse"
-      'xxx':
+                - header
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
-      - Signature: [ ]
+     # - Signature: [ ]
     deprecated: false
 components:
   schemas:

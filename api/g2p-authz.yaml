@@ -17,7 +17,7 @@ servers:
 tags:
   - name: 1. OAuth2 / OIDC enabled authorization services
 paths:
-  /g2p/oauth2/client/token:
+  /oauth2/client/token:
     post:
       tags:
         - 1. OAuth2 / OIDC enabled authorization services
@@ -87,9 +87,9 @@ paths:
 components:
   schemas:
     OAuth2ClientTokenRequest:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/requestBody/content/application~1x-www-form-urlencoded/schema'
+      $ref: '#/paths/~1oauth2~1client~1token/post/requestBody/content/application~1x-www-form-urlencoded/schema'
     OAuth2ClientTokenResponse:
-      $ref: '#/paths/~1g2p~1oauth2~1client~1token/post/responses/200/content/application~1json/schema'
+      $ref: '#/paths/~1oauth2~1client~1token/post/responses/200/content/application~1json/schema'
     OidcScope:
       type: string
       description: 'Space delimited scopes requested or issued by an authorization service for OAuth2 client, OIDC complaint auth tokens. <br><br> <b>This is an indicative list... </b> <br> 1. disburse <br> 2. on-disburse <br> 3. famap_link '

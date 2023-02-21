@@ -6,7 +6,7 @@ properties:
     type: string
     example: "1234567890"
   scheduled_timestamp: 
-    description: "Disbursement initiation schedule timestamp in RFC3339 format."
+    description: "Disbursement initiation schedule timestamp in RFC3339 format. If not present the disbursement is for immediate purpose."
     type: string
     format: date-time
     example: '2022-12-04T17:00:00-04:00'
@@ -24,18 +24,18 @@ properties:
     example: "Joe John"
   amount:
     $ref: "../../../../component/schema/Amount.yaml"
-  purpose:
-    $ref: "../../../../component/schema/Purpose.yaml"
-  currency_code:
-    $ref: "../../../../component/schema/CurrencyCode.yaml"
   note:
     description: "Note to payer/payee to reflect on statements"
     type: string
     maxLength: 99
   instruction:
-    description: "Additional instruction for interfacing DPGs platforms to integrate, reconcile"
+    description: "Additional systems instruction for interfacing systems/platforms to integrate, reconcile"
     type: string
     maxLength: 999
+  purpose:
+    $ref: "../../../../component/schema/Purpose.yaml"
+  currency_code:
+    $ref: "../../../../component/schema/CurrencyCode.yaml"
   locale:
     $ref: "../../../../component/schema/LanguageCode.yaml"
 required:

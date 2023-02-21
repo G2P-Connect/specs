@@ -39,14 +39,6 @@ properties:
     description: "Total no of requests present in the message request"
     type: integer
     example: 21800
-  digest_algo:
-    description: "Message digest hash algo used"
-    type: string
-    example: "SHA2"
-  digest:
-    description: "Message digest hash along with header/message elements before any crypto functions like encryption"
-    type: string
-    example: "SHA2(header().message())"
 required:
   - message_id
   - timestamp

@@ -1,0 +1,9 @@
+type: object
+description: "Request latest status on disbursement by reference_id."
+properties:
+  reference_id:
+    description: "Unique reference id set by sending system sytem while initiating the disbursement request"
+    type: string
+    example: "12345678901234567890"
+required:
+- reference_id

@@ -1,9 +1,0 @@
-type: object
-description: "Request latest status on disbursement status."
-properties:
-  reference_id:
-    description: "Unique reference id set by sending system sytem while initiating the disbursement instruction"
-    type: string
-    example: "1234567890"
-required:
-- reference_id
