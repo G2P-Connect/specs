@@ -1,4 +1,4 @@
-### G2P Connect APIs
+### G2P Connect API Docs
 
 * [Authz](./dist/g2p-authz.html)
 * [Disburse](./dist/g2p-disburse.html)
