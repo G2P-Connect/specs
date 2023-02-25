@@ -1,9 +1,9 @@
 type: object
-description: 'Beneficiary name'
+description: 'Beneficiary contact details'
 properties:
-  first_name:
+  mobile_number:
     type: string
-  middle_name:
+  email_address:
     type: string
-  last_name:
+  address:
     type: string

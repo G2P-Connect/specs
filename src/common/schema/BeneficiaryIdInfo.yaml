@@ -25,3 +25,6 @@ properties:
     description: "Additional info, if any"
     type: string
     maxLength: 1024
+required:
+  - id_type
+  - id
