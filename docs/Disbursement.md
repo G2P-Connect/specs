@@ -7,12 +7,12 @@
 
 | Interface ID   | End Point | Description | 
 | -------------- | --------- | ----------- |
-| DISB-001 | POST /disburse |  Social protection platofrom initiating g2p disbursements | 
-| DISB-002 | POST /on-disburse | Disbursement initiating systems receive disbursement status info through callback end points| 
-| DISB-003 | POST /disburse/status | Request for disbursement status from (e.g) social protection, Treasury systems | 
-| DISB-004 | POST /disburse/on-status | Disbursement status to social protection, Treasury systems. | 
-| DISB-005 | GET /disburse/status/{transaction_id} /{summary_only} | Disbursement status to social protection, Treasury systems | 
-| DISB-006 | GET /disburse/status/{reference_id} | Disbursement status to social protection, Treasury systems | 
+| DISB-001 | POST [/disburse](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#tag/1.-Disbursement/operation/post_g2p_disburse) |  Social protection platofrom initiating g2p disbursements | 
+| DISB-002 | POST [/on-disburse](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#tag/1.-Disbursement/operation/post_g2p_on-disburse) | Disbursement initiating systems receive disbursement status info through callback end points| 
+| DISB-003 | POST [/disburse/status](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#tag/1.-Disbursement/operation/post_g2p_disburse_status) | Request for disbursement status from (e.g) social protection, Treasury systems | 
+| DISB-004 | POST [/disburse/on-status](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#tag/1.-Disbursement/operation/post_g2p_disburse_on-status) | Disbursement status to social protection, Treasury systems. | 
+| DISB-005 | GET [/disburse/status/{transaction_id} /{summary_only}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#tag/1.-Disbursement/operation/get_g2p_disburse_status_by_msg_id) | Disbursement status to social protection, Treasury systems | 
+| DISB-006 | GET [/disburse/status/{reference_id}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#tag/1.-Disbursement/operation/get_g2p_disburse_status_by_req_id) | Disbursement status to social protection, Treasury systems | 
 
 
 ***

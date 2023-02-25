@@ -7,8 +7,8 @@
 
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
-| FAMAP-001 | POST /mapper/link | Linking id / fa to mapper registry | 
-| FAMAP-002 | POST /mapper/on-link | Linking status info through callback end point | 
+| FAMAP-001 | POST [/mapper/link](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#tag/1.-Financial-Address-Mapper-LinkingUnlinking/operation/post_g2p_mapper_link) | Linking id / fa to mapper registry | 
+| FAMAP-002 | POST [/mapper/on-link](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#tag/1.-Financial-Address-Mapper-LinkingUnlinking/operation/post_g2p_mapper_on-link) | Linking status info through callback end point | 
 | FAMAP-003 | POST /mapper/update | Updating fa details to mapper registry|
 | FAMAP-004 | POST /mapper/on-update | Update response through callback end point |
 | FAMAP-005 | POST /mapper/unlink | remove id/fa link from mapper registry | 
