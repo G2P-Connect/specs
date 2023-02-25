@@ -1,0 +1,368 @@
+openapi: 3.0.0
+info:
+  title: G2P Connect payment disbursements
+  description: "<br>
+    <b>Reference Links:</b> <br>
+      1. G2P Connect Specifications <a href=\"https://github.com/G2P-Connect/specs/wiki \" >wiki pages</a><br>
+      2. G2P Connect GitHub <a href=\"https://github.com/G2P-Connect/specs/ \" >links</a><br>
+      3. Disbursement feature relate <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
+
+    <br><b>TODOs</b>: <br>
+    1. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
+    "
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+   name: G2P Connect License
+   url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: https://sandbox.dpg.org/v0.1.0
+    description: Sandbox Server
+tags:
+- name: 1. Disbursement
+paths:
+ /disburse:
+  post: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-001 : Social protection platofrom initiating g2p disbursements. Supports api, events and file based messaging"
+    description: ""
+    operationId: post_g2p_disburse
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - disburse
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    disburse:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseRequest"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - disburse
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /on-disburse:
+  post: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-002 : Disbursement initiating systems receive disbursement status info through callback end points. Supports api, events and file based messaging"
+    description: "The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals "
+    operationId: post_g2p_on-disburse
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-disburse
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    disburse_status:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-disburse
+    responses:
+      default:
+        $ref: "#/components/responses/Response"
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /disburse/status:
+  post: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-003 : Request for disbursement status from (e.g) social protection, Treasury systems"
+    description: ""
+    operationId: post_g2p_disburse_status
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - status
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    reference_ids:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/ReferenceId"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - status
+    responses:
+      default:
+        $ref: "#/components/responses/Response"
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+     # - Signature: [ ]
+    deprecated: false
+ /disburse/on-status:
+  post: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-004 : Disbursement initating systems receive disbursement status info through callback end points. Supports api, events and file based messaging"
+    description: "The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals "
+    operationId: post_g2p_disburse_on-status
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-status
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    disburse_status:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - status'
+    responses:
+      default:
+        $ref: "#/components/responses/Response"
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /disburse/status/{transaction_id}/{summary_only}:
+   get: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-005: Get disbursement processing status by polling"
+    description: " <br>
+        1. This end point is avaiable to poll disbursement processing status info. <br>
+        2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br>
+        3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding."
+    operationId: get_g2p_disburse_status_by_msg_id
+    parameters:
+      - $ref: "#/components/parameters/accept-language"
+      - $ref: "#/components/parameters/timestamp"
+      - $ref: "#/components/parameters/transaction_id"
+      - $ref: "#/components/parameters/summary_only"
+    responses:
+      default:
+        description: "Acknowledgement of message received after successful validation of message and signature"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - status
+                message:
+                  type: object
+                  properties:
+                    disburse_status:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /disburse/status/{reference_id}:
+   get: 
+    tags: 
+      - 1. Disbursement
+    summary: "DSBT-006 : Get disbursement processing status by polling using reference_id"
+    description: " <br>
+        1. This end point is avaiable to poll disbursement processing status info. <br>
+        2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding."
+    operationId: get_g2p_disburse_status_by_req_id
+    parameters:
+      - $ref: "#/components/parameters/accept-language"
+      - $ref: "#/components/parameters/timestamp"
+      - $ref: "#/components/parameters/reference_id"
+    responses:
+      default:
+        description: "Acknowledgement of message received after successful validation of message and signature"
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - status
+                message:
+                  type: object
+                  properties:
+                    disburse_status:
+                      $ref: "#/components/schemas/DisburseResponse"
+              required:
+                - header
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+     # - Signature: [ ]
+    deprecated: false
+components:
+  schemas:
+    $ref: "./components/schemas/index.yaml"
+  parameters:
+    accept-language:
+      $ref: "../common/parameter/accept-language.yaml"
+    timestamp:
+      $ref: "../common/parameter/timestamp.yaml"
+    transaction_id:
+      $ref: "../common/parameter/transaction_id.yaml"
+    summary_only:
+      $ref: "../common/parameter/summary_only.yaml"
+    reference_id:
+      $ref: "../common/parameter/reference_id.yaml"
+  responses:
+    HttpErrorResponse:
+      $ref: "../common/response/HttpErrorResponse.yaml"    
+    Response:
+      $ref: "../common/response/Response.yaml"    
+  securitySchemes:
+    $ref: "../common/security/index.yaml"

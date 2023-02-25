@@ -1,0 +1,637 @@
+openapi: 3.0.0
+info:
+  title: Manage ID to financial address mapper registry
+  description: "<br>
+    <b>Reference Links:</b> <br>
+      1. G2P Connect Specifications <a href=\"https://github.com/G2P-Connect/specs/wiki \" >wiki pages</a><br>
+      2. G2P Connect GitHub <a href=\"https://github.com/G2P-Connect/specs/ \" >links</a><br>
+      3. Disbursement feature relate <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
+
+    <br><b>TODOs</b>: <br>
+    1. Define reversal APIs <br>
+    2. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
+    "
+  version: 0.1.0
+  contact:
+    name: G2P Connect
+    email: info@g2pconnect.global
+  license:
+   name: G2P Connect License
+   url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
+servers:
+  - url: https://sandbox.dpg.org/v0.1.0
+    description: Sandbox Server
+ 
+tags:
+- name: 1. Financial Address Mapper Linking/Unlinking
+- name: 2. Financial Address Mapper lookups
+
+paths:
+ /mapper/link:
+  post: 
+    tags: 
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "FAMAP-001 : Linking id to fa with mapper registry"
+    description: ""
+    operationId: post_g2p_mapper_link
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - link
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    link:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/LinkRequest"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - link
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/on-link:
+  post: 
+    tags: 
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "FAMAP-002 : Linking id to fa response through callback end point"
+    description: ""
+    operationId: post_g2p_mapper_on-link
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-link
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    link-response:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/LinkResponse"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-link
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/update:
+  post: 
+    tags: 
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "FAMAP-003	: Updating fa or scheme details to mapper registry"
+    description: ""
+    operationId: put_g2p_mapper_update
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - update
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    update:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/UpdateRequest"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - update
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/on-update:
+  post: 
+    tags: 
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "FAMAP-004	: Update response through callback end point"
+    description: ""
+    operationId: put_g2p_mapper_on-update
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-update
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    update-response:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/UpdateResponse"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-update
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/unlink:
+  post: 
+    tags: 
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "FAMAP-005 : Unlinking id from mapper registry"
+    description: ""
+    operationId: post_g2p_mapper_unlink
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - unlink
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    unlink:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/UnlinkRequest"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - unlink
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/on-unlink:
+  post: 
+    tags: 
+      - 1. Financial Address Mapper Linking/Unlinking
+    summary: "FAMAP-006 : Unlinking response through callback end point"
+    description: ""
+    operationId: post_g2p_mapper_on-unlink
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-unlink
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    unlink-response:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/UnlinkResponse"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-unlink
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/resolve:
+  post: 
+    tags: 
+      - 2. Financial Address Mapper lookups
+    summary: "FAMAP-007 : Resolve fa / beneficiary id to a store of value"
+    description: ""
+    operationId: post_g2p_mapper_resolve
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - resolve
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    resolve:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/ResolveRequest"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - resolve
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/on-resolve:
+  post: 
+    tags: 
+      - 2. Financial Address Mapper lookups
+    summary: "FAMAP-008 : Resolve response through callback end point"
+    description: ""
+    operationId: post_g2p_mapper_on-resolve
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-resolve
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    resolve-response:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/ResolveResponse"
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-resolve
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/status:
+  post: 
+    tags: 
+      - 2. Financial Address Mapper lookups
+    summary: "FAMAP-009 : Status check of any of the mapper actions using transaction_id or individual reference_id(s)"
+    description: ""
+    operationId: post_g2p_mapper_status
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - link
+                            - update
+                            - resolve
+                            - unlink
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    status:
+                      type: array
+                      items:
+                        oneOf:
+                          - $ref: "#/components/schemas/LinkRequest"
+                          - $ref: "#/components/schemas/ResolveRequest"
+                          - $ref: "#/components/schemas/UpdateRequest"
+                          - $ref: "#/components/schemas/UnlinkRequest"
+                      example:
+                        status: 
+                            reference_id: "test"
+                            timestamp: "test"
+                            beneficiary_info: "test"
+                            account_info: "test"
+                             
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - status
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/on-status:
+  post: 
+    tags: 
+      - 2. Financial Address Mapper lookups
+    summary: "FAMAP-010 : Status check response through callback end point"
+    description: ""
+    operationId: post_g2p_mapper_on-status
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-link
+                            - on-update
+                            - on-resolve
+                            - on-unlink
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    status-response:
+                      type: array
+                      items:
+                        oneOf:
+                        - $ref: "#/components/schemas/LinkResponse"
+                        - $ref: "#/components/schemas/ResolveResponse"
+                        - $ref: "#/components/schemas/UpdateResponse"
+                        - $ref: "#/components/schemas/UnlinkResponse"
+                      example:
+                        status-response: 
+                            reference_id: "test"
+                            timestamp: "test"
+                            fa: "test"
+                            status: "LNKD"                              
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-status
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+components:
+  schemas:
+    $ref: "./components/schemas/index.yaml"
+  parameters:
+    accept-language:
+      $ref: "../common/parameter/accept-language.yaml"
+    timestamp:
+      $ref: "../common/parameter/timestamp.yaml"
+    transaction_id:
+      $ref: "../common/parameter/transaction_id.yaml"
+    summary_only:
+      $ref: "../common/parameter/summary_only.yaml"
+    beneficiary_id:
+      $ref: "../common/parameter/beneficiary_id.yaml"
+  responses: 
+    HttpErrorResponse:
+      $ref: "../common/response/HttpErrorResponse.yaml"       
+    Response:
+      $ref: "../common/response/Response.yaml"    
+  securitySchemes:
+    $ref: "../common/security/index.yaml"

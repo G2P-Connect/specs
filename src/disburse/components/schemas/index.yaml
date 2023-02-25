@@ -1,0 +1,34 @@
+DisburseRequest:
+  $ref: "../io/DisburseRequest.yaml"
+DisburseResponse:
+  $ref: "../io/DisburseResponse.yaml"
+DisburseStatus:
+  $ref: "../io/DisburseStatus.yaml"
+Ack:
+  $ref: "../../../common/schema/Ack.yaml"
+Amount:
+  $ref: "../../../common/schema/Amount.yaml"
+CurrencyCode: 
+  $ref: "../../../common/schema/CurrencyCode.yaml"
+Error:
+  $ref: "../../../common/schema/Error.yaml"
+FileInfo:
+  $ref: "../../../common/schema/FileInfo.yaml"
+FinancialAddress:
+  $ref: "../../../common/schema/FinancialAddress.yaml"
+LanguageCode:
+  $ref: "../../../common/schema/LanguageCode.yaml"
+MsgCallbackReqHeader:
+  $ref: "../../../common/schema/MsgCallbackReqHeader.yaml"
+MsgReqHeader:
+  $ref: "../../../common/schema/MsgReqHeader.yaml"
+MsgSignature:
+  $ref: "../../../common/schema/MsgSignature.yaml"
+Purpose:
+  $ref: "../../../common/schema/Purpose.yaml"
+ReferenceId:
+  $ref: "../../../common/schema/ReferenceId.yaml"
+Timestamp:
+  $ref: "../../../common/schema/Timestamp.yaml"
+TransactionId:
+  $ref: "../../../common/schema/TransactionId.yaml"

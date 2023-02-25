@@ -1,0 +1,31 @@
+type: object
+description: 'Resolve financial address to store of value account info'
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  resolve_type:
+    description: "Enumerated options for various resolution options"
+    type: string
+    enum: 
+      - "FA_TO_ACCOUNT_PROVIDER_INFO"
+      - "FA_TO_ACCOUNT_INFO"
+      - "FA_TO_BENEFICIARY_ID"
+      - "BENEFICIARY_ID_TO_FA"
+      - "BENEFICIARY_ID_TO_ACCOUNT_PROVIDER_INFO"
+      - "BENEFICIARY_ID_TO_ACCOUNT_INFO"
+  fa:
+    $ref: "../../../common/schema/FinancialAddress.yaml"
+  beneficiary_id:
+    $ref: "../../../common/schema/BeneficiaryId.yaml"
+  additional_info:
+    description: "Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data"
+    type: string
+    maxLength: 999
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - resolve_type

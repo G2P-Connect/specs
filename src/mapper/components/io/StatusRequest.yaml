@@ -1,0 +1,22 @@
+type: object
+description: 'Request to get latest linking status'
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  beneficiary_info:
+    $ref: "../../../common/schema/Beneficiary.yaml"
+  account_info:
+    $ref: "../../../common/schema/AccountInfo.yaml"
+  additional_info:
+    description: "Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data"
+    type: string
+    maxLength: 999
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - beneficiary_info
+  - account_info

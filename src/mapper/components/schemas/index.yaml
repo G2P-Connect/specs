@@ -1,0 +1,50 @@
+LinkRequest:
+  $ref: "../io/LinkRequest.yaml"
+LinkResponse:
+  $ref: "../io/LinkResponse.yaml"
+ResolveRequest:
+  $ref: "../io/ResolveRequest.yaml"
+ResolveResponse:
+  $ref: "../io/ResolveResponse.yaml"
+StatusRequest:
+  $ref: "../io/StatusRequest.yaml"
+StatusResponse:
+  $ref: "../io/StatusResponse.yaml"
+UnlinkRequest:
+  $ref: "../io/UnlinkRequest.yaml"
+UnlinkResponse:
+  $ref: "../io/UnlinkResponse.yaml"
+UpdateRequest:
+  $ref: "../io/UpdateRequest.yaml"
+UpdateResponse:
+  $ref: "../io/UpdateResponse.yaml"
+AccountInfo:
+  $ref: "../../../common/schema/AccountInfo.yaml" 
+AccountProviderInfo:
+  $ref: "../../../common/schema/AccountProviderInfo.yaml" 
+Ack:
+  $ref: "../../../common/schema/Ack.yaml"
+Beneficiary:
+  $ref: "../../../common/schema/Beneficiary.yaml"
+BeneficiaryId:
+  $ref: "../../../common/schema/BeneficiaryId.yaml"
+Error:
+  $ref: "../../../common/schema/Error.yaml"
+FileInfo:
+  $ref: "../../../common/schema/FileInfo.yaml"
+FinancialAddress:
+  $ref: "../../../common/schema/FinancialAddress.yaml"
+LanguageCode:
+  $ref: "../../../common/schema/LanguageCode.yaml"
+MsgCallbackReqHeader:
+  $ref: "../../../common/schema/MsgCallbackReqHeader.yaml"
+MsgReqHeader:
+  $ref: "../../../common/schema/MsgReqHeader.yaml"
+MsgSignature:
+  $ref: "../../../common/schema/MsgSignature.yaml"
+ReferenceId:
+  $ref: "../../../common/schema/ReferenceId.yaml"
+Timestamp:
+  $ref: "../../../common/schema/Timestamp.yaml"
+TransactionId:
+  $ref: "../../../common/schema/TransactionId.yaml"
