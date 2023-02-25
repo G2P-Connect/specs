@@ -14,13 +14,9 @@ info:
 servers:
   - url: 'https://sandbox.dpg.org/v0.1.0'
     description: Sandbox Server
-tags:
-  - name: 1. Disbursement
 paths:
   /disburse:
     post:
-      tags:
-        - 1. Disbursement
       summary: 'DSBT-001 : /disburse'
       description: 'Social protection platofrom initiating g2p disbursements. Supports api, events and file based messaging'
       operationId: post_g2p_disburse
@@ -74,8 +70,6 @@ paths:
       deprecated: false
   /on-disburse:
     post:
-      tags:
-        - 1. Disbursement
       summary: 'DSBT-002 : /on-disburse'
       description: 'The callback endpoint is called by /disburse end point processing systems upon completing all disbursement instructions or at regular intervals '
       operationId: post_g2p_on-disburse
@@ -129,8 +123,6 @@ paths:
       deprecated: false
   /disburse/status:
     post:
-      tags:
-        - 1. Disbursement
       summary: 'DSBT-003 : /disburse/status'
       description: 'Request for disbursement status from (e.g) social protection, Treasury systems'
       operationId: post_g2p_disburse_status
@@ -184,8 +176,6 @@ paths:
       deprecated: false
   /disburse/on-status:
     post:
-      tags:
-        - 1. Disbursement
       summary: 'DSBT-004 : /disburse/on-status'
       description: 'The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals '
       operationId: post_g2p_disburse_on-status
@@ -239,10 +229,8 @@ paths:
       deprecated: false
   '/disburse/status/{transaction_id}/{summary_only}':
     get:
-      tags:
-        - 1. Disbursement
-      summary: 'DSBT-005: Get disbursement processing status by polling'
-      description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding.'
+      summary: 'DSBT-005: /disburse/status/{transaction_id}/{summary_only}'
+      description: Get disbursement processing status by polling <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding.
       operationId: get_g2p_disburse_status_by_msg_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
@@ -286,10 +274,8 @@ paths:
       deprecated: false
   '/disburse/status/{reference_id}':
     get:
-      tags:
-        - 1. Disbursement
-      summary: 'DSBT-006 : Get disbursement processing status by polling using reference_id'
-      description: ' <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding.'
+      summary: 'DSBT-006 : /disburse/status/{reference_id}'
+      description: Get disbursement processing status by polling using reference_id <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding.
       operationId: get_g2p_disburse_status_by_req_id
       parameters:
         - $ref: '#/components/parameters/accept-language'

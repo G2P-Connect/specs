@@ -16,16 +16,10 @@ info:
 servers:
   - url: https://sandbox.dpg.org/v0.1.0
     description: Sandbox Server
- 
-tags:
-- name: 1. Financial Address Mapper Linking/Unlinking
-- name: 2. Financial Address Mapper lookups
 
 paths:
  /mapper/link:
   post: 
-    tags: 
-      - 1. Financial Address Mapper Linking/Unlinking
     summary: "FAMAP-001 : /mapper/link"
     description: "Linking ID to Financial Address in the mapper registry"
     operationId: post_g2p_mapper_link
@@ -80,8 +74,6 @@ paths:
     deprecated: false
  /mapper/on-link:
   post: 
-    tags: 
-      - 1. Financial Address Mapper Linking/Unlinking
     summary: "FAMAP-002 : /mapper/on-link"
     description: "Linking id to fa response through callback end point"
     operationId: post_g2p_mapper_on-link
@@ -136,8 +128,6 @@ paths:
     deprecated: false
  /mapper/update:
   post: 
-    tags: 
-      - 1. Financial Address Mapper Linking/Unlinking
     summary: "FAMAP-003	: /mapper/update"
     description: "Updating fa or scheme details to mapper registry"
     operationId: put_g2p_mapper_update
@@ -192,8 +182,6 @@ paths:
     deprecated: false
  /mapper/on-update:
   post: 
-    tags: 
-      - 1. Financial Address Mapper Linking/Unlinking
     summary: "FAMAP-004	: /mapper/on-update"
     description: "Update response through callback end point"
     operationId: put_g2p_mapper_on-update
@@ -248,8 +236,6 @@ paths:
     deprecated: false
  /mapper/unlink:
   post: 
-    tags: 
-      - 1. Financial Address Mapper Linking/Unlinking
     summary: "FAMAP-005 : /mapper/unlink"
     description: "Unlinking id from mapper registry"
     operationId: post_g2p_mapper_unlink
@@ -304,8 +290,6 @@ paths:
     deprecated: false
  /mapper/on-unlink:
   post: 
-    tags: 
-      - 1. Financial Address Mapper Linking/Unlinking
     summary: "FAMAP-006 : /mapper/on-unlink"
     description: "Unlinking response through callback end point"
     operationId: post_g2p_mapper_on-unlink
@@ -360,8 +344,6 @@ paths:
     deprecated: false
  /mapper/resolve:
   post: 
-    tags: 
-      - 2. Financial Address Mapper lookups
     summary: "FAMAP-007 : /mapper/resolve"
     description: "Resolve fa / beneficiary id to a store of value"
     operationId: post_g2p_mapper_resolve
@@ -416,8 +398,6 @@ paths:
     deprecated: false
  /mapper/on-resolve:
   post: 
-    tags: 
-      - 2. Financial Address Mapper lookups
     summary: "FAMAP-008 : /mapper/on-resolve"
     description: "Resolve response through callback end point"
     operationId: post_g2p_mapper_on-resolve
@@ -472,8 +452,6 @@ paths:
     deprecated: false
  /mapper/status:
   post: 
-    tags: 
-      - 2. Financial Address Mapper lookups
     summary: "FAMAP-009 : /mapper/status"
     description: "Status check of any of the mapper actions using transaction_id or individual reference_id(s)"
     operationId: post_g2p_mapper_status
@@ -542,8 +520,6 @@ paths:
     deprecated: false
  /mapper/on-status:
   post: 
-    tags: 
-      - 2. Financial Address Mapper lookups
     summary: "FAMAP-010 : /mapper/on-status"
     description: "Status check response through callback end point"
     operationId: post_g2p_mapper_on-status

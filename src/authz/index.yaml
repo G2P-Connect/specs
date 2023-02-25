@@ -20,13 +20,9 @@ info:
 servers:
   - url: https://sandbox.dpg.org/v0.1.0
     description: Sandbox Server
-tags:
-- name: 1. OAuth2 / OIDC enabled authorization services
 paths:
  /oauth2/client/token:
   post: 
-    tags: 
-      - 1. OAuth2 / OIDC enabled authorization services
     summary: "AUTHZ-001 : /oauth2/client/token"
     description: "Provide access_token to registered clients/services. <br>
       <b>Client integration notes: </b><br>
