@@ -21,4 +21,4 @@
 
 ***
 
-![](https://github.com/G2P-Connect/specs/blob/draft/docs/images/draw.io/interface-disb.drawio.png)
+![](./images/draw.io/interface-disb.drawio.png)
