@@ -1,2 +1,5 @@
-## Wiki Pages
-1. [Specifications](https://github.com/G2P-Connect/specs/wiki)
+### G2P Connect APIs
+
+* [Authz](./dist/g2p-authz.html)
+* [Disburse](./dist/g2p-disburse.html)
+* [Mapper](./dist/g2p-mapper.html)
