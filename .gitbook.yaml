@@ -1,10 +1,9 @@
 root: ./docs/
 
 structure:
-	home: ./Home.md
-	authorization: ./Authorization.md
-	disbursement: ./Dibursement.md
-	mapper: ./FinancialAddressMapper.md
-
+home: ./Home.md
+authorization: ./Authorization.md
+disbursement: ./Dibursement.md
+mapper: ./FinancialAddressMapper.md
 
 redirects::
