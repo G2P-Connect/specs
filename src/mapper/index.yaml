@@ -2,14 +2,9 @@ openapi: 3.0.0
 info:
   title: Manage ID to financial address mapper registry
   description: "<br>
-    <b>Reference Links:</b> <br>
-      1. G2P Connect Specifications <a href=\"https://github.com/G2P-Connect/specs/wiki \" >wiki pages</a><br>
-      2. G2P Connect GitHub <a href=\"https://github.com/G2P-Connect/specs/ \" >links</a><br>
-      3. Disbursement feature relate <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
-
     <br><b>TODOs</b>: <br>
     1. Define reversal APIs <br>
-    2. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
+    2. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
     "
   version: 0.1.0
   contact:
@@ -31,8 +26,8 @@ paths:
   post: 
     tags: 
       - 1. Financial Address Mapper Linking/Unlinking
-    summary: "FAMAP-001 : Linking id to fa with mapper registry"
-    description: ""
+    summary: "FAMAP-001 : /mapper/link"
+    description: "Linking ID to Financial Address in the mapper registry"
     operationId: post_g2p_mapper_link
     requestBody:
       description: ""
@@ -87,8 +82,8 @@ paths:
   post: 
     tags: 
       - 1. Financial Address Mapper Linking/Unlinking
-    summary: "FAMAP-002 : Linking id to fa response through callback end point"
-    description: ""
+    summary: "FAMAP-002 : /mapper/on-link"
+    description: "Linking id to fa response through callback end point"
     operationId: post_g2p_mapper_on-link
     requestBody:
       description: ""
@@ -143,8 +138,8 @@ paths:
   post: 
     tags: 
       - 1. Financial Address Mapper Linking/Unlinking
-    summary: "FAMAP-003	: Updating fa or scheme details to mapper registry"
-    description: ""
+    summary: "FAMAP-003	: /mapper/update"
+    description: "Updating fa or scheme details to mapper registry"
     operationId: put_g2p_mapper_update
     requestBody:
       description: ""
@@ -199,8 +194,8 @@ paths:
   post: 
     tags: 
       - 1. Financial Address Mapper Linking/Unlinking
-    summary: "FAMAP-004	: Update response through callback end point"
-    description: ""
+    summary: "FAMAP-004	: /mapper/on-update"
+    description: "Update response through callback end point"
     operationId: put_g2p_mapper_on-update
     requestBody:
       description: ""
@@ -255,8 +250,8 @@ paths:
   post: 
     tags: 
       - 1. Financial Address Mapper Linking/Unlinking
-    summary: "FAMAP-005 : Unlinking id from mapper registry"
-    description: ""
+    summary: "FAMAP-005 : /mapper/unlink"
+    description: "Unlinking id from mapper registry"
     operationId: post_g2p_mapper_unlink
     requestBody:
       description: ""
@@ -311,8 +306,8 @@ paths:
   post: 
     tags: 
       - 1. Financial Address Mapper Linking/Unlinking
-    summary: "FAMAP-006 : Unlinking response through callback end point"
-    description: ""
+    summary: "FAMAP-006 : /mapper/on-unlink"
+    description: "Unlinking response through callback end point"
     operationId: post_g2p_mapper_on-unlink
     requestBody:
       description: ""
@@ -367,8 +362,8 @@ paths:
   post: 
     tags: 
       - 2. Financial Address Mapper lookups
-    summary: "FAMAP-007 : Resolve fa / beneficiary id to a store of value"
-    description: ""
+    summary: "FAMAP-007 : /mapper/resolve"
+    description: "Resolve fa / beneficiary id to a store of value"
     operationId: post_g2p_mapper_resolve
     requestBody:
       description: ""
@@ -423,8 +418,8 @@ paths:
   post: 
     tags: 
       - 2. Financial Address Mapper lookups
-    summary: "FAMAP-008 : Resolve response through callback end point"
-    description: ""
+    summary: "FAMAP-008 : /mapper/on-resolve"
+    description: "Resolve response through callback end point"
     operationId: post_g2p_mapper_on-resolve
     requestBody:
       description: ""
@@ -479,8 +474,8 @@ paths:
   post: 
     tags: 
       - 2. Financial Address Mapper lookups
-    summary: "FAMAP-009 : Status check of any of the mapper actions using transaction_id or individual reference_id(s)"
-    description: ""
+    summary: "FAMAP-009 : /mapper/status"
+    description: "Status check of any of the mapper actions using transaction_id or individual reference_id(s)"
     operationId: post_g2p_mapper_status
     requestBody:
       description: ""
@@ -549,8 +544,8 @@ paths:
   post: 
     tags: 
       - 2. Financial Address Mapper lookups
-    summary: "FAMAP-010 : Status check response through callback end point"
-    description: ""
+    summary: "FAMAP-010 : /mapper/on-status"
+    description: "Status check response through callback end point"
     operationId: post_g2p_mapper_on-status
     requestBody:
       description: ""
