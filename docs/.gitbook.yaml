@@ -1,9 +1,0 @@
-root: ./
-
-structure:
-  home: ./Readme.md
-  authorization: ./Authorization.md
-  disbursement: ./Dibursement.md
-  mapper: ./FinancialAddressMapper.md
-
-redirects::
