@@ -9,6 +9,6 @@
 
 ## APIs
   
-* [Authz](../api/dist/g2p-authz.yaml)    
-* [Disubrse](./api/dist/g2p-disburse.yaml)
-* [Mapper](./api/dist/g2p-mapper.yaml)  
+* [Authz](../api/dist/g2p-authz.html)    
+* [Disubrse](./api/dist/g2p-disburse.html)
+* [Mapper](./api/dist/g2p-mapper.html)  
