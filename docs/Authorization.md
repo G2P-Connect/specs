@@ -7,7 +7,7 @@
 ## Interface List
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
-| AUTHZ-001 | [/oauth2/client/token](https://g2p-connect.github.io/specs/dist/g2p-authz.html#tag/1.-OAuth2-OIDC-enabled-authorization-services/operation/post_oauth2_client_token) |  Provide access token to registered senders & receivers | 
+| AUTHZ-001 | [/oauth2/client/token](https://g2p-connect.github.io/specs/dist/g2p-authz.html#operation/post_oauth2_client_token) |  Provide access token to registered senders & receivers | 
 
 ## Signature Verification 
 
