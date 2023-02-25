@@ -1,5 +1,5 @@
 ### Reference Links
-1. API specification [link](../blob/draft/api/g2p-mapper.yaml)
+1. API specification [link](../api/g2p-mapper.yaml)
 2. Discussion [thread](https://github.com/G2P-Connect/.github/discussions) 
 
 ### Overview
@@ -25,4 +25,4 @@
 
 ***
 
-![](https://github.com/G2P-Connect/specs/blob/draft/docs/images/draw.io/interface-mapper.drawio.png)
+![](./images/draw.io/interface-mapper.drawio.png)

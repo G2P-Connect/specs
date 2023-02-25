@@ -1,5 +1,5 @@
 ### Reference Links
-1. API specification [link](../blob/draft/api/g2p-disburse.yaml)
+1. API specification [link](../api/g2p-disburse.yaml)
 2. Disbursement feature relate [discussion thread](https://github.com/G2P-Connect/.github/discussions) 
 
 ### Overview
@@ -21,4 +21,4 @@
 
 ***
 
-![](https://github.com/G2P-Connect/specs/blob/draft/docs/images/draw.io/interface-disb.drawio.png)
+![](./images/draw.io/interface-disb.drawio.png)
