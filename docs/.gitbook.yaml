@@ -1,0 +1,9 @@
+root: ./
+
+structure:
+  home: ./Home.md
+  authorization: ./Authorization.md
+  disbursement: ./Dibursement.md
+  mapper: ./FinancialAddressMapper.md
+
+redirects::
