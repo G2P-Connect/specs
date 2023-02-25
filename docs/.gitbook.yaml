@@ -1,7 +1,7 @@
 root: ./
 
 structure:
-  home: ./Home.md
+  home: ./Readme.md
   authorization: ./Authorization.md
   disbursement: ./Dibursement.md
   mapper: ./FinancialAddressMapper.md
