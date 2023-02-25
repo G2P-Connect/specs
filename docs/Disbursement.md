@@ -1,9 +1,9 @@
-### Overview
+## Overview
 1. G2P Connect payment disbursement APIs intent is to enable standrdisation between social protection and payment processing/rails systems integration
 2. Disburse and DisburseStatue are core entities to enable generation of payment instruction and reconcile processing status 
 
 
-### Interface List
+## Interface List
 
 | Interface ID   | End Point | Description | 
 | -------------- | --------- | ----------- |
@@ -20,6 +20,6 @@
 ![](./images/draw.io/interface-disb.drawio.png)
 
 
-### References
+## References
 1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-disburse.html)
 2. Disbursement feature relate [discussion thread](https://github.com/G2P-Connect/.github/discussions)

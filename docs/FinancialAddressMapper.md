@@ -1,9 +1,9 @@
-### Overview
+## Overview
 1. Enable standardising linking, unlinking, update and status check capabilities between G2P enabling DPGS/Products/Systems.
 2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's etc that are supported by underlying payment processing/rails platforms. <br>
 3. Country operational model shall decide the entity that manages one or more ID to Account Mapper registries.
 
-### Interface List
+## Interface List
 
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
@@ -23,6 +23,6 @@
 
 ![](./images/draw.io/interface-mapper.drawio.png)
 
-### References
+## References
 1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)
 2. Discussion [thread](https://github.com/G2P-Connect/.github/discussions)
