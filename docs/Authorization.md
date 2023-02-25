@@ -1,7 +1,3 @@
-### Reference Links
-1. API specification [link](../blob/draft/api/g2p-authz.yaml)
-2. Discussion [thread](https://github.com/G2P-Connect/.github/discussions) 
-
 ### Overview 
 1. The scope of these end points is to standardise issuance of access tokens using existing OAuth2/OIDC standards. <br>
 2. Helps standardise end point access across g2p complaint api stack using x-access-token that is <b>compliant with JWT specs</b>. <br>
@@ -14,3 +10,8 @@
 | AUTHZ-001 | /oauth2/client/token|  Provide access token to registered senders & receivers | 
 
 ### Signature Verification 
+
+
+### References
+1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-authz.html)
+2. Discussion [thread](https://github.com/G2P-Connect/.github/discussions)

@@ -1,7 +1,3 @@
-### Reference Links
-1. API specification [link](../api/g2p-mapper.yaml)
-2. Discussion [thread](https://github.com/G2P-Connect/.github/discussions) 
-
 ### Overview
 1. Enable standardising linking, unlinking, update and status check capabilities between G2P enabling DPGS/Products/Systems.
 2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's etc that are supported by underlying payment processing/rails platforms. <br>
@@ -26,3 +22,7 @@
 ***
 
 ![](./images/draw.io/interface-mapper.drawio.png)
+
+### References
+1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)
+2. Discussion [thread](https://github.com/G2P-Connect/.github/discussions)
