@@ -6,7 +6,4 @@
 * [Authorization](./Authorization.md)    
 * [Dibursement](./Disbursement.md)
 * [Financial Address Mapper](./FinancialAddressMapper.md)
-
-## APIs
-  
 * [APIs](https://g2p-connect.github.io/specs/)
