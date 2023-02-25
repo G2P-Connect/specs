@@ -5,8 +5,6 @@ properties:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
-  fa:
-    $ref: "../../../common/schema/FinancialAddress.yaml" 
   status:
     description: "Linking status definitions: <br>
         1. RCVD: Received; linking request received <br>
@@ -25,6 +23,8 @@ properties:
     description: "Status reascon code message, if any, Helps actionanble messaging for systems/end users"
     type: string
     maxLength: 999
+  fa:
+    $ref: "../../../common/schema/FinancialAddress.yaml" 
   additional_info:
     description: "Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data."
     type: string
