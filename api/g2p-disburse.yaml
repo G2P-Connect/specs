@@ -320,35 +320,35 @@ components:
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
+        payer_fa:
+          $ref: '#/components/schemas/FinancialAddress'
+        payee_fa:
+          $ref: '#/components/schemas/FinancialAddress'
+        amount:
+          $ref: '#/components/schemas/Amount'
         scheduled_timestamp:
           description: Disbursement initiation schedule timestamp in RFC3339 format. If not present the disbursement is for immediate purpose.
           type: string
           format: date-time
           example: '2022-12-04T17:00:00-04:00'
-        payer_fa:
-          $ref: '#/components/schemas/FinancialAddress'
         payer_name:
           description: Payer account name for easy reference. Usually each scheme may have a seperate holding account.
           type: string
           example: Farmer draught relief scheme 2023
-        payee_fa:
-          $ref: '#/components/schemas/FinancialAddress'
         payee_name:
           description: Payer name for easy reference. Usually beneficiary name as per scheme registration info
           type: string
           example: Joe John
-        amount:
-          $ref: '#/components/schemas/Amount'
         note:
           description: Note to payer/payee to reflect on statements
           type: string
           maxLength: 99
+        purpose:
+          $ref: '#/components/schemas/Purpose'
         instruction:
           description: 'Additional systems instruction for interfacing systems/platforms to integrate, reconcile'
           type: string
           maxLength: 999
-        purpose:
-          $ref: '#/components/schemas/Purpose'
         currency_code:
           $ref: '#/components/schemas/CurrencyCode'
         locale:

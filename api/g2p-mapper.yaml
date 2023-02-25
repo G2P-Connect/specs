@@ -893,18 +893,6 @@ components:
       properties:
         name:
           type: object
-          description: Beneficiary contact details
-          properties:
-            mobile_number:
-              type: string
-            email_address:
-              type: string
-            address:
-              type: string
-          required:
-            - first_name
-        contact_info:
-          type: object
           description: Beneficiary name
           properties:
             first_name:
@@ -912,6 +900,18 @@ components:
             middle_name:
               type: string
             last_name:
+              type: string
+          required:
+            - first_name
+        contact_info:
+          type: object
+          description: Beneficiary contact details
+          properties:
+            mobile_number:
+              type: string
+            email_address:
+              type: string
+            address:
               type: string
         account_info:
           type: object
@@ -1005,6 +1005,9 @@ components:
               description: 'Additional info, if any'
               type: string
               maxLength: 1024
+          required:
+            - id_type
+            - id
       required:
         - name
     BeneficiaryId:
