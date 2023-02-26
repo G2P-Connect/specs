@@ -1,7 +1,7 @@
 ## Overview
-1. Enable standardising linking, unlinking, update and status check capabilities between G2P enabling DPGS/Products/Systems.
-2. Beneficiary identifier can be of national id, national id tokens, mobile number, email id, virtual payment ids, user id's etc that are supported by underlying payment processing/rails platforms. <br>
-3. Country operational model shall decide the entity that manages one or more ID to Account Mapper registries.
+1. Standardising linking, unlinking, update, resolve and status check capabilities between G2P enabling DPGS/Products/Systems.
+2. Beneficiary identifier can be of national id, id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms. <br>
+3. Country operational model shall decide the entity that manages one or more ID to Financial address map registries.
 
 ## Interface List
 
@@ -17,7 +17,6 @@
 | FAMAP-008 | POST [/mapper/on-resolve](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-resolve) | Resolve response through callback end point | 
 | FAMAP-009 | POST [/mapper/status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_status) | Status check using transaction_id or reference_id(s) | 
 | FAMAP-010 | POST [/mapper/on-status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-status) | Status check response through callback end point | 
-
 
 ***
 
