@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
-  title: G2P Connect - Authorization APIs
-  description: 'Provide access_token to registered clients/services. Issue OAuth2 compliant authorization token. <br> Authorization <a href= "https://github.com/G2P-Connect/.github/discussions">discussion thread</a> <br> <br><b>TODOs</b>: <br> 1.  Standardise <a href="https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md">errror codes</a> <br> '
+  title: Authorization
+  description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions">thread</a> <br><br> Provide access_token to registered clients/services. Issue OAuth2 compliant authorization token.'
   version: 0.1.0
   contact:
     name: G2P Connect

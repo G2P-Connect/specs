@@ -1,15 +1,32 @@
-description: "Describes an error object that is returned to standard post call request in sync manner. <br>
-  1. This object shall be sent when any request received by a participant is unacceptable. <br>
-  2. This object shall be sent either during Ack or with the callback calls. <br>
-  3. This object may be used for non HTTPS transport mechanism to acknowledge the receipt of a message. <br>"
+description: "Describes an error object that is returned to standard post call request. <br>
+  1. This object shall be sent when any request received by a participant is not parsable and valid. <br>
+  2. This object may be used for all transport mechanism to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
 type: object
 properties:
   code:
     type: string
-    description: "Standard error code. For full list of error codes, refer to docs/G2PConnect-005-Error-Codes-Draft-01.md of this repo"
-  paths:
+    description: Standard error code
+    enum:
+      - "ERR_ACCESS_DENIED"
+      - "ERR_INVALID_REQUEST"
+      - "ERR_INVALID_SENDER"
+      - "ERR_INVALID_SENDER_URI"
+      - "ERR_INVALID_RECEIVER"
+      - "ERR_INVALID_RECEIVER_URI"
+      - "ERR_MANDATORY_HEADER_MISSING"
+      - "ERR_INVALID_MESSAGE_ID"
+      - "ERR_INVALID_TIMESTAMP"
+      - "ERR_INVALID_ACTION"
+      - "ERR_INVALID_SIGNATURE"
+      - "ERR_INVALID_ENCRYPTION"
+      - "ERR_INVALID_MESSAGE"
+      - "ERR_SERVICE_UNAVAILABLE"
+  short_message:
     type: string
-    description: Path to json schema generating the error. Used only during json schema validation errors
-  message:
+    description: short message to describe above error code
+  long_message:
     type: string
     description: Human readable message describing the error. Used mainly for logging. Not recommended to be shown to the user.
+  trace:
+    type: string
+    description: Detailed message for trouble shooting by systems

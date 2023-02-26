@@ -1,11 +1,8 @@
 openapi: 3.0.0
 info:
-  title: G2P Connect - Disbursements APIs
-  description: "<br>
-    Disbursement <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
-    <br><b>TODOs</b>: <br>
-    1. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
-    "
+  title: Disbursement
+  description: "Discussions <a href= \"https://github.com/G2P-Connect/.github/discussions\">thread</a> <br><br>
+    Social protection platform initiating G2P disbursements. Supports api, events and file based messaging"
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -20,7 +17,7 @@ paths:
  /disburse:
   post: 
     summary: "DSBT-001 : /disburse"
-    description: "Social protection platofrom initiating g2p disbursements. Supports api, events and file based messaging"
+    description: "Initiate payment through disbursement instructions"
     operationId: post_g2p_disburse
     requestBody:
       description: ""

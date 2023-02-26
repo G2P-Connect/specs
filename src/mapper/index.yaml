@@ -1,11 +1,8 @@
 openapi: 3.0.0
 info:
-  title: G2P Connect - ID to Financial address map APIs
-  description: "<br>
-    ID to Financial Address Mapper <a href= \"https://github.com/G2P-Connect/.github/discussions\">discussion thread</a> <br>
-    <br><b>TODOs</b>: <br>
-    1. Standardisae <a href=\"https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md\">errror codes</a> <br>
-    "
+  title: ID Mapper
+  description: "Discussions <a href= \"https://github.com/G2P-Connect/.github/discussions\">thread</a> <br><br>
+    Manage ID to Financial Address mapper registry"
   version: 0.1.0
   contact:
     name: G2P Connect
