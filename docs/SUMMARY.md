@@ -1,7 +1,6 @@
 # G2P Connect Documentation
 
-## Technical Specifications
-
+## [Technical Specifications](./Home.md)
 * [G2P Connect Protocol](./Home.md)
     * [Terminology](./Terminology.md)
     * [Intefaces](./Interfaces.md)
