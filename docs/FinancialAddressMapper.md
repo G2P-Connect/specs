@@ -18,7 +18,7 @@
 | FAMAP-009 | POST [/mapper/status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_status) | Status check using transaction_id or reference_id(s) | 
 | FAMAP-010 | POST [/mapper/on-status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-status) | Status check response through callback end point | 
 
-***
+## Integration Schematics
 
 ![](./images/draw.io/interface-mapper.drawio.png)
 

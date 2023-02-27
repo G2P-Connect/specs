@@ -15,7 +15,7 @@
 | DISB-006 | GET [/disburse/status/{reference_id}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/get_g2p_disburse_status_by_req_id) | Disbursement status to social protection, Treasury systems | 
 
 
-***
+## Integration Schematics
 
 ![](./images/draw.io/interface-disb.drawio.png)
 
