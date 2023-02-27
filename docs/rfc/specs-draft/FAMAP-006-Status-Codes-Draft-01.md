@@ -1,4 +1,4 @@
-# FAMAP-006 : FA Map Unlin Status 
+# FAMAP-006 : FA Map Unlink Status 
 
 ## ID: 
 G2PConnect-001
@@ -31,7 +31,7 @@ Please make additional suggestions through discussion forums and/or pull request
   - specs/src/common/schema/RequestStatus.yaml
   - specs/src/mapper/components/io/ResolveStatusReasonCode.yaml
   
-## Disburse Status 
+## Unlink Status 
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
 | RCVD   |                    | Payment received      |

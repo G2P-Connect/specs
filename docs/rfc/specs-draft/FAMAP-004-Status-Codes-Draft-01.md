@@ -31,7 +31,7 @@ Please make additional suggestions through discussion forums and/or pull request
   - specs/src/common/schema/RequestStatus.yaml
   - specs/src/mapper/components/io/LinkStatusReasonCode.yaml
   
-## Disburse Status 
+## Update Status
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
 | RCVD   |                    | Payment received      |
