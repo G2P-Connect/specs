@@ -546,19 +546,7 @@ paths:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
                     status-response:
-                      type: array
-                      items:
-                        oneOf:
-                        - $ref: "#/components/schemas/LinkResponse"
-                        - $ref: "#/components/schemas/ResolveResponse"
-                        - $ref: "#/components/schemas/UpdateResponse"
-                        - $ref: "#/components/schemas/UnlinkResponse"
-                      example:
-                        status-response: 
-                            reference_id: "test"
-                            timestamp: "test"
-                            fa: "test"
-                            status: "LNKD"                              
+                      $ref: "#/components/schemas/StatusResponse"                          
               required:
                 - header
         multipart/form-data:

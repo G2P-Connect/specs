@@ -1,9 +1,30 @@
 type: object
 description: 'Beneficiary contact details'
 properties:
+  phone:
+    type: string
   mobile_number:
+    type: string
+  alt_mobile_number:
     type: string
   email_address:
     type: string
-  address:
+  alt_email_address:
     type: string
+  address:
+    type: object
+    properties: 
+      address_line_1:
+        type: string
+      address_line_2:
+        type: string
+      address_line_3:
+        type: string
+      city:
+        type: string
+      state_or_province:
+        type: string
+      country_or_region:
+        type: string
+      zip_or_postal_code:
+        type: string

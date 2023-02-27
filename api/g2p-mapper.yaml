@@ -534,19 +534,7 @@ paths:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
                     status-response:
-                      type: array
-                      items:
-                        oneOf:
-                          - $ref: '#/components/schemas/LinkResponse'
-                          - $ref: '#/components/schemas/ResolveResponse'
-                          - $ref: '#/components/schemas/UpdateResponse'
-                          - $ref: '#/components/schemas/UnlinkResponse'
-                      example:
-                        status-response:
-                          reference_id: test
-                          timestamp: test
-                          fa: test
-                          status: LNKD
+                      $ref: '#/components/schemas/StatusResponse'
               required:
                 - header
           multipart/form-data:
@@ -607,11 +595,9 @@ components:
         status:
           $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
-          type: string
-          maxLength: 99
+          $ref: '#/components/schemas/LinkStatusReasonCode'
         status_reason_message:
-          description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
+          description: Status reascon code message. Helps actionanble messaging for systems/end users
           type: string
           maxLength: 999
         additional_info:
@@ -691,20 +677,11 @@ components:
         account_info:
           $ref: '#/components/schemas/AccountInfo'
         status:
-          description: 'Linking status definitions: <br> 1. RCVD: Received; linking request received <br> 2. PDNG: Pending; linking request pending <br> 3. RJCT: Rejected; linking request rejected  <br> 4. SUCC: Success;  resolve request successful <br> 5. UKWN: Unknown; Unknow error <br>'
-          type: string
-          enum:
-            - RCVD
-            - PDNG
-            - RJCT
-            - SUCC
-            - UKWN
+          $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
-          type: string
-          maxLength: 99
+          $ref: '#/components/schemas/ResolveStatusReasonCode'
         status_reason_message:
-          description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
+          description: Status reascon code message. Helps actionanble messaging for systems/end users
           type: string
           maxLength: 999
         additional_info:
@@ -750,43 +727,19 @@ components:
         - beneficiary_info
         - account_info
     StatusResponse:
-      type: object
-      description: Response of latest linking status
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/Timestamp'
-        fa:
-          $ref: '#/components/schemas/FinancialAddress'
-        status:
-          description: 'Linking status definitions: <br> 1. RCVD: Received; linking request received <br> 2. PDNG: Pending; linking request pending <br> 3. RJCT: Rejected; linking request rejected  <br> 4. LNKD: Linked;  linking successful <br> 5. ULKD: Unlinked: unlinking successful <br> 5. UKWN: Unknown; Unknow error <br>'
-          type: string
-          enum:
-            - RCVD
-            - PDNG
-            - RJCT
-            - LNKD
-            - ULKD
-            - UKWN
-        status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
-          type: string
-          maxLength: 99
-        status_reason_message:
-          description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
-          type: string
-          maxLength: 999
-        additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data.'
-          type: string
-          maxLength: 999
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - timestamp
-        - status
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/LinkResponse'
+          - $ref: '#/components/schemas/ResolveResponse'
+          - $ref: '#/components/schemas/UpdateResponse'
+          - $ref: '#/components/schemas/UnlinkResponse'
+      example:
+        status-response:
+          reference_id: test
+          timestamp: test
+          fa: test
+          status: SUCC
     UnlinkRequest:
       type: object
       description: Beneficiary ID to Store of value account linking request
@@ -816,19 +769,9 @@ components:
         timestamp:
           $ref: '#/components/schemas/Timestamp'
         status:
-          description: 'Linking status definitions: <br> 1. RCVD: Received; linking request received <br> 2. PDNG: Pending; linking request pending <br> 3. RJCT: Rejected; linking request rejected  <br> 4. LNKD: Linked;  linking successful <br> 5. ULKD: Unlinked: unlinking successful <br> 5. UKWN: Unknown; Unknow error <br>'
-          type: string
-          enum:
-            - RCVD
-            - PDNG
-            - RJCT
-            - LNKD
-            - ULKD
-            - UKWN
+          $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
-          type: string
-          maxLength: 99
+          $ref: '#/components/schemas/UnlinkStatusReasonCode'
         status_reason_message:
           description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
           type: string
@@ -878,19 +821,9 @@ components:
         fa:
           $ref: '#/components/schemas/FinancialAddress'
         status:
-          description: 'Linking status definitions: <br> 1. RCVD: Received; linking request received <br> 2. PDNG: Pending; linking request pending <br> 3. RJCT: Rejected; linking request rejected  <br> 4. LNKD: Linked;  linking successful <br> 5. ULKD: Unlinked: unlinking successful <br> 5. UKWN: Unknown; Unknow error <br>'
-          type: string
-          enum:
-            - RCVD
-            - PDNG
-            - RJCT
-            - LNKD
-            - ULKD
-            - UKWN
+          $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
-          type: string
-          maxLength: 99
+          $ref: '#/components/schemas/UpdateStatusReasonCode'
         status_reason_message:
           description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
           type: string
@@ -936,12 +869,33 @@ components:
           type: object
           description: Beneficiary contact details
           properties:
+            phone:
+              type: string
             mobile_number:
+              type: string
+            alt_mobile_number:
               type: string
             email_address:
               type: string
-            address:
+            alt_email_address:
               type: string
+            address:
+              type: object
+              properties:
+                address_line_1:
+                  type: string
+                address_line_2:
+                  type: string
+                address_line_3:
+                  type: string
+                city:
+                  type: string
+                state_or_province:
+                  type: string
+                country_or_region:
+                  type: string
+                zip_or_postal_code:
+                  type: string
         account_info:
           type: object
           properties:

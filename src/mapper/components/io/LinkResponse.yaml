@@ -8,13 +8,11 @@ properties:
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml" 
   status:
-     $ref: "../../../common/schema/RequestStatus.yaml" 
+    $ref: "../../../common/schema/RequestStatus.yaml" 
   status_reason_code:
-    description: "Status reason code, if any. Helps for systems integration"
-    type: string
-    maxLength: 99
+    $ref: "./LinkStatusReasonCode.yaml" 
   status_reason_message:
-    description: "Status reascon code message, if any, Helps actionanble messaging for systems/end users"
+    description: "Status reascon code message. Helps actionanble messaging for systems/end users"
     type: string
     maxLength: 999
   additional_info:

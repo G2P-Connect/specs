@@ -72,8 +72,5 @@ All communication using G2P Connect specifications have following structure
 1. All dates and timestamps are represented in RFC3339 format including timezone e.g., 2022-12-04T18:01:07+05:30
 2. All currency codes represented in ISO 4217 format
 
-## Request For Comments
-1. Message delivery error codes - [G2PConnect-001-Error-Codes-Draft-01.md](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/specs/docs/rfc/specs-draft/G2PConnect-001-Error-Codes-Draft-01.md)
-
 
 ## Acknowledgments
