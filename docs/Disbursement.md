@@ -17,7 +17,6 @@
 ## Request For Comments
 1. Disbursement status, reason code/message - [DISBT-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/DISBT-002-Status-Codes-Draft-01.md)
 
-
 ## Integration Schematics
 ![](./images/draw.io/interface-disb.drawio.png)
 
