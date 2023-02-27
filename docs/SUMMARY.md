@@ -2,7 +2,10 @@
 
 ## Technical Specifications
 
-* [Home](./Home.md)
+* G2P Connect Protocol
+    * [Terminology](./Terminology.md)
+    * [Overview](./Home.md)
+    * [Intefaces](./Interfaces.md)
 * Social Protection
     * [Program Management](./ProgramManagement.md)
     * [Eligibility Rules](./EligibilityRules.md)
