@@ -37,14 +37,14 @@ Please make additional suggestions through discussion forums and/or pull request
 | RCVD   |                    | Payment received      |
 | PDNG   |                    | Payment initiated     |
 | SUCC   |                    | Payment success       |
-| RJCT   | RJCT_INVALID_PAYER_FA | Payer Financial Address is invalid |
-| RJCT   | RJCT_INVALID_PAYEE_FA | Payee Financial Address is invalid |
-| RJCT   | RJCT_INVALID_AMOUNT   | Invalid Amount |
-| RJCT   | RJCT_INALID_SHCHEDULE_TIMESTAMP | Schedule timestamp is invalid |
-| RJCT   | RJCT_INVALID_CURRENCY_CODE | Currency code is invalid |
-| RJCT   | RJCT_DUPLICATE_REFERENCE_ID | Duplicate reference id |
-| UKWN   | UKWN_NOT_FOUND_REFERENCE_ID | Reference id not found  |
-| UKWN   | UKWN_NOT_FOUND_REFERENCE_ID | Transaction id not found |
+| RJCT   | RJCT_PAYER_FA_INVALID | Payer Financial Address is invalid |
+| RJCT   | RJCT_PAYEE_FA_INVALID | Payee Financial Address is invalid |
+| RJCT   | RJCT_AMOUNT_INVALID | Invalid Amount |
+| RJCT   | RJCT_SHCHEDULE_TIMESTAMP_INVALID | Schedule timestamp is invalid |
+| RJCT   | RJCT_CURRENCY_CODE_INVALID | Currency code is invalid |
+| RJCT   | RJCT_REFERENCE_ID_DUPLICATE | Duplicate reference id |
+| UKWN   | UKWN_REFERENCE_ID_NOT_FOUND| Reference id not found  |
+| UKWN   | UKWN_REFERENCE_ID_NOT_FOUND | Transaction id not found |
 
 ## Acknowledgements
   The author would like to thank the following individuals for their contributions in creating the first draft of this document (in alphabetical order):

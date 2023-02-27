@@ -15,7 +15,7 @@
 | FAMAP-006 | POST [/mapper/on-unlink](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-unlink) | Unlinking response through callback end point | 
 | FAMAP-007 | POST [/mapper/resolve](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_resolve) | Resolve fa / beneficiary id to a store of value | 
 | FAMAP-008 | POST [/mapper/on-resolve](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-resolve) | Resolve response through callback end point | 
-| FAMAP-009 | POST [/mapper/status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_status) | Status check using transaction_id or reference_id(s) | 
+| FAMAP-009 | POST [/mapper/status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_status) | Status check on any of the mapper actions using transaction_id or reference_id(s) | 
 | FAMAP-010 | POST [/mapper/on-status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-status) | Status check response through callback end point | 
 
 ## Request For Comments

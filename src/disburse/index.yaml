@@ -261,8 +261,10 @@ paths:
                           enum:
                             - status
                 message:
-                  type: object
+                  type: object                    
                   properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
                     disburse_status:
                       type: array
                       items:

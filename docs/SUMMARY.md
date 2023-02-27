@@ -1,16 +1,27 @@
-# Documentation
+# G2P Connect Documentation
 
-## Specifications
+## Technical Specifications
 
-* [Home](./Home.md)    
-* [Dibursement](./Disbursement.md)
-* [Financial Address Mapper](./FinancialAddressMapper.md)
+* [Home](./Home.md)
+* Social Protection
+    * [Program Management](./ProgramManagement.md)
+    * [Eligibility Rules](./EligibilityRules.md)
 * [Identity](./Identity.md)
-* [Credentialing](./Credentialing.md)
-* [Registry](./Registry.md)
-* [Beneficiary Management](./BeneficiaryManagement.md)
-* [Social Protection Program Management](./ProgramManagement.md)
-* [APIs](https://g2p-connect.github.io/specs/)
+ * Registries
+    * [Civil Registry](./CivilRegistry.md)
+    * [Functional Registry](./FunctionalRegistry.md)
+    * [Social Regisry](./SocialRegistry.md)
+* Register, Access & Enrol
+    * [Registration](.Registration.md)
+    * [Accessment](./BeneficiaryAccessment.md)
+    * [Financial Address Mapper](./FinancialAddressMapper.md)
+* Payment
+    * [Dibursement](./Disbursement.md)
+* [Credential](./Credential.md)
+* Notifications
+* Monitoring
+* Grievance Mgmt
 * Security
     * [Authorization](./Authorization.md)
     * [Singature Validation](./SignatureValidation.md)
+* [API Home Page](https://g2p-connect.github.io/specs/)

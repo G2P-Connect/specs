@@ -261,6 +261,8 @@ paths:
                   message:
                     type: object
                     properties:
+                      transaction_id:
+                        $ref: '#/components/schemas/TransactionId'
                       disburse_status:
                         type: array
                         items:
@@ -405,15 +407,16 @@ components:
         - status
     DisburseStatusReasonCode:
       type: string
-      description: 'Disburse status reason code with reason message: <br> - RJCT_INVALID_PAYER_FA; Payer Financial Address is invalid <br> - RJCT_INVALID_PAYEE_FA; Payee Financial Address is invalid <br> - RJCT_INVALID_AMOUNT; Invalid Amount <br> - RJCT_INALID_SHCHEDULE_TIMESTAMP; Schedule timestamp is invalid <br> - RJCT_INVALID_CURRENCY_CODE; Currency code is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br> - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br> - etc.,'
+      description: 'Disburse status reason code with reason message: <br> - RJCT_PAYER_FA_INVALID; Payer Financial Address is invalid <br> - RJCT_PAYEE_FA_INVALID; Payee Financial Address is invalid <br> - RJCT_AMOUNT_INVALID; Invalid Amount <br> - RJCT_SHCHEDULE_TIMESTAMP_INVALID; Schedule timestamp is invalid <br> - RJCT_CURRENCY_CODE_INVALID; Currency code is invalid <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - UKWN_REFERENCE_ID_NOT_FOUND; Reference id not found <br> - UKWN_TRANSACTION_ID_NOT_FOUND; Transaction id not found <br> - etc.,'
       enum:
-        - RJCT_INVALID_PAYER_FA
-        - RJCT_INVALID_PAYEE_FA
-        - RJCT_INVALID_AMOUNT
-        - RJCT_INALID_SHCHEDULE_TIMESTAMP
-        - RJCT_INVALID_CURRENCY_CODE
-        - UKWN_NOT_FOUND_REFERENCE_ID
-        - UKWN_NOT_FOUND_TRANSACTION_ID
+        - RJCT_PAYER_FA_INVALID
+        - RJCT_PAYEE_FA_INVALID
+        - RJCT_AMOUNT_INVALID
+        - RJCT_SHCHEDULE_TIMESTAMP_INVALID
+        - RJCT_CURRENCY_CODE_INVALID
+        - RJCT_REFERENCE_ID_DUPLICATE
+        - UKWN_REFERENCE_ID_NOT_FOUND
+        - UKWN_TRANSACTION_ID_NOT_FOUND
     Ack:
       description: 'Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK'
       type: object
