@@ -1,9 +1,9 @@
-# G2P Connect Documentation
+# G2P Connect Technical Specifications
 
-## Technical Specifications
-* [G2P Connect Protocol](./Home.md)
-    * [Terminology](./Terminology.md)
-    * [Interfaces](./Interfaces.md)
+## G2P Connect Protocol
+* [Overview](./Home.md)
+* [Terminology](./Terminology.md)
+* [Interfaces](./Interfaces.md)
 * [Register, Access & Enrol](./FinancialAddressMapper.md)
     * [Financial Address Mapper](./FinancialAddressMapper.md)
 * [Payment](./Disbursement.md)
