@@ -1,4 +1,5 @@
 ## G2P Connect - Terminology
+
 | Term | Description |
 | ---- | ----------- |
 | sender | Initiator of request by any application/service/system/platform using G2P Connect compliant interfaces |

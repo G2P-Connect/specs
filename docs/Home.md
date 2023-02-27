@@ -1,7 +1,5 @@
 # G2P Connect - Protocol Standards
 
-## Overview
-
 G2P Connect Integration Specifications open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture Blueprint. 
 
 G2P Connect Integration Specification assumes interaction between DPG projects, Proprietary/Existing systems may vary due to underlying landscape across countries. For e.g., <br>
