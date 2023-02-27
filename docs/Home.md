@@ -7,7 +7,7 @@ Below core interfaces & codes help to easily identity functional areas for imple
 | [Disbursement](./Disbursement.md) | DISB | 0.1.0 | Draft | Payment disbursements |
 | [Financial Address Mapper](./FinancialAddressMapper.md) | FAMAP | 0.1.0 | Draft | Manage ID to financial address mapper registry | 
 | [Identity ](./Identity.md) | ID | 0.1.0 | Draft | APIs to access authentication & eKYC services | 
-| [Scheme Management](./SchemeManagement.md) | SM | 0.1.0 | Draft | Manage scheme/program | 
+| [Program Management](./ProgramManagement.md) | SM | 0.1.0 | Draft | Manage scheme/program | 
 | [Beneficiary Management](./BeneficiaryManagement.md) | BM | 0.1.0 | Draft | Manage beneficiaries |
 | [Digital Credentialing](./DigitalCredentialing.md) | DC | 0.1.0 | Draft | Issue, manage digital verifiable credentials | 
 

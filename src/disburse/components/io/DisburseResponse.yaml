@@ -11,11 +11,9 @@ properties:
   status:
      $ref: "./DisburseStatus.yaml"
   status_reason_code:
-    description: "Status reason code, if any. Helps for systems integration"
-    type: string
-    maxLength: 99
+     $ref: "./DisburseStatusReasonCode.yaml"
   status_reason_message:
-    description: "Status reascon code message, if any, Helps actionanble messaging for systems/end users"
+    description: "Status reason code message. Helps actionanble messaging for systems/end users"
     type: string
     maxLength: 999
   instruction:

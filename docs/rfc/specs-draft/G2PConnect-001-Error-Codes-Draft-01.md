@@ -1,4 +1,4 @@
-# Error Codes for G2P Connect Communications
+# Error Codes for G2P Connect Transport Layer Communications
 
 ## ID: 
 G2PConnect-001
@@ -7,16 +7,16 @@ G2PConnect-001
 Draft-01
 
 ## Title:
-Error Codes
+Message Delivery - Error Codes
 
 ## Status:
 Protocol Draft
 
 ## Published on:
-Feburary 15, 2023
+April 15, 2023
 
 ## Expires on:
-Feburary 15, 2024 or Date of publication of next draft which ever is earlier
+April 15, 2024 or Date of publication of next draft which ever is earlier
 
 ## License:
 CC-BY-ND
@@ -25,23 +25,29 @@ CC-BY-ND
 1. Vijay Vujjini : vijay.vujjini@gmail.com
 
 ## Introduction
-  This document outlines the error codes which must be returned by a G2P Connect sender/receiver. 
+  This document outlines the error codes which must be returned by a G2P Connect sender/receiver to ensure reliable delivery of message. This is for protocol agnostic error codes i.e HTTPS, SFTP, Messaging, etc.,
 
-  1. Assumption is Recevier successfully received, parsed and verfied the authenticity of message. 
-  2. All validations and exception to generate a successful ACK/NACK response are tracked in this category.
-  3. These error codes are part of ACK/NACK Error element.
+  1. Assumption is Recevier successfully received, parsed, signature verfication and decryption of message for downsteam processing. 
+  2. If any of the above steps are not possible, then receiver is expected to return one of the below error codes as a sync response.
+  3. Please make additional suggestions through discussion forums and/or pull requests to file @ specs/src/common/schema/Error.yaml
 
   ## Error Codes
-  |**Code**|**Message**|**Description**|
-  |---|---|---|
-  |**30000|Invalid request error|Generic invalid request error**|
-  |30001|Sender not found|When Receiver is unable to find the sender id|
-  |30002|Receiver not found|When Sender is unable to find the receiver id|
-  |**40000|Business Error|Generic business error**|
-  |40001|Action not applicable|When an API endpoint is not implemented receiver as it is not required for their use cases and a sender calls one of these endpoints|
-  |40002|Insufficent funds|Insufficent funds|
-  |**50000|Policy Error|Generic Policy Error**|
-  |**90000|Technical Error|Generic Technical Error**|
+  ```
+  - "ERR_ACCESS_DENIED"
+  - "ERR_INVALID_REQUEST"
+  - "ERR_INVALID_SENDER"
+  - "ERR_INVALID_SENDER_URI"
+  - "ERR_INVALID_RECEIVER"
+  - "ERR_INVALID_RECEIVER_URI"
+  - "ERR_MANDATORY_HEADER_MISSING"
+  - "ERR_INVALID_MESSAGE_ID"
+  - "ERR_INVALID_TIMESTAMP"
+  - "ERR_INVALID_ACTION"
+  - "ERR_INVALID_SIGNATURE"
+  - "ERR_INVALID_ENCRYPTION"
+  - "ERR_INVALID_MESSAGE"
+  - "ERR_SERVICE_UNAVAILABLE"
+  ```
 
   ## Acknowledgements
   The author would like to thank the following individuals for their contributions in creating the first draft of this document (in alphabetical order):

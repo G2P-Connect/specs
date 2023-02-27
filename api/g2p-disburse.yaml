@@ -69,7 +69,7 @@ paths:
   /on-disburse:
     post:
       summary: 'DSBT-002 : /on-disburse'
-      description: 'The callback endpoint is called by /disburse end point processing systems upon completing all disbursement instructions or at regular intervals '
+      description: The callback is called by /disburse end point processing systems upon completing all disbursement instructions
       operationId: post_g2p_on-disburse
       requestBody:
         description: ''
@@ -372,11 +372,16 @@ components:
         status:
           $ref: '#/components/schemas/DisburseStatus'
         status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
           type: string
-          maxLength: 99
+          description: 'Disburse status reason codes: <br> 1. RJCT_INVALID_PAYER_FA; Payer Financial Address is invalid <br> 2. RJCT_INVALID_PAYEE_FA; Payee Financial Address is invalid <br> 3. RJCT_INVALID_AMOUNT; Invalid Amount <br> 4. RJCT_INALID_SHCHEDULE_TIMESTAMP; Schedule timesatmp is invalid <br> 5. RJCT_INVALID_CURRENCY_CODE; Currency code is invalid <br> 6. etc.,'
+          enum:
+            - RJCT_INVALID_PAYER_FA
+            - RJCT_INVALID_PAYEE_FA
+            - RJCT_INVALID_AMOUNT
+            - RJCT_INALID_SHCHEDULE_TIMESTAMP
+            - RJCT_INVALID_CURRENCY_CODE
         status_reason_message:
-          description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
+          description: Status reason code message. Helps actionanble messaging for systems/end users
           type: string
           maxLength: 999
         instruction:
@@ -407,7 +412,7 @@ components:
         - status
     DisburseStatus:
       type: string
-      description: 'Disburse status definitions: <br> 1. RCVD: Received; payment received <br> 2. PDNG: Pending; payment initiated <br> 3. RJCT: Rejected; payment initiated and has been rejected  <br> 4. SUCC: Success; payment is successful'
+      description: 'Disburse status: <br> 1. RCVD: Received; payment received <br> 2. PDNG: Pending; payment initiated <br> 3. RJCT: Rejected; payment initiated and has been rejected  <br> 4. SUCC: Success; payment is successful'
       enum:
         - RCVD
         - PDNG

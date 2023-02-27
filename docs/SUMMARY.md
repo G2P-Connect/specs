@@ -9,7 +9,7 @@
 * [Credentialing](./Credentialing.md)
 * [Registry](./Registry.md)
 * [Beneficiary Management](./BeneficiaryManagement.md)
-* [Scheme Management](./SchemeManagement.md)
+* [Social Protection Program Management](./ProgramManagement.md)
 * [APIs](https://g2p-connect.github.io/specs/)
 * Security
     * [Authorization](./Authorization.md)

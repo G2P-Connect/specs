@@ -86,7 +86,7 @@ components:
       description: ''
     OidcScope:
       type: string
-      description: 'OIDC complaint auth tokens issued by an authorization service for OAuth2, OIDC complaint clients. <br><br> This is an indicative list: <br> disburse, on-disburse, disburse/status, disburse/on-status, mapper/link, mapper/unlink'
+      description: 'OIDC complaint auth tokens issued by an authorization service for OAuth2, OIDC complaint clients. <br><br> This is an indicative list: <br> disburse, on-disburse, disburse/status, disburse/on-status, mapper/link, mapper/unlink, etc.,'
       items:
         enum:
           - disburse

@@ -9,7 +9,9 @@
 | ------------ | --------- | ----------- |
 | AUTHZ-001 | [/oauth2/client/token](https://g2p-connect.github.io/specs/dist/g2p-authz.html#operation/post_oauth2_client_token) |  Provide access token to registered senders & receivers | 
 
-## Signature Verification 
+## Request For Comments
+1. Authorization Scopes
+
 
 
 ### References

@@ -1,0 +1,14 @@
+type: string
+description: "Disburse status reason codes: <br>
+      1. RJCT_INVALID_PAYER_FA; Payer Financial Address is invalid <br>
+      2. RJCT_INVALID_PAYEE_FA; Payee Financial Address is invalid <br>
+      3. RJCT_INVALID_AMOUNT; Invalid Amount <br>
+      4. RJCT_INALID_SHCHEDULE_TIMESTAMP; Schedule timesatmp is invalid <br>
+      5. RJCT_INVALID_CURRENCY_CODE; Currency code is invalid <br>
+      6. etc.,"
+enum: 
+- "RJCT_INVALID_PAYER_FA"
+- "RJCT_INVALID_PAYEE_FA"
+- "RJCT_INVALID_AMOUNT"
+- "RJCT_INALID_SHCHEDULE_TIMESTAMP"
+- "RJCT_INVALID_CURRENCY_CODE"

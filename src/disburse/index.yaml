@@ -71,7 +71,7 @@ paths:
  /on-disburse:
   post: 
     summary: "DSBT-002 : /on-disburse"
-    description: "The callback endpoint is called by /disburse end point processing systems upon completing all disbursement instructions or at regular intervals "
+    description: "The callback is called by /disburse end point processing systems upon completing all disbursement instructions"
     operationId: post_g2p_on-disburse
     requestBody:
       description: ""
