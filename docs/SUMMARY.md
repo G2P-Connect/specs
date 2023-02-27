@@ -2,9 +2,8 @@
 
 ## Technical Specifications
 
-* G2P Connect Protocol
+* [G2P Connect Protocol](./Home.md)
     * [Terminology](./Terminology.md)
-    * [Overview](./Home.md)
     * [Intefaces](./Interfaces.md)
 * Register, Access & Enrol
     * [Financial Address Mapper](./FinancialAddressMapper.md)
