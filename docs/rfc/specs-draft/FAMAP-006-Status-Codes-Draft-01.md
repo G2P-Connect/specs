@@ -29,7 +29,7 @@ To discuss and finalize all valid reason codes to process Financial Address map 
 
 Please make additional suggestions through discussion forums and/or pull requests to files @
   - specs/src/common/schema/RequestStatus.yaml
-  - specs/src/mapper/components/io/ResolveStatusReasonCode.yaml
+  - specs/src/mapper/components/io/UnlinkStatusReasonCode.yaml
   
 ## Unlink Status 
 | status | status_reason_code | status_reason_message | 
