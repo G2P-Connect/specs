@@ -14,11 +14,12 @@
 | DISB-005 | GET [/disburse/status/{transaction_id} /{summary_only}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/get_g2p_disburse_status_by_msg_id) | Disbursement status to social protection, Treasury systems | 
 | DISB-006 | GET [/disburse/status/{reference_id}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/get_g2p_disburse_status_by_req_id) | Disbursement status to social protection, Treasury systems | 
 
+## Request For Comments
+1. Disbursement status, reason code/message - [DISBT-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/DISBT-002-Status-Codes-Draft-01)
+
 
 ## Integration Schematics
-
 ![](./images/draw.io/interface-disb.drawio.png)
-
 
 ## References
 1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-disburse.html)

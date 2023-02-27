@@ -9,7 +9,7 @@ properties:
     format: date-time
     example: '2022-12-04T17:20:07-04:00'
   status:
-     $ref: "./DisburseStatus.yaml"
+     $ref: "../../../common/schema/RequestStatus.yaml"
   status_reason_code:
      $ref: "./DisburseStatusReasonCode.yaml"
   status_reason_message:

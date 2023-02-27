@@ -8,15 +8,7 @@ properties:
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml" 
   status:
-    description: "Linking status definitions: <br>
-        1. RCVD: Received; linking request received <br>
-        2. PDNG: Pending; linking request pending <br>
-        3. RJCT: Rejected; linking request rejected  <br>
-        4. LNKD: Linked;  linking successful <br>
-        5. ULKD: Unlinked: unlinking successful <br>
-        5. UKWN: Unknown; Unknow error <br>"
-    type: string
-    enum: ["RCVD", "PDNG", "RJCT", "LNKD", "ULKD", "UKWN"]
+     $ref: "../../../common/schema/RequestStatus.yaml" 
   status_reason_code:
     description: "Status reason code, if any. Helps for systems integration"
     type: string

@@ -1,0 +1,13 @@
+type: string
+description: "Request (e.g disburse, link, unlink, resolve, etc.,) status: <br>
+        1. RCVD: Received; Request received <br>
+        2. PDNG: Pending; Request initiated <br>
+        3. SUCC: Success; Request successful <br>
+        4. RJCT: Rejected; Request rejected <br>
+        5. UKWN: Unknown; Unknown error"
+enum:
+- "RCVD"
+- "PDNG"
+- "SUCC"
+- "RJCT"
+- "UKWN"

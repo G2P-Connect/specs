@@ -2,10 +2,16 @@ LinkRequest:
   $ref: "../io/LinkRequest.yaml"
 LinkResponse:
   $ref: "../io/LinkResponse.yaml"
+LinkStatusReasonCode:
+  $ref: "../io/LinkStatusReasonCode.yaml"
+UnlinkStatusReasonCode:
+  $ref: "../io/UnlinkStatusReasonCode.yaml"
 ResolveRequest:
   $ref: "../io/ResolveRequest.yaml"
 ResolveResponse:
   $ref: "../io/ResolveResponse.yaml"
+ResolveStatusReasonCode:
+  $ref: "../io/ResolveStatusReasonCode.yaml"
 StatusRequest:
   $ref: "../io/StatusRequest.yaml"
 StatusResponse:
@@ -18,6 +24,8 @@ UpdateRequest:
   $ref: "../io/UpdateRequest.yaml"
 UpdateResponse:
   $ref: "../io/UpdateResponse.yaml"
+UpdateStatusReasonCode:
+  $ref: "../io/UpdateStatusReasonCode.yaml"
 AccountInfo:
   $ref: "../../../common/schema/AccountInfo.yaml" 
 AccountProviderInfo:
@@ -44,6 +52,8 @@ MsgSignature:
   $ref: "../../../common/schema/MsgSignature.yaml"
 ReferenceId:
   $ref: "../../../common/schema/ReferenceId.yaml"
+RequestStatus:
+  $ref: "../../../common/schema/RequestStatus.yaml"
 Timestamp:
   $ref: "../../../common/schema/Timestamp.yaml"
 TransactionId:

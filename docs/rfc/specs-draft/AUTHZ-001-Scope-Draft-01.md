@@ -1,4 +1,4 @@
-# Authorization - Scope 
+# AUTHZ-001 : Authorization Scope 
 
 ## ID: 
 G2PConnect-002
@@ -7,7 +7,7 @@ G2PConnect-002
 Draft-01
 
 ## Title:
-Authorization - Scope
+AUTHZ-001 : Authorization Scope 
 
 ## Status:
 Protocol Draft

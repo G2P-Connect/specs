@@ -1,14 +1,19 @@
 type: string
-description: "Disburse status reason codes: <br>
-      1. RJCT_INVALID_PAYER_FA; Payer Financial Address is invalid <br>
-      2. RJCT_INVALID_PAYEE_FA; Payee Financial Address is invalid <br>
-      3. RJCT_INVALID_AMOUNT; Invalid Amount <br>
-      4. RJCT_INALID_SHCHEDULE_TIMESTAMP; Schedule timesatmp is invalid <br>
-      5. RJCT_INVALID_CURRENCY_CODE; Currency code is invalid <br>
-      6. etc.,"
+description: "Disburse status reason code with reason message: <br>
+      - RJCT_INVALID_PAYER_FA; Payer Financial Address is invalid <br>
+      - RJCT_INVALID_PAYEE_FA; Payee Financial Address is invalid <br>
+      - RJCT_INVALID_AMOUNT; Invalid Amount <br>
+      - RJCT_INALID_SHCHEDULE_TIMESTAMP; Schedule timestamp is invalid <br>
+      - RJCT_INVALID_CURRENCY_CODE; Currency code is invalid <br>
+      - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br>
+      - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br>
+      - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br>
+      - etc.,"
 enum: 
 - "RJCT_INVALID_PAYER_FA"
 - "RJCT_INVALID_PAYEE_FA"
 - "RJCT_INVALID_AMOUNT"
 - "RJCT_INALID_SHCHEDULE_TIMESTAMP"
 - "RJCT_INVALID_CURRENCY_CODE"
+- "UKWN_NOT_FOUND_REFERENCE_ID"
+- "UKWN_NOT_FOUND_TRANSACTION_ID"

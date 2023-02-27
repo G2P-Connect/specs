@@ -19,8 +19,15 @@
 | FAMAP-010 | POST [/mapper/on-status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-status) | Status check response through callback end point | 
 
 ## Integration Schematics
-
 ![](./images/draw.io/interface-mapper.drawio.png)
+
+
+## Request For Comments
+1. FA mapper linking status, reason code/message- [FAMAP-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/FAMAP=002-Status-Codes-Draft-01)
+2. FA mapper update status, reason code/message- [FAMAP-004-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/FAMAP-004-Status-Codes-Draft-01)
+3. FA mapper unlink status, reason code/message- [FAMAP-006-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/FAMAP-006-Status-Codes-Draft-01)
+4. FA mapper resolve status, reason code/message- [FAMAP-008-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/FAMAP-008-Status-Codes-Draft-01)
+
 
 ## References
 1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)

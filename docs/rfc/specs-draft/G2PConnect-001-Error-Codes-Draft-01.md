@@ -1,4 +1,4 @@
-# Error Codes for G2P Connect Transport Layer Communications
+# G2PConnect-001 : Transport Layer Delivery Errors
 
 ## ID: 
 G2PConnect-001
@@ -7,7 +7,7 @@ G2PConnect-001
 Draft-01
 
 ## Title:
-Message Delivery - Error Codes
+G2PConnect-001 : Transport Layer Delivery Errors
 
 ## Status:
 Protocol Draft

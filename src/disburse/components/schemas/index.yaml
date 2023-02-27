@@ -2,8 +2,8 @@ DisburseRequest:
   $ref: "../io/DisburseRequest.yaml"
 DisburseResponse:
   $ref: "../io/DisburseResponse.yaml"
-DisburseStatus:
-  $ref: "../io/DisburseStatus.yaml"
+DisburseStatusReasonCode:
+  $ref: "../io/DisburseStatusReasonCode.yaml"
 Ack:
   $ref: "../../../common/schema/Ack.yaml"
 Amount:
@@ -28,6 +28,8 @@ Purpose:
   $ref: "../../../common/schema/Purpose.yaml"
 ReferenceId:
   $ref: "../../../common/schema/ReferenceId.yaml"
+RequestStatus:
+  $ref: "../io/RequestStatus.yaml"
 Timestamp:
   $ref: "../../../common/schema/Timestamp.yaml"
 TransactionId:
