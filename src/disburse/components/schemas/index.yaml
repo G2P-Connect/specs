@@ -29,7 +29,7 @@ Purpose:
 ReferenceId:
   $ref: "../../../common/schema/ReferenceId.yaml"
 RequestStatus:
-  $ref: "../io/RequestStatus.yaml"
+  $ref: "../../../common/schema/RequestStatus.yaml"
 Timestamp:
   $ref: "../../../common/schema/Timestamp.yaml"
 TransactionId:

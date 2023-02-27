@@ -370,16 +370,9 @@ components:
           format: date-time
           example: '2022-12-04T17:20:07-04:00'
         status:
-          $ref: '#/components/schemas/DisburseStatus'
+          $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          type: string
-          description: 'Disburse status reason codes: <br> 1. RJCT_INVALID_PAYER_FA; Payer Financial Address is invalid <br> 2. RJCT_INVALID_PAYEE_FA; Payee Financial Address is invalid <br> 3. RJCT_INVALID_AMOUNT; Invalid Amount <br> 4. RJCT_INALID_SHCHEDULE_TIMESTAMP; Schedule timesatmp is invalid <br> 5. RJCT_INVALID_CURRENCY_CODE; Currency code is invalid <br> 6. etc.,'
-          enum:
-            - RJCT_INVALID_PAYER_FA
-            - RJCT_INVALID_PAYEE_FA
-            - RJCT_INVALID_AMOUNT
-            - RJCT_INALID_SHCHEDULE_TIMESTAMP
-            - RJCT_INVALID_CURRENCY_CODE
+          $ref: '#/components/schemas/DisburseStatusReasonCode'
         status_reason_message:
           description: Status reason code message. Helps actionanble messaging for systems/end users
           type: string
@@ -410,14 +403,17 @@ components:
         - reference_id
         - timestamp
         - status
-    DisburseStatus:
+    DisburseStatusReasonCode:
       type: string
-      description: 'Disburse status: <br> 1. RCVD: Received; payment received <br> 2. PDNG: Pending; payment initiated <br> 3. RJCT: Rejected; payment initiated and has been rejected  <br> 4. SUCC: Success; payment is successful'
+      description: 'Disburse status reason code with reason message: <br> - RJCT_INVALID_PAYER_FA; Payer Financial Address is invalid <br> - RJCT_INVALID_PAYEE_FA; Payee Financial Address is invalid <br> - RJCT_INVALID_AMOUNT; Invalid Amount <br> - RJCT_INALID_SHCHEDULE_TIMESTAMP; Schedule timestamp is invalid <br> - RJCT_INVALID_CURRENCY_CODE; Currency code is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br> - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br> - etc.,'
       enum:
-        - RCVD
-        - PDNG
-        - RJCT
-        - SUCC
+        - RJCT_INVALID_PAYER_FA
+        - RJCT_INVALID_PAYEE_FA
+        - RJCT_INVALID_AMOUNT
+        - RJCT_INALID_SHCHEDULE_TIMESTAMP
+        - RJCT_INVALID_CURRENCY_CODE
+        - UKWN_NOT_FOUND_REFERENCE_ID
+        - UKWN_NOT_FOUND_TRANSACTION_ID
     Ack:
       description: 'Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK'
       type: object
@@ -621,6 +617,15 @@ components:
       type: string
       description: Unique reference id set by business txn initiating system. Used for co-relating the callback requests and to get status info
       example: '12345678901234567890'
+    RequestStatus:
+      type: string
+      description: 'Request (e.g disburse, link, unlink, resolve, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected <br> 5. UKWN: Unknown; Unknown error'
+      enum:
+        - RCVD
+        - PDNG
+        - SUCC
+        - RJCT
+        - UKWN
     Timestamp:
       type: string
       description: datetime in RFC3339 format

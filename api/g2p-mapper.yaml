@@ -605,15 +605,7 @@ components:
         fa:
           $ref: '#/components/schemas/FinancialAddress'
         status:
-          description: 'Linking status definitions: <br> 1. RCVD: Received; linking request received <br> 2. PDNG: Pending; linking request pending <br> 3. RJCT: Rejected; linking request rejected  <br> 4. LNKD: Linked;  linking successful <br> 5. ULKD: Unlinked: unlinking successful <br> 5. UKWN: Unknown; Unknow error <br>'
-          type: string
-          enum:
-            - RCVD
-            - PDNG
-            - RJCT
-            - LNKD
-            - ULKD
-            - UKWN
+          $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
           description: 'Status reason code, if any. Helps for systems integration'
           type: string
@@ -632,6 +624,24 @@ components:
         - reference_id
         - timestamp
         - status
+    LinkStatusReasonCode:
+      type: string
+      description: 'FA map link status reason code with reason message: <br> - RJCT_INVALID_TIMESTAMP; Timestamp is invalid <br> - RJCT_INVALID_BENEFICIARY_NAME; Beneficiary name is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br> - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br> - etc.,'
+      enum:
+        - RJCT_INVALID_TIMESTAMP
+        - RJCT_INVALID_BENEFICIARY_NAME
+        - RJCT_DUPLICATE_REFERENCE_ID
+        - UKWN_NOT_FOUND_REFERENCE_ID
+        - UKWN_NOT_FOUND_TRANSACTION_ID
+    UnlinkStatusReasonCode:
+      type: string
+      description: 'FA map link status reason code with reason message: <br> - RJCT_INVALID_TIMESTAMP; Timestamp is invalid <br> - RJCT_INVALID_BENEFICIARY_NAME; Beneficiary name is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br> - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br> - etc.,'
+      enum:
+        - RJCT_INVALID_TIMESTAMP
+        - RJCT_INVALID_BENEFICIARY_NAME
+        - RJCT_DUPLICATE_REFERENCE_ID
+        - UKWN_NOT_FOUND_REFERENCE_ID
+        - UKWN_NOT_FOUND_TRANSACTION_ID
     ResolveRequest:
       type: object
       description: Resolve financial address to store of value account info
@@ -707,6 +717,15 @@ components:
         - reference_id
         - timestamp
         - status
+    ResolveStatusReasonCode:
+      type: string
+      description: 'FA map resolve status reason code with reason message: <br> - RJCT_INVALID_TIMESTAMP; Timestamp is invalid <br> - RJCT_INVALID_BENEFICIARY_NAME; Beneficiary name is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br> - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br> - etc.,'
+      enum:
+        - RJCT_INVALID_TIMESTAMP
+        - RJCT_INVALID_BENEFICIARY_NAME
+        - RJCT_DUPLICATE_REFERENCE_ID
+        - UKWN_NOT_FOUND_REFERENCE_ID
+        - UKWN_NOT_FOUND_TRANSACTION_ID
     StatusRequest:
       type: object
       description: Request to get latest linking status
@@ -887,6 +906,16 @@ components:
         - timestamp
         - fa
         - status
+    UpdateStatusReasonCode:
+      type: string
+      description: 'FA map update status reason code with reason message: <br> - RJCT_INVALID_TIMESTAMP; Timestamp is invalid <br> - RJCT_INVALID_FA; Financial Address is invalid <br> - RJCT_INVALID_BENEFICIARY_NAME; Beneficiary name is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br> - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br> - etc.,'
+      enum:
+        - RJCT_INVALID_TIMESTAMP
+        - RJCT_INVALID_FA
+        - RJCT_INVALID_BENEFICIARY_NAME
+        - RJCT_DUPLICATE_REFERENCE_ID
+        - UKWN_NOT_FOUND_REFERENCE_ID
+        - UKWN_NOT_FOUND_TRANSACTION_ID
     AccountInfo:
       type: object
       description: Beneficiary store of value account info
@@ -1194,6 +1223,15 @@ components:
       type: string
       description: Unique reference id set by business txn initiating system. Used for co-relating the callback requests and to get status info
       example: '12345678901234567890'
+    RequestStatus:
+      type: string
+      description: 'Request (e.g disburse, link, unlink, resolve, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected <br> 5. UKWN: Unknown; Unknown error'
+      enum:
+        - RCVD
+        - PDNG
+        - SUCC
+        - RJCT
+        - UKWN
     Timestamp:
       type: string
       description: datetime in RFC3339 format
