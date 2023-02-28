@@ -22,4 +22,4 @@
 
 ## References
 1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-disburse.html)
-2. Disbursement feature relate [discussion thread](https://github.com/G2P-Connect/.github/discussions)
+2. Disbursement feature relate [discussion thread](https://github.com/G2P-Connect/.github/discussions/15)

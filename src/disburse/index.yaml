@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Disbursement
-  description: "Discussions <a href= \"https://github.com/G2P-Connect/.github/discussions\">thread</a> <br><br>
+  description: "Discussions <a href= \"https://github.com/G2P-Connect/.github/discussions/15\">thread</a> <br><br>
     Social protection platform initiating G2P disbursements. Supports api, events and file based messaging"
   version: 0.1.0
   contact:

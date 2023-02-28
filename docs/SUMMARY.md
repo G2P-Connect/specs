@@ -9,7 +9,11 @@
     * [Dibursement](./Disbursement.md)
 * [Identity](./Identity.md)
 * [Credential](./Credential.md)
-* [Security](./Authorization.md)
+* Registries
+    * [Civil Registry](./CivilRegistry.md)
+    * [Functional Registry](./FunctioanlRegistry.md)
+    * [Social Registry](./SocialRegistry.md)
+* Security
     * [Authorization](./Authorization.md)
     * [Singature Validation](./SignatureValidation.md)
 * [API Home Page](https://g2p-connect.github.io/specs/)
