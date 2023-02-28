@@ -13,3 +13,4 @@
     * [Authorization](./Authorization.md)
     * [Singature Validation](./SignatureValidation.md)
 * [API Home Page](https://g2p-connect.github.io/specs/)
+* [References](./References.md)

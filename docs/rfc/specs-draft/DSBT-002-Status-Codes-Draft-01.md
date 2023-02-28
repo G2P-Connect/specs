@@ -1,4 +1,4 @@
-# DIST-003 : Disburse Status 
+# DSBT-003 : Disburse Status 
 
 ## ID: 
 G2PConnect-001
@@ -7,7 +7,7 @@ G2PConnect-001
 Draft-01
 
 ## Title:
-DIST-003 : Disburse Status 
+DSBT-003 : Disburse Status 
 
 ## Status:
 Protocol Draft

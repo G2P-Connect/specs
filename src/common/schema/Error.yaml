@@ -1,6 +1,6 @@
 description: "Describes an error object that is returned to standard post call request. <br>
-  1. This object shall be sent when any request received by a participant is not parsable and valid. <br>
-  2. This object may be used for all transport mechanism to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
+  1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br>
+  2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
 type: object
 properties:
   code:
