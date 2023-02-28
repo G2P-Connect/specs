@@ -21,12 +21,7 @@ properties:
       - "ERR_INVALID_ENCRYPTION"
       - "ERR_INVALID_MESSAGE"
       - "ERR_SERVICE_UNAVAILABLE"
-  short_message:
+  message:
     type: string
-    description: short message to describe above error code
-  long_message:
-    type: string
-    description: Human readable message describing the error. Used mainly for logging. Not recommended to be shown to the user.
-  trace:
-    type: string
-    description: Detailed message for trouble shooting by systems
+    description: message to describe above error code
+    maxLength: 999

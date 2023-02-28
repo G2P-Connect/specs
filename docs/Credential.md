@@ -6,16 +6,16 @@
 
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
-| CRED-001 | POST [/credential/issue](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_link) | Issue credential | 
-| CRED-002 | POST [/credential/on-issue](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-link) | Issuance info through callback | 
-| CRED-003 | POST [/credential/search](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/put_g2p_mapper_update) | Search credential by credential id, issuer, beneficary id, etc., |
-| CRED-004 | POST [/credential/on-search](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/put_g2p_mapper_on-update) | Search info through callback e |
-| CRED-005 | POST [/credential/verify](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_unlink) | Verify crendential by crendential id | 
-| CRED-006 | POST [/credential/on-verify](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-unlink) | Verification info through callback | 
-| CRED-007 | POST [/credential/revoke](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_unlink) | Revoke crendential by crendential id | 
-| CRED-008 | POST [/credential/on-revoke](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-unlink) | Revokation info through callback | 
-| CRED-009 | POST [/credential/status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_status) | Status check on any of the crendentialing actions using transaction_id or reference_id(s) | 
-| CRED-010 | POST [/credential/on-status](https://g2p-connect.github.io/specs/dist/g2p-mapper.html#operation/post_g2p_mapper_on-status)| Status check response through callback | 
+| CRED-001 | POST [/credential/issue](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_issue) | Issue credential | 
+| CRED-002 | POST [/credential/on-issue](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_on-issue) | Issuance info through callback | 
+| CRED-003 | POST [/credential/search](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/put_g2p_cred_search) | Search credential by credential id, issuer, beneficary id, etc., |
+| CRED-004 | POST [/credential/on-search](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/put_g2p_cred_on-search) | Search info through callback |
+| CRED-005 | POST [/credential/verify](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_verify) | Verify crendential by crendential id | 
+| CRED-006 | POST [/credential/on-verify](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_on-verify) | Verification info through callback | 
+| CRED-007 | POST [/credential/revoke](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_revoke) | Revoke crendential by crendential id | 
+| CRED-008 | POST [/credential/on-revoke](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_on-revike) | Revokation info through callback | 
+| CRED-009 | POST [/credential/status](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_status) | Status check on any of the crendentialing actions using transaction_id or reference_id(s) | 
+| CRED-010 | POST [/credential/on-status](https://g2p-connect.github.io/specs/dist/g2p-credential.html#operation/post_g2p_cred_on-status)| Status check response through callback | 
 
 ## Request For Comments
 1. Credential issuance status, reason code/message- [CRED-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRED-002-Status-Codes-Draft-01.md)

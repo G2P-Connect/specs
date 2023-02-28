@@ -4,8 +4,10 @@
 * [Overview](./Home.md)
 * [Terminology](./Terminology.md)
 * [Interfaces](./Interfaces.md)
-* [Financial Address Mapper](./FinancialAddressMapper.md)
-* [Dibursement](./Disbursement.md)
+* Payment
+    * [Financial Address Mapper](./FinancialAddressMapper.md)
+    * [Dibursement](./Disbursement.md)
+* [Identity](./Identity.md)
 * [Credential](./Credential.md)
 * [Security](./Authorization.md)
     * [Authorization](./Authorization.md)
