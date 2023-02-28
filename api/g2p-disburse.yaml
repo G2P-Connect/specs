@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Disbursement
-  description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions">thread</a> <br><br> Social protection platform initiating G2P disbursements. Supports api, events and file based messaging'
+  description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/15">thread</a> <br><br> Social protection platform initiating G2P disbursements. Supports api, events and file based messaging'
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -458,15 +458,10 @@ components:
             - ERR_INVALID_ENCRYPTION
             - ERR_INVALID_MESSAGE
             - ERR_SERVICE_UNAVAILABLE
-        short_message:
+        message:
           type: string
-          description: short message to describe above error code
-        long_message:
-          type: string
-          description: Human readable message describing the error. Used mainly for logging. Not recommended to be shown to the user.
-        trace:
-          type: string
-          description: Detailed message for trouble shooting by systems
+          description: message to describe above error code
+          maxLength: 999
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS

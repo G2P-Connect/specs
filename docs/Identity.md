@@ -5,10 +5,10 @@
 
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
-| CRED-001 | POST [/identity/auth](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/post_g2p_id_auth) | Authenticate using otp, demo or bio factors | 
-| CRED-002 | POST [/identity/on-auth](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/post_g2p_id_on-auth) | Authentication response through callback | 
-| CRED-003 | POST [/identity/kyc](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/put_g2p_id_kyc) | Kyc using otp, demo or bio factors |
-| CRED-004 | POST [/identity/on-kyc](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/put_g2p_id_on-kyc) | Kyc repsonse through callback |
+| ID-001 | POST [/identity/auth](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/post_g2p_id_auth) | Authenticate using otp, demo or bio factors | 
+| ID-002 | POST [/identity/on-auth](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/post_g2p_id_on-auth) | Authentication response through callback | 
+| ID-003 | POST [/identity/kyc](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/put_g2p_id_kyc) | Kyc using otp, demo or bio factors |
+| ID-004 | POST [/identity/on-kyc](https://g2p-connect.github.io/specs/dist/g2p-identity.html#operation/put_g2p_id_on-kyc) | Kyc repsonse through callback |
 
 ## Request For Comments
 1. Authentication response status, reason code/message- [ID-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/ID-002-Status-Codes-Draft-01.md)
