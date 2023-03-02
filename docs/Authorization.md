@@ -7,10 +7,10 @@
 ## Interface List
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
-| AUTHZ-001 | [/oauth2/client/token](https://g2p-connect.github.io/specs/dist/g2p-authz.html#operation/post_oauth2_client_token) |  Provide access token to registered senders & receivers | 
+| AUTHZ-TOKN | [/oauth2/client/token](https://g2p-connect.github.io/specs/dist/g2p-authz.html#operation/post_oauth2_client_token) |  Provide access token to registered senders & receivers | 
 
 ## Request For Comments
-1. Authorization Scopes - [AUTHZ-001-Scope-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/AUTHZ-001-Scope-Draft-01.md)
+1. Authorization Scopes - [AUTHZ-TOKN-Scope-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/AUTHZ-TOKN-Scope-Draft-01.md)
 
 ## Integration Schematics
 

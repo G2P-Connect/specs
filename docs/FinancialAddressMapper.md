@@ -1,6 +1,6 @@
 ## Overview
 1. Standardising linking, unlinking, update, resolve and status check capabilities between G2P enabling DPGS/Products/Systems.
-2. Beneficiary identifier can be of national id, id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms. <br>
+2. Beneficiary identifier can be of national id, id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms.
 3. Country operational model shall decide the entity that manages one or more ID to Financial address map registries.
 
 ## Interface List

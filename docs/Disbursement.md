@@ -7,15 +7,15 @@
 
 | Interface ID   | End Point | Description | 
 | -------------- | --------- | ----------- |
-| DISB-001 | POST [/disburse](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_disburse) |  Social protection platofrom initiating g2p disbursements | 
-| DISB-002 | POST [/on-disburse](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_on-disburse) | Disbursement initiating systems receive disbursement status info through callback end points| 
-| DISB-003 | POST [/disburse/status](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_disburse_status) | Request for disbursement status from (e.g) social protection, Treasury systems | 
-| DISB-004 | POST [/disburse/on-status](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_disburse_on-status) | Disbursement status to social protection, Treasury systems. | 
-| DISB-005 | GET [/disburse/status/{transaction_id} /{summary_only}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/get_g2p_disburse_status_by_msg_id) | Disbursement status to social protection, Treasury systems | 
-| DISB-006 | GET [/disburse/status/{reference_id}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/get_g2p_disburse_status_by_req_id) | Disbursement status to social protection, Treasury systems | 
+| DISB-DISB | POST [/disburse](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_disburse) |  Social protection platofrom initiating g2p disbursements | 
+| DISB-ON-DISB | POST [/on-disburse](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_on-disburse) | Disbursement initiating systems receive disbursement status info through callback end points| 
+| DISB-STS | POST [/disburse/status](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_disburse_status) | Request for disbursement status from (e.g) social protection, Treasury systems | 
+| DISB-ON-STS | POST [/disburse/on-status](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/post_g2p_disburse_on-status) | Disbursement status to social protection, Treasury systems. | 
+| DISB-STS-TXNID | GET [/disburse/status/{transaction_id} /{summary_only}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/get_g2p_disburse_status_by_msg_id) | Disbursement status to social protection, Treasury systems | 
+| DISB-STS-REFID | GET [/disburse/status/{reference_id}](https://g2p-connect.github.io/specs/dist/g2p-disburse.html#operation/get_g2p_disburse_status_by_req_id) | Disbursement status to social protection, Treasury systems | 
 
 ## Request For Comments
-1. Disbursement status, reason code/message - [DISBT-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/DISBT-002-Status-Codes-Draft-01.md)
+1. Disbursement status, reason code/message - [DISBT-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/DISBT-ON-STS-Status-Codes-Draft-01.md)
 
 ## Integration Schematics
 ![](./images/draw.io/interface-disb.drawio.png)
