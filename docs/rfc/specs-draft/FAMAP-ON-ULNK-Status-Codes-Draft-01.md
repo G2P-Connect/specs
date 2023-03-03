@@ -1,13 +1,13 @@
-# FAMAP-004 : FA Map Update Status 
+# FAMAP-ON-ULNK : FA Map Unlink Status 
 
 ## ID: 
-G2PConnect-001
+G2PConnect-FAMAP-ON-ULNK
 
 ## Draft ID
 Draft-01
 
 ## Title:
-FAMAP-004 : FA Map Update Status
+FAMAP-ON-ULNK : FA Map Unlink Status
 
 ## Status:
 Protocol Draft
@@ -25,20 +25,19 @@ CC-BY-ND
 1. Vijay Vujjini : vijay.vujjini@gmail.com
 
 ## Introduction
-To discuss and finalize all valid reason codes to process Financial Address map update request
+To discuss and finalize all valid reason codes to process Financial Address map unlink request
 
 Please make additional suggestions through discussion forums and/or pull requests to files @
   - specs/src/common/schema/RequestStatus.yaml
-  - specs/src/mapper/components/io/UpdateStatusReasonCode.yaml
+  - specs/src/mapper/components/io/UnlinkStatusReasonCode.yaml
   
-## Update Status
+## Unlink Status 
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
 | RCVD   |                    | Payment received      |
 | PDNG   |                    | Payment initiated     |
 | SUCC   |                    | Payment success       |
 | RJCT   | RJCT_TIMESTAMP_INVALID | Timestamp is invalid |
-| RJCT   | RJCT_FA_INVALID | Financial address is invalid |
 | RJCT   | RJCT_BENEFICIARY_NAME_INVALID | Beneficiary name is invalid |
 | RJCT   | RJCT_REFERENCE_ID_DUPLICATE   | Duplicate reference id |
 | RJCT   | UKWN_REFERENCE_ID_NOT_FOUND | Reference id not found |

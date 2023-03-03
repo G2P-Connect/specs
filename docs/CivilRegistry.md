@@ -6,22 +6,22 @@
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
 post_g2p_cred_on-revike) | Revokation info through callback |
-| CRVS-001 | POST [/crvs/serach](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_search) | Issue credential | 
-| CRVS-002 | POST [/crvs/on-search](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_on-search) | Issuance info through callback | 
-| CRVS-007 | POST [/crvs/verify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_verify) | Revoke crendential by crendential id | 
-| CRVS-008 | POST [/crvs/on-verify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/put_g2p_crvs_on-verify) |
-| CRVS-003 | POST [/crvs/subscribe](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/put_g2p_crvs_subscribe) | Search credential by credential id, issuer, beneficary id, etc., |
-| CRVS-004 | POST [/crvs/on-subscribe](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/put_g2p_crvs_on-subscribe) | Search info through callback |
-| CRVS-005 | POST [/crvs/notify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_notify) | Verify crendential by crendential id | 
-| CRVS-006 | POST [/crvs/on-notify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_on-notify) | Verification info through callback | 
-| CRVS-009 | POST [/crvs/status](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_status) | Status check on any of the crendentialing actions using transaction_id or reference_id(s) | 
-| CRVS-010 | POST [/crvs/on-status](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_on-status)| Status check response through callback | 
+| CRVS-SRCH | POST [/crvs/serach](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_search) | Issue credential | 
+| CRVS-ON-SRCH | POST [/crvs/on-search](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_on-search) | Issuance info through callback | 
+| CRVS-VRFY | POST [/crvs/verify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_verify) | Revoke crendential by crendential id | 
+| CRVS-ON-VRFY | POST [/crvs/on-verify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/put_g2p_crvs_on-verify) |
+| CRVS-SUB | POST [/crvs/subscribe](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/put_g2p_crvs_subscribe) | Search credential by credential id, issuer, beneficary id, etc., |
+| CRVS-ON-SUB | POST [/crvs/on-subscribe](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/put_g2p_crvs_on-subscribe) | Search info through callback |
+| CRVS-NTFY | POST [/crvs/notify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_notify) | Verify crendential by crendential id | 
+| CRVS-ON-NTFY | POST [/crvs/on-notify](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_on-notify) | Verification info through callback | 
+| CRVS-STS | POST [/crvs/status](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_status) | Status check on any of the crendentialing actions using transaction_id or reference_id(s) | 
+| CRVS-ON-STS | POST [/crvs/on-status](https://g2p-connect.github.io/specs/dist/g2p-crvs.html#operation/post_g2p_crvs_on-status)| Status check response through callback | 
 
 ## Request For Comments
-1. Civil registry search status, reason code/message- [CRVS-002-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-002-Status-Codes-Draft-01.md)
-2. Civil registry verify status, reason code/message- [CRVS-004-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-004-Status-Codes-Draft-01.md)
-3. Civil registry subscription status, reason code/message- [CRVS-006-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-006-Status-Codes-Draft-01.md)
-4. Civil registry notification status, reason code/message- [CRVS-008-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-008-Status-Codes-Draft-01.md)
+1. Civil registry search status, reason code/message- [CRVS-ON-SRCH-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-ON-SRCH-Status-Codes-Draft-01.md)
+2. Civil registry verify status, reason code/message- [CRVS-ON-VRFY-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-ON-VRFY-Status-Codes-Draft-01.md)
+3. Civil registry subscription status, reason code/message- [CRVS-ON-SUB-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-ON_SUB-Status-Codes-Draft-01.md)
+4. Civil registry notification status, reason code/message- [CRVS-ON-NTFY-Status-Codes-Draft-01](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/CRVS-ON-NTFY-Status-Codes-Draft-01.md)
 
 ## Integration Schematics
 ![](./images/draw.io/interface-crvs.drawio.png)

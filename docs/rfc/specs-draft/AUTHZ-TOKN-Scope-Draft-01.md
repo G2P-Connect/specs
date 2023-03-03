@@ -1,7 +1,7 @@
 # AUTHZ-TOKN : Authorization Scope 
 
 ## ID: 
-G2PConnect-002
+G2PConnect-AUTHZ-TOKN
 
 ## Draft ID
 Draft-01

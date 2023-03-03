@@ -1,7 +1,7 @@
 # DSBT-ON-STS : Disburse Status 
 
 ## ID: 
-G2PConnect-001
+G2PConnect-DSBT-ON-STS
 
 ## Draft ID
 Draft-01

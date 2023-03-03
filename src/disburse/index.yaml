@@ -95,7 +95,7 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    disburse_status:
+                    disburse_response:
                       type: array
                       items:
                         $ref: "#/components/schemas/DisburseResponse"
@@ -155,6 +155,7 @@ paths:
                         $ref: "#/components/schemas/ReferenceId"
               required:
                 - header
+                - message
         multipart/form-data:
           schema:
             allOf:

@@ -93,7 +93,7 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    disburse_status:
+                    disburse_response:
                       type: array
                       items:
                         $ref: '#/components/schemas/DisburseResponse'
@@ -152,6 +152,7 @@ paths:
                         $ref: '#/components/schemas/ReferenceId'
               required:
                 - header
+                - message
           multipart/form-data:
             schema:
               allOf:
@@ -437,7 +438,7 @@ components:
       pattern: '^[A-Z]{3,3}$'
       example: SLL
     Error:
-      description: 'Describes an error object that is returned to standard post call request. <br> 1. This object shall be sent when any request received by a participant is not parsable and valid. <br> 2. This object may be used for all transport mechanism to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>'
+      description: 'Describes an error object that is returned to standard post call request. <br> 1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br> 2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>'
       type: object
       properties:
         code:
@@ -617,13 +618,12 @@ components:
       example: '12345678901234567890'
     RequestStatus:
       type: string
-      description: 'Request (e.g disburse, link, unlink, resolve, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected <br> 5. UKWN: Unknown; Unknown error'
+      description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected'
       enum:
         - RCVD
         - PDNG
         - SUCC
         - RJCT
-        - UKWN
     Timestamp:
       type: string
       description: datetime in RFC3339 format

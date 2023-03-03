@@ -12,10 +12,6 @@ ResolveResponse:
   $ref: "../io/ResolveResponse.yaml"
 ResolveStatusReasonCode:
   $ref: "../io/ResolveStatusReasonCode.yaml"
-StatusRequest:
-  $ref: "../io/StatusRequest.yaml"
-StatusResponse:
-  $ref: "../io/StatusResponse.yaml"
 UnlinkRequest:
   $ref: "../io/UnlinkRequest.yaml"
 UnlinkResponse:

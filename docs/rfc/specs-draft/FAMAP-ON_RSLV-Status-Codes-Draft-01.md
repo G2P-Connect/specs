@@ -1,13 +1,13 @@
-# FAMAP-006 : FA Map Unlink Status 
+# FAMAP-ON-RSLV : FA Map Resolve Status 
 
 ## ID: 
-G2PConnect-001
+G2PConnect-FAMAP-ON-RSLV
 
 ## Draft ID
 Draft-01
 
 ## Title:
-FAMAP-006 : FA Map Unlink Status
+FAMAP-ON-RSLV : FA Map Resolve Status
 
 ## Status:
 Protocol Draft
@@ -25,13 +25,13 @@ CC-BY-ND
 1. Vijay Vujjini : vijay.vujjini@gmail.com
 
 ## Introduction
-To discuss and finalize all valid reason codes to process Financial Address map unlink request
+To discuss and finalize all valid reason codes to process Financial Address map resolve request
 
 Please make additional suggestions through discussion forums and/or pull requests to files @
   - specs/src/common/schema/RequestStatus.yaml
-  - specs/src/mapper/components/io/UnlinkStatusReasonCode.yaml
+  - specs/src/mapper/components/io/ResolveStatusReasonCode.yaml
   
-## Unlink Status 
+## Resolve Status 
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
 | RCVD   |                    | Payment received      |
@@ -39,9 +39,10 @@ Please make additional suggestions through discussion forums and/or pull request
 | SUCC   |                    | Payment success       |
 | RJCT   | RJCT_TIMESTAMP_INVALID | Timestamp is invalid |
 | RJCT   | RJCT_BENEFICIARY_NAME_INVALID | Beneficiary name is invalid |
-| RJCT   | RJCT_REFERENCE_ID_DUPLICATE   | Duplicate reference id |
+| RJCT   | RJCT_DUPLICATE_REFERENCE_ID   | Duplicate reference id |
+| RJCT   | RJCT_RESOLVE_TYPE_NOT_SUPPORTED | Resolve type not supported |
 | RJCT   | UKWN_REFERENCE_ID_NOT_FOUND | Reference id not found |
-| RJCT   | UKWN_TRANSACTION_ID_NOT_FOUND | Transaction id not found|
+| RJCT   | UKWN_TRANSACTION_ID_NOT_FOUND |  Transaction id not found|
 
 
 ## Acknowledgements

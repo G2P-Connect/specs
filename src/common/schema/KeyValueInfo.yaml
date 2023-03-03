@@ -1,0 +1,10 @@
+type: object
+description: 'Key Value info object'
+properties:
+  key: 
+    type: string
+  value:
+    type: string
+required: 
+  - key
+  - value

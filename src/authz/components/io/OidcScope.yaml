@@ -16,8 +16,13 @@ items:
     - "mapper/on-resolve"
     - "mapper/status"
     - "mapper/on-status"
+    - "credential/issue"
+    - "credential/on-issue"
+    - "credential/search"
+    - "credential/on-search"
     - "<etc>"
 example: 
   - "disburse"
   - "mapper/link"
   - "disburse/status"
+  - "credentail/search"
