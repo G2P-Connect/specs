@@ -17,7 +17,7 @@ servers:
 paths:
  /mapper/link:
   post: 
-    summary: "FAMAP-001 : /mapper/link"
+    summary: "FAMAP-LNK : /mapper/link"
     description: "Linking ID to Financial Address in the mapper registry"
     operationId: post_g2p_mapper_link
     requestBody:
@@ -42,12 +42,16 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    link:
+                    link_request:
                       type: array
                       items:
                         $ref: "#/components/schemas/LinkRequest"
+                  required:
+                    - transaction_id
+                    - link_request
               required:
                 - header
+                - message
         multipart/form-data:
           schema:
             allOf:
@@ -71,7 +75,7 @@ paths:
     deprecated: false
  /mapper/on-link:
   post: 
-    summary: "FAMAP-002 : /mapper/on-link"
+    summary: "FAMAP-ON-LNK : /mapper/on-link"
     description: "Linking id to fa response through callback end point"
     operationId: post_g2p_mapper_on-link
     requestBody:
@@ -96,10 +100,13 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    link-response:
+                    link_response:
                       type: array
                       items:
                         $ref: "#/components/schemas/LinkResponse"
+                  required:
+                    - transaction_id
+                    - link_response
               required:
                 - header
         multipart/form-data:
@@ -125,7 +132,7 @@ paths:
     deprecated: false
  /mapper/update:
   post: 
-    summary: "FAMAP-003	: /mapper/update"
+    summary: "FAMAP-UPDT	: /mapper/update"
     description: "Updating fa or scheme details to mapper registry"
     operationId: put_g2p_mapper_update
     requestBody:
@@ -150,12 +157,16 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    update:
+                    update_request:
                       type: array
                       items:
                         $ref: "#/components/schemas/UpdateRequest"
+                  required:
+                    - transaction_id
+                    - update_request
               required:
                 - header
+                - message
         multipart/form-data:
           schema:
             allOf:
@@ -179,7 +190,7 @@ paths:
     deprecated: false
  /mapper/on-update:
   post: 
-    summary: "FAMAP-004	: /mapper/on-update"
+    summary: "FAMAP-ON-UPDT	: /mapper/on-update"
     description: "Update response through callback end point"
     operationId: put_g2p_mapper_on-update
     requestBody:
@@ -204,10 +215,13 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    update-response:
+                    update_response:
                       type: array
                       items:
                         $ref: "#/components/schemas/UpdateResponse"
+                  required:
+                    - transaction_id
+                    - update_response
               required:
                 - header
         multipart/form-data:
@@ -233,7 +247,7 @@ paths:
     deprecated: false
  /mapper/unlink:
   post: 
-    summary: "FAMAP-005 : /mapper/unlink"
+    summary: "FAMAP-ULNK : /mapper/unlink"
     description: "Unlinking id from mapper registry"
     operationId: post_g2p_mapper_unlink
     requestBody:
@@ -258,12 +272,16 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    unlink:
+                    unlink_request:
                       type: array
                       items:
                         $ref: "#/components/schemas/UnlinkRequest"
+                  required:
+                    - transaction_id
+                    - unlink_request
               required:
                 - header
+                - message
         multipart/form-data:
           schema:
             allOf:
@@ -287,7 +305,7 @@ paths:
     deprecated: false
  /mapper/on-unlink:
   post: 
-    summary: "FAMAP-006 : /mapper/on-unlink"
+    summary: "FAMAP-ON-ULNK : /mapper/on-unlink"
     description: "Unlinking response through callback end point"
     operationId: post_g2p_mapper_on-unlink
     requestBody:
@@ -312,10 +330,13 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    unlink-response:
+                    unlink_response:
                       type: array
                       items:
                         $ref: "#/components/schemas/UnlinkResponse"
+                  required:
+                    - transaction_id
+                    - unlink_response
               required:
                 - header
         multipart/form-data:
@@ -341,7 +362,7 @@ paths:
     deprecated: false
  /mapper/resolve:
   post: 
-    summary: "FAMAP-007 : /mapper/resolve"
+    summary: "FAMAP-RSLV : /mapper/resolve"
     description: "Resolve fa / beneficiary id to a store of value"
     operationId: post_g2p_mapper_resolve
     requestBody:
@@ -366,12 +387,16 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    resolve:
+                    resolve_request:
                       type: array
                       items:
                         $ref: "#/components/schemas/ResolveRequest"
+                  required:
+                    - transaction_id
+                    - resolve_request
               required:
                 - header
+                - message
         multipart/form-data:
           schema:
             allOf:
@@ -395,7 +420,7 @@ paths:
     deprecated: false
  /mapper/on-resolve:
   post: 
-    summary: "FAMAP-008 : /mapper/on-resolve"
+    summary: "FAMAP-ON-RSLV : /mapper/on-resolve"
     description: "Resolve response through callback end point"
     operationId: post_g2p_mapper_on-resolve
     requestBody:
@@ -420,10 +445,13 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    resolve-response:
+                    resolve_response:
                       type: array
                       items:
                         $ref: "#/components/schemas/ResolveResponse"
+                  required:
+                    - transaction_id
+                    - resolve_response
               required:
                 - header
         multipart/form-data:
@@ -447,11 +475,124 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /mapper/status:
+ /mapper/search:
   post: 
-    summary: "FAMAP-009 : /mapper/status"
-    description: "Status check of any of the mapper actions using transaction_id or individual reference_id(s)"
-    operationId: post_g2p_mapper_status
+    summary: "FAMAP-SRCH : /mapper/search"
+    description: "Search mapper by searchable attributes"
+    operationId: post_g2p_famap_search
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    search_request:
+                      $ref: "#/components/schemas/SearchRequest"
+                  required:
+                    - transaction_id
+                    - search_request
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - search
+    responses:
+      default:
+        $ref: "#/components/responses/Response"
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+     # - Signature: [ ]
+    deprecated: false
+ /mapper/on-search:
+  post: 
+    summary: "FAMAP-ON-SRCH : /mapper/on-search"
+    description: "Mapper search results through call back"
+    operationId: post_g2p_famap_on-search
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-search
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    search_response:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/SearchResponse"
+                  required:
+                    - transaction_id
+                    - search_response
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-search'
+    responses:
+      default:
+        $ref: "#/components/responses/Response"
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /mapper/txn/status:
+  post: 
+    summary: "FAMAP-TXNSTS : /mapper/txn/status"
+    description: "Perform async status check of previous mapper transanctions using searchable attributes"
+    operationId: post_g2p_mapper_txn_status
     requestBody:
       description: ""
       required: true
@@ -477,10 +618,11 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    reference_ids:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/ReferenceId"                          
+                    txnstatus_request:
+                      $ref: "#/components/schemas/TxnStatusRequest"
+                  required:
+                    - transaction_id
+                    - txnstatus_request
               required:
                 - header
                 - message
@@ -505,11 +647,11 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /mapper/on-status:
+ /mapper/txn/on-status:
   post: 
-    summary: "FAMAP-010 : /mapper/on-status"
-    description: "Status check response through callback end point"
-    operationId: post_g2p_mapper_on-status
+    summary: "FAMAP-ON-TXNSTS : /mapper/txn/on-status"
+    description: "Response to async status check of previous mapper transanctions using callback"
+    operationId: post_g2p_mapper_txn_on-status
     requestBody:
       description: ""
       required: true
@@ -530,25 +672,17 @@ paths:
                             - on-update
                             - on-resolve
                             - on-unlink
+                            - on-search
                 message:
                   type: object
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    status-response:
-                      type: array
-                      items:
-                        oneOf:
-                        - $ref: "#/components/schemas/LinkResponse"
-                        - $ref: "#/components/schemas/ResolveResponse"
-                        - $ref: "#/components/schemas/UpdateResponse"
-                        - $ref: "#/components/schemas/UnlinkResponse"
-                      example:
-                        status-response: 
-                            reference_id: "test"
-                            timestamp: "test"
-                            fa: "test"
-                            status: "SUCC"                              
+                    txnstatus_response:
+                      $ref: "#/components/schemas/TxnStatusResponse"  
+                  required:
+                    - transaction_id
+                    - txnstatus_response                   
               required:
                 - header
         multipart/form-data:
@@ -558,7 +692,11 @@ paths:
               - properties:
                   action:
                     enum:
-                      - on-status
+                      - on-link
+                      - on-update
+                      - on-resolve
+                      - on-unlink
+                      - on-search
     responses:
         default:
           $ref: "#/components/responses/Response"
@@ -572,7 +710,6 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
-
 components:
   schemas:
     $ref: "./components/schemas/index.yaml"

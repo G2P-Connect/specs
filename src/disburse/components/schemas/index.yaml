@@ -4,6 +4,16 @@ DisburseResponse:
   $ref: "../io/DisburseResponse.yaml"
 DisburseStatusReasonCode:
   $ref: "../io/DisburseStatusReasonCode.yaml"
+SearchRequest:
+  $ref: "../io/SearchRequest.yaml"
+SearchResponse:
+  $ref: "../io/SearchResponse.yaml"
+SearchStatusReasonCode: 
+  $ref: "../io/SearchStatusReasonCode.yaml"
+TxnStatusRequest:
+  $ref: "../io/TxnStatusRequest.yaml"
+TxnStatusResponse:
+  $ref: "../io/TxnStatusResponse.yaml"
 Ack:
   $ref: "../../../common/schema/Ack.yaml"
 Amount:
@@ -16,6 +26,8 @@ FileInfo:
   $ref: "../../../common/schema/FileInfo.yaml"
 FinancialAddress:
   $ref: "../../../common/schema/FinancialAddress.yaml"
+FinancialAddressList:
+  $ref: "../../../common/schema/FinancialAddressList.yaml"
 LanguageCode:
   $ref: "../../../common/schema/LanguageCode.yaml"
 MsgCallbackReqHeader:
@@ -28,6 +40,8 @@ Purpose:
   $ref: "../../../common/schema/Purpose.yaml"
 ReferenceId:
   $ref: "../../../common/schema/ReferenceId.yaml"
+ReferenceIdList:
+  $ref: "../../../common/schema/ReferenceIdList.yaml"
 RequestStatus:
   $ref: "../../../common/schema/RequestStatus.yaml"
 Timestamp:

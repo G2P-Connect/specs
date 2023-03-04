@@ -41,12 +41,16 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    disburse:
+                    disburse_request:
                       type: array
                       items:
                         $ref: "#/components/schemas/DisburseRequest"
+                  required:
+                    - transaction_id
+                    - disburse_request
               required:
                 - header
+                - message
         multipart/form-data:
           schema:
             allOf:
@@ -72,7 +76,7 @@ paths:
   post: 
     summary: "DSBT-002 : /on-disburse"
     description: "The callback is called by /disburse end point processing systems upon completing all disbursement instructions"
-    operationId: post_g2p_on-disburse
+    operationId: post_g2p_dsbt_on-disburse
     requestBody:
       description: ""
       required: true
@@ -99,6 +103,9 @@ paths:
                       type: array
                       items:
                         $ref: "#/components/schemas/DisburseResponse"
+                  required:
+                    - transaction_id
+                    - disburse_response
               required:
                 - header
         multipart/form-data:
@@ -122,11 +129,124 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /disburse/status:
+ /disburse/search:
   post: 
-    summary: "DSBT-003 : /disburse/status"
-    description: "Request for disbursement status from (e.g) social protection, Treasury systems"
-    operationId: post_g2p_disburse_status
+    summary: "DSBT-SRCH : /disbruse/search"
+    description: "Search disbursement by searchable attributes"
+    operationId: post_g2p_dsbt_search
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    search_request:
+                      $ref: "#/components/schemas/SearchRequest"
+                  required:
+                    - transaction_id
+                    - search_request
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - search
+    responses:
+      default:
+        $ref: "#/components/responses/Response"
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+     # - Signature: [ ]
+    deprecated: false
+ /disburse/on-search:
+  post: 
+    summary: "DSBT-ON-SRCH : /credential/on-search"
+    description: "Disbrusement search results through call back"
+    operationId: post_g2p_dsbt_on-search
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - on-search
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    search_response:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/SearchResponse"
+                  required:
+                    - transaction_id
+                    - search_response
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-search'
+    responses:
+      default:
+        $ref: "#/components/responses/Response"
+      '401':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '403':
+        $ref: "#/components/responses/HttpErrorResponse"
+      '500':
+        $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /disburse/txn/status:
+  post: 
+    summary: "DSBT-003 : /disburse/txn/status"
+    description: "Perform async status check of previous disbursement transanctions using searchable attributes"
+    operationId: post_g2p_disburse_txn_status
     requestBody:
       description: ""
       required: true
@@ -149,10 +269,11 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    reference_ids:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/ReferenceId"
+                    txnstatus_request:
+                      $ref: "#/components/schemas/TxnStatusRequest"
+                  required:
+                    - transaction_id
+                    - txnstatus_request
               required:
                 - header
                 - message
@@ -177,11 +298,11 @@ paths:
       - x-access-token: [ ]
      # - Signature: [ ]
     deprecated: false
- /disburse/on-status:
+ /disburse/txn/on-status:
   post: 
-    summary: "DSBT-004 : /disburse/on-status"
-    description: "The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals "
-    operationId: post_g2p_disburse_on-status
+    summary: "DSBT-004 : /disburse/txn/on-status"
+    description: "Response to async status check of previous disbursement transanctions using callback"
+    operationId: post_g2p_disburse_txn_on-status
     requestBody:
       description: ""
       required: true
@@ -204,10 +325,13 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    disburse_status:
+                    txnstatus_response:
                       type: array
                       items:
-                        $ref: "#/components/schemas/DisburseResponse"
+                        $ref: "#/components/schemas/TxnStatusResponse"
+                  required:
+                    - transaction_id
+                    - txnstatus_response
               required:
                 - header
         multipart/form-data:
@@ -231,7 +355,7 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /disburse/status/{transaction_id}/{summary_only}:
+ /disburse/search/{transaction_id}/{summary_only}:
    get: 
     summary: "DSBT-005: /disburse/status/{transaction_id}/{summary_only}"
     description: "Get disbursement processing status by polling <br>
@@ -260,16 +384,19 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - status
+                            - search
                 message:
                   type: object                    
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    disburse_status:
+                    disburse_response:
                       type: array
                       items:
                         $ref: "#/components/schemas/DisburseResponse"
+                  required:
+                    - transaction_id
+                    - disburse_response
               required:
                 - header
       '401':
@@ -282,7 +409,7 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /disburse/status/{reference_id}:
+ /disburse/search/{reference_id}:
    get: 
     summary: "DSBT-006 : /disburse/status/{reference_id}"
     description: "Get disbursement processing status by polling using reference_id <br>
@@ -309,12 +436,19 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - status
+                            - search
                 message:
-                  type: object
+                  type: object                    
                   properties:
-                    disburse_status:
-                      $ref: "#/components/schemas/DisburseResponse"
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    disburse_response:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/DisburseResponse"
+                  required:
+                    - transaction_id
+                    - disburse_response
               required:
                 - header
       '401':

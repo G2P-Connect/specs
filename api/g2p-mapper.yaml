@@ -15,7 +15,7 @@ servers:
 paths:
   /mapper/link:
     post:
-      summary: 'FAMAP-001 : /mapper/link'
+      summary: 'FAMAP-LNK : /mapper/link'
       description: Linking ID to Financial Address in the mapper registry
       operationId: post_g2p_mapper_link
       requestBody:
@@ -40,12 +40,16 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    link:
+                    link_request:
                       type: array
                       items:
                         $ref: '#/components/schemas/LinkRequest'
+                  required:
+                    - transaction_id
+                    - link_request
               required:
                 - header
+                - message
           multipart/form-data:
             schema:
               allOf:
@@ -68,7 +72,7 @@ paths:
       deprecated: false
   /mapper/on-link:
     post:
-      summary: 'FAMAP-002 : /mapper/on-link'
+      summary: 'FAMAP-ON-LNK : /mapper/on-link'
       description: Linking id to fa response through callback end point
       operationId: post_g2p_mapper_on-link
       requestBody:
@@ -93,10 +97,13 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    link-response:
+                    link_response:
                       type: array
                       items:
                         $ref: '#/components/schemas/LinkResponse'
+                  required:
+                    - transaction_id
+                    - link_response
               required:
                 - header
           multipart/form-data:
@@ -121,7 +128,7 @@ paths:
       deprecated: false
   /mapper/update:
     post:
-      summary: "FAMAP-003\t: /mapper/update"
+      summary: "FAMAP-UPDT\t: /mapper/update"
       description: Updating fa or scheme details to mapper registry
       operationId: put_g2p_mapper_update
       requestBody:
@@ -146,12 +153,16 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    update:
+                    update_request:
                       type: array
                       items:
                         $ref: '#/components/schemas/UpdateRequest'
+                  required:
+                    - transaction_id
+                    - update_request
               required:
                 - header
+                - message
           multipart/form-data:
             schema:
               allOf:
@@ -174,7 +185,7 @@ paths:
       deprecated: false
   /mapper/on-update:
     post:
-      summary: "FAMAP-004\t: /mapper/on-update"
+      summary: "FAMAP-ON-UPDT\t: /mapper/on-update"
       description: Update response through callback end point
       operationId: put_g2p_mapper_on-update
       requestBody:
@@ -199,10 +210,13 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    update-response:
+                    update_response:
                       type: array
                       items:
                         $ref: '#/components/schemas/UpdateResponse'
+                  required:
+                    - transaction_id
+                    - update_response
               required:
                 - header
           multipart/form-data:
@@ -227,7 +241,7 @@ paths:
       deprecated: false
   /mapper/unlink:
     post:
-      summary: 'FAMAP-005 : /mapper/unlink'
+      summary: 'FAMAP-ULNK : /mapper/unlink'
       description: Unlinking id from mapper registry
       operationId: post_g2p_mapper_unlink
       requestBody:
@@ -252,12 +266,16 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    unlink:
+                    unlink_request:
                       type: array
                       items:
                         $ref: '#/components/schemas/UnlinkRequest'
+                  required:
+                    - transaction_id
+                    - unlink_request
               required:
                 - header
+                - message
           multipart/form-data:
             schema:
               allOf:
@@ -280,7 +298,7 @@ paths:
       deprecated: false
   /mapper/on-unlink:
     post:
-      summary: 'FAMAP-006 : /mapper/on-unlink'
+      summary: 'FAMAP-ON-ULNK : /mapper/on-unlink'
       description: Unlinking response through callback end point
       operationId: post_g2p_mapper_on-unlink
       requestBody:
@@ -305,10 +323,13 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    unlink-response:
+                    unlink_response:
                       type: array
                       items:
                         $ref: '#/components/schemas/UnlinkResponse'
+                  required:
+                    - transaction_id
+                    - unlink_response
               required:
                 - header
           multipart/form-data:
@@ -333,7 +354,7 @@ paths:
       deprecated: false
   /mapper/resolve:
     post:
-      summary: 'FAMAP-007 : /mapper/resolve'
+      summary: 'FAMAP-RSLV : /mapper/resolve'
       description: Resolve fa / beneficiary id to a store of value
       operationId: post_g2p_mapper_resolve
       requestBody:
@@ -358,12 +379,16 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    resolve:
+                    resolve_request:
                       type: array
                       items:
                         $ref: '#/components/schemas/ResolveRequest'
+                  required:
+                    - transaction_id
+                    - resolve_request
               required:
                 - header
+                - message
           multipart/form-data:
             schema:
               allOf:
@@ -386,7 +411,7 @@ paths:
       deprecated: false
   /mapper/on-resolve:
     post:
-      summary: 'FAMAP-008 : /mapper/on-resolve'
+      summary: 'FAMAP-ON-RSLV : /mapper/on-resolve'
       description: Resolve response through callback end point
       operationId: post_g2p_mapper_on-resolve
       requestBody:
@@ -411,10 +436,13 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    resolve-response:
+                    resolve_response:
                       type: array
                       items:
                         $ref: '#/components/schemas/ResolveResponse'
+                  required:
+                    - transaction_id
+                    - resolve_response
               required:
                 - header
           multipart/form-data:
@@ -437,11 +465,122 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /mapper/status:
+  /mapper/search:
     post:
-      summary: 'FAMAP-009 : /mapper/status'
-      description: Status check of any of the mapper actions using transaction_id or individual reference_id(s)
-      operationId: post_g2p_mapper_status
+      summary: 'FAMAP-SRCH : /mapper/search'
+      description: Search mapper by searchable attributes
+      operationId: post_g2p_famap_search
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    search_request:
+                      $ref: '#/components/schemas/SearchRequest'
+                  required:
+                    - transaction_id
+                    - search_request
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /mapper/on-search:
+    post:
+      summary: 'FAMAP-ON-SRCH : /mapper/on-search'
+      description: Mapper search results through call back
+      operationId: post_g2p_famap_on-search
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - on-search
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    search_response:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SearchResponse'
+                  required:
+                    - transaction_id
+                    - search_response
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-search'
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /mapper/txn/status:
+    post:
+      summary: 'FAMAP-TXNSTS : /mapper/txn/status'
+      description: Perform async status check of previous mapper transanctions using searchable attributes
+      operationId: post_g2p_mapper_txn_status
       requestBody:
         description: ''
         required: true
@@ -467,10 +606,11 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    reference_ids:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/ReferenceId'
+                    txnstatus_request:
+                      $ref: '#/components/schemas/TxnStatusRequest'
+                  required:
+                    - transaction_id
+                    - txnstatus_request
               required:
                 - header
                 - message
@@ -494,11 +634,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /mapper/on-status:
+  /mapper/txn/on-status:
     post:
-      summary: 'FAMAP-010 : /mapper/on-status'
-      description: Status check response through callback end point
-      operationId: post_g2p_mapper_on-status
+      summary: 'FAMAP-ON-TXNSTS : /mapper/txn/on-status'
+      description: Response to async status check of previous mapper transanctions using callback
+      operationId: post_g2p_mapper_txn_on-status
       requestBody:
         description: ''
         required: true
@@ -519,25 +659,17 @@ paths:
                             - on-update
                             - on-resolve
                             - on-unlink
+                            - on-search
                 message:
                   type: object
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    status-response:
-                      type: array
-                      items:
-                        oneOf:
-                          - $ref: '#/components/schemas/LinkResponse'
-                          - $ref: '#/components/schemas/ResolveResponse'
-                          - $ref: '#/components/schemas/UpdateResponse'
-                          - $ref: '#/components/schemas/UnlinkResponse'
-                      example:
-                        status-response:
-                          reference_id: test
-                          timestamp: test
-                          fa: test
-                          status: SUCC
+                    txnstatus_response:
+                      $ref: '#/components/schemas/TxnStatusResponse'
+                  required:
+                    - transaction_id
+                    - txnstatus_response
               required:
                 - header
           multipart/form-data:
@@ -547,7 +679,11 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - on-status
+                        - on-link
+                        - on-update
+                        - on-resolve
+                        - on-unlink
+                        - on-search
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -707,6 +843,113 @@ components:
         - RJCT_RESOLVE_TYPE_NOT_SUPPORTED
         - UKWN_REFERENCE_ID_NOT_FOUND
         - UKWN_TRANSACTION_ID_NOT_FOUND
+    SearchRequest:
+      type: object
+      description: Request to search mapper requests
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        request_type:
+          type: string
+          enum:
+            - link
+            - unlink
+            - update
+            - resolve
+        attribute:
+          type: string
+          enum:
+            - transaction_id
+            - reference_id_list
+            - payer_fa
+            - payee_fa
+        attribute_value:
+          oneOf:
+            - $ref: '#/components/schemas/TransactionId'
+            - $ref: '#/components/schemas/ReferenceIdList'
+            - $ref: '#/components/schemas/FinancialAddressList'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - request_type
+        - attribute
+        - attribute_value
+    SearchResponse:
+      type: object
+      description: Digital credential
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        status:
+          $ref: '#/components/schemas/RequestStatus'
+        status_reason_code:
+          $ref: '#/components/schemas/SearchStatusReasonCode'
+        status_reason_message:
+          description: Status reason code message. Helps actionanble messaging for systems/end users
+          type: string
+          maxLength: 999
+        mapper:
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/LinkResponse'
+              - $ref: '#/components/schemas/UnlinkResponse'
+              - $ref: '#/components/schemas/UpdateResponse'
+              - $ref: '#/components/schemas/ResolveResponse'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - status
+    SearchStatusReasonCode:
+      type: string
+      description: 'Credentail issuance status reason code with reason message: <br> - RJCT_REFERENCE_ID_INVALID; Invalid reference id <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_TYPE_INVALID; Type is invalid <br> - RJCT_ISSUER_INVALID; Issuer is invalid <br> - RJCT_SUBJECT_INVALID; Subject is invalid <br> - RJCT_SHAREATTRIBUTES_INVALID; Share attributes invalid <br> - etc.,'
+      enum:
+        - RJCT_REFERENCE_ID_INVALID
+        - RJCT_REFERENCE_ID_DUPLICATE
+        - RJCT_TIMESTAMP_INVALID
+        - RJCT_TYPE_INVALID
+        - RJCT_ISSUER_INVALID
+        - RJCT_SUBJECT_INVALID
+        - RJCT_SHAREATTRIBUTES_INVALID
+    TxnStatusRequest:
+      type: object
+      description: Request to search disbursement using payer or payee fa
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        search_type:
+          type: string
+          enum:
+            - transaction_id
+            - reference_id_list
+        search_attribute:
+          oneOf:
+            - $ref: '#/components/schemas/TransactionId'
+            - $ref: '#/components/schemas/ReferenceIdList'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - search_type
+        - search_attribute
+    TxnStatusResponse:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/LinkResponse'
+          - $ref: '#/components/schemas/ResolveResponse'
+          - $ref: '#/components/schemas/UpdateResponse'
+          - $ref: '#/components/schemas/UnlinkResponse'
+      example:
+        status-response:
+          reference_id: test
+          timestamp: test
+          fa: test
+          status: SUCC
     UnlinkRequest:
       type: object
       description: Beneficiary ID to Store of value account linking request
@@ -1016,6 +1259,9 @@ components:
       description: '<br> 1. Financial address is a normative represenation of a store of value account represented as account@provider <br> 2. Every payer/payee financial address must be resolved to an actual store of value account number for processing the payment instruction <br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
       example: 12345@PhilID
+    FinancialAddressList:
+      items:
+        $ref: '#/components/schemas/FinancialAddress'
     LanguageCode:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
@@ -1096,7 +1342,7 @@ components:
           type: string
           example: 0.1.0
         message_id:
-          description: Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver.
+          description: 'Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,'
           type: string
           example: '123456789020211216223812'
         timestamp:
@@ -1105,7 +1351,7 @@ components:
           format: date-time
           example: '2022-12-04T18:01:07+00:00'
         action:
-          description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          description: 'G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.'
           type: string
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
@@ -1138,8 +1384,11 @@ components:
       example: 'Signature: keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)'
     ReferenceId:
       type: string
-      description: Unique reference id set by business txn initiating system. Used for co-relating the callback requests and to get status info
+      description: Unique reference_id set by txn initiating system for each request in a batch
       example: '12345678901234567890'
+    ReferenceIdList:
+      items:
+        $ref: '#/components/schemas/ReferenceId'
     RequestStatus:
       type: string
       description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected'
@@ -1154,7 +1403,7 @@ components:
       format: date-time
       example: '2022-12-04T17:20:07-04:00'
     TransactionId:
-      description: 'Unique transaction id set by sender to co-relate requests across interface end point, sessions, etc.,'
+      description: Unique transaction_id set by txn initiating system (i.e sender) to co-relate requests across processing systems/service end points
       type: string
       maxLength: 99
       example: 012345678901234567890

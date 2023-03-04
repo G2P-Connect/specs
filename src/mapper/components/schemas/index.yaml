@@ -12,6 +12,16 @@ ResolveResponse:
   $ref: "../io/ResolveResponse.yaml"
 ResolveStatusReasonCode:
   $ref: "../io/ResolveStatusReasonCode.yaml"
+SearchRequest:
+  $ref: "../io/SearchRequest.yaml"
+SearchResponse:
+  $ref: "../io/SearchResponse.yaml"
+SearchStatusReasonCode: 
+  $ref: "../io/SearchStatusReasonCode.yaml"
+TxnStatusRequest:
+  $ref: "../io/TxnStatusRequest.yaml"
+TxnStatusResponse:
+  $ref: "../io/TxnStatusResponse.yaml"
 UnlinkRequest:
   $ref: "../io/UnlinkRequest.yaml"
 UnlinkResponse:
@@ -38,6 +48,8 @@ FileInfo:
   $ref: "../../../common/schema/FileInfo.yaml"
 FinancialAddress:
   $ref: "../../../common/schema/FinancialAddress.yaml"
+FinancialAddressList:
+  $ref: "../../../common/schema/FinancialAddressList.yaml"
 LanguageCode:
   $ref: "../../../common/schema/LanguageCode.yaml"
 MsgCallbackReqHeader:
@@ -48,6 +60,8 @@ MsgSignature:
   $ref: "../../../common/schema/MsgSignature.yaml"
 ReferenceId:
   $ref: "../../../common/schema/ReferenceId.yaml"
+ReferenceIdList:
+  $ref: "../../../common/schema/ReferenceIdList.yaml"
 RequestStatus:
   $ref: "../../../common/schema/RequestStatus.yaml"
 Timestamp:

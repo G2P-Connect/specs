@@ -1,26 +1,24 @@
 type: object
-description: 'Request to search credential using credential subject id or issuer id'
+description: 'Request to search disbursement using payer or payee fa'
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
   request_type:
     type: string
     enum:
-      - "issue"
-      - "status"
+      - "disburse"
   attribute:
     type: string
     enum:
       - "transaction_id"
       - "reference_id_list"
-      - "issuer_id"
-      - "subject_id"
+      - "payer_fa"
+      - "payee_fa"
   attribute_value:
     oneOf:
       - $ref: "../../../common/schema/TransactionId.yaml"
       - $ref: "../../../common/schema/ReferenceIdList.yaml"
-      - $ref: "../../../common/schema/CredentialIssuerId.yaml"
-      - $ref: "../../../common/schema/CredentialSubjectId.yaml"
+      - $ref: "../../../common/schema/FinancialAddress.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:

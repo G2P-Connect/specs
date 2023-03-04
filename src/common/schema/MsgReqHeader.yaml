@@ -6,7 +6,7 @@ properties:
     type: string
     example: "0.1.0"
   message_id: 
-    description: "Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver."
+    description: Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
     type: string
     example: "123456789020211216223812"
   timestamp:
@@ -15,10 +15,10 @@ properties:
     format: date-time
     example: '2022-12-04T18:01:07+00:00'
   action:
-    description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+    description: G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.
     type: string
   sender_id:
-    description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+    description: send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.
     type: string
     example: '10089'
   sender_uri:
@@ -27,16 +27,16 @@ properties:
     format: uri
     example: "https://pymts.sender.org/callback/g2p/on-disburse"
   receiver_id:
-    description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+    description: receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.
     type: string
     example: '52077'
   receiver_uri:
-    description: "receiver url to accept callbacks"
+    description: receiver url to accept callbacks
     type: string
     format: uri
     example: ""
   total_count:
-    description: "Total no of requests present in the message request"
+    description: Total no of requests present in the message request
     type: integer
     example: 21800
 required:

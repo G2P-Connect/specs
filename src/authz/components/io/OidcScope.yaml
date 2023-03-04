@@ -4,8 +4,8 @@ description: "OIDC complaint auth tokens issued by an authorization service for 
   disburse, on-disburse, disburse/status, disburse/on-status, mapper/link, mapper/unlink, etc.,"
 items:
   enum:
-    - "disburse"
-    - "on-disburse"
+    - "disburse/disburse"
+    - "disburse/on-disburse"
     - "disburse/status"
     - "disburse/on-status"
     - "mapper/link"

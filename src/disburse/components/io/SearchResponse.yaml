@@ -13,11 +13,9 @@ properties:
     description: "Status reason code message. Helps actionanble messaging for systems/end users"
     type: string
     maxLength: 999
-  credentials:
+  disbursements:
     items:
-      oneOf:
-      - $ref: "../../../common/schema/Credential.yaml"
-      - $ref: "../../../common/schema/VerifiableCredential.yaml"
+      $ref: "./DisburseResponse.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:

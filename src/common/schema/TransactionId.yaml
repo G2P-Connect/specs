@@ -1,4 +1,4 @@
-description: "Unique transaction id set by sender to co-relate requests across interface end point, sessions, etc.,"
+description: "Unique transaction_id set by txn initiating system (i.e sender) to co-relate requests across processing systems/service end points"
 type: string
 maxLength: 99
 example: "012345678901234567890"

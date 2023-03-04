@@ -40,12 +40,16 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    disburse:
+                    disburse_request:
                       type: array
                       items:
                         $ref: '#/components/schemas/DisburseRequest'
+                  required:
+                    - transaction_id
+                    - disburse_request
               required:
                 - header
+                - message
           multipart/form-data:
             schema:
               allOf:
@@ -70,7 +74,7 @@ paths:
     post:
       summary: 'DSBT-002 : /on-disburse'
       description: The callback is called by /disburse end point processing systems upon completing all disbursement instructions
-      operationId: post_g2p_on-disburse
+      operationId: post_g2p_dsbt_on-disburse
       requestBody:
         description: ''
         required: true
@@ -97,6 +101,9 @@ paths:
                       type: array
                       items:
                         $ref: '#/components/schemas/DisburseResponse'
+                  required:
+                    - transaction_id
+                    - disburse_response
               required:
                 - header
           multipart/form-data:
@@ -119,11 +126,122 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /disburse/status:
+  /disburse/search:
     post:
-      summary: 'DSBT-003 : /disburse/status'
-      description: 'Request for disbursement status from (e.g) social protection, Treasury systems'
-      operationId: post_g2p_disburse_status
+      summary: 'DSBT-SRCH : /disbruse/search'
+      description: Search disbursement by searchable attributes
+      operationId: post_g2p_dsbt_search
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    search_request:
+                      $ref: '#/components/schemas/SearchRequest'
+                  required:
+                    - transaction_id
+                    - search_request
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/on-search:
+    post:
+      summary: 'DSBT-ON-SRCH : /credential/on-search'
+      description: Disbrusement search results through call back
+      operationId: post_g2p_dsbt_on-search
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - on-search
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    search_response:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SearchResponse'
+                  required:
+                    - transaction_id
+                    - search_response
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-search'
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/txn/status:
+    post:
+      summary: 'DSBT-003 : /disburse/txn/status'
+      description: Perform async status check of previous disbursement transanctions using searchable attributes
+      operationId: post_g2p_disburse_txn_status
       requestBody:
         description: ''
         required: true
@@ -146,10 +264,11 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    reference_ids:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/ReferenceId'
+                    txnstatus_request:
+                      $ref: '#/components/schemas/TxnStatusRequest'
+                  required:
+                    - transaction_id
+                    - txnstatus_request
               required:
                 - header
                 - message
@@ -173,11 +292,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /disburse/on-status:
+  /disburse/txn/on-status:
     post:
-      summary: 'DSBT-004 : /disburse/on-status'
-      description: 'The callback endpoint is called by disbursement processing systems upon completing all disbursement instructions or at regular intervals '
-      operationId: post_g2p_disburse_on-status
+      summary: 'DSBT-004 : /disburse/txn/on-status'
+      description: Response to async status check of previous disbursement transanctions using callback
+      operationId: post_g2p_disburse_txn_on-status
       requestBody:
         description: ''
         required: true
@@ -200,10 +319,13 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    disburse_status:
+                    txnstatus_response:
                       type: array
                       items:
-                        $ref: '#/components/schemas/DisburseResponse'
+                        $ref: '#/components/schemas/TxnStatusResponse'
+                  required:
+                    - transaction_id
+                    - txnstatus_response
               required:
                 - header
           multipart/form-data:
@@ -226,7 +348,7 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  '/disburse/status/{transaction_id}/{summary_only}':
+  '/disburse/search/{transaction_id}/{summary_only}':
     get:
       summary: 'DSBT-005: /disburse/status/{transaction_id}/{summary_only}'
       description: Get disbursement processing status by polling <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding.
@@ -258,22 +380,25 @@ paths:
                       - properties:
                           action:
                             enum:
-                              - status
+                              - search
                   message:
                     type: object
                     properties:
                       transaction_id:
                         $ref: '#/components/schemas/TransactionId'
-                      disburse_status:
+                      disburse_response:
                         type: array
                         items:
                           $ref: '#/components/schemas/DisburseResponse'
+                    required:
+                      - transaction_id
+                      - disburse_response
                 required:
                   - header
       security:
         - x-access-token: []
       deprecated: false
-  '/disburse/status/{reference_id}':
+  '/disburse/search/{reference_id}':
     get:
       summary: 'DSBT-006 : /disburse/status/{reference_id}'
       description: Get disbursement processing status by polling using reference_id <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding.
@@ -304,12 +429,19 @@ paths:
                       - properties:
                           action:
                             enum:
-                              - status
+                              - search
                   message:
                     type: object
                     properties:
-                      disburse_status:
-                        $ref: '#/components/schemas/DisburseResponse'
+                      transaction_id:
+                        $ref: '#/components/schemas/TransactionId'
+                      disburse_response:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/DisburseResponse'
+                    required:
+                      - transaction_id
+                      - disburse_response
                 required:
                   - header
       security:
@@ -418,6 +550,102 @@ components:
         - RJCT_REFERENCE_ID_DUPLICATE
         - UKWN_REFERENCE_ID_NOT_FOUND
         - UKWN_TRANSACTION_ID_NOT_FOUND
+    SearchRequest:
+      type: object
+      description: Request to search disbursement using payer or payee fa
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        request_type:
+          type: string
+          enum:
+            - disburse
+        attribute:
+          type: string
+          enum:
+            - transaction_id
+            - reference_id_list
+            - payer_fa
+            - payee_fa
+        attribute_value:
+          oneOf:
+            - $ref: '#/components/schemas/TransactionId'
+            - $ref: '#/components/schemas/ReferenceIdList'
+            - $ref: '#/components/schemas/FinancialAddress'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - request_type
+        - attribute
+        - attribute_value
+    SearchResponse:
+      type: object
+      description: Digital credential
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        status:
+          $ref: '#/components/schemas/RequestStatus'
+        status_reason_code:
+          $ref: '#/components/schemas/SearchStatusReasonCode'
+        status_reason_message:
+          description: Status reason code message. Helps actionanble messaging for systems/end users
+          type: string
+          maxLength: 999
+        disbursements:
+          items:
+            $ref: '#/components/schemas/DisburseResponse'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - status
+    SearchStatusReasonCode:
+      type: string
+      description: 'Credentail issuance status reason code with reason message: <br> - RJCT_REFERENCE_ID_INVALID; Invalid reference id <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_TYPE_INVALID; Type is invalid <br> - RJCT_ISSUER_INVALID; Issuer is invalid <br> - RJCT_SUBJECT_INVALID; Subject is invalid <br> - RJCT_SHAREATTRIBUTES_INVALID; Share attributes invalid <br> - etc.,'
+      enum:
+        - RJCT_REFERENCE_ID_INVALID
+        - RJCT_REFERENCE_ID_DUPLICATE
+        - RJCT_TIMESTAMP_INVALID
+        - RJCT_TYPE_INVALID
+        - RJCT_ISSUER_INVALID
+        - RJCT_SUBJECT_INVALID
+        - RJCT_SHAREATTRIBUTES_INVALID
+    TxnStatusRequest:
+      type: object
+      description: Request to search disbursement using payer or payee fa
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        search_type:
+          type: string
+          enum:
+            - transaction_id
+            - reference_id_list
+        search_attribute:
+          oneOf:
+            - $ref: '#/components/schemas/TransactionId'
+            - $ref: '#/components/schemas/ReferenceIdList'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - search_type
+        - search_attribute
+    TxnStatusResponse:
+      type: array
+      items:
+        oneOf:
+          - $ref: '#/components/schemas/DisburseResponse'
+      example:
+        on-txnstatus-response:
+          reference_id: test
+          timestamp: test
+          status: SUCC
     Ack:
       description: 'Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK'
       type: object
@@ -487,6 +715,9 @@ components:
       description: '<br> 1. Financial address is a normative represenation of a store of value account represented as account@provider <br> 2. Every payer/payee financial address must be resolved to an actual store of value account number for processing the payment instruction <br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
       example: 12345@PhilID
+    FinancialAddressList:
+      items:
+        $ref: '#/components/schemas/FinancialAddress'
     LanguageCode:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
@@ -567,7 +798,7 @@ components:
           type: string
           example: 0.1.0
         message_id:
-          description: Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver.
+          description: 'Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,'
           type: string
           example: '123456789020211216223812'
         timestamp:
@@ -576,7 +807,7 @@ components:
           format: date-time
           example: '2022-12-04T18:01:07+00:00'
         action:
-          description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          description: 'G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.'
           type: string
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
@@ -614,8 +845,11 @@ components:
       example: Farmer Relief 2023
     ReferenceId:
       type: string
-      description: Unique reference id set by business txn initiating system. Used for co-relating the callback requests and to get status info
+      description: Unique reference_id set by txn initiating system for each request in a batch
       example: '12345678901234567890'
+    ReferenceIdList:
+      items:
+        $ref: '#/components/schemas/ReferenceId'
     RequestStatus:
       type: string
       description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected'
@@ -630,7 +864,7 @@ components:
       format: date-time
       example: '2022-12-04T17:20:07-04:00'
     TransactionId:
-      description: 'Unique transaction id set by sender to co-relate requests across interface end point, sessions, etc.,'
+      description: Unique transaction_id set by txn initiating system (i.e sender) to co-relate requests across processing systems/service end points
       type: string
       maxLength: 99
       example: 012345678901234567890
