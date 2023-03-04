@@ -17,7 +17,7 @@ paths:
     post:
       summary: 'DSBT-001 : /disburse'
       description: Initiate payment through disbursement instructions
-      operationId: post_g2p_disburse
+      operationId: post_g2p_dsbt_disburse
       requestBody:
         description: ''
         required: true
@@ -241,7 +241,7 @@ paths:
     post:
       summary: 'DSBT-003 : /disburse/txn/status'
       description: Perform async status check of previous disbursement transanctions using searchable attributes
-      operationId: post_g2p_disburse_txn_status
+      operationId: post_g2p_dsbt_txn_status
       requestBody:
         description: ''
         required: true
@@ -296,7 +296,7 @@ paths:
     post:
       summary: 'DSBT-004 : /disburse/txn/on-status'
       description: Response to async status check of previous disbursement transanctions using callback
-      operationId: post_g2p_disburse_txn_on-status
+      operationId: post_g2p_dsbt_txn_on-status
       requestBody:
         description: ''
         required: true
@@ -350,9 +350,9 @@ paths:
       deprecated: false
   '/disburse/search/{transaction_id}/{summary_only}':
     get:
-      summary: 'DSBT-005: /disburse/status/{transaction_id}/{summary_only}'
+      summary: 'DSBT-005: /disburse/search/{transaction_id}/{summary_only}'
       description: Get disbursement processing status by polling <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding.
-      operationId: get_g2p_disburse_status_by_msg_id
+      operationId: get_g2p_dsbt_search_by_txn_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
         - $ref: '#/components/parameters/timestamp'
@@ -400,9 +400,9 @@ paths:
       deprecated: false
   '/disburse/search/{reference_id}':
     get:
-      summary: 'DSBT-006 : /disburse/status/{reference_id}'
+      summary: 'DSBT-006 : /disburse/search/{reference_id}'
       description: Get disbursement processing status by polling using reference_id <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding.
-      operationId: get_g2p_disburse_status_by_req_id
+      operationId: get_g2p_dsbt_search_by_ref_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
         - $ref: '#/components/parameters/timestamp'
