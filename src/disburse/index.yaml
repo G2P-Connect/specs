@@ -16,7 +16,7 @@ servers:
 paths:
  /disburse:
   post: 
-    summary: "DSBT-001 : /disburse"
+    summary: "DSBT-DSBT : /disburse"
     description: "Initiate payment through disbursement instructions"
     operationId: post_g2p_dsbt_disburse
     requestBody:
@@ -74,7 +74,7 @@ paths:
     deprecated: false
  /on-disburse:
   post: 
-    summary: "DSBT-002 : /on-disburse"
+    summary: "DSBT-ON-DSBT : /on-disburse"
     description: "The callback is called by /disburse end point processing systems upon completing all disbursement instructions"
     operationId: post_g2p_dsbt_on-disburse
     requestBody:
@@ -244,7 +244,7 @@ paths:
     deprecated: false
  /disburse/txn/status:
   post: 
-    summary: "DSBT-003 : /disburse/txn/status"
+    summary: "DSBT-TXNSTS : /disburse/txn/status"
     description: "Perform async status check of previous disbursement transanctions using searchable attributes"
     operationId: post_g2p_dsbt_txn_status
     requestBody:
@@ -300,7 +300,7 @@ paths:
     deprecated: false
  /disburse/txn/on-status:
   post: 
-    summary: "DSBT-004 : /disburse/txn/on-status"
+    summary: "DSBT-ON-TXNSTS : /disburse/txn/on-status"
     description: "Response to async status check of previous disbursement transanctions using callback"
     operationId: post_g2p_dsbt_txn_on-status
     requestBody:
@@ -357,7 +357,7 @@ paths:
     deprecated: false
  /disburse/search/{transaction_id}/{summary_only}:
    get: 
-    summary: "DSBT-005: /disburse/search/{transaction_id}/{summary_only}"
+    summary: "DSBT-SRCH-TXNID: /disburse/search/{transaction_id}/{summary_only}"
     description: "Get disbursement processing status by polling <br>
         1. This end point is avaiable to poll disbursement processing status info. <br>
         2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br>
@@ -411,7 +411,7 @@ paths:
     deprecated: false
  /disburse/search/{reference_id}:
    get: 
-    summary: "DSBT-006 : /disburse/search/{reference_id}"
+    summary: "DSBT-SRCH-REFID : /disburse/search/{reference_id}"
     description: "Get disbursement processing status by polling using reference_id <br>
         1. This end point is avaiable to poll disbursement processing status info. <br>
         2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding."
