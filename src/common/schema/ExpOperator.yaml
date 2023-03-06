@@ -1,0 +1,9 @@
+description: 'Operator in an expression'
+type: string
+enum:
+  - "gt"
+  - "lt"
+  - "eq"
+  - "ge"
+  - "le"
+example: "eq"

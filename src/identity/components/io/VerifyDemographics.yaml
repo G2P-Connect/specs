@@ -1,0 +1,19 @@
+desc: Person demographics verify object
+allOf:
+  - properties:
+      name:
+        desc: Person full name
+        type: string
+      dob:
+        desc: date of brith
+        type: string
+        format: date
+      gender:
+        desc: gender
+        type: string
+        enum:
+          - "male"
+          - "female"
+          - "transgender"
+  - $ref: "../../../common/schema/BeneficiaryContact.yaml"
+  - $ref: "../../../common/schema/ExpressionList.yaml"

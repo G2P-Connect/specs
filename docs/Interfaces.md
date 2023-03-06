@@ -2,15 +2,15 @@
 
 Below core interfaces & codes help to easily identity functional areas for implementation partners. 
 
-| Interface | Code | Version | Release Date | Description | 
-| --------- | -------------- | ------- | ------------ | ----------- |
-| [Financial Address Mapper](./FinancialAddressMapper.md) | FAMAP | 0.1.0 | Draft | Manage ID to financial address mapper registry | 
-| [Disbursement](./Disbursement.md) | DSBT | 0.1.0 | Draft | Payment disbursements |
-| [Identity ](./Identity.md) | ID | 0.1.0 | Draft | APIs to access authentication & eKYC services |
-| [Credential](./Crendential.md) | CRED | 0.1.0 | Draft | Issue, manage digital verifiable credentials |
-| [Civil Registry](./CivilRegistry.md) | CRVS | 0.1.0 | Draft | Search, Subscribe, Notify civil registry info | 
-| [Program Management](./ProgramManagement.md) | PM | 0.1.0 | Draft | Manage scheme/program | 
-| [Beneficiary Management](./BeneficiaryManagement.md) | BM | 0.1.0 | Draft | Manage beneficiaries |
+| Interface (Code) | Version | Release Date | Description | 
+| ---------------- | ------- | ------------ | ----------- |
+| [Financial Address Mapper](./FinancialAddressMapper.md) (FAMAP) | 0.1.0 | Draft | Manage ID to financial address mapper registry | 
+| [Disbursement](./Disbursement.md) (DSBT) | 0.1.0 | Draft | Payment disbursements |
+| [Identity ](./Identity.md) (ID) | 0.1.0 | Draft | APIs to access authentication & eKYC services |
+| [Credential](./Crendential.md) (CRED) | 0.1.0 | Draft | Issue, manage digital verifiable credentials |
+| [Civil Registry](./CivilRegistry.md) (CRVS) | 0.1.0 | Draft | Search, Subscribe, Notify civil registry info | 
+| [Program Management](./ProgramManagement.md) (PM) | 0.1.0 | Draft | Manage scheme/program | 
+| [Beneficiary Management](./BeneficiaryManagement.md) (BM) | 0.1.0 | Draft | Manage beneficiaries |
 | 
 
 ## Other Interfaces  

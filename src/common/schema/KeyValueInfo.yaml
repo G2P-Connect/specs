@@ -1,5 +1,5 @@
 type: object
-description: 'Key Value info object'
+description: 'Key Value info'
 properties:
   key: 
     type: string

@@ -1,0 +1,19 @@
+type: object
+description: Verify person with identity provider. Match attribtues in request and return booelan response.
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  id:
+    $ref: "../../../common/schema/BeneficiaryId.yaml"
+  demographics:
+    $ref: "./VerifyDemographics.yaml"
+  $ref: "../../../common/schema/ExpressionList.yaml"
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - id
+  - demographics

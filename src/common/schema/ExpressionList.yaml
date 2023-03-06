@@ -1,0 +1,6 @@
+type: object
+desc: list of attributes with matching conditions
+properties:
+  attributes:
+    items:
+      $ref: "./Expression.yaml"

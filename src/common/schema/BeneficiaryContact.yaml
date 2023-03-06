@@ -1,30 +1,34 @@
 type: object
-description: 'Beneficiary contact details'
+description: 'Person contact details'
 properties:
   phone:
     type: string
+    description: landline 
   mobile_number:
     type: string
   alt_mobile_number:
     type: string
-  email_address:
+  email_id:
     type: string
-  alt_email_address:
+  alt_email_id:
     type: string
   address:
     type: object
     properties: 
-      address_line_1:
+      line1:
         type: string
-      address_line_2:
+      line2:
         type: string
-      address_line_3:
+      line3:
         type: string
-      city:
+      location1:
         type: string
-      state_or_province:
+        description: village, town, city
+      location2:
         type: string
-      country_or_region:
+        description: state, province
+      location3:
         type: string
-      zip_or_postal_code:
+        description: country, region
+      postal_code:
         type: string

@@ -1,0 +1,22 @@
+desc: Expression
+properties:
+  seq_num:
+    desc: expression seq number for correlation 
+    type: number
+    example: 1
+  attribute_name:
+    type: string
+    desc: attribute name
+  operator:
+    $ref: "./ExpOperator.yaml"
+  attribute_value:
+    oneOf:
+      - type: string
+      - type: integer
+      - type: number
+      - type: boolean
+required:
+  - seq_num
+  - attribute_name
+  - operator
+  - attribute_value

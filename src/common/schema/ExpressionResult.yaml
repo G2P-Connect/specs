@@ -1,0 +1,15 @@
+desc: Expression result
+properties:
+  seq_num:
+    desc: expression seq number for correlation 
+    type: number
+    example: 1
+  result:
+    type: string
+    enum: 
+      - "y"
+      - "n"
+    example: "y"
+required:
+  - seq_num
+  - result

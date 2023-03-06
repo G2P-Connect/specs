@@ -1,0 +1,18 @@
+type: string
+description: "identity verification request status codes: <br>
+      - rjct.refid.invalid; Invalid reference id <br>
+      - rjct.refid.duplicate; Duplicate reference id <br>
+      - rjct.ts.invalid; Timestamp is invalid <br>
+      - rjct.{attribute_name}.invalid; {attribute_name} is invalid <br>
+      - rjct.{attribute_value}.invalid; {attribute_value} is invalid <br>
+      - rjct.{operator}.invalid; {operator} is invalid <br>
+      - rjct.{attribute_value}.invalid; {attribute_value} condition is invalid <br>
+      - etc.,"
+enum: 
+- "rjct.refid.invalid"
+- "rjct.refid.duplicate"
+- "rjct.ts.invalid"
+- "rjct.type.invalid"
+- "rjct.issuer.invalid"
+- "rjct.subject.invalid"
+- "rjct.shareAttributes.invalid"

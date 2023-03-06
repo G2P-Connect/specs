@@ -1,0 +1,23 @@
+type: object
+description: 'Digital credential issuance '
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  status:
+    $ref: "../../../common/schema/RequestStatus.yaml" 
+  status_reason_code:
+    $ref: "./VerifyStatusReasonCode.yaml" 
+  status_reason_message:
+    description: "Status reason code message. Helps actionanble messaging for systems/end users"
+    type: string
+    maxLength: 999
+  verify_details:
+    - $ref: "../../../common/schema/ExpressionResultList.yaml"
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - status
