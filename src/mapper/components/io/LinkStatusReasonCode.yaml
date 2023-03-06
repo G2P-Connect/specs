@@ -1,14 +1,7 @@
 type: string
-description: "FA map link status reason code with reason message: <br>
-      - RJCT_INVALID_TIMESTAMP; Timestamp is invalid <br>
-      - RJCT_INVALID_BENEFICIARY_NAME; Beneficiary name is invalid <br>
-      - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br>
-      - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br>
-      - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br>
-      - etc.,"
+description: FA Mapper Link status reason codes
 enum: 
-- "RJCT_INVALID_TIMESTAMP"
-- "RJCT_INVALID_BENEFICIARY_NAME"
-- "RJCT_DUPLICATE_REFERENCE_ID"
-- "UKWN_NOT_FOUND_REFERENCE_ID"
-- "UKWN_NOT_FOUND_TRANSACTION_ID"
+  - "rjct.reference_id.invalid"
+  - "rjct.reference_id.duplicate"
+  - "rjct.timestamp.invalid"
+  - "rjct.beneficiary_name.invalid"

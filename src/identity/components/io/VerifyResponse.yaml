@@ -14,10 +14,11 @@ properties:
     type: string
     maxLength: 999
   verify_details:
-    - $ref: "../../../common/schema/ExpressionResultList.yaml"
+    $ref: "../../../common/schema/ExpressionResultList.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:
   - reference_id
   - timestamp
   - status
+  - status_reason_code

@@ -30,7 +30,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -87,7 +87,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -143,7 +143,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -200,7 +200,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -256,7 +256,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -313,7 +313,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -369,7 +369,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -426,7 +426,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -482,7 +482,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -537,7 +537,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -580,7 +580,7 @@ paths:
     post:
       summary: 'FAMAP-TXNSTS : /mapper/txn/status'
       description: Perform async status check of previous mapper transanctions using searchable attributes
-      operationId: post_g2p_mapper_txn_status
+      operationId: post_g2p_mapper_txnstatus
       requestBody:
         description: ''
         required: true
@@ -593,7 +593,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -638,7 +638,7 @@ paths:
     post:
       summary: 'FAMAP-ON-TXNSTS : /mapper/txn/on-status'
       description: Response to async status check of previous mapper transanctions using callback
-      operationId: post_g2p_mapper_txn_on-status
+      operationId: post_g2p_mapper_on-txnstatus
       requestBody:
         description: ''
         required: true
@@ -651,7 +651,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -751,22 +751,20 @@ components:
         - status
     LinkStatusReasonCode:
       type: string
-      description: 'FA map link status reason code with reason message: <br> - RJCT_INVALID_TIMESTAMP; Timestamp is invalid <br> - RJCT_INVALID_BENEFICIARY_NAME; Beneficiary name is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - UKWN_NOT_FOUND_REFERENCE_ID; Reference id not found <br> - UKWN_NOT_FOUND_TRANSACTION_ID; Transaction id not found <br> - etc.,'
+      description: FA Mapper Link status reason codes
       enum:
-        - RJCT_INVALID_TIMESTAMP
-        - RJCT_INVALID_BENEFICIARY_NAME
-        - RJCT_DUPLICATE_REFERENCE_ID
-        - UKWN_NOT_FOUND_REFERENCE_ID
-        - UKWN_NOT_FOUND_TRANSACTION_ID
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.beneficiary_name.invalid
     UnlinkStatusReasonCode:
       type: string
-      description: 'FA map link status reason code with reason message: <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_BENEFICIARY_NAME_INVALID; Beneficiary name is invalid <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - UKWN_REFERENCE_ID_NOT_FOUND; Reference id not found <br> - UKWN_TRANSACTION_ID_NOT_FOUND; Transaction id not found <br> - etc.,'
+      description: FA Mapper Unlink status reason codes
       enum:
-        - RJCT_TIMESTAMP_INVALID
-        - RJCT_BENEFICIARY_NAME_INVALID
-        - RJCT_REFERENCE_ID_DUPLICATE
-        - UKWN_REFERENCE_ID_NOT_FOUND
-        - UKWN_TRANSACTION_ID_NOT_FOUND
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.beneficiary_name.invalid
     ResolveRequest:
       type: object
       description: Resolve financial address to store of value account info
@@ -835,14 +833,13 @@ components:
         - status
     ResolveStatusReasonCode:
       type: string
-      description: 'FA map resolve status reason code with reason message: <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_BENEFICIARY_NAME_INVALID; Beneficiary name is invalid <br> - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br> - RJCT_RESOLVE_TYPE_NOT_SUPPORTED; Resolve type not supported <br> - UKWN_REFERENCE_ID_NOT_FOUND; Reference id not found <br> - UKWN_TRANSACTION_ID_NOT_FOUND; Transaction id not found <br> - etc.,'
+      description: FA Mapper Resolve status reason codes
       enum:
-        - RJCT_TIMESTAMP_INVALID
-        - RJCT_BENEFICIARY_NAME_INVALID
-        - RJCT_DUPLICATE_REFERENCE_ID
-        - RJCT_RESOLVE_TYPE_NOT_SUPPORTED
-        - UKWN_REFERENCE_ID_NOT_FOUND
-        - UKWN_TRANSACTION_ID_NOT_FOUND
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.beneficiary_name.invalid
+        - rjct.resolve_type.not_supported
     SearchRequest:
       type: object
       description: Request to search mapper requests
@@ -1051,14 +1048,12 @@ components:
         - status
     UpdateStatusReasonCode:
       type: string
-      description: 'FA map update status reason code with reason message: <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_FA_INVALID; Financial Address is invalid <br> - RJCT_BENEFICIARY_NAME_INVALID; Beneficiary name is invalid <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - UKWN_REFERENCE_ID_NOT_FOUND; Reference id not found <br> - UKWN_TRANSACTION_ID_NOT_FOUND; Transaction id not found <br> - etc.,'
+      description: FA Mapper Update status reason codes
       enum:
-        - RJCT_TIMESTAMP_INVALID
-        - RJCT_FA_INVALID
-        - RJCT_BENEFICIARY_NAME_INVALID
-        - RJCT_REFERENCE_ID_DUPLICATE
-        - UKWN_REFERENCE_ID_NOT_FOUND
-        - UKWN_TRANSACTION_ID_NOT_FOUND
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.beneficiary_name.invalid
     AccountInfo:
       type: object
       description: Beneficiary store of value account info
@@ -1078,34 +1073,38 @@ components:
             - last_name
         contact_info:
           type: object
-          description: Beneficiary contact details
+          description: Person contact details
           properties:
             phone:
               type: string
+              description: landline
             mobile_number:
               type: string
             alt_mobile_number:
               type: string
-            email_address:
+            email_id:
               type: string
-            alt_email_address:
+            alt_email_id:
               type: string
             address:
               type: object
               properties:
-                address_line_1:
+                line1:
                   type: string
-                address_line_2:
+                line2:
                   type: string
-                address_line_3:
+                line3:
                   type: string
-                city:
+                location1:
                   type: string
-                state_or_province:
+                  description: 'village, town, city'
+                location2:
                   type: string
-                country_or_region:
+                  description: 'state, province, region'
+                location3:
                   type: string
-                zip_or_postal_code:
+                  description: 'country, region'
+                postal_code:
                   type: string
         account_info:
           type: object
@@ -1206,31 +1205,28 @@ components:
         - name
     BeneficiaryId:
       type: string
-      description: '<br> 1. Beneficiary id is a normative represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@id-provider e.g 12345@mosip, 12345@PhilID <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@mosip
+      example: 12345@token.mosip
     Error:
-      description: 'Describes an error object that is returned to standard post call request. <br> 1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br> 2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>'
+      description: |
+        Describes an error object that is returned to standard post call request. <br>
+        1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br>
+        2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
       type: object
       properties:
         code:
           type: string
           description: Standard error code
           enum:
-            - ERR_ACCESS_DENIED
-            - ERR_INVALID_REQUEST
-            - ERR_INVALID_SENDER
-            - ERR_INVALID_SENDER_URI
-            - ERR_INVALID_RECEIVER
-            - ERR_INVALID_RECEIVER_URI
-            - ERR_MANDATORY_HEADER_MISSING
-            - ERR_INVALID_MESSAGE_ID
-            - ERR_INVALID_TIMESTAMP
-            - ERR_INVALID_ACTION
-            - ERR_INVALID_SIGNATURE
-            - ERR_INVALID_ENCRYPTION
-            - ERR_INVALID_MESSAGE
-            - ERR_SERVICE_UNAVAILABLE
+            - err.access.denied
+            - err.request.invalid
+            - err.sender.invalid
+            - err.receiver.invalid
+            - err.header.missing
+            - err.signature.invalid
+            - err.encryption.invalid
+            - err.service.unavailable
         message:
           type: string
           description: message to describe above error code
@@ -1267,7 +1263,7 @@ components:
       type: string
       pattern: '^[a-z]{3,3}$'
       example: kri
-    MsgCallbackReqHeader:
+    MsgCallbackHeader:
       type: object
       description: Message header
       properties:
@@ -1279,8 +1275,8 @@ components:
           description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
           type: string
           example: '123456789020211216223812'
-        timestamp:
-          description: Time of request generation in RFC3339 format
+        message_ts:
+          description: Time of message generation in RFC3339 format
           type: string
           format: date-time
           example: '2022-12-04T18:02:35+00:00'
@@ -1288,16 +1284,9 @@ components:
           description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
           type: string
         status:
-          description: Message processing status code
-          type: string
-          enum:
-            - REJECTED
-            - IN_PROGRESS
-            - COMPLETED
+          $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
-          type: string
-          maxLength: 99
+          $ref: '#/components/schemas/MsgHeaderStatusReasonCode'
         status_reason_message:
           description: 'Status reascon code message, if any, Helps actionanble messaging for system/end users'
           type: string
@@ -1330,10 +1319,10 @@ components:
           example: ''
       required:
         - message_id
-        - timestamp
+        - message_ts
         - action
         - status
-    MsgReqHeader:
+    MsgHeader:
       type: object
       description: Message header
       properties:
@@ -1345,8 +1334,8 @@ components:
           description: 'Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,'
           type: string
           example: '123456789020211216223812'
-        timestamp:
-          description: Time of request generation in RFC3339 format
+        message_ts:
+          description: Time of message generation in RFC3339 format
           type: string
           format: date-time
           example: '2022-12-04T18:01:07+00:00'
@@ -1377,7 +1366,21 @@ components:
           example: 21800
       required:
         - message_id
-        - timestamp
+        - message_ts
+        - action
+    MsgHeaderStatusReasonCode:
+      type: string
+      description: Message header related common status reason codes
+      enum:
+        - rjct.version.invalid
+        - rjct.message_id.duplicate
+        - rjct.message_ts.invalid
+        - rjct.action.invalid
+        - rjct.action.not_supported
+        - rjct.sender_uri.invalid
+        - rjct.receiver_uri.invalid
+        - rjct.total_count.invalid
+        - rjct.total_count.limit_exceeded
     MsgSignature:
       type: string
       description: Signature of message body verified using sender's signing public key
@@ -1391,12 +1394,12 @@ components:
         $ref: '#/components/schemas/ReferenceId'
     RequestStatus:
       type: string
-      description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected'
+      description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. rcvd: Received; Request received <br> 2. pdng: Pending; Request initiated <br> 3. succ: Success; Request successful <br> 4. rjct: Rejected; Request rejected'
       enum:
-        - RCVD
-        - PDNG
-        - SUCC
-        - RJCT
+        - rcvd
+        - pdng
+        - succ
+        - rjct
     Timestamp:
       type: string
       description: datetime in RFC3339 format

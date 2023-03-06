@@ -31,7 +31,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - $ref: "#/components/schemas/MsgHeader"
                     - properties:
                         action:
                           enum:
@@ -89,7 +89,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
                     - properties:
                         action:
                           enum:
@@ -146,7 +146,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - $ref: "#/components/schemas/MsgHeader"
                     - properties:
                         action:
                           enum:
@@ -202,7 +202,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
                     - properties:
                         action:
                           enum:
@@ -246,7 +246,7 @@ paths:
   post: 
     summary: "DSBT-TXNSTS : /disburse/txn/status"
     description: "Perform async status check of previous disbursement transanctions using searchable attributes"
-    operationId: post_g2p_dsbt_txn_status
+    operationId: post_g2p_dsbt_txnstatus
     requestBody:
       description: ""
       required: true
@@ -259,7 +259,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - $ref: "#/components/schemas/MsgHeader"
                     - properties:
                         action:
                           enum:
@@ -302,7 +302,7 @@ paths:
   post: 
     summary: "DSBT-ON-TXNSTS : /disburse/txn/on-status"
     description: "Response to async status check of previous disbursement transanctions using callback"
-    operationId: post_g2p_dsbt_txn_on-status
+    operationId: post_g2p_dsbt_on-txnstatus
     requestBody:
       description: ""
       required: true
@@ -315,7 +315,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
                     - properties:
                         action:
                           enum:
@@ -380,7 +380,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
                     - properties:
                         action:
                           enum:
@@ -432,7 +432,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
                     - properties:
                         action:
                           enum:

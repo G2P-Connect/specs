@@ -1,9 +1,7 @@
 type: array
 items:
   oneOf:
-  - $ref: "./IssueResponse.yaml"
-  - $ref: "./SearchResponse.yaml"
-  - $ref: "./StatusResponse.yaml"
+  - $ref: "./VerifyResponse.yaml"
 example:
   on-txnstatus-response: 
     reference_id: "test"

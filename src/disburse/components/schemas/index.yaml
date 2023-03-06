@@ -30,10 +30,12 @@ FinancialAddressList:
   $ref: "../../../common/schema/FinancialAddressList.yaml"
 LanguageCode:
   $ref: "../../../common/schema/LanguageCode.yaml"
-MsgCallbackReqHeader:
-  $ref: "../../../common/schema/MsgCallbackReqHeader.yaml"
-MsgReqHeader:
-  $ref: "../../../common/schema/MsgReqHeader.yaml"
+MsgCallbackHeader:
+  $ref: "../../../common/schema/MsgCallbackHeader.yaml"
+MsgHeader:
+  $ref: "../../../common/schema/MsgHeader.yaml"
+MsgHeaderStatusReasonCode:
+  $ref: "../../../common/schema/MsgHeaderStatusReasonCode.yaml"
 MsgSignature:
   $ref: "../../../common/schema/MsgSignature.yaml"
 Purpose:

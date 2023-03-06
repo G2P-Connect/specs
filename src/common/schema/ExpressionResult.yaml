@@ -1,7 +1,7 @@
-desc: Expression result
+description: Expression result
 properties:
   seq_num:
-    desc: expression seq number for correlation 
+    description: expression seq number for correlation 
     type: number
     example: 1
   result:

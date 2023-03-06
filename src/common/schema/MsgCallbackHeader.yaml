@@ -9,8 +9,8 @@ properties:
     description: "Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations."
     type: string
     example: "123456789020211216223812"
-  timestamp:
-    description: 'Time of request generation in RFC3339 format'
+  message_ts:
+    description: 'Time of message generation in RFC3339 format'
     type: string
     format: date-time
     example: '2022-12-04T18:02:35+00:00'
@@ -18,13 +18,9 @@ properties:
     description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
     type: string
   status:
-    description: "Message processing status code"
-    type: string
-    enum: ["REJECTED", "IN_PROGRESS", "COMPLETED"]
+    $ref: "./RequestStatus.yaml"
   status_reason_code:
-    description: "Status reason code, if any. Helps for systems integration"
-    type: string
-    maxLength: 99
+    $ref: "./MsgHeaderStatusReasonCode.yaml"
   status_reason_message:
     description: "Status reascon code message, if any, Helps actionanble messaging for system/end users"
     type: string
@@ -57,6 +53,6 @@ properties:
     example: ""
 required:
   - message_id
-  - timestamp
+  - message_ts
   - action
   - status

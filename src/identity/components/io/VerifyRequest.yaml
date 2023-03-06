@@ -7,13 +7,22 @@ properties:
     $ref: "../../../common/schema/Timestamp.yaml"
   id:
     $ref: "../../../common/schema/BeneficiaryId.yaml"
+  consent_obtained:
+    type: string
+    description: Is consent obtained for verification
+    enum:
+      - "y"
+      - "n"
+    example: "y"
   demographics:
     $ref: "./VerifyDemographics.yaml"
-  $ref: "../../../common/schema/ExpressionList.yaml"
+  attributes:
+    $ref: "../../../common/schema/ExpressionList.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:
   - reference_id
   - timestamp
   - id
+  - consent_obtained
   - demographics

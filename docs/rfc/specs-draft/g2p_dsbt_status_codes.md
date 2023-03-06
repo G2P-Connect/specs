@@ -1,10 +1,7 @@
 # DSBT-ON-STS : Disburse Status 
 
 ## ID: 
-G2PConnect-DSBT-ON-STS
-
-## Draft ID
-Draft-01
+G2PConnect-DSBT-001
 
 ## Title:
 DSBT-ON-STS : Disburse Status 
@@ -31,20 +28,20 @@ Please make additional suggestions through discussion forums and/or pull request
   - specs/src/common/schema/RequestStatus.yaml
   - specs/src/disburse/components/io/DisburseStatusReasonCode.yaml
   
-## Disburse Status 
+## Status Reason Codes
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
-| RCVD   |                    | Payment received      |
-| PDNG   |                    | Payment initiated     |
-| SUCC   |                    | Payment success       |
-| RJCT   | RJCT_PAYER_FA_INVALID | Payer Financial Address is invalid |
-| RJCT   | RJCT_PAYEE_FA_INVALID | Payee Financial Address is invalid |
-| RJCT   | RJCT_AMOUNT_INVALID | Invalid Amount |
-| RJCT   | RJCT_SHCHEDULE_TIMESTAMP_INVALID | Schedule timestamp is invalid |
-| RJCT   | RJCT_CURRENCY_CODE_INVALID | Currency code is invalid |
-| RJCT   | RJCT_REFERENCE_ID_DUPLICATE | Duplicate reference id |
-| UKWN   | UKWN_REFERENCE_ID_NOT_FOUND| Reference id not found  |
-| UKWN   | UKWN_REFERENCE_ID_NOT_FOUND | Transaction id not found |
+| rcvd   |                    | Request received      |
+| pdng   |                    | Required initiated    |
+| succ   |                    | Request processed     |
+| rjct   | rjct.reference_id.invalid |  invalid reference_id|
+| rjct   | rjct.reference_id.duplicate | duplicate reference_id |
+| rjct   | rjct.schedule_ts.invalid | timestamp is invalid |
+| rjct   | rjct.payer_fa.invalid |  |
+| rjct   | rjct.payee_fa.invalid |  |
+| rjct   | rjct.amount.invalid | |
+| rjct   | rjct.currency_code.invalid|  |
+
 
 ## Acknowledgements
   The author would like to thank the following individuals for their contributions in creating the first draft of this document (in alphabetical order):

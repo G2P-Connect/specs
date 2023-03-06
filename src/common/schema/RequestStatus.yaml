@@ -1,11 +1,11 @@
 type: string
 description: "Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br>
-        1. RCVD: Received; Request received <br>
-        2. PDNG: Pending; Request initiated <br>
-        3. SUCC: Success; Request successful <br>
-        4. RJCT: Rejected; Request rejected"
+        1. rcvd: Received; Request received <br>
+        2. pdng: Pending; Request initiated <br>
+        3. succ: Success; Request successful <br>
+        4. rjct: Rejected; Request rejected"
 enum:
-- "RCVD"
-- "PDNG"
-- "SUCC"
-- "RJCT"
+- "rcvd"
+- "pdng"
+- "succ"
+- "rjct"

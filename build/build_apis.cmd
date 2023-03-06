@@ -6,8 +6,10 @@ swagger-cli -f 2 -t yaml bundle ./src/authz/index.yaml -o ./api/g2p-authz.yaml
 swagger-cli -f 2 -t yaml bundle ./src/mapper/index.yaml -o ./api/g2p-mapper.yaml
 swagger-cli -f 2 -t yaml bundle ./src/disburse/index.yaml -o ./api/g2p-disburse.yaml
 swagger-cli -f 2 -t yaml bundle ./src/credential/index.yaml -o ./api/g2p-credential.yaml
+swagger-cli -f 2 -t yaml bundle ./src/identity/index.yaml -o ./api/g2p-identity.yaml
 
 redocly build-docs ./api/g2p-authz.yaml -o ./docs/dist/g2p-authz.html
 redocly build-docs ./api/g2p-mapper.yaml -o ./docs/dist/g2p-mapper.html
 redocly build-docs ./api/g2p-disburse.yaml -o ./docs/dist/g2p-disburse.html
 redocly build-docs ./api/g2p-credential.yaml -o ./docs/dist/g2p-credential.html
+redocly build-docs ./api/g2p-identity.yaml -o ./docs/dist/g2p-identity.html

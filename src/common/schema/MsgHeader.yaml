@@ -9,8 +9,8 @@ properties:
     description: Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
     type: string
     example: "123456789020211216223812"
-  timestamp:
-    description: 'Time of request generation in RFC3339 format'
+  message_ts:
+    description: 'Time of message generation in RFC3339 format'
     type: string
     format: date-time
     example: '2022-12-04T18:01:07+00:00'
@@ -41,4 +41,5 @@ properties:
     example: 21800
 required:
   - message_id
-  - timestamp
+  - message_ts
+  - action

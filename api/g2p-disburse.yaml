@@ -30,7 +30,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -87,7 +87,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -143,7 +143,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -198,7 +198,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -241,7 +241,7 @@ paths:
     post:
       summary: 'DSBT-TXNSTS : /disburse/txn/status'
       description: Perform async status check of previous disbursement transanctions using searchable attributes
-      operationId: post_g2p_dsbt_txn_status
+      operationId: post_g2p_dsbt_txnstatus
       requestBody:
         description: ''
         required: true
@@ -254,7 +254,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgReqHeader'
+                    - $ref: '#/components/schemas/MsgHeader'
                     - properties:
                         action:
                           enum:
@@ -296,7 +296,7 @@ paths:
     post:
       summary: 'DSBT-ON-TXNSTS : /disburse/txn/on-status'
       description: Response to async status check of previous disbursement transanctions using callback
-      operationId: post_g2p_dsbt_txn_on-status
+      operationId: post_g2p_dsbt_on-txnstatus
       requestBody:
         description: ''
         required: true
@@ -309,7 +309,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
                     - properties:
                         action:
                           enum:
@@ -376,7 +376,7 @@ paths:
                     $ref: '#/components/schemas/MsgSignature'
                   header:
                     allOf:
-                      - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                      - $ref: '#/components/schemas/MsgCallbackHeader'
                       - properties:
                           action:
                             enum:
@@ -425,7 +425,7 @@ paths:
                     $ref: '#/components/schemas/MsgSignature'
                   header:
                     allOf:
-                      - $ref: '#/components/schemas/MsgCallbackReqHeader'
+                      - $ref: '#/components/schemas/MsgCallbackHeader'
                       - properties:
                           action:
                             enum:
@@ -540,16 +540,16 @@ components:
         - status
     DisburseStatusReasonCode:
       type: string
-      description: 'Disburse status reason code with reason message: <br> - RJCT_PAYER_FA_INVALID; Payer Financial Address is invalid <br> - RJCT_PAYEE_FA_INVALID; Payee Financial Address is invalid <br> - RJCT_AMOUNT_INVALID; Invalid Amount <br> - RJCT_SHCHEDULE_TIMESTAMP_INVALID; Schedule timestamp is invalid <br> - RJCT_CURRENCY_CODE_INVALID; Currency code is invalid <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - UKWN_REFERENCE_ID_NOT_FOUND; Reference id not found <br> - UKWN_TRANSACTION_ID_NOT_FOUND; Transaction id not found <br> - etc.,'
+      description: Disbursement status reason codes
       enum:
-        - RJCT_PAYER_FA_INVALID
-        - RJCT_PAYEE_FA_INVALID
-        - RJCT_AMOUNT_INVALID
-        - RJCT_SHCHEDULE_TIMESTAMP_INVALID
-        - RJCT_CURRENCY_CODE_INVALID
-        - RJCT_REFERENCE_ID_DUPLICATE
-        - UKWN_REFERENCE_ID_NOT_FOUND
-        - UKWN_TRANSACTION_ID_NOT_FOUND
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.payer_fa.invalid
+        - rjct.payee_fa.invalid
+        - rjct.amount.invalid
+        - rjct.schedule_ts.invalid
+        - rjct.currency_code.invalid
     SearchRequest:
       type: object
       description: Request to search disbursement using payer or payee fa
@@ -666,27 +666,24 @@ components:
       pattern: '^[A-Z]{3,3}$'
       example: SLL
     Error:
-      description: 'Describes an error object that is returned to standard post call request. <br> 1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br> 2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>'
+      description: |
+        Describes an error object that is returned to standard post call request. <br>
+        1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br>
+        2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
       type: object
       properties:
         code:
           type: string
           description: Standard error code
           enum:
-            - ERR_ACCESS_DENIED
-            - ERR_INVALID_REQUEST
-            - ERR_INVALID_SENDER
-            - ERR_INVALID_SENDER_URI
-            - ERR_INVALID_RECEIVER
-            - ERR_INVALID_RECEIVER_URI
-            - ERR_MANDATORY_HEADER_MISSING
-            - ERR_INVALID_MESSAGE_ID
-            - ERR_INVALID_TIMESTAMP
-            - ERR_INVALID_ACTION
-            - ERR_INVALID_SIGNATURE
-            - ERR_INVALID_ENCRYPTION
-            - ERR_INVALID_MESSAGE
-            - ERR_SERVICE_UNAVAILABLE
+            - err.access.denied
+            - err.request.invalid
+            - err.sender.invalid
+            - err.receiver.invalid
+            - err.header.missing
+            - err.signature.invalid
+            - err.encryption.invalid
+            - err.service.unavailable
         message:
           type: string
           description: message to describe above error code
@@ -723,7 +720,7 @@ components:
       type: string
       pattern: '^[a-z]{3,3}$'
       example: kri
-    MsgCallbackReqHeader:
+    MsgCallbackHeader:
       type: object
       description: Message header
       properties:
@@ -735,8 +732,8 @@ components:
           description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
           type: string
           example: '123456789020211216223812'
-        timestamp:
-          description: Time of request generation in RFC3339 format
+        message_ts:
+          description: Time of message generation in RFC3339 format
           type: string
           format: date-time
           example: '2022-12-04T18:02:35+00:00'
@@ -744,16 +741,9 @@ components:
           description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
           type: string
         status:
-          description: Message processing status code
-          type: string
-          enum:
-            - REJECTED
-            - IN_PROGRESS
-            - COMPLETED
+          $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          description: 'Status reason code, if any. Helps for systems integration'
-          type: string
-          maxLength: 99
+          $ref: '#/components/schemas/MsgHeaderStatusReasonCode'
         status_reason_message:
           description: 'Status reascon code message, if any, Helps actionanble messaging for system/end users'
           type: string
@@ -786,10 +776,10 @@ components:
           example: ''
       required:
         - message_id
-        - timestamp
+        - message_ts
         - action
         - status
-    MsgReqHeader:
+    MsgHeader:
       type: object
       description: Message header
       properties:
@@ -801,8 +791,8 @@ components:
           description: 'Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,'
           type: string
           example: '123456789020211216223812'
-        timestamp:
-          description: Time of request generation in RFC3339 format
+        message_ts:
+          description: Time of message generation in RFC3339 format
           type: string
           format: date-time
           example: '2022-12-04T18:01:07+00:00'
@@ -833,7 +823,21 @@ components:
           example: 21800
       required:
         - message_id
-        - timestamp
+        - message_ts
+        - action
+    MsgHeaderStatusReasonCode:
+      type: string
+      description: Message header related common status reason codes
+      enum:
+        - rjct.version.invalid
+        - rjct.message_id.duplicate
+        - rjct.message_ts.invalid
+        - rjct.action.invalid
+        - rjct.action.not_supported
+        - rjct.sender_uri.invalid
+        - rjct.receiver_uri.invalid
+        - rjct.total_count.invalid
+        - rjct.total_count.limit_exceeded
     MsgSignature:
       type: string
       description: Signature of message body verified using sender's signing public key
@@ -852,12 +856,12 @@ components:
         $ref: '#/components/schemas/ReferenceId'
     RequestStatus:
       type: string
-      description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. RCVD: Received; Request received <br> 2. PDNG: Pending; Request initiated <br> 3. SUCC: Success; Request successful <br> 4. RJCT: Rejected; Request rejected'
+      description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. rcvd: Received; Request received <br> 2. pdng: Pending; Request initiated <br> 3. succ: Success; Request successful <br> 4. rjct: Rejected; Request rejected'
       enum:
-        - RCVD
-        - PDNG
-        - SUCC
-        - RJCT
+        - rcvd
+        - pdng
+        - succ
+        - rjct
     Timestamp:
       type: string
       description: datetime in RFC3339 format

@@ -16,7 +16,7 @@ servers:
 paths:
  /oauth2/client/token:
   post: 
-    summary: "AUTHZ-001 : /oauth2/client/token"
+    summary: "AUTHZ-TOKN : /oauth2/client/token"
     description: "<br>
       <b>Client integration notes: </b><br>
        1. This end point is in compliance with OAuth2 RFC 6749 to authenticate registered confidential clients with grant_type=client_credentials over HTTPS channel. <br>

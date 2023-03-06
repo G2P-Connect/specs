@@ -1,5 +1,5 @@
 type: object
-description: 'Request to search credential using credential subject id or issuer id'
+description: Request to search identity service requests
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"

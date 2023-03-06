@@ -1,10 +1,7 @@
 # FAMAP-ON-LNK : FA Map Link Status 
 
 ## ID: 
-G2PConnect-FAMAP-ON-LNK
-
-## Draft ID
-Draft-01
+G2PConnect-FAMAP-001
 
 ## Title:
 FAMAP-ON-LNK : FA Map Link Status
@@ -31,17 +28,16 @@ Please make additional suggestions through discussion forums and/or pull request
   - specs/src/common/schema/RequestStatus.yaml
   - specs/src/mapper/components/io/LinkStatusReasonCode.yaml
   
-## Link Status
+## Status Reason Codes
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
-| RCVD   |                    | Payment received      |
-| PDNG   |                    | Payment initiated     |
-| SUCC   |                    | Payment success       |
-| RJCT   | RJCT_INVALID_TIMESTAMP | Timestamp is invalid |
-| RJCT   | RJCT_INVALID_BENEFICIARY_NAME | Beneficiary name is invalid |
-| RJCT   | RJCT_DUPLICATE_REFERENCE_ID   | Duplicate reference id |
-| RJCT   | UKWN_NOT_FOUND_REFERENCE_ID | Reference id not found |
-| RJCT   | UKWN_NOT_FOUND_TRANSACTION_ID | Transaction id not found|
+| rcvd   |                    | Request received      |
+| pdng   |                    | Required initiated    |
+| succ   |                    | Request processed     |
+| rjct   | rjct.reference_id.invalid |  invalid reference_id|
+| rjct   | rjct.reference_id.duplicate | duplicate reference_id |
+| rjct   | rjct.schedule_ts.invalid | timestamp is invalid |
+| rjct   | rjct.beneficiary_name.invalid |  |
 
 
 ## Acknowledgements

@@ -1,16 +1,8 @@
 type: string
-description: "FA map resolve status reason code with reason message: <br>
-      - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br>
-      - RJCT_BENEFICIARY_NAME_INVALID; Beneficiary name is invalid <br>
-      - RJCT_DUPLICATE_REFERENCE_ID; Duplicate reference id <br>
-      - RJCT_RESOLVE_TYPE_NOT_SUPPORTED; Resolve type not supported <br>
-      - UKWN_REFERENCE_ID_NOT_FOUND; Reference id not found <br>
-      - UKWN_TRANSACTION_ID_NOT_FOUND; Transaction id not found <br>
-      - etc.,"
+description: FA Mapper Resolve status reason codes
 enum: 
-- "RJCT_TIMESTAMP_INVALID"
-- "RJCT_BENEFICIARY_NAME_INVALID"
-- "RJCT_DUPLICATE_REFERENCE_ID"
-- "RJCT_RESOLVE_TYPE_NOT_SUPPORTED"
-- "UKWN_REFERENCE_ID_NOT_FOUND"
-- "UKWN_TRANSACTION_ID_NOT_FOUND"
+  - "rjct.reference_id.invalid"
+  - "rjct.reference_id.duplicate"
+  - "rjct.timestamp.invalid"
+  - "rjct.beneficiary_name.invalid"
+  - "rjct.resolve_type.not_supported"

@@ -1,10 +1,7 @@
 # FAMAP-ON-UPDT : FA Map Update Status 
 
 ## ID: 
-G2PConnect-FAMAP-ON-UPDT
-
-## Draft ID
-Draft-01
+G2PConnect-FAMAP-002
 
 ## Title:
 FAMAP-ON-UPDT : FA Map Update Status
@@ -31,18 +28,16 @@ Please make additional suggestions through discussion forums and/or pull request
   - specs/src/common/schema/RequestStatus.yaml
   - specs/src/mapper/components/io/UpdateStatusReasonCode.yaml
   
-## Update Status
+## Status Reason Codes
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
-| RCVD   |                    | Payment received      |
-| PDNG   |                    | Payment initiated     |
-| SUCC   |                    | Payment success       |
-| RJCT   | RJCT_TIMESTAMP_INVALID | Timestamp is invalid |
-| RJCT   | RJCT_FA_INVALID | Financial address is invalid |
-| RJCT   | RJCT_BENEFICIARY_NAME_INVALID | Beneficiary name is invalid |
-| RJCT   | RJCT_REFERENCE_ID_DUPLICATE   | Duplicate reference id |
-| RJCT   | UKWN_REFERENCE_ID_NOT_FOUND | Reference id not found |
-| RJCT   | UKWN_TRANSACTION_ID_NOT_FOUND | Transaction id not found|
+| rcvd   |                    | Request received      |
+| pdng   |                    | Required initiated    |
+| succ   |                    | Request processed     |
+| rjct   | rjct.reference_id.invalid |  invalid reference_id|
+| rjct   | rjct.reference_id.duplicate | duplicate reference_id |
+| rjct   | rjct.schedule_ts.invalid | timestamp is invalid |
+| rjct   | rjct.beneficiary_name.invalid |  |
 
 
 ## Acknowledgements

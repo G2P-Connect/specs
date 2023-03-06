@@ -1,10 +1,7 @@
 # FAMAP-ON-RSLV : FA Map Resolve Status 
 
 ## ID: 
-G2PConnect-FAMAP-ON-RSLV
-
-## Draft ID
-Draft-01
+G2PConnect-FAMAP-004
 
 ## Title:
 FAMAP-ON-RSLV : FA Map Resolve Status
@@ -31,18 +28,19 @@ Please make additional suggestions through discussion forums and/or pull request
   - specs/src/common/schema/RequestStatus.yaml
   - specs/src/mapper/components/io/ResolveStatusReasonCode.yaml
   
-## Resolve Status 
+## Status Reason Codes
 | status | status_reason_code | status_reason_message | 
 | ------ | ------------------ | --------------------- |
-| RCVD   |                    | Payment received      |
-| PDNG   |                    | Payment initiated     |
-| SUCC   |                    | Payment success       |
-| RJCT   | RJCT_TIMESTAMP_INVALID | Timestamp is invalid |
-| RJCT   | RJCT_BENEFICIARY_NAME_INVALID | Beneficiary name is invalid |
-| RJCT   | RJCT_DUPLICATE_REFERENCE_ID   | Duplicate reference id |
-| RJCT   | RJCT_RESOLVE_TYPE_NOT_SUPPORTED | Resolve type not supported |
-| RJCT   | UKWN_REFERENCE_ID_NOT_FOUND | Reference id not found |
-| RJCT   | UKWN_TRANSACTION_ID_NOT_FOUND |  Transaction id not found|
+| rcvd   |                    | Request received      |
+| pdng   |                    | Required initiated    |
+| succ   |                    | Request processed     |
+| rjct   | rjct.reference_id.invalid |  invalid reference_id|
+| rjct   | rjct.reference_id.duplicate | duplicate reference_id |
+| rjct   | rjct.schedule_ts.invalid | timestamp is invalid |
+| rjct   | rjct.beneficiary_name.invalid |  |
+| rjct   | rjct.resolve_type.not_supported |  |
+
+
 
 
 ## Acknowledgements

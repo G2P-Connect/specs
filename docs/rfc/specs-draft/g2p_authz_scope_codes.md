@@ -1,10 +1,7 @@
 # AUTHZ-TOKN : Authorization Scope 
 
 ## ID: 
-G2PConnect-AUTHZ-TOKN
-
-## Draft ID
-Draft-01
+G2PConnect-AUTHZ-001
 
 ## Title:
 AUTHZ-TOKN : Authorization Scope 

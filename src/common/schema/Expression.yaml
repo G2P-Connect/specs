@@ -1,12 +1,12 @@
-desc: Expression
+description: Expression
 properties:
   seq_num:
-    desc: expression seq number for correlation 
+    description: expression seq number for correlation 
     type: number
     example: 1
   attribute_name:
     type: string
-    desc: attribute name
+    description: attribute name
   operator:
     $ref: "./ExpOperator.yaml"
   attribute_value:

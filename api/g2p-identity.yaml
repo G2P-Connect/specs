@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Digital Credentialing
+  title: Identity
   description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credential'
   version: 0.1.0
   contact:
@@ -13,11 +13,11 @@ servers:
   - url: 'https://sandbox.dpg.org/v0.1.0'
     description: Sandbox Server
 paths:
-  /credential/issue:
+  /identity/verify:
     post:
-      summary: 'CRED-ISSU : /credential/issue'
-      description: Issue credential
-      operationId: post_g2p_cred_issue
+      summary: 'ID-VRFY : /identity/verify'
+      description: Verification of person's demographics against foundational id
+      operationId: post_g2p_id_verify
       requestBody:
         description: ''
         required: true
@@ -40,12 +40,16 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    issue-request:
+                    verify_request:
                       type: array
                       items:
-                        $ref: '#/components/schemas/IssueRequest'
+                        $ref: '#/components/schemas/VerifyRequest'
+                  required:
+                    - transaction_id
+                    - verify_request
               required:
                 - header
+                - message
           multipart/form-data:
             schema:
               allOf:
@@ -68,9 +72,9 @@ paths:
       deprecated: false
   /credential/on-issue:
     post:
-      summary: 'CRED-ON-ISSU : /credential/on-issue'
-      description: Issuance info through callback
-      operationId: post_g2p_cred_on-issue
+      summary: 'ID-ON-VRFY : /idenity/on-issue'
+      description: Verification response through callback
+      operationId: post_g2p_id_on-verify
       requestBody:
         description: ''
         required: true
@@ -93,10 +97,13 @@ paths:
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    issue-response:
+                    verify_response:
                       type: array
                       items:
-                        $ref: '#/components/schemas/IssueResponse'
+                        $ref: '#/components/schemas/VerifyResponse'
+                  required:
+                    - transaction_id
+                    - verify_response
               required:
                 - header
           multipart/form-data:
@@ -119,221 +126,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /credential/status:
-    post:
-      summary: 'CRED-STS : /credential/status'
-      description: Credential status update request
-      operationId: post_g2p_cred_status
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader'
-                    - properties:
-                        action:
-                          enum:
-                            - status
-                message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    credential_status:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/StatusRequest'
-              required:
-                - header
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - status
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
-  /credential/on-status:
-    post:
-      summary: 'CRED-ON-STS : /credential/on-status'
-      description: Credentail status update results through call back
-      operationId: post_g2p_cred_on-status
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgCallbackHeader'
-                    - properties:
-                        action:
-                          enum:
-                            - on-status
-                message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    credential_status:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/StatusResponse'
-              required:
-                - header
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - status'
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
-  /credential/search:
-    post:
-      summary: 'CRED-SRCH : /credential/search'
-      description: 'Search credential by credential id, issuer, beneficary id, etc.,'
-      operationId: post_g2p_cred_search
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader'
-                    - properties:
-                        action:
-                          enum:
-                            - search
-                message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    search-request:
-                      $ref: '#/components/schemas/SearchRequest'
-              required:
-                - header
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - search
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
-  /credential/on-search:
-    post:
-      summary: 'CRED-ON-SRCH : /credential/on-search'
-      description: Credentail search results through call back
-      operationId: post_g2p_cred_on-search
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgCallbackHeader'
-                    - properties:
-                        action:
-                          enum:
-                            - on-search
-                message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    search_response:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/SearchResponse'
-              required:
-                - header
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - on-search'
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
   /credential/txn/status:
     post:
-      summary: 'CRED-TXN-STS : /credential/txn/status'
-      description: Perform async status check of previous credential transanctions using transaction_id and/or reference_id(s)
-      operationId: post_g2p_cred_txnstatus
+      summary: 'ID-TXNSTS : /identity/txn/status'
+      description: Perform async status check of previous identity transanctions using transaction_id and/or reference_id(s)
+      operationId: post_g2p_id_txnstatus
       requestBody:
         description: ''
         required: true
@@ -360,6 +157,9 @@ paths:
                       $ref: '#/components/schemas/TransactionId'
                     txnstatus_request:
                       $ref: '#/components/schemas/TxnStatusRequest'
+                  required:
+                    - transaction_id
+                    - txnstatus_request
               required:
                 - header
                 - message
@@ -385,11 +185,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /credential/txn/on-status:
+  /identity/txn/on-status:
     post:
-      summary: 'CRED-TXN-ON-STS : /credential/txn/on-status'
-      description: Response to async status check of previous credential transanctions using callback
-      operationId: post_g2p_cred_on-txnstatus
+      summary: 'ID-ON-TXNSTS : /identity/txn/on-status'
+      description: Response to async status check of previous identity transanctions using callback
+      operationId: post_g2p_id_on-txnstatus
       requestBody:
         description: ''
         required: true
@@ -416,6 +216,9 @@ paths:
                       $ref: '#/components/schemas/TransactionId'
                     txnstatus_response:
                       $ref: '#/components/schemas/TxnStatusResponse'
+                  required:
+                    - transaction_id
+                    - txnstatus_response
               required:
                 - header
           multipart/form-data:
@@ -442,37 +245,58 @@ paths:
       deprecated: false
 components:
   schemas:
-    IssueRequest:
+    VerifyDemographics:
+      description: Person demographics verify object
+      allOf:
+        - properties:
+            name:
+              description: Person full name
+              type: string
+            dob:
+              description: date of brith
+              type: string
+              format: date
+            gender:
+              description: gender
+              type: string
+              enum:
+                - male
+                - female
+                - transgender
+        - $ref: '#/components/schemas/BeneficiaryContact'
+        - properties:
+            attributes:
+              $ref: '#/components/schemas/ExpressionList'
+    VerifyRequest:
       type: object
-      description: Digital credential issuance request
+      description: Verify person with identity provider. Match attribtues in request and return booelan response.
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
-        type:
-          type: string
-          description: 'The value of the type property MUST be, or map to (through interpretation of the @context property), one or more URIs. If more than one URI is provided, the URIs MUST be interpreted as an unordered set.'
-        issuer:
-          $ref: '#/components/schemas/CredentialIssuer'
         id:
           $ref: '#/components/schemas/BeneficiaryId'
-        sharableAttributes:
-          description: Attribtues of the subject to be shared as part of VC from the issuance system
-          items:
-            type: string
-        additional_info:
-          description: Object to store any addition info related to the subject for issuance of crendential
-          items:
-            $ref: '#/components/schemas/AdditionalInfo'
+        consent_obtained:
+          type: string
+          description: Is consent obtained for verification
+          enum:
+            - 'y'
+            - 'n'
+          example: 'y'
+        demographics:
+          $ref: '#/components/schemas/VerifyDemographics'
+        attributes:
+          $ref: '#/components/schemas/ExpressionList'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
         - reference_id
         - timestamp
-        - type
-        - issuer
-    IssueResponse:
+        - id
+        - consent_obtained
+        - demographics
+    VerifyResponse:
       type: object
       description: 'Digital credential issuance '
       properties:
@@ -483,168 +307,37 @@ components:
         status:
           $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
-          $ref: '#/components/schemas/IssueStatusReasonCode'
+          $ref: '#/components/schemas/VerifyStatusReasonCode'
         status_reason_message:
           description: Status reason code message. Helps actionanble messaging for systems/end users
           type: string
           maxLength: 999
-        credential:
-          oneOf:
-            - $ref: '#/components/schemas/Credential'
-            - $ref: '#/components/schemas/VerifiableCredential'
+        verify_details:
+          $ref: '#/components/schemas/ExpressionResultList'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
         - reference_id
         - timestamp
         - status
-    IssueStatusReasonCode:
+        - status_reason_code
+    VerifyStatusReasonCode:
       type: string
-      description: 'Credentail issuance status reason code with reason message: <br> - RJCT_REFERENCE_ID_INVALID; Invalid reference id <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_TYPE_INVALID; Type is invalid <br> - RJCT_ISSUER_INVALID; Issuer is invalid <br> - RJCT_SUBJECT_INVALID; Subject is invalid <br> - RJCT_SHAREATTRIBUTES_INVALID; Share attributes invalid <br> - etc.,'
+      description: Identity verification request status reason codes
       enum:
-        - RJCT_REFERENCE_ID_INVALID
-        - RJCT_REFERENCE_ID_DUPLICATE
-        - RJCT_TIMESTAMP_INVALID
-        - RJCT_TYPE_INVALID
-        - RJCT_ISSUER_INVALID
-        - RJCT_SUBJECT_INVALID
-        - RJCT_SHAREATTRIBUTES_INVALID
-    SearchRequest:
-      type: object
-      description: Request to search credential using credential subject id or issuer id
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        request_type:
-          type: string
-          enum:
-            - issue
-            - status
-        attribute:
-          type: string
-          enum:
-            - transaction_id
-            - reference_id_list
-            - issuer_id
-            - subject_id
-        attribute_value:
-          oneOf:
-            - $ref: '#/components/schemas/TransactionId'
-            - $ref: '#/components/schemas/ReferenceIdList'
-            - $ref: '#/components/schemas/CredentialIssuerId'
-            - $ref: '#/components/schemas/CredentialSubjectId'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - request_type
-        - attribute
-        - attribute_value
-    SearchResponse:
-      type: object
-      description: Digital credential
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/Timestamp'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/SearchStatusReasonCode'
-        status_reason_message:
-          description: Status reason code message. Helps actionanble messaging for systems/end users
-          type: string
-          maxLength: 999
-        credentials:
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/Credential'
-              - $ref: '#/components/schemas/VerifiableCredential'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - timestamp
-        - status
-    SearchStatusReasonCode:
-      type: string
-      description: 'Credentail issuance status reason code with reason message: <br> - RJCT_REFERENCE_ID_INVALID; Invalid reference id <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_TYPE_INVALID; Type is invalid <br> - RJCT_ISSUER_INVALID; Issuer is invalid <br> - RJCT_SUBJECT_INVALID; Subject is invalid <br> - RJCT_SHAREATTRIBUTES_INVALID; Share attributes invalid <br> - etc.,'
-      enum:
-        - RJCT_REFERENCE_ID_INVALID
-        - RJCT_REFERENCE_ID_DUPLICATE
-        - RJCT_TIMESTAMP_INVALID
-        - RJCT_TYPE_INVALID
-        - RJCT_ISSUER_INVALID
-        - RJCT_SUBJECT_INVALID
-        - RJCT_SHAREATTRIBUTES_INVALID
-    StatusRequest:
-      type: object
-      description: Request to revoke credential using credential subject id
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/Timestamp'
-        id:
-          $ref: '#/components/schemas/CredentialId'
-        status:
-          type: string
-          description: status codes
-          enum:
-            - revoke
-            - suspend
-            - un-suspend
-          example: suspend
-        reason:
-          type: string
-          description: short message to describe the status updatre reason
-          example: Disciplinary action
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - timestamp
-        - id
-        - status
-    StatusResponse:
-      type: object
-      description: Response to Revoke credential request through callback
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/Timestamp'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/StatusStatusReasonCode'
-        status_reason_message:
-          description: Status reason code message. Helps actionanble messaging for systems/end users
-          type: string
-          maxLength: 999
-        credentialStatus:
-          $ref: '#/components/schemas/CredentialStatus'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - timestamp
-        - status
-    StatusStatusReasonCode:
-      type: string
-      description: 'Credentail issuance status reason code with reason message: <br> - RJCT_REFERENCE_ID_INVALID; Invalid reference id <br> - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br> - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br> - RJCT_TYPE_INVALID; Type is invalid <br> - RJCT_ISSUER_INVALID; Issuer is invalid <br> - RJCT_SUBJECT_INVALID; Subject is invalid <br> - RJCT_SHAREATTRIBUTES_INVALID; Share attributes invalid <br> - etc.,'
-      enum:
-        - RJCT_REFERENCE_ID_INVALID
-        - RJCT_REFERENCE_ID_DUPLICATE
-        - RJCT_TIMESTAMP_INVALID
-        - RJCT_TYPE_INVALID
-        - RJCT_ISSUER_INVALID
-        - RJCT_SUBJECT_INVALID
-        - RJCT_SHAREATTRIBUTES_INVALID
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - 'rjct.{attribute_name}.invalid'
+        - 'rjct.{attribute_value}.invalid'
+        - 'rjct.{operator}.invalid'
+        - id.verify_success
+        - id.verify_failed
+        - id.cancelled
+        - id.suspended
     TxnStatusRequest:
       type: object
-      description: Request to search credential using credential subject id or issuer id
+      description: Request to search identity service requests
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -667,9 +360,7 @@ components:
       type: array
       items:
         oneOf:
-          - $ref: '#/components/schemas/IssueResponse'
-          - $ref: '#/components/schemas/SearchResponse'
-          - $ref: '#/components/schemas/StatusResponse'
+          - $ref: '#/components/schemas/VerifyResponse'
       example:
         on-txnstatus-response:
           reference_id: test
@@ -678,87 +369,41 @@ components:
     AdditionalInfo:
       type: object
       description: Additional JSON property oject to hold custom user defined contextual data
-    Credential:
+    BeneficiaryContact:
       type: object
-      description: 'Credential as per w3c <a href="https://www.w3.org/TR/vc-data-model">specs</a>'
+      description: Person contact details
       properties:
-        '@context':
-          items:
-            type: string
-            format: uri
-        id:
-          $ref: '#/components/schemas/CredentialId'
-        type:
-          description: 'The value of the type property MUST be, or map to (through interpretation of the @context property), one or more URIs. If more than one URI is provided, the URIs MUST be interpreted as an unordered set.'
-          items:
-            type: string
-        credentialSubject:
-          $ref: '#/components/schemas/CredentialSubject'
-        issuer:
-          $ref: '#/components/schemas/CredentialIssuer'
-        issuanceDate:
-          $ref: '#/components/schemas/Timestamp'
-        credentialSchema:
-          $ref: '#/components/schemas/CredentialSchema'
-        expirationDate:
-          $ref: '#/components/schemas/Timestamp'
-        credentialStatus:
-          $ref: '#/components/schemas/CredentialStatus'
-      required:
-        - id
-        - type
-        - credentialSubject
-        - issuer
-        - issuanceDate
-    CredentialId:
-      description: Id property is intended to unambiguously refer to credential document or subject
-      type: string
-      format: uri or did
-    CredentialIssuer:
-      description: The value of the issuer property MUST be either a URI or an object containing an id property.
-      anyOf:
-        - $ref: '#/components/schemas/CredentialIssuerId'
-        - $ref: '#/components/schemas/AdditionalInfo'
-    CredentialIssuerId:
-      description: Credentail issuer id
-      type: string
-      format: uri or did
-    CredentialSchema:
-      description: The value of the credentialSchema property MUST be one or more data schemas that provide verifiers with enough information to determine if the provided data conforms to the provided schema
-      items:
-        type: object
-        properties:
-          id:
-            type: string
-          type:
-            type: string
-    CredentialStatus:
-      description: Credential status object
-      type: object
-      properties:
-        id:
-          $ref: '#/components/schemas/CredentialId'
-        type:
+        phone:
           type: string
-        attributes:
-          items:
-            $ref: '#/components/schemas/AdditionalInfo'
-    CredentialSubject:
-      type: object
-      description: The value of the credentialSubject property is defined as a set of objects that contain one or more properties that are each related to a subject of the verifiable credential. Each object MAY contain an id
-      properties:
-        id:
-          $ref: '#/components/schemas/BeneficiaryId'
-        property:
-          items:
-            $ref: '#/components/schemas/AdditionalInfo'
-      required:
-        - id
-    CredentialSubjectId:
-      description: Credential subject id
-      properties:
-        id:
-          $ref: '#/components/schemas/BeneficiaryId'
+          description: landline
+        mobile_number:
+          type: string
+        alt_mobile_number:
+          type: string
+        email_id:
+          type: string
+        alt_email_id:
+          type: string
+        address:
+          type: object
+          properties:
+            line1:
+              type: string
+            line2:
+              type: string
+            line3:
+              type: string
+            location1:
+              type: string
+              description: 'village, town, city'
+            location2:
+              type: string
+              description: 'state, province, region'
+            location3:
+              type: string
+              description: 'country, region'
+            postal_code:
+              type: string
     BeneficiaryId:
       type: string
       description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
@@ -787,6 +432,60 @@ components:
           type: string
           description: message to describe above error code
           maxLength: 999
+    Expression:
+      description: Expression
+      properties:
+        seq_num:
+          description: expression seq number for correlation
+          type: number
+          example: 1
+        attribute_name:
+          type: string
+          description: attribute name
+        operator:
+          description: Operator in an expression
+          type: string
+          enum:
+            - gt
+            - lt
+            - eq
+            - ge
+            - le
+          example: eq
+        attribute_value:
+          oneOf:
+            - type: string
+            - type: integer
+            - type: number
+            - type: boolean
+      required:
+        - seq_num
+        - attribute_name
+        - operator
+        - attribute_value
+    ExpressionList:
+      description: list of attributes with matching conditions
+      items:
+        $ref: '#/components/schemas/Expression'
+    ExpressionResult:
+      description: Expression result
+      properties:
+        seq_num:
+          description: expression seq number for correlation
+          type: number
+          example: 1
+        result:
+          type: string
+          enum:
+            - 'y'
+            - 'n'
+          example: 'y'
+      required:
+        - seq_num
+        - result
+    ExpressionResultList:
+      items:
+        $ref: '#/components/schemas/ExpressionResult'
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -961,7 +660,69 @@ components:
     VerifiableCredential:
       description: 'Verifiable credential metadata as per w3c <a href="https://www.w3.org/TR/vc-data-model">specs</a>'
       allOf:
-        - $ref: '#/components/schemas/Credential'
+        - type: object
+          description: 'Credential as per w3c <a href="https://www.w3.org/TR/vc-data-model">specs</a>'
+          properties:
+            '@context':
+              items:
+                type: string
+                format: uri
+            id:
+              description: Id property is intended to unambiguously refer to credential document or subject
+              type: string
+              format: uri or did
+            type:
+              description: 'The value of the type property MUST be, or map to (through interpretation of the @context property), one or more URIs. If more than one URI is provided, the URIs MUST be interpreted as an unordered set.'
+              items:
+                type: string
+            credentialSubject:
+              type: object
+              description: The value of the credentialSubject property is defined as a set of objects that contain one or more properties that are each related to a subject of the verifiable credential. Each object MAY contain an id
+              properties:
+                id:
+                  $ref: '#/components/schemas/BeneficiaryId'
+                property:
+                  items:
+                    $ref: '#/components/schemas/AdditionalInfo'
+              required:
+                - id
+            issuer:
+              description: The value of the issuer property MUST be either a URI or an object containing an id property.
+              anyOf:
+                - description: Credentail issuer id
+                  type: string
+                  format: uri or did
+                - $ref: '#/components/schemas/AdditionalInfo'
+            issuanceDate:
+              $ref: '#/components/schemas/Timestamp'
+            credentialSchema:
+              description: The value of the credentialSchema property MUST be one or more data schemas that provide verifiers with enough information to determine if the provided data conforms to the provided schema
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  type:
+                    type: string
+            expirationDate:
+              $ref: '#/components/schemas/Timestamp'
+            credentialStatus:
+              description: Credential status object
+              type: object
+              properties:
+                id:
+                  $ref: '#/components/schemas/VerifiableCredential/allOf/0/properties/id'
+                type:
+                  type: string
+                attributes:
+                  items:
+                    $ref: '#/components/schemas/AdditionalInfo'
+          required:
+            - id
+            - type
+            - credentialSubject
+            - issuer
+            - issuanceDate
         - properties:
             proof:
               $ref: '#/components/schemas/AdditionalInfo'

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Digital Credentialing
+  title: Identity
   description: "Discussions <a href= \"https://github.com/G2P-Connect/.github/discussions/16\">thread</a> <br><br>
     Manage issuance of digital credential"
   version: 0.1.0
@@ -15,11 +15,11 @@ servers:
     description: Sandbox Server
 
 paths:
- /credential/issue:
+ /identity/verify:
   post: 
-    summary: "CRED-ISSU : /credential/issue"
-    description: "Issue credential"
-    operationId: post_g2p_cred_issue
+    summary: "ID-VRFY : /identity/verify"
+    description: "Verification of person's demographics against foundational id"
+    operationId: post_g2p_id_verify
     requestBody:
       description: ""
       required: true
@@ -32,7 +32,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - $ref: "#/components/schemas/MsgHeader"
                     - properties:
                         action:
                           enum:
@@ -42,12 +42,16 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    issue-request:
+                    verify_request:
                       type: array
                       items:
-                        $ref: "#/components/schemas/IssueRequest"
+                        $ref: "#/components/schemas/VerifyRequest"
+                  required:
+                    - transaction_id
+                    - verify_request
               required:
                 - header
+                - message
         multipart/form-data:
           schema:
             allOf:
@@ -71,9 +75,9 @@ paths:
     deprecated: false
  /credential/on-issue:
   post: 
-    summary: "CRED-ON-ISSU : /credential/on-issue"
-    description: "Issuance info through callback"
-    operationId: post_g2p_cred_on-issue
+    summary: "ID-ON-VRFY : /idenity/on-issue"
+    description: "Verification response through callback"
+    operationId: post_g2p_id_on-verify
     requestBody:
       description: ""
       required: true
@@ -86,7 +90,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
                     - properties:
                         action:
                           enum:
@@ -96,10 +100,13 @@ paths:
                   properties:
                     transaction_id: 
                       $ref: "#/components/schemas/TransactionId"
-                    issue-response:
+                    verify_response:
                       type: array
                       items:
-                        $ref: "#/components/schemas/IssueResponse"
+                        $ref: "#/components/schemas/VerifyResponse"
+                  required:
+                    - transaction_id
+                    - verify_response
               required:
                 - header
         multipart/form-data:
@@ -123,225 +130,11 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /credential/status:
-  post: 
-    summary: "CRED-STS : /credential/status"
-    description: "Credential status update request"
-    operationId: post_g2p_cred_status
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
-                    - properties:
-                        action:
-                          enum:
-                            - status
-                message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    credential_status:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/StatusRequest"
-              required:
-                - header
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - status
-    responses:
-      default:
-        $ref: "#/components/responses/Response"
-      '401':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
-        $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-     # - Signature: [ ]
-    deprecated: false
- /credential/on-status:
-  post: 
-    summary: "CRED-ON-STS : /credential/on-status"
-    description: "Credentail status update results through call back"
-    operationId: post_g2p_cred_on-status
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
-                    - properties:
-                        action:
-                          enum:
-                            - on-status
-                message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    credential_status:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/StatusResponse"
-              required:
-                - header
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - status'
-    responses:
-      default:
-        $ref: "#/components/responses/Response"
-      '401':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
-        $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-      # - Signature: [ ]
-    deprecated: false
- /credential/search:
-  post: 
-    summary: "CRED-SRCH : /credential/search"
-    description: "Search credential by credential id, issuer, beneficary id, etc.,"
-    operationId: post_g2p_cred_search
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
-                    - properties:
-                        action:
-                          enum:
-                            - search
-                message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    search-request:
-                      $ref: "#/components/schemas/SearchRequest"
-              required:
-                - header
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - search
-    responses:
-      default:
-        $ref: "#/components/responses/Response"
-      '401':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
-        $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-     # - Signature: [ ]
-    deprecated: false
- /credential/on-search:
-  post: 
-    summary: "CRED-ON-SRCH : /credential/on-search"
-    description: "Credentail search results through call back"
-    operationId: post_g2p_cred_on-search
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgCallbackReqHeader"
-                    - properties:
-                        action:
-                          enum:
-                            - on-search
-                message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    search_response:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/SearchResponse"
-              required:
-                - header
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - on-search'
-    responses:
-      default:
-        $ref: "#/components/responses/Response"
-      '401':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '403':
-        $ref: "#/components/responses/HttpErrorResponse"
-      '500':
-        $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-      # - Signature: [ ]
-    deprecated: false
  /credential/txn/status:
   post: 
-    summary: "CRED-TXN-STS : /credential/txn/status"
-    description: "Perform async status check of previous credential transanctions using transaction_id and/or reference_id(s)"
-    operationId: post_g2p_cred_txn_status
+    summary: "ID-TXNSTS : /identity/txn/status"
+    description: "Perform async status check of previous identity transanctions using transaction_id and/or reference_id(s)"
+    operationId: post_g2p_id_txnstatus
     requestBody:
       description: ""
       required: true
@@ -354,7 +147,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - $ref: "#/components/schemas/MsgHeader"
                     - properties:
                         action:
                           enum:
@@ -368,6 +161,9 @@ paths:
                       $ref: "#/components/schemas/TransactionId"
                     txnstatus_request:
                       $ref: "#/components/schemas/TxnStatusRequest"
+                  required:
+                    - transaction_id
+                    - txnstatus_request
               required:
                 - header
                 - message
@@ -394,11 +190,11 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /credential/txn/on-status:
+ /identity/txn/on-status:
   post: 
-    summary: "CRED-TXN-ON-STS : /credential/txn/on-status"
-    description: "Response to async status check of previous credential transanctions using callback"
-    operationId: post_g2p_cred_txn_on-status
+    summary: "ID-ON-TXNSTS : /identity/txn/on-status"
+    description: "Response to async status check of previous identity transanctions using callback"
+    operationId: post_g2p_id_on-txnstatus
     requestBody:
       description: ""
       required: true
@@ -411,7 +207,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgReqHeader"
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
                     - properties:
                         action:
                           enum:
@@ -425,6 +221,9 @@ paths:
                       $ref: "#/components/schemas/TransactionId"
                     txnstatus_response:
                       $ref: "#/components/schemas/TxnStatusResponse"
+                  required:
+                    - transaction_id
+                    - txnstatus_response
               required:
                 - header
         multipart/form-data:
