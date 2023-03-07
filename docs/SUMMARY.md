@@ -5,7 +5,7 @@
 * [Terminology](./Terminology.md)
 * [Interfaces](./Interfaces.md)
 * [Identity](./Identity.md)
-* [Credential](./Credential.md)
+* [Credentialing](./Credentialing.md)
  * Registries
     * [Civil Registry](./CivilRegistry.md)
     * Functional Registry
