@@ -4,15 +4,23 @@
 * [Overview](./Home.md)
 * [Terminology](./Terminology.md)
 * [Interfaces](./Interfaces.md)
-* Payment
-    * [Financial Address Mapper](./FinancialAddressMapper.md)
-    * [Dibursement](./Disbursement.md)
 * [Identity](./Identity.md)
 * [Credential](./Credential.md)
-* Registries
+ * Registries
     * [Civil Registry](./CivilRegistry.md)
-    * [Functional Registry](./FunctioanlRegistry.md)
-    * [Social Registry](./SocialRegistry.md)
+    * Functional Registry
+    * Social Regisry
+* Beneficiary Management
+    * Registration
+    * Assess
+    * Enroll
+    * [Financial Address Mapper](./FinancialAddressMapper.md)
+* Social Program Management
+    * Program Management
+    * Eligibility Rules
+    * [Dibursement](./Disbursement.md)
+* Telemetry Events
+* Grievance Mgmt
 * Security
     * [Authorization](./Authorization.md)
     * [Singature Validation](./SignatureValidation.md)
