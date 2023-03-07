@@ -12,14 +12,14 @@
         ~~* Functional Registry~~
         ~~* Social Regisry~~
     * Beneficiary Management
+         * [Financial Address Mapper](./FinancialAddressMapper.md)
         ~~* Registration~~
         ~~* Assess~~
         ~~* Enroll~~
-        * [Financial Address Mapper](./FinancialAddressMapper.md)
     * Social Program Management
+        * [Dibursement](./Disbursement.md)
         ~~* Program Management~~
         ~~* Eligibility Rules~~
-        * [Dibursement](./Disbursement.md)
     ~~* Telemetry Events~~
     ~~* Grievance Mgmt~~
 * Security
