@@ -15,7 +15,7 @@ properties:
   additional_info:
     description: "Additional info, if any"
     type: string
-    maxLength: 1024
+    maxLength: 999
 required:
   - name
   - code

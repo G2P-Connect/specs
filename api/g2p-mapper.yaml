@@ -1122,7 +1122,7 @@ components:
             additional_info:
               description: 'Additional info, if any'
               type: string
-              maxLength: 1024
+              maxLength: 999
           required:
             - type
             - number
@@ -1149,7 +1149,7 @@ components:
         additional_info:
           description: 'Additional info, if any'
           type: string
-          maxLength: 1024
+          maxLength: 999
       required:
         - name
         - code
@@ -1197,7 +1197,7 @@ components:
             additional_info:
               description: 'Additional info, if any'
               type: string
-              maxLength: 1024
+              maxLength: 999
           required:
             - id_type
             - id
@@ -1262,7 +1262,7 @@ components:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
       pattern: '^[a-z]{3,3}$'
-      example: kri
+      example: en
     MsgCallbackHeader:
       type: object
       description: Message header

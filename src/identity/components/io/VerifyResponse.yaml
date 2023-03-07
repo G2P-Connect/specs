@@ -13,7 +13,10 @@ properties:
     description: "Status reason code message. Helps actionanble messaging for systems/end users"
     type: string
     maxLength: 999
-  verify_details:
+  token:
+    description: verification token returned by identity system
+    type: string
+  results:
     $ref: "../../../common/schema/ExpressionResultList.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"

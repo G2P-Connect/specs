@@ -1,0 +1,11 @@
+description: Expression with a condition
+type: object
+properties:
+  expression1:
+    $ref: "./Expression.yaml"
+  condition:
+    $ref: "./ExpCondition.yaml"
+  expression2:
+    $ref: "./Expression.yaml"
+required: 
+  expression1

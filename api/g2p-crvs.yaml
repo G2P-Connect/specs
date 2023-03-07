@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Identity
+  title: Civil Registry
   description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credential'
   version: 0.1.0
   contact:
@@ -13,11 +13,11 @@ servers:
   - url: 'https://sandbox.dpg.org/v0.1.0'
     description: Sandbox Server
 paths:
-  /identity/verify:
+  /crvs/subscribe:
     post:
-      summary: 'ID-VRFY : /identity/verify'
-      description: Verification of person's demographics against foundational id
-      operationId: post_g2p_id_verify
+      summary: 'CRVS-SUB : /crvs/subscribe'
+      description: Subscribe to a life event with crvs
+      operationId: post_g2p_crvs_subscribe
       requestBody:
         description: ''
         required: true
@@ -34,19 +34,19 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - issue
+                            - subscribe
                 message:
                   type: object
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    verify_request:
+                    subscribe_request:
                       type: array
                       items:
-                        $ref: '#/components/schemas/VerifyRequest'
+                        $ref: '#/components/schemas/SubscribeRequest'
                   required:
                     - transaction_id
-                    - verify_request
+                    - subscribe_request
               required:
                 - header
                 - message
@@ -57,7 +57,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - issue
+                        - subscribe
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -70,11 +70,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /credential/on-issue:
+  /crvs/notify:
     post:
-      summary: 'ID-ON-VRFY : /idenity/on-issue'
-      description: Verification response through callback
-      operationId: post_g2p_id_on-verify
+      summary: 'CRVS-NTFY : /crvs/notify'
+      description: CRVS to notify a life event to subscrbiers
+      operationId: post_g2p_crvs_notify
       requestBody:
         description: ''
         required: true
@@ -91,16 +91,16 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - on-issue
+                            - notify
                 message:
                   type: object
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    verify_response:
+                    notify_event:
                       type: array
                       items:
-                        $ref: '#/components/schemas/VerifyResponse'
+                        $ref: '#/components/schemas/NotifyEvent'
                   required:
                     - transaction_id
                     - verify_response
@@ -113,7 +113,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - on-issue
+                        - notify
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -126,10 +126,123 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /credential/txn/status:
+  /crvs/search:
     post:
-      summary: 'ID-TXNSTS : /identity/txn/status'
-      description: Perform async status check of previous identity transanctions using transaction_id and/or reference_id(s)
+      summary: 'CRVS-SRCH : /crvs/search'
+      description: Search person(s) in crvs using key identifiers
+      operationId: post_g2p_crvs_search
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    search_request:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SearchRequest'
+                  required:
+                    - transaction_id
+                    - search_request
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /crvs/on-search:
+    post:
+      summary: 'CRVS-ON-SRCH : /crvs/on-search'
+      description: Search results through callback
+      operationId: post_g2p_crvs_on-search
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - on-search
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    search_response:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SearchResponse'
+                  required:
+                    - transaction_id
+                    - search_response
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /crvs/txn/status:
+    post:
+      summary: 'CRVS-TXNSTS : /crvs/txn/status'
+      description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
       operationId: post_g2p_id_txnstatus
       requestBody:
         description: ''
@@ -147,9 +260,9 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - issue
-                            - search
-                            - status
+                            - subscribe
+                            - notify
+                            - on-search
                 message:
                   type: object
                   properties:
@@ -170,9 +283,9 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - issue
-                        - search
-                        - status
+                        - subscribe
+                        - notify
+                        - on-search
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -187,9 +300,9 @@ paths:
       deprecated: false
   /identity/txn/on-status:
     post:
-      summary: 'ID-ON-TXNSTS : /identity/txn/on-status'
-      description: Response to async status check of previous identity transanctions using callback
-      operationId: post_g2p_id_on-txnstatus
+      summary: 'CRVS-ON-TXNSTS : /crvs/txn/on-status'
+      description: Response to async status check of previous civil registrt transanctions using callback
+      operationId: post_g2p_crvs_on-txnstatus
       requestBody:
         description: ''
         required: true
@@ -206,9 +319,9 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - on-issue
+                            - subscribe
+                            - notify
                             - on-search
-                            - on-status
                 message:
                   type: object
                   properties:
@@ -228,9 +341,9 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - on-issue
+                        - subscribe
+                        - notify
                         - on-search
-                        - on-status
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -245,99 +358,184 @@ paths:
       deprecated: false
 components:
   schemas:
-    VerifyDemographics:
-      description: Person demographics verify object
+    DemographicsData:
+      description: Person's demographics data
       allOf:
         - properties:
-            name:
-              description: Person full name
+            id:
               type: string
-            dob:
-              description: date of brith
+              description: Identifier of a person in civil registry
+              example: 12345@id.crvs
+            first_name:
               type: string
-              format: date
+            last_name:
+              type: string
+            photo:
+              type: string
+              description: base64 encoded person face photo
+            photo_format:
+              type: string
+              enum:
+                - jpeg
+                - png
             gender:
-              description: gender
               type: string
               enum:
                 - male
                 - female
                 - transgender
+            dob:
+              description: date of brith
+              type: string
+              format: date-time
+            dob_place:
+              description: date of brith place
+              type: string
+            dod:
+              description: date of death
+              type: string
+              format: date-time
+            dod_place:
+              description: date of death place
+              type: string
+            status:
+              description: civil registry status
+              type: string
         - $ref: '#/components/schemas/BeneficiaryContact'
         - properties:
-            attributes:
-              $ref: '#/components/schemas/ExpressionList'
-    VerifyRequest:
+            additional_attributes:
+              $ref: '#/components/schemas/KeyValueInfo'
+    EventTypes:
+      type: string
+      description: CRVS notification events
+      enum:
+        - birth
+        - death
+        - marriage
+        - divorce
+        - annulment
+        - seperation
+        - adoption
+        - demographic_change
+        - unregister
+    NotifyEvent:
       type: object
-      description: Verify person with identity provider. Match attribtues in request and return booelan response.
+      description: CRVS to notify a life event to subscrbiers
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
-        id:
-          $ref: '#/components/schemas/BeneficiaryId'
-        consent_obtained:
+        person_id:
           type: string
-          description: Is consent obtained for verification
-          enum:
-            - 'y'
-            - 'n'
-          example: 'y'
+          description: Identifier of a person in civil registry
+          example: 12345@id.crvs
+        events:
+          items:
+            $ref: '#/components/schemas/EventTypes'
         demographics:
-          $ref: '#/components/schemas/VerifyDemographics'
-        attributes:
-          $ref: '#/components/schemas/ExpressionList'
+          $ref: '#/components/schemas/DemographicsData'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
         - reference_id
         - timestamp
-        - id
-        - consent_obtained
-        - demographics
-    VerifyResponse:
+        - person_id
+        - events
+    SearchRequest:
       type: object
-      description: 'Digital credential issuance '
+      description: Search request to query person with civil registry against demographics data attributes
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/VerifyStatusReasonCode'
-        status_reason_message:
-          description: Status reason code message. Helps actionanble messaging for systems/end users
-          type: string
-          maxLength: 999
-        token:
-          description: verification token returned by identity system
-          type: string
-        results:
-          $ref: '#/components/schemas/ExpressionResultList'
+        search_criteria:
+          $ref: '#/components/schemas/ExpressionWithConditionList'
+        filter:
+          description: Demographics attribute(s) to send in response
+          items:
+            type: string
+        sort:
+          $ref: '#/components/schemas/SearchSortList'
+        pagination:
+          $ref: '#/components/schemas/PaginationRequest'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
         - reference_id
         - timestamp
-        - status
-        - status_reason_code
-    VerifyStatusReasonCode:
+        - events
+        - search_criteria
+    SearchResponse:
+      type: object
+      description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        demographics:
+          description: Only attribute(s) selected in filter attribute in search request
+          items:
+            $ref: '#/components/schemas/DemographicsData'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - person_id
+        - events
+    SearchStatusReasonCode:
       type: string
       description: Identity verification request status reason codes
       enum:
         - rjct.reference_id.invalid
         - rjct.reference_id.duplicate
         - rjct.timestamp.invalid
-        - 'rjct.{attribute_name}.invalid'
-        - 'rjct.{attribute_value}.invalid'
-        - 'rjct.{operator}.invalid'
-        - id.verify_success
-        - id.verify_failed
-        - id.cancelled
-        - id.suspended
+        - rjct.notify_types.invalid
+        - rjct.notify_details.invalid
+        - rjct.person_id.invalid
+        - rjct.event.already_subscribed
+        - rjct.search.too_many_records
+    SubscribeRequest:
+      type: object
+      description: Subscribe to a life event with crvs
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        person_id:
+          type: string
+          description: Identifier of a person in civil registry
+          example: 12345@urn.crvs
+        events:
+          $ref: '#/components/schemas/EventTypes'
+        filter:
+          description: Demographics attribute(s) to send in response
+          items:
+            type: string
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - person_id
+        - events
+    SubscribeStatusReasonCode:
+      type: string
+      description: Identity verification request status reason codes
+      enum:
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.notify_types.invalid
+        - rjct.notify_details.invalid
+        - rjct.person_id.invalid
+        - rjct.event.already_subscribed
     TxnStatusRequest:
       type: object
       description: Request to search identity service requests
@@ -360,10 +558,11 @@ components:
         - search_type
         - search_attribute
     TxnStatusResponse:
-      type: array
       items:
         oneOf:
-          - $ref: '#/components/schemas/VerifyResponse'
+          - $ref: '#/components/schemas/SubscribeRequest'
+          - $ref: '#/components/schemas/NotifyEvent'
+          - $ref: '#/components/schemas/SearchResponse'
       example:
         on-txnstatus-response:
           reference_id: test
@@ -489,6 +688,26 @@ components:
     ExpressionResultList:
       items:
         $ref: '#/components/schemas/ExpressionResult'
+    ExpressionWithCondition:
+      description: Expression with a condition
+      type: object
+      properties:
+        expression1:
+          $ref: '#/components/schemas/Expression'
+        condition:
+          description: Condition in an expression
+          type: string
+          enum:
+            - and
+            - or
+            - not
+          example: and
+        expression2:
+          $ref: '#/components/schemas/Expression'
+      required: expression1
+    ExpressionWithConditionList:
+      items:
+        $ref: '#/components/schemas/ExpressionWithCondition'
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -508,6 +727,17 @@ components:
       required:
         - action
         - fileName
+    KeyValueInfo:
+      type: object
+      description: Key Value info
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+      required:
+        - key
+        - value
     LanguageCode:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
@@ -635,6 +865,41 @@ components:
       type: string
       description: Signature of message body verified using sender's signing public key
       example: 'Signature: keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)'
+    Pagination:
+      description: 'Pagination definition, count starts with 1'
+      type: object
+      properties:
+        page_size:
+          type: number
+          format: int32
+          example: 2000
+        page_number:
+          type: number
+          format: int32
+          example: 5
+        total_count:
+          type: number
+          format: int32
+          example: 24250
+      required:
+        - page_size
+        - page_number
+        - total_count
+    PaginationRequest:
+      description: 'Pagination definition, count starts with 1'
+      type: object
+      properties:
+        page_size:
+          type: number
+          format: int32
+          example: 2000
+        page_number:
+          type: number
+          format: int32
+          defualt: 1
+          example: 5
+      required:
+        - page_size
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch
@@ -650,6 +915,21 @@ components:
         - pdng
         - succ
         - rjct
+    SearchSort:
+      description: Sorting definition
+      type: object
+      properties:
+        attribute_name:
+          type: string
+          description: attribute name
+        sort_order:
+          type: string
+          enum:
+            - asc
+            - desc
+    SearchSortList:
+      items:
+        $ref: '#/components/schemas/SearchSort'
     Timestamp:
       type: string
       description: datetime in RFC3339 format

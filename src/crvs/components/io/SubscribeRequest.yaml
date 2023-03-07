@@ -1,0 +1,24 @@
+type: object
+description: Subscribe to a life event with crvs
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  person_id:
+    type: string
+    description: Identifier of a person in civil registry
+    example: "12345@urn.crvs"
+  events:
+    $ref: "./EventTypes.yaml"
+  filter:
+    description: Demographics attribute(s) to send in response
+    items:
+      type: string
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - person_id
+  - events

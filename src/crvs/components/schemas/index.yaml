@@ -1,0 +1,74 @@
+DemographicsData:
+  $ref: "../io/DemographicsData.yaml"
+EventTypes:
+  $ref: "../io/EventTypes.yaml"
+NotifyEvent:
+  $ref: "../io/NotifyEvent.yaml"
+SearchRequest:
+  $ref: "../io/SearchRequest.yaml"
+SearchResponse:
+  $ref: "../io/SearchResponse.yaml"
+SearchStatusReasonCode:
+  $ref: "../io/SearchStatusReasonCode.yaml"
+SubscribeRequest:
+  $ref: "../io/SubscribeRequest.yaml"
+SubscribeStatusReasonCode:
+  $ref: "../io/SubscribeStatusReasonCode.yaml"
+TxnStatusRequest:
+  $ref: "../io/TxnStatusRequest.yaml"
+TxnStatusResponse:
+  $ref: "../io/TxnStatusResponse.yaml"
+AdditionalInfo:
+  $ref: "../../../common/schema/AdditionalInfo.yaml"
+BeneficiaryContact:
+  $ref: "../../../common/schema/BeneficiaryContact.yaml"
+BeneficiaryId:
+  $ref: "../../../common/schema/BeneficiaryId.yaml"
+Error:
+  $ref: "../../../common/schema/Error.yaml"
+Expression:
+  $ref: "../../../common/schema/Expression.yaml"
+ExpressionList:
+  $ref: "../../../common/schema/ExpressionList.yaml"
+ExpressionResult:
+  $ref: "../../../common/schema/ExpressionResult.yaml"
+ExpressionResultList:
+  $ref: "../../../common/schema/ExpressionResultList.yaml"
+ExpressionWithCondition:
+  $ref: "../../../common/schema/ExpressionWithCondition.yaml"
+ExpressionWithConditionList:
+  $ref: "../../../common/schema/ExpressionWithConditionList.yaml"
+FileInfo:
+  $ref: "../../../common/schema/FileInfo.yaml"
+KeyValueInfo:
+  $ref: "../../../common/schema/KeyValueInfo.yaml"
+LanguageCode:
+  $ref: "../../../common/schema/LanguageCode.yaml"
+MsgCallbackHeader:
+  $ref: "../../../common/schema/MsgCallbackHeader.yaml"
+MsgHeader:
+  $ref: "../../../common/schema/MsgHeader.yaml"
+MsgHeaderStatusReasonCode:
+  $ref: "../../../common/schema/MsgHeaderStatusReasonCode.yaml"
+MsgSignature:
+  $ref: "../../../common/schema/MsgSignature.yaml"
+Pagination:
+  $ref: "../../../common/schema/Pagination.yaml"
+PaginationRequest:
+  $ref: "../../../common/schema/PaginationRequest.yaml"
+ReferenceId:
+  $ref: "../../../common/schema/ReferenceId.yaml"
+ReferenceIdList:
+  $ref: "../../../common/schema/ReferenceIdList.yaml"
+RequestStatus:
+  $ref: "../../../common/schema/RequestStatus.yaml"
+SearchSort:
+  $ref: "../../../common/schema/SearchSort.yaml"
+SearchSortList:
+  $ref: "../../../common/schema/SearchSortList.yaml"
+Timestamp:
+  $ref: "../../../common/schema/Timestamp.yaml"
+TransactionId:
+  $ref: "../../../common/schema/TransactionId.yaml"
+VerifiableCredential:
+  $ref: "../../../common/schema/VerifiableCredential.yaml"

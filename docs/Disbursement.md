@@ -20,7 +20,7 @@
 | DISB-STS-REFID | GET /disburse/status/{reference_id}] | Disbursement status to social protection, Treasury systems | 
 
 ## Request For Comments
-1. Disbursement status [reason codes and messages](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_dsbt_status_codes.md)
+1. [Disbursement](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_dsbt_status_codes.md) status reason codes and messages
 
 ## Integration Schematics
 ![](./images/draw.io/interface-disb.drawio.png)

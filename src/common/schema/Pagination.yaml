@@ -1,0 +1,19 @@
+description: Pagination definition, count starts with 1
+type: object
+properties:
+  page_size:
+    type: number
+    format: int32
+    example: 2000
+  page_number:
+    type: number
+    format: int32
+    example: 5
+  total_count:
+    type: number
+    format: int32
+    example: 24250
+required:
+  - page_size
+  - page_number
+  - total_count

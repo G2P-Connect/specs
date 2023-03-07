@@ -1,0 +1,11 @@
+description: Sorting definition
+type: object
+properties:
+  attribute_name:
+    type: string
+    description: attribute name
+  sort_order:
+    type: string
+    enum:
+      - "asc"
+      - "desc"

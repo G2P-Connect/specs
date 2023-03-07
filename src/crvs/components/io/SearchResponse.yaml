@@ -1,0 +1,20 @@
+type: object
+description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  demographics:
+    description: Only attribute(s) selected in filter attribute in search request
+    items:
+      $ref: "./DemographicsData.yaml"
+  pagination: 
+    $ref: "../../../common/schema/Pagination.yaml"
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - person_id
+  - events

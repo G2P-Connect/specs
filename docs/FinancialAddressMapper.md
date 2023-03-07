@@ -27,10 +27,10 @@
 
 ## Request For Comments
 ## Request For Comments
-1. FA Mapper Linking status [reason codes and messages](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_lnk_status_codes.md)
-2. FA Mapper Update status [reason codes and messages](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_updt_status_codes.md)
-3. FA Mapper Unlink status [reason codes and messages](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_ulnk_status_codes.md)
-4. FA Mapper Resolve status [reason codes and messages](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_rslv_status_codes.md)
+1. FA Mapper [Linking](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_lnk_status_codes.md) status reason codes and messages
+2. FA Mapper [Update](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_updt_status_codes.md status reason codes and messages
+3. FA Mapper [Unlink](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_ulnk_status_codes.md) status reason codes and messages
+4. FA Mapper [Resolve](https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p_famap_rslv_status_codes.md) status reason codes and messages
 
 ## Integration Schematics
 ![](./images/draw.io/interface-mapper.drawio.png)
