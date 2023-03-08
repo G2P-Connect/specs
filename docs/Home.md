@@ -1,13 +1,14 @@
 # G2P Connect - Protocol Standards
 
-G2P Connect Integration Specifications open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture Blueprint. 
+G2P Connect API Specifications is an open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture Blueprint. 
 
-G2P Connect Integration Specification assumes interaction between DPG projects, Proprietary/Existing systems may vary due to underlying landscape across countries. For e.g., <br>
+G2P Connect Integration Specification assumes interactions between vaious DPI soultion providers (i.e DPGs, Proprietary/Existing systems) may vary due to country specific policies and availability of digital/banking/last mile connectivity infrastructure. For e.g., <br>
 
 > a. Few countries may have centralised payment switch operated by central bank while others may operate directly with financial institutions. <br>
-> b. Countries may decide to manage ID to Financial Address mapping either at Payment Switch layer or Financial Institution(s) or Beneficiary Management Platforms or an independent entity, etc.,
+> b. Countries may decide to manage ID to Financial Address mapping either at Payment Switch layer or Financial Institution(s) or Beneficiary Management Platforms or an independent entity, etc., <br>
+> c. Countries may not a foundational de-duplicated digital id
 
-For these reasons G2P Connect is **flexible** to enable DPG projects, Proprietary/Existing systems to **orchestrate** the flows based on various use case scenarios that are specific to country's operating requirements.
+For these reasons G2P Connect is **flexible** to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** the flows based on various use case scenarios that are specific to country's operating requirements.
 
 ## Message Structure
 All communications using G2P Connect specifications have following structure:
@@ -44,6 +45,5 @@ All communications using G2P Connect specifications have following structure:
 ## Data Formats
 1. All dates and timestamps are represented in RFC3339 format including timezone e.g., 2022-12-04T18:01:07+05:30
 2. All currency codes represented in ISO 4217 format
-
 
 ## Acknowledgments
