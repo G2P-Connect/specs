@@ -6,7 +6,7 @@ properties:
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
   id:
-    $ref: "../../../common/schema/BeneficiaryId.yaml"
+    $ref: "../../../common/schema/PersonId.yaml"
   consent_obtained:
     type: string
     description: Is consent obtained for verification

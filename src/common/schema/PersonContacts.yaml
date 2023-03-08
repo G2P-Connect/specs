@@ -1,0 +1,13 @@
+description: 'Person contact details'
+properties:
+  mobile_number:
+    type: string
+  alt_mobile_number:
+    type: string
+  phone:
+    type: string
+    description: landline
+  email_id:
+    type: string
+  alt_email_id:
+    type: string

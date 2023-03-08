@@ -2,13 +2,17 @@ description: Person's demographics data
 allOf:
 - properties:
     id:
+      $ref: "../../../common/schema/PersonId.yaml"
+    issue_date: 
       type: string
-      description: Identifier of a person in civil registry
-      example: "12345@id.crvs"
-    first_name:
+      format: date-time
+    status:
+      description: civil registry status
       type: string
-    last_name:
-      type: string
+    name:
+      $ref: "../../../common/schema/PersonNameDetails.yaml"
+- $ref: "../../../common/schema/PersonContacts.yaml"
+- properties:
     photo:
       type: string
       description: base64 encoded person face photo
@@ -18,11 +22,7 @@ allOf:
         - "jpeg"
         - "png"
     gender:
-      type: string
-      enum:
-        - "male"
-        - "female"
-        - "transgender"
+      $ref: "../../../common/schema/PersonGender.yaml"
     dob:
       description: date of brith
       type: string
@@ -37,10 +37,8 @@ allOf:
     dod_place:
       description: date of death place
       type: string
-    status:
-      description: civil registry status
-      type: string
-- $ref: "../../../common/schema/BeneficiaryContact.yaml"
-- properties:
+    related_persons:
+      items:
+        $ref: "../../../common/schema/PersonRelated.yaml"
     additional_attributes:
       $ref: "../../../common/schema/KeyValueInfo.yaml"

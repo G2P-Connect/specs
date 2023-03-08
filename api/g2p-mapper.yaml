@@ -700,16 +700,20 @@ components:
   schemas:
     LinkRequest:
       type: object
-      description: Beneficiary ID to Store of value account linking request
+      description: ID to Store of value account linking request
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
-        beneficiary_info:
-          $ref: '#/components/schemas/Beneficiary'
-        account_info:
-          $ref: '#/components/schemas/AccountInfo'
+        id:
+          $ref: '#/components/schemas/PersonId'
+        fa:
+          $ref: '#/components/schemas/FinancialAddress'
+        name:
+          $ref: '#/components/schemas/Person/properties/name'
+        mobile_number:
+          type: string
         additional_info:
           description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
           type: string
@@ -719,8 +723,8 @@ components:
       required:
         - reference_id
         - timestamp
-        - beneficiary_info
-        - account_info
+        - id
+        - fa
     LinkResponse:
       type: object
       description: Beneficiary ID to Store of value account linking response
@@ -740,9 +744,7 @@ components:
           type: string
           maxLength: 999
         additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data.'
-          type: string
-          maxLength: 999
+          $ref: '#/components/schemas/KeyValueInfo'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -756,7 +758,12 @@ components:
         - rjct.reference_id.invalid
         - rjct.reference_id.duplicate
         - rjct.timestamp.invalid
-        - rjct.beneficiary_name.invalid
+        - rjct.id.invalid
+        - rjct.fa.invalid
+        - rjct.name.invalid
+        - rjct.mobile_number.invalid
+        - rjct.unknown.retry
+        - rjct.other.error
     UnlinkStatusReasonCode:
       type: string
       description: FA Mapper Unlink status reason codes
@@ -773,24 +780,20 @@ components:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
-        resolve_type:
+        type:
           description: Enumerated options for various resolution options
           type: string
           enum:
-            - FA_TO_ACCOUNT_PROVIDER_INFO
-            - FA_TO_ACCOUNT_INFO
-            - FA_TO_BENEFICIARY_ID
-            - BENEFICIARY_ID_TO_FA
-            - BENEFICIARY_ID_TO_ACCOUNT_PROVIDER_INFO
-            - BENEFICIARY_ID_TO_ACCOUNT_INFO
+            - fa_to_account_provider
+            - fa_to_account_info
+            - id_to_account_provider
+            - id_to_account_info
         fa:
           $ref: '#/components/schemas/FinancialAddress'
-        beneficiary_id:
-          $ref: '#/components/schemas/BeneficiaryId'
+        id:
+          $ref: '#/components/schemas/Person'
         additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
-          type: string
-          maxLength: 999
+          $ref: '#/components/schemas/KeyValueInfo'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -807,8 +810,8 @@ components:
           $ref: '#/components/schemas/Timestamp'
         fa:
           $ref: '#/components/schemas/FinancialAddress'
-        beneficiary_id:
-          $ref: '#/components/schemas/BeneficiaryId'
+        id:
+          $ref: '#/components/schemas/PersonId'
         account_provider_info:
           $ref: '#/components/schemas/AccountProviderInfo'
         account_info:
@@ -838,7 +841,8 @@ components:
         - rjct.reference_id.invalid
         - rjct.reference_id.duplicate
         - rjct.timestamp.invalid
-        - rjct.beneficiary_name.invalid
+        - rjct.id.invalid
+        - rjct.fa.invalid
         - rjct.resolve_type.not_supported
     SearchRequest:
       type: object
@@ -918,6 +922,13 @@ components:
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
+        request_type:
+          type: string
+          enum:
+            - link
+            - unlink
+            - update
+            - resolve
         search_type:
           type: string
           enum:
@@ -949,18 +960,18 @@ components:
           status: SUCC
     UnlinkRequest:
       type: object
-      description: Beneficiary ID to Store of value account linking request
+      description: ID to Store of value account unlinking request. Unlink request removes entry against requested id/fa pair.
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
+        id:
+          $ref: '#/components/schemas/PersonId'
         fa:
           $ref: '#/components/schemas/FinancialAddress'
         additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
-          type: string
-          maxLength: 999
+          $ref: '#/components/schemas/KeyValueInfo'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -969,7 +980,7 @@ components:
         - fa
     UnlinkResponse:
       type: object
-      description: Beneficiary ID to Store of value account linking response
+      description: ID to Store of value account unlinking response
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -986,9 +997,7 @@ components:
         fa:
           $ref: '#/components/schemas/FinancialAddress'
         additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data.'
-          type: string
-          maxLength: 999
+          $ref: '#/components/schemas/KeyValueInfo'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -997,16 +1006,20 @@ components:
         - status
     UpdateRequest:
       type: object
-      description: Beneficiary ID to Store of value account link info updates
+      description: ID to Store of value account update request. ID can only unlinked.
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
+        id:
+          $ref: '#/components/schemas/PersonId'
         fa:
           $ref: '#/components/schemas/FinancialAddress'
-        account_info:
-          $ref: '#/components/schemas/AccountInfo'
+        name:
+          $ref: '#/components/schemas/Person/properties/name'
+        mobile_number:
+          type: string
         additional_info:
           description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
           type: string
@@ -1016,10 +1029,11 @@ components:
       required:
         - reference_id
         - timestamp
+        - id
         - fa
     UpdateResponse:
       type: object
-      description: Beneficiary ID to Store of value account link info updates response
+      description: ID to Store of value account update response
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -1036,9 +1050,7 @@ components:
           type: string
           maxLength: 999
         additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
-          type: string
-          maxLength: 999
+          $ref: '#/components/schemas/KeyValueInfo'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -1059,53 +1071,9 @@ components:
       description: Beneficiary store of value account info
       properties:
         name:
-          type: object
-          description: Beneficiary name
-          properties:
-            first_name:
-              type: string
-            middle_name:
-              type: string
-            last_name:
-              type: string
-          required:
-            - first_name
-            - last_name
+          $ref: '#/components/schemas/Person/properties/name'
         contact_info:
-          type: object
-          description: Person contact details
-          properties:
-            phone:
-              type: string
-              description: landline
-            mobile_number:
-              type: string
-            alt_mobile_number:
-              type: string
-            email_id:
-              type: string
-            alt_email_id:
-              type: string
-            address:
-              type: object
-              properties:
-                line1:
-                  type: string
-                line2:
-                  type: string
-                line3:
-                  type: string
-                location1:
-                  type: string
-                  description: 'village, town, city'
-                location2:
-                  type: string
-                  description: 'state, province, region'
-                location3:
-                  type: string
-                  description: 'country, region'
-                postal_code:
-                  type: string
+          $ref: '#/components/schemas/Person/properties/contact_info'
         account_info:
           type: object
           properties:
@@ -1163,51 +1131,6 @@ components:
           enum:
             - ACK
             - NACK
-    Beneficiary:
-      type: object
-      description: Beneficiary indentity info
-      properties:
-        name:
-          $ref: '#/components/schemas/AccountInfo/properties/name'
-        contact_info:
-          $ref: '#/components/schemas/AccountInfo/properties/contact_info'
-        identity_info:
-          type: object
-          description: Beneficiary identity info - foundational or functioanl id's
-          properties:
-            id_type:
-              description: 'Identifier type or system to identify the beneficiary. Each country may enumerate the list as master data as an extension to g2p specifications. <br> examples: national_ids like PhilID, Aadhaar, SmartId, etc., or funcational_ids like voter_id, driving_license, tax_identification_no, etc.,'
-              type: string
-              example: PhilID
-            id:
-              description: Unique identifier number of the beneficairy
-              type: string
-              example: '1234567890'
-            issue_date:
-              description: Date of issue of ID
-              type: string
-              format: date-time
-            expire_date:
-              description: Date of expire of ID
-              type: string
-              format: date-time
-            issuing_agency:
-              description: ID issuing agency name. Each country may enumerate this list as master data as an extension to g2p specifications.
-              type: string
-            additional_info:
-              description: 'Additional info, if any'
-              type: string
-              maxLength: 999
-          required:
-            - id_type
-            - id
-      required:
-        - name
-    BeneficiaryId:
-      type: string
-      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
-      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@token.mosip
     Error:
       description: |
         Describes an error object that is returned to standard post call request. <br>
@@ -1258,6 +1181,19 @@ components:
     FinancialAddressList:
       items:
         $ref: '#/components/schemas/FinancialAddress'
+    KeyValueInfo:
+      type: object
+      description: Key Value info
+      properties:
+        key:
+          type: string
+          maxLength: 99
+        value:
+          type: string
+          maxLength: 999
+      required:
+        - key
+        - value
     LanguageCode:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
@@ -1385,6 +1321,65 @@ components:
       type: string
       description: Signature of message body verified using sender's signing public key
       example: 'Signature: keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)'
+    Person:
+      type: object
+      description: Person indentity info
+      properties:
+        name:
+          type: string
+          description: Person full name
+          example: John Smith
+        contact_info:
+          description: Person contact details
+          properties:
+            mobile_number:
+              type: string
+            alt_mobile_number:
+              type: string
+            phone:
+              type: string
+              description: landline
+            email_id:
+              type: string
+            alt_email_id:
+              type: string
+        identity_info:
+          type: object
+          description: Beneficiary identity info - foundational or functioanl id's
+          properties:
+            id_type:
+              description: 'Identifier type or system to identify the beneficiary. Each country may enumerate the list as master data as an extension to g2p specifications. <br> examples: national_ids like PhilID, Aadhaar, SmartId, etc., or funcational_ids like voter_id, driving_license, tax_identification_no, etc.,'
+              type: string
+              example: PhilID
+            id:
+              description: Unique identifier number of the beneficairy
+              type: string
+              example: '1234567890'
+            issue_date:
+              description: Date of issue of ID
+              type: string
+              format: date-time
+            expire_date:
+              description: Date of expire of ID
+              type: string
+              format: date-time
+            issuing_agency:
+              description: ID issuing agency name. Each country may enumerate this list as master data as an extension to g2p specifications.
+              type: string
+            additional_info:
+              description: 'Additional info, if any'
+              type: string
+              maxLength: 999
+          required:
+            - id_type
+            - id
+      required:
+        - name
+    PersonId:
+      type: string
+      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 12345@token.mosip
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch

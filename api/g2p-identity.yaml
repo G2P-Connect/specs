@@ -263,7 +263,7 @@ components:
                 - male
                 - female
                 - transgender
-        - $ref: '#/components/schemas/BeneficiaryContact'
+        - $ref: '#/components/schemas/PersonContacts'
         - properties:
             attributes:
               $ref: '#/components/schemas/ExpressionList'
@@ -276,7 +276,7 @@ components:
         timestamp:
           $ref: '#/components/schemas/Timestamp'
         id:
-          $ref: '#/components/schemas/BeneficiaryId'
+          $ref: '#/components/schemas/PersonId'
         consent_obtained:
           type: string
           description: Is consent obtained for verification
@@ -372,46 +372,6 @@ components:
     AdditionalInfo:
       type: object
       description: Additional JSON property oject to hold custom user defined contextual data
-    BeneficiaryContact:
-      type: object
-      description: Person contact details
-      properties:
-        phone:
-          type: string
-          description: landline
-        mobile_number:
-          type: string
-        alt_mobile_number:
-          type: string
-        email_id:
-          type: string
-        alt_email_id:
-          type: string
-        address:
-          type: object
-          properties:
-            line1:
-              type: string
-            line2:
-              type: string
-            line3:
-              type: string
-            location1:
-              type: string
-              description: 'village, town, city'
-            location2:
-              type: string
-              description: 'state, province, region'
-            location3:
-              type: string
-              description: 'country, region'
-            postal_code:
-              type: string
-    BeneficiaryId:
-      type: string
-      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
-      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@token.mosip
     Error:
       description: |
         Describes an error object that is returned to standard post call request. <br>
@@ -635,6 +595,25 @@ components:
       type: string
       description: Signature of message body verified using sender's signing public key
       example: 'Signature: keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)'
+    PersonContacts:
+      description: Person contact details
+      properties:
+        mobile_number:
+          type: string
+        alt_mobile_number:
+          type: string
+        phone:
+          type: string
+          description: landline
+        email_id:
+          type: string
+        alt_email_id:
+          type: string
+    PersonId:
+      type: string
+      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 12345@token.mosip
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch
@@ -683,7 +662,7 @@ components:
               description: The value of the credentialSubject property is defined as a set of objects that contain one or more properties that are each related to a subject of the verifiable credential. Each object MAY contain an id
               properties:
                 id:
-                  $ref: '#/components/schemas/BeneficiaryId'
+                  $ref: '#/components/schemas/PersonId'
                 property:
                   items:
                     $ref: '#/components/schemas/AdditionalInfo'

@@ -363,13 +363,28 @@ components:
       allOf:
         - properties:
             id:
+              $ref: '#/components/schemas/PersonId'
+            issue_date:
               type: string
-              description: Identifier of a person in civil registry
-              example: 12345@id.crvs
-            first_name:
+              format: date-time
+            status:
+              description: civil registry status
               type: string
-            last_name:
-              type: string
+            name:
+              type: object
+              description: 'First, Middle and Last name of a person'
+              properties:
+                first_name:
+                  type: string
+                middle_name:
+                  type: string
+                last_name:
+                  type: string
+              required:
+                - first_name
+                - last_name
+        - $ref: '#/components/schemas/PersonContacts'
+        - properties:
             photo:
               type: string
               description: base64 encoded person face photo
@@ -379,6 +394,7 @@ components:
                 - jpeg
                 - png
             gender:
+              description: Person gender
               type: string
               enum:
                 - male
@@ -398,11 +414,30 @@ components:
             dod_place:
               description: date of death place
               type: string
-            status:
-              description: civil registry status
-              type: string
-        - $ref: '#/components/schemas/BeneficiaryContact'
-        - properties:
+            related_persons:
+              items:
+                type: object
+                description: Related Person details
+                properties:
+                  id:
+                    $ref: '#/components/schemas/PersonId'
+                  name:
+                    type: string
+                    description: Person full name
+                    example: John Smith
+                  type:
+                    type: string
+                    enum:
+                      - mother
+                      - father
+                      - gaurdian
+                      - bride
+                      - groom
+                      - wife
+                      - husband
+                      - spouse
+                      - partner
+                      - other
             additional_attributes:
               $ref: '#/components/schemas/KeyValueInfo'
     EventTypes:
@@ -427,9 +462,7 @@ components:
         timestamp:
           $ref: '#/components/schemas/Timestamp'
         person_id:
-          type: string
-          description: Identifier of a person in civil registry
-          example: 12345@id.crvs
+          $ref: '#/components/schemas/PersonId'
         events:
           items:
             $ref: '#/components/schemas/EventTypes'
@@ -475,6 +508,14 @@ components:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
+        status:
+          $ref: '#/components/schemas/RequestStatus'
+        status_reason_code:
+          $ref: '#/components/schemas/SearchStatusReasonCode'
+        status_reason_message:
+          description: Status reason code message. Helps actionanble messaging for systems/end users
+          type: string
+          maxLength: 999
         demographics:
           description: Only attribute(s) selected in filter attribute in search request
           items:
@@ -509,9 +550,7 @@ components:
         timestamp:
           $ref: '#/components/schemas/Timestamp'
         person_id:
-          type: string
-          description: Identifier of a person in civil registry
-          example: 12345@urn.crvs
+          $ref: '#/components/schemas/PersonId'
         events:
           $ref: '#/components/schemas/EventTypes'
         filter:
@@ -571,46 +610,6 @@ components:
     AdditionalInfo:
       type: object
       description: Additional JSON property oject to hold custom user defined contextual data
-    BeneficiaryContact:
-      type: object
-      description: Person contact details
-      properties:
-        phone:
-          type: string
-          description: landline
-        mobile_number:
-          type: string
-        alt_mobile_number:
-          type: string
-        email_id:
-          type: string
-        alt_email_id:
-          type: string
-        address:
-          type: object
-          properties:
-            line1:
-              type: string
-            line2:
-              type: string
-            line3:
-              type: string
-            location1:
-              type: string
-              description: 'village, town, city'
-            location2:
-              type: string
-              description: 'state, province, region'
-            location3:
-              type: string
-              description: 'country, region'
-            postal_code:
-              type: string
-    BeneficiaryId:
-      type: string
-      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
-      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@token.mosip
     Error:
       description: |
         Describes an error object that is returned to standard post call request. <br>
@@ -704,7 +703,8 @@ components:
           example: and
         expression2:
           $ref: '#/components/schemas/Expression'
-      required: expression1
+      required:
+        - expression1
     ExpressionWithConditionList:
       items:
         $ref: '#/components/schemas/ExpressionWithCondition'
@@ -733,8 +733,10 @@ components:
       properties:
         key:
           type: string
+          maxLength: 99
         value:
           type: string
+          maxLength: 999
       required:
         - key
         - value
@@ -896,10 +898,29 @@ components:
         page_number:
           type: number
           format: int32
-          defualt: 1
+          default: 1
           example: 5
       required:
         - page_size
+    PersonContacts:
+      description: Person contact details
+      properties:
+        mobile_number:
+          type: string
+        alt_mobile_number:
+          type: string
+        phone:
+          type: string
+          description: landline
+        email_id:
+          type: string
+        alt_email_id:
+          type: string
+    PersonId:
+      type: string
+      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 12345@token.mosip
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch
@@ -963,7 +984,7 @@ components:
               description: The value of the credentialSubject property is defined as a set of objects that contain one or more properties that are each related to a subject of the verifiable credential. Each object MAY contain an id
               properties:
                 id:
-                  $ref: '#/components/schemas/BeneficiaryId'
+                  $ref: '#/components/schemas/PersonId'
                 property:
                   items:
                     $ref: '#/components/schemas/AdditionalInfo'

@@ -1,0 +1,11 @@
+type: object
+description: 'Person indentity info'
+properties:
+  name: 
+    $ref: "./PersonName.yaml"
+  contact_info:
+    $ref: "./PersonContacts.yaml"
+  identity_info:
+    $ref: "./PersonIdDetails.yaml"
+required:
+  - name

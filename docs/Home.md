@@ -10,7 +10,7 @@ G2P Connect Integration Specification assumes interaction between DPG projects, 
 For these reasons G2P Connect is **flexible** to enable DPG projects, Proprietary/Existing systems to **orchestrate** the flows based on various use case scenarios that are specific to country's operating requirements.
 
 ## Message Structure
-All communication using G2P Connect specifications have following structure
+All communications using G2P Connect specifications have following structure:
 
 | Field | Description | 
 | ----- | ----------- | 
@@ -19,12 +19,12 @@ All communication using G2P Connect specifications have following structure
 | message | message to hold transaction request/response entities | 
 
 ## Transport Protocol
-1. G2P Connect Integration Specification is designed to be transport layer agnostic viz. JSON entities over HTTPS, event based messaging or file exchanges.
+1. G2P Connect Integration Specification is designed to be transport layer agnostic viz. JSON entities over HTTPS, pub/sub event based messaging or file exchanges.
 2. header field helps in reliable exchange at transport layer between sender and receiver. 
 
 ## Communication Protocol
 1. Most of the interactions are asynchronous calls between sender/receiver platforms. Sender initiates with message_id and receiver acknowledges with receipt of the message with ACK/NACK.
-2. Senders are required to implement callback end points for receiver to POST transaction status/detailed information.
+2. Senders are required to implement callback end points to receive response with transaction status with information.
 3. Additionally, receiver systems are required to implement GET status api's. Sender systems may poll to GET transaction status/detailed information. 
 
 ## File based processing 
@@ -35,6 +35,11 @@ All communication using G2P Connect specifications have following structure
 ## Event based processing 
 1. G2P Connect JSON based request/response entities shall work as events over messaging infrastructure.
 2. Trusted sender and receiver systems on a network should create pub/sub end points.
+
+## Identifiers
+1. message_id: scope of message_id in header is to track paylaod delivery between sender and receiver. 
+2. transaction_id: scope of transaction_id in message is to uniquely corelate business request. In case of batch transactions, this also acts as batch_id.
+3. reference_id: scope of the reference_id in message domain entity is to corelate individual business request. 
 
 ## Data Formats
 1. All dates and timestamps are represented in RFC3339 format including timezone e.g., 2022-12-04T18:01:07+05:30

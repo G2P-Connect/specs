@@ -1,5 +1,5 @@
 type: object
-description: 'Beneficiary name'
+description: First, Middle and Last name of a person
 properties:
   first_name:
     type: string
@@ -7,6 +7,6 @@ properties:
     type: string
   last_name:
     type: string
-required:
+required: 
   - first_name
   - last_name

@@ -1,10 +1,12 @@
 type: object
-description: 'Beneficiary ID to Store of value account linking request'
+description: ID to Store of value account unlinking request. Unlink request removes entry against requested id/fa pair.
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
+  id: 
+    $ref: "../../../common/schema/PersonId.yaml"
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml"
   additional_info:

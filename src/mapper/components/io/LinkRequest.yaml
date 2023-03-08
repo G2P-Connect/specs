@@ -1,14 +1,18 @@
 type: object
-description: 'Beneficiary ID to Store of value account linking request'
+description: 'ID to Store of value account linking request'
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
-  beneficiary_info:
-    $ref: "../../../common/schema/Beneficiary.yaml"
-  account_info:
-    $ref: "../../../common/schema/AccountInfo.yaml"
+  id:
+    $ref: "../../../common/schema/PersonId.yaml"
+  fa:
+    $ref: "../../../common/schema/FinancialAddress.yaml"
+  name: 
+    $ref: "../../../common/schema/PersonName.yaml"
+  mobile_number:
+    type: string
   additional_info:
     description: "Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data"
     type: string
@@ -18,5 +22,5 @@ properties:
 required:
   - reference_id
   - timestamp
-  - beneficiary_info
-  - account_info
+  - id
+  - fa

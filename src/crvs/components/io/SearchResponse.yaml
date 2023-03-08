@@ -5,6 +5,14 @@ properties:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
+  status:
+    $ref: "../../../common/schema/RequestStatus.yaml" 
+  status_reason_code:
+    $ref: "./SearchStatusReasonCode.yaml" 
+  status_reason_message:
+    description: "Status reason code message. Helps actionanble messaging for systems/end users"
+    type: string
+    maxLength: 999
   demographics:
     description: Only attribute(s) selected in filter attribute in search request
     items:

@@ -38,10 +38,6 @@ AccountProviderInfo:
   $ref: "../../../common/schema/AccountProviderInfo.yaml" 
 Ack:
   $ref: "../../../common/schema/Ack.yaml"
-Beneficiary:
-  $ref: "../../../common/schema/Beneficiary.yaml"
-BeneficiaryId:
-  $ref: "../../../common/schema/BeneficiaryId.yaml"
 Error:
   $ref: "../../../common/schema/Error.yaml"
 FileInfo:
@@ -50,6 +46,8 @@ FinancialAddress:
   $ref: "../../../common/schema/FinancialAddress.yaml"
 FinancialAddressList:
   $ref: "../../../common/schema/FinancialAddressList.yaml"
+KeyValueInfo:
+  $ref: "../../../common/schema/KeyValueInfo.yaml"
 LanguageCode:
   $ref: "../../../common/schema/LanguageCode.yaml"
 MsgCallbackHeader:
@@ -60,6 +58,10 @@ MsgHeaderStatusReasonCode:
   $ref: "../../../common/schema/MsgHeaderStatusReasonCode.yaml"
 MsgSignature:
   $ref: "../../../common/schema/MsgSignature.yaml"
+Person:
+  $ref: "../../../common/schema/Person.yaml"
+PersonId:
+  $ref: "../../../common/schema/PersonId.yaml"
 ReferenceId:
   $ref: "../../../common/schema/ReferenceId.yaml"
 ReferenceIdList:

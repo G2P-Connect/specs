@@ -2,9 +2,9 @@ type: object
 description: 'Beneficiary store of value account info'
 properties:
   name: 
-    $ref: "./BeneficiaryName.yaml"
+    $ref: "./PersonName.yaml"
   contact_info:
-    $ref: "./BeneficiaryContact.yaml"
+    $ref: "./PersonContacts.yaml"
   account_info:
     type: object
     properties:

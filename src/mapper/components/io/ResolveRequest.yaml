@@ -16,9 +16,9 @@ properties:
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml"
   id:
-    $ref: "../../../common/schema/BeneficiaryId.yaml"
+    $ref: "../../../common/schema/Person.yaml"
   additional_info:
-    $ref: "../../../common/schema/KeyValueInfo.yaml."
+    $ref: "../../../common/schema/KeyValueInfo.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:

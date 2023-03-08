@@ -6,9 +6,7 @@ properties:
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
   person_id:
-    type: string
-    description: Identifier of a person in civil registry
-    example: "12345@urn.crvs"
+    $ref: "../../../common/schema/PersonId.yaml"
   events:
     $ref: "./EventTypes.yaml"
   filter:

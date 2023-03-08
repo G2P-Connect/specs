@@ -8,7 +8,7 @@ properties:
   page_number:
     type: number
     format: int32
-    defualt: 1
+    default: 1
     example: 5
 required:
   - page_size

@@ -20,10 +20,6 @@ TxnStatusResponse:
   $ref: "../io/TxnStatusResponse.yaml"
 AdditionalInfo:
   $ref: "../../../common/schema/AdditionalInfo.yaml"
-BeneficiaryContact:
-  $ref: "../../../common/schema/BeneficiaryContact.yaml"
-BeneficiaryId:
-  $ref: "../../../common/schema/BeneficiaryId.yaml"
 Error:
   $ref: "../../../common/schema/Error.yaml"
 Expression:
@@ -56,6 +52,10 @@ Pagination:
   $ref: "../../../common/schema/Pagination.yaml"
 PaginationRequest:
   $ref: "../../../common/schema/PaginationRequest.yaml"
+PersonContacts:
+  $ref: "../../../common/schema/PersonContacts.yaml"
+PersonId:
+  $ref: "../../../common/schema/PersonId.yaml"
 ReferenceId:
   $ref: "../../../common/schema/ReferenceId.yaml"
 ReferenceIdList:

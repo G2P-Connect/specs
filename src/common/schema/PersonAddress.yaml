@@ -1,0 +1,19 @@
+description: 'Person contact details'
+properties:
+  line1:
+    type: string
+  line2:
+    type: string
+  line3:
+    type: string
+  location1:
+    type: string
+    description: village, town, city
+  location2:
+    type: string
+    description: state, province, region
+  location3:
+    type: string
+    description: country, region
+  postal_code:
+    type: string

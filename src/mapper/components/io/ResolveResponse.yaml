@@ -8,7 +8,7 @@ properties:
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml" 
   id:
-    $ref: "../../../common/schema/BeneficiaryId.yaml"
+    $ref: "../../../common/schema/PersonId.yaml"
   account_provider_info:
     $ref: "../../../common/schema/AccountProviderInfo.yaml"
   account_info:

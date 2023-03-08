@@ -8,4 +8,4 @@ properties:
   expression2:
     $ref: "./Expression.yaml"
 required: 
-  expression1
+  - expression1

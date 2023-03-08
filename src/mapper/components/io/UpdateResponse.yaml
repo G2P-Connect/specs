@@ -1,5 +1,5 @@
 type: object
-description: 'Beneficiary ID to Store of value account link info updates response'
+description: 'ID to Store of value account update response'
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
