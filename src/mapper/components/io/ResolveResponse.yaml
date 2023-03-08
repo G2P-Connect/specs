@@ -7,7 +7,7 @@ properties:
     $ref: "../../../common/schema/Timestamp.yaml"
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml" 
-  beneficiary_id:
+  id:
     $ref: "../../../common/schema/BeneficiaryId.yaml"
   account_provider_info:
     $ref: "../../../common/schema/AccountProviderInfo.yaml"

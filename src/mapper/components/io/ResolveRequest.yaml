@@ -5,24 +5,20 @@ properties:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
-  resolve_type:
+  type:
     description: "Enumerated options for various resolution options"
     type: string
     enum: 
-      - "FA_TO_ACCOUNT_PROVIDER_INFO"
-      - "FA_TO_ACCOUNT_INFO"
-      - "FA_TO_BENEFICIARY_ID"
-      - "BENEFICIARY_ID_TO_FA"
-      - "BENEFICIARY_ID_TO_ACCOUNT_PROVIDER_INFO"
-      - "BENEFICIARY_ID_TO_ACCOUNT_INFO"
+      - "fa_to_account_provider"
+      - "fa_to_account_info"
+      - "id_to_account_provider"
+      - "id_to_account_info"
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml"
-  beneficiary_id:
+  id:
     $ref: "../../../common/schema/BeneficiaryId.yaml"
   additional_info:
-    description: "Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data"
-    type: string
-    maxLength: 999
+    $ref: "../../../common/schema/KeyValueInfo.yaml."
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:

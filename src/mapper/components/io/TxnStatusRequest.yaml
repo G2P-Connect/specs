@@ -3,6 +3,13 @@ description: 'Request to search disbursement using payer or payee fa'
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
+  request_type:
+    type: string
+    enum:
+      - "link"
+      - "unlink"
+      - "update"
+      - "resolve"
   search_type:
     type: string
     enum:

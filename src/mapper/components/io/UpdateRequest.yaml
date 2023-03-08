@@ -10,9 +10,7 @@ properties:
   account_info:
     $ref: "../../../common/schema/AccountInfo.yaml"
   additional_info:
-    description: "Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data"
-    type: string
-    maxLength: 999
+    $ref: "../../../common/schema/KeyValueInfo.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:
