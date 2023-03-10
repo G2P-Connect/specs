@@ -484,7 +484,7 @@ components:
       description: Message header
       properties:
         version:
-          description: g2p connect specification version being used
+          description: Messaing protocol specification version being used
           type: string
           example: 0.1.0
         message_id:
@@ -543,7 +543,7 @@ components:
       description: Message header
       properties:
         version:
-          description: g2p connect specification version being used
+          description: Messaing protocol specification version being used
           type: string
           example: 0.1.0
         message_id:

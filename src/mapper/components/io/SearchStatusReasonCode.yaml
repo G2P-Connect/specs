@@ -1,18 +1,16 @@
 type: string
-description: "Credentail issuance status reason code with reason message: <br>
-      - RJCT_REFERENCE_ID_INVALID; Invalid reference id <br>
-      - RJCT_REFERENCE_ID_DUPLICATE; Duplicate reference id <br>
-      - RJCT_TIMESTAMP_INVALID; Timestamp is invalid <br>
-      - RJCT_TYPE_INVALID; Type is invalid <br>
-      - RJCT_ISSUER_INVALID; Issuer is invalid <br>
-      - RJCT_SUBJECT_INVALID; Subject is invalid <br>
-      - RJCT_SHAREATTRIBUTES_INVALID; Share attributes invalid <br>
-      - etc.,"
+description: Financial mapper search reason codes
 enum: 
-- "RJCT_REFERENCE_ID_INVALID"
-- "RJCT_REFERENCE_ID_DUPLICATE"
-- "RJCT_TIMESTAMP_INVALID"
-- "RJCT_TYPE_INVALID"
-- "RJCT_ISSUER_INVALID"
-- "RJCT_SUBJECT_INVALID"
-- "RJCT_SHAREATTRIBUTES_INVALID"
+  - "rjct.reference_id.invalid"
+  - "rjct.reference_id.duplicate"
+  - "rjct.timestamp.invalid"
+  - "rjct.request_type.invalid"
+  - "rjct.attribute.invalid"
+  - "rjct.srch_transaction_id.invalid"
+  - "rjct.srch_transaction_id.not_found"
+  - "rjct_srch_reference_id_invalid"
+  - "rjct_srch_reference_id_not_found"
+  - "rjct.reference_id.invalid"
+  - "rjct.srch_payer_fa.invalid"
+  - "rjct.srch_payee_fa.invalid"
+  - "rjct.share_attributes.invalid"

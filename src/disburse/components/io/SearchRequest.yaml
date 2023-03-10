@@ -7,7 +7,7 @@ properties:
     type: string
     enum:
       - "disburse"
-  attribute:
+  attribute_type:
     type: string
     enum:
       - "transaction_id"

@@ -536,11 +536,11 @@ components:
         - rjct.reference_id.invalid
         - rjct.reference_id.duplicate
         - rjct.timestamp.invalid
-        - rjct.notify_types.invalid
-        - rjct.notify_details.invalid
-        - rjct.person_id.invalid
-        - rjct.event.already_subscribed
-        - rjct.search.too_many_records
+        - rjct.search_criteria.invalid
+        - rjct.filter.invalid
+        - rjct.sort.invalid
+        - rjct.pagination.invalid
+        - rjct.search.too_many_records_found
     SubscribeRequest:
       type: object
       description: Subscribe to a life event with crvs
@@ -756,7 +756,7 @@ components:
       description: Message header
       properties:
         version:
-          description: g2p connect specification version being used
+          description: Messaing protocol specification version being used
           type: string
           example: 0.1.0
         message_id:
@@ -815,7 +815,7 @@ components:
       description: Message header
       properties:
         version:
-          description: g2p connect specification version being used
+          description: Messaing protocol specification version being used
           type: string
           example: 0.1.0
         message_id:
