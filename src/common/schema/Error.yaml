@@ -8,11 +8,17 @@ properties:
     type: string
     description: Standard error code
     enum:
-      - "err.access.denied"
-      - "err.request.invalid"
-      - "err.sender.invalid"
-      - "err.receiver.invalid"
-      - "err.header.missing"
+      - "err.request.bad"
+      - "err.request.unauthorized"
+      - "err.request.forbidden"
+      - "err.request.not_found"
+      - "err.request.timeout"
+      - "err.version.not_supported"
+      - "err.request.too_many_requests"
+      - "err.sender_id.invalid"
+      - "err.sender_uri.invalid"
+      - "err.receiver_id.invalid"
+      - "err.signature.missing"
       - "err.signature.invalid"
       - "err.encryption.invalid"
       - "err.service.unavailable"

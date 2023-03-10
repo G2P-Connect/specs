@@ -25,16 +25,11 @@ properties:
     description: "sender url to accept callbacks"
     type: string
     format: uri
-    example: "https://pymts.sender.org/callback/g2p/on-disburse"
+    example: "https://pymts.sender.org/g2p/callback/on-disburse"
   receiver_id:
     description: receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.
     type: string
     example: '52077'
-  receiver_uri:
-    description: receiver url to accept callbacks
-    type: string
-    format: uri
-    example: ""
   total_count:
     description: Total no of requests present in the message request
     type: integer

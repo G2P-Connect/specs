@@ -6,7 +6,6 @@ enum:
 - "rjct.message_ts.invalid"
 - "rjct.action.invalid"
 - "rjct.action.not_supported"
-- "rjct.sender_uri.invalid"
-- "rjct.receiver_uri.invalid"
 - "rjct.total_count.invalid"
 - "rjct.total_count.limit_exceeded"
+- "rjct.errors.too_many"

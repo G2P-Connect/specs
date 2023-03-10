@@ -11,7 +11,7 @@ info:
    name: G2P Connect License
    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: https://sandbox.dpg.org/v0.1.0
+  - url: https://sandbox.dpg.org/v0.1.0/{namespace}
     description: Sandbox Server
 
 paths:
@@ -133,7 +133,7 @@ paths:
  /mapper/update:
   post: 
     summary: "FAMAP-UPDT	: /mapper/update"
-    description: "Updating fa or scheme details to mapper registry"
+    description: "Updating fa details against an id in mapper registry"
     operationId: put_g2p_mapper_update
     requestBody:
       description: ""

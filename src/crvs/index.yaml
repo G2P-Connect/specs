@@ -11,125 +11,10 @@ info:
    name: G2P Connect License
    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: https://sandbox.dpg.org/v0.1.0
+  - url: https://sandbox.dpg.org/v0.1.0/{namespace}
     description: Sandbox Server
 
 paths:
- /crvs/subscribe:
-  post: 
-    summary: "CRVS-SUB : /crvs/subscribe"
-    description: "Subscribe to a life event with crvs"
-    operationId: post_g2p_crvs_subscribe
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader"
-                    - properties:
-                        action:
-                          enum:
-                            - subscribe
-                message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    subscribe_request:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/SubscribeRequest"
-                  required:
-                    - transaction_id
-                    - subscribe_request
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - subscribe
-    responses:
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-      # - Signature: [ ]
-    deprecated: false
- /crvs/notify:
-  post: 
-    summary: "CRVS-NTFY : /crvs/notify"
-    description: "CRVS to notify a life event to subscrbiers"
-    operationId: post_g2p_crvs_notify
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgCallbackHeader"
-                    - properties:
-                        action:
-                          enum:
-                            - notify
-                message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    notify_event:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/NotifyEvent"
-                  required:
-                    - transaction_id
-                    - verify_response
-              required:
-                - header
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - notify
-    responses:
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-      # - Signature: [ ]
-    deprecated: false
  /crvs/search:
   post: 
     summary: "CRVS-SRCH : /crvs/search"
@@ -232,6 +117,121 @@ paths:
                   action:
                     enum:
                       - on-search
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /crvs/subscribe:
+  post: 
+    summary: "CRVS-SUB : /crvs/subscribe"
+    description: "Subscribe to a life event with crvs"
+    operationId: post_g2p_crvs_subscribe
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    subscribe_request:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/SubscribeRequest"
+                  required:
+                    - transaction_id
+                    - subscribe_request
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - subscribe
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+      # - Signature: [ ]
+    deprecated: false
+ /crvs/notify:
+  post: 
+    summary: "CRVS-NTFY : /crvs/notify"
+    description: "CRVS to notify a life event to subscrbiers"
+    operationId: post_g2p_crvs_notify
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackHeader"
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  properties:
+                    transaction_id: 
+                      $ref: "#/components/schemas/TransactionId"
+                    notify_event:
+                      type: array
+                      items:
+                        $ref: "#/components/schemas/NotifyEvent"
+                  required:
+                    - transaction_id
+                    - verify_response
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - notify
     responses:
         default:
           $ref: "#/components/responses/Response"

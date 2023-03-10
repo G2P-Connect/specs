@@ -12,8 +12,8 @@
 | Interface ID | End Point | Description | 
 | ------------ | --------- | ----------- |
 | FAMAP-LNK | POST /mapper/link | Linking id / fa to mapper registry | 
-| FAMAP-ON-LNK | POST /mapper/on-link | Linking status info through callback end point | 
-| FAMAP-UPDT | POST /mapper/update | Updating fa details to mapper registry|
+| FAMAP-ON-LNK | POST /mapper/on-link | Linking response through callback end point | 
+| FAMAP-UPDT | POST /mapper/update | Updating fa details against an id in mapper registry |
 | FAMAP-ON-UPDT | POST /mapper/on-update | Update response through callback end point |
 | FAMAP-ULNK | POST /mapper/unlink | remove id/fa link from mapper registry | 
 | FAMAP-ON-ULNK | POST /mapper/on-unlink | Unlinking response through callback end point | 

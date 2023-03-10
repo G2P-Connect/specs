@@ -19,6 +19,21 @@ All communications using G2P Connect specifications have following structure:
 | header | common header to track messages between sender & receiver for traceability and to track message delivery at transport layer | 
 | message | message to hold transaction request/response entities | 
 
+
+'''
+"header": {
+    "version": "0.1.0",
+    "message_id": "123456789020211216223812",
+    "message_ts": "2022-12-04T18:01:07+00:00",
+    "action": "disburse",
+    "sender_id": "10089",
+    "sender_uri": "https://pymts.sender.org/g2p/callback/on-disburse",
+    "receiver_id": "52077",
+    "receiver_uri": "",
+    "total_count": 21800
+},
+'''
+
 ## Transport Protocol
 1. G2P Connect Integration Specification is designed to be transport layer agnostic viz. JSON entities over HTTPS, pub/sub event based messaging or file exchanges.
 2. header field helps in reliable exchange at transport layer between sender and receiver. 
