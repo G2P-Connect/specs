@@ -1,13 +1,9 @@
-description: Acknowledgement sent in response to an API call. If the implementation uses HTTP/S, then Ack must be returned in the same session. If receiver intends to respond with a callback, status must be set ACK otherwise NACK
-type: object
-properties:
-  status:
-    type: string
-    description: "The status of the acknowledgement.<br>
-      1. If the request passes the validation criteria of the receiver, then this is set to ACK. <br>
-      2. If a receiver responds with status = `ACK` to a request, it is required to respond with a callback. <br>
-      3. If the request fails the validation criteria, then this is set to NACK. <br>
-      4. Additionally, if a receiver does not intend to respond with a callback even after the request meets the validation criteria, it should set this value to `NACK`. "
-    enum:
-      - ACK
-      - NACK
+type: string
+description: |
+    1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by reciever back to the sender.
+    2. NACK: If the request is valid (for basic checks) and there is no futher updates from reciever back to the sender.
+    3. ERR: If the reuqest is invalid and reciver can't process the request. error object holds error code, message.
+enum:
+  - ACK
+  - NACK
+  - ERR

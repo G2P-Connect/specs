@@ -5,9 +5,9 @@ content:
       type: object
       properties:
         message:
-          type: object
-          properties:
-            ack:
+            ack_status:
               $ref: "../schema/Ack.yaml"
-        error:
-          $ref: "../schema/Error.yaml"
+            timestamp:
+              $ref: "../schema/Timestamp.yaml"
+            error:
+              $ref: "../schema/Error.yaml"
