@@ -10,7 +10,7 @@ info:
     name: G2P Connect License
     url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: 'https://sandbox.dpg.org/v0.1.0'
+  - url: 'https://sandbox.dpg.org/v0.1.0/{namespace}'
     description: Sandbox Server
 paths:
   /oauth2/client/token:
@@ -89,22 +89,22 @@ components:
       description: 'OIDC complaint auth tokens issued by an authorization service for OAuth2, OIDC complaint clients. <br><br> This is an indicative list: <br> disburse, on-disburse, disburse/status, disburse/on-status, mapper/link, mapper/unlink, etc.,'
       items:
         enum:
-          - disburse/disburse
-          - disburse/on-disburse
-          - disburse/status
-          - disburse/on-status
-          - mapper/link
-          - mapper/unlink
-          - mapper/update
-          - mapper/on-update
-          - mapper/resolve
-          - mapper/on-resolve
-          - mapper/status
-          - mapper/on-status
-          - credential/issue
-          - credential/on-issue
-          - credential/search
-          - credential/on-search
+          - disburse.disburse
+          - disburse.on-disburse
+          - disburse.status
+          - disburse.on-status
+          - mapper.link
+          - mapper.unlink
+          - mapper.update
+          - mapper.on-update
+          - mapper.resolve
+          - mapper.on-resolve
+          - mapper.status
+          - mapper.on-status
+          - credential.issue
+          - credential.on-issue
+          - credential.search
+          - credential.on-search
           - <etc>
       example:
         - disburse

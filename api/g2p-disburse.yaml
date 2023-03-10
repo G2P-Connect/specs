@@ -10,7 +10,7 @@ info:
     name: G2P Connect License
     url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: 'https://sandbox.dpg.org/v0.1.0'
+  - url: 'https://sandbox.dpg.org/v0.1.0/{namespace}'
     description: Sandbox Server
 paths:
   /disburse:
@@ -676,11 +676,17 @@ components:
           type: string
           description: Standard error code
           enum:
-            - err.access.denied
-            - err.request.invalid
-            - err.sender.invalid
-            - err.receiver.invalid
-            - err.header.missing
+            - err.request.bad
+            - err.request.unauthorized
+            - err.request.forbidden
+            - err.request.not_found
+            - err.request.timeout
+            - err.version.not_supported
+            - err.request.too_many_requests
+            - err.sender_id.invalid
+            - err.sender_uri.invalid
+            - err.receiver_id.invalid
+            - err.signature.missing
             - err.signature.invalid
             - err.encryption.invalid
             - err.service.unavailable
@@ -807,16 +813,11 @@ components:
           description: sender url to accept callbacks
           type: string
           format: uri
-          example: 'https://pymts.sender.org/callback/g2p/on-disburse'
+          example: 'https://pymts.sender.org/g2p/callback/on-disburse'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
           example: '52077'
-        receiver_uri:
-          description: receiver url to accept callbacks
-          type: string
-          format: uri
-          example: ''
         total_count:
           description: Total no of requests present in the message request
           type: integer
@@ -834,14 +835,13 @@ components:
         - rjct.message_ts.invalid
         - rjct.action.invalid
         - rjct.action.not_supported
-        - rjct.sender_uri.invalid
-        - rjct.receiver_uri.invalid
         - rjct.total_count.invalid
         - rjct.total_count.limit_exceeded
+        - rjct.errors.too_many
     MsgSignature:
       type: string
-      description: Signature of message body verified using sender's signing public key
-      example: 'Signature: keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)'
+      description: 'Signature of {header}+{message} body verified using sender''s signing public key'
+      example: 'Signature:  namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
     Purpose:
       description: 'Payment disbursement purpose e.g Salary, Farmer Relief 2023, etc.,'
       type: string

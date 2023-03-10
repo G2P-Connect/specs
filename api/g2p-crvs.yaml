@@ -10,122 +10,9 @@ info:
     name: G2P Connect License
     url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: 'https://sandbox.dpg.org/v0.1.0'
+  - url: 'https://sandbox.dpg.org/v0.1.0/{namespace}'
     description: Sandbox Server
 paths:
-  /crvs/subscribe:
-    post:
-      summary: 'CRVS-SUB : /crvs/subscribe'
-      description: Subscribe to a life event with crvs
-      operationId: post_g2p_crvs_subscribe
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader'
-                    - properties:
-                        action:
-                          enum:
-                            - subscribe
-                message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    subscribe_request:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/SubscribeRequest'
-                  required:
-                    - transaction_id
-                    - subscribe_request
-              required:
-                - header
-                - message
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - subscribe
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
-  /crvs/notify:
-    post:
-      summary: 'CRVS-NTFY : /crvs/notify'
-      description: CRVS to notify a life event to subscrbiers
-      operationId: post_g2p_crvs_notify
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgCallbackHeader'
-                    - properties:
-                        action:
-                          enum:
-                            - notify
-                message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    notify_event:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/NotifyEvent'
-                  required:
-                    - transaction_id
-                    - verify_response
-              required:
-                - header
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - notify
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
   /crvs/search:
     post:
       summary: 'CRVS-SRCH : /crvs/search'
@@ -227,6 +114,119 @@ paths:
                     action:
                       enum:
                         - on-search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /crvs/subscribe:
+    post:
+      summary: 'CRVS-SUB : /crvs/subscribe'
+      description: Subscribe to a life event with crvs
+      operationId: post_g2p_crvs_subscribe
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    subscribe_request:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SubscribeRequest'
+                  required:
+                    - transaction_id
+                    - subscribe_request
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - subscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /crvs/notify:
+    post:
+      summary: 'CRVS-NTFY : /crvs/notify'
+      description: CRVS to notify a life event to subscrbiers
+      operationId: post_g2p_crvs_notify
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    notify_event:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NotifyEvent'
+                  required:
+                    - transaction_id
+                    - verify_response
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - notify
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -621,11 +621,17 @@ components:
           type: string
           description: Standard error code
           enum:
-            - err.access.denied
-            - err.request.invalid
-            - err.sender.invalid
-            - err.receiver.invalid
-            - err.header.missing
+            - err.request.bad
+            - err.request.unauthorized
+            - err.request.forbidden
+            - err.request.not_found
+            - err.request.timeout
+            - err.version.not_supported
+            - err.request.too_many_requests
+            - err.sender_id.invalid
+            - err.sender_uri.invalid
+            - err.receiver_id.invalid
+            - err.signature.missing
             - err.signature.invalid
             - err.encryption.invalid
             - err.service.unavailable
@@ -832,16 +838,11 @@ components:
           description: sender url to accept callbacks
           type: string
           format: uri
-          example: 'https://pymts.sender.org/callback/g2p/on-disburse'
+          example: 'https://pymts.sender.org/g2p/callback/on-disburse'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
           example: '52077'
-        receiver_uri:
-          description: receiver url to accept callbacks
-          type: string
-          format: uri
-          example: ''
         total_count:
           description: Total no of requests present in the message request
           type: integer
@@ -859,14 +860,13 @@ components:
         - rjct.message_ts.invalid
         - rjct.action.invalid
         - rjct.action.not_supported
-        - rjct.sender_uri.invalid
-        - rjct.receiver_uri.invalid
         - rjct.total_count.invalid
         - rjct.total_count.limit_exceeded
+        - rjct.errors.too_many
     MsgSignature:
       type: string
-      description: Signature of message body verified using sender's signing public key
-      example: 'Signature: keyId="{sender_id}|{unique_key_id}|{algorithm}",algorithm="ed25519",created="1606970629",expires="1607030629",headers="(created) (expires) digest",signature="Base64(signing string)'
+      description: 'Signature of {header}+{message} body verified using sender''s signing public key'
+      example: 'Signature:  namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
     Pagination:
       description: 'Pagination definition, count starts with 1'
       type: object
