@@ -10,7 +10,7 @@ properties:
       - "unlink"
       - "update"
       - "resolve"
-  attribute:
+  attribute_type:
     type: string
     enum:
       - "transaction_id"
@@ -27,5 +27,5 @@ properties:
 required:
   - reference_id
   - request_type
-  - attribute
+  - attribute_type
   - attribute_value

@@ -857,7 +857,7 @@ components:
             - unlink
             - update
             - resolve
-        attribute:
+        attribute_type:
           type: string
           enum:
             - transaction_id
@@ -874,7 +874,7 @@ components:
       required:
         - reference_id
         - request_type
-        - attribute
+        - attribute_type
         - attribute_value
     SearchResponse:
       type: object
@@ -913,7 +913,7 @@ components:
         - rjct.reference_id.duplicate
         - rjct.timestamp.invalid
         - rjct.request_type.invalid
-        - rjct.attribute.invalid
+        - rjct.attribute_type.invalid
         - rjct.srch_transaction_id.invalid
         - rjct.srch_transaction_id.not_found
         - rjct_srch_reference_id_invalid

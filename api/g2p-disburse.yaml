@@ -577,7 +577,7 @@ components:
       required:
         - reference_id
         - request_type
-        - attribute
+        - attribute_type
         - attribute_value
     SearchResponse:
       type: object

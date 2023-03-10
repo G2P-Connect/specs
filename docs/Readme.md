@@ -4,8 +4,8 @@
 * [Credential](https://g2p-connect.github.io/specs/dist/g2p-credential.html)
  * Registries
     * [Civil Registry](https://g2p-connect.github.io/specs/dist/g2p-crvs.html)
-    * Functional Registry
-    * Social Regisry
+    * Functional/Social Registry
+    * Social Groups Regisry
 * Beneficiary Management
     * Registration
     * Assess
@@ -14,7 +14,14 @@
 * Social Program Management
     * Program Management
     * Eligibility Rules
+    * Purpose Codes
     * [Dibursement](https://g2p-connect.github.io/specs/dist/g2p-disburse.html)
+* Financial Service Provider (FSP) 
+    * Voucher Issuance System
+* Last Mile Cash-in/Cash-out
+    * Agent Management
+    * Device Management
+    * Payments
 * Telemetry Events
 * Grievance Mgmt
 * Security
