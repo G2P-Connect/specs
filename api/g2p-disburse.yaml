@@ -940,12 +940,14 @@ components:
             type: object
             properties:
               message:
-                ack_status:
-                  $ref: '#/components/schemas/Ack'
-                timestamp:
-                  $ref: '#/components/schemas/Timestamp'
-                error:
-                  $ref: '#/components/schemas/Error'
+                type: object
+                properties:
+                  ack_status:
+                    $ref: '#/components/schemas/Ack'
+                  timestamp:
+                    $ref: '#/components/schemas/Timestamp'
+                  error:
+                    $ref: '#/components/schemas/Error'
   securitySchemes:
     x-access-token:
       type: http

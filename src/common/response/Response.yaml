@@ -4,7 +4,9 @@ content:
     schema:
       type: object
       properties:
-        message:
+        message:  
+          type: object
+          properties: 
             ack_status:
               $ref: "../schema/Ack.yaml"
             timestamp:
