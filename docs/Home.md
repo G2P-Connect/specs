@@ -19,8 +19,8 @@ All communications using G2P Connect specifications have following structure:
 | header | common header to track messages between sender & receiver for traceability and to track message delivery at transport layer | 
 | message | message to hold transaction request/response entities | 
 
-````
-```
+
+```json
 "header": {
     "version": "0.1.0",
     "message_id": "123456789020211216223812",
@@ -33,7 +33,7 @@ All communications using G2P Connect specifications have following structure:
     "total_count": 21800
 },
 ```
-````
+
 ## Identifiers
 1. message_id: scope of message_id in header is to track paylaod delivery between sender and receiver. 
 2. transaction_id: scope of transaction_id in message is to uniquely corelate business request(s).
