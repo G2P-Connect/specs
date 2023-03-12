@@ -991,12 +991,16 @@ components:
               required:
                 - id
             issuer:
-              description: The value of the issuer property MUST be either a URI or an object containing an id property.
-              anyOf:
-                - description: Credentail issuer id
-                  type: string
-                  format: uri or did
-                - $ref: '#/components/schemas/AdditionalInfo'
+              description: A JSON-LD Verifiable Credential Issuer.
+              oneOf:
+                - type: string
+                - type: object
+                  properties:
+                    id:
+                      type: string
+                      description: The issuer id.
+              example:
+                id: 'did:key:z6MkjRagNiMu91DduvCvgEsqLZDVzrJzFrwahc4tXLt9DoHd'
             issuanceDate:
               $ref: '#/components/schemas/Timestamp'
             credentialSchema:

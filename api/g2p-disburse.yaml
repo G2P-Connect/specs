@@ -563,14 +563,10 @@ components:
         attribute_type:
           type: string
           enum:
-            - transaction_id
-            - reference_id_list
             - payer_fa
             - payee_fa
         attribute_value:
           oneOf:
-            - $ref: '#/components/schemas/TransactionId'
-            - $ref: '#/components/schemas/ReferenceIdList'
             - $ref: '#/components/schemas/FinancialAddress'
         locale:
           $ref: '#/components/schemas/LanguageCode'

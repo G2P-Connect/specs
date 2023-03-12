@@ -10,14 +10,10 @@ properties:
   attribute_type:
     type: string
     enum:
-      - "transaction_id"
-      - "reference_id_list"
       - "payer_fa"
       - "payee_fa"
   attribute_value:
     oneOf:
-      - $ref: "../../../common/schema/TransactionId.yaml"
-      - $ref: "../../../common/schema/ReferenceIdList.yaml"
       - $ref: "../../../common/schema/FinancialAddress.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"

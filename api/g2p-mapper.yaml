@@ -715,9 +715,7 @@ components:
         mobile_number:
           type: string
         additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data'
-          type: string
-          maxLength: 999
+          $ref: '#/components/schemas/KeyValueInfo'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -825,9 +823,7 @@ components:
           type: string
           maxLength: 999
         additional_info:
-          description: 'Additional info for interfacing DPGs platforms to integrate, reconcile, etc., unstructured data.'
-          type: string
-          maxLength: 999
+          $ref: '#/components/schemas/KeyValueInfo'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -860,14 +856,10 @@ components:
         attribute_type:
           type: string
           enum:
-            - transaction_id
-            - reference_id_list
             - payer_fa
             - payee_fa
         attribute_value:
           oneOf:
-            - $ref: '#/components/schemas/TransactionId'
-            - $ref: '#/components/schemas/ReferenceIdList'
             - $ref: '#/components/schemas/FinancialAddressList'
         locale:
           $ref: '#/components/schemas/LanguageCode'
