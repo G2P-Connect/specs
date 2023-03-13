@@ -13,11 +13,11 @@ servers:
   - url: 'https://sandbox.dpg.org/v0.1.0/{namespace}'
     description: Sandbox Server
 paths:
-  /crvs/search:
+  /registry/search:
     post:
-      summary: 'CRVS-SRCH : /crvs/search'
-      description: Search person(s) in crvs using key identifiers
-      operationId: post_g2p_crvs_search
+      summary: 'REG-SRCH : /registry/search'
+      description: Search person(s) in registry using key identifiers
+      operationId: post_g2p_registry_search
       requestBody:
         description: ''
         required: true
@@ -70,11 +70,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /crvs/on-search:
+  /registry/on-search:
     post:
-      summary: 'CRVS-ON-SRCH : /crvs/on-search'
+      summary: 'REG-ON-SRCH : /registry/on-search'
       description: Search results through callback
-      operationId: post_g2p_crvs_on-search
+      operationId: post_g2p_registry_on-search
       requestBody:
         description: ''
         required: true
@@ -126,11 +126,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /crvs/subscribe:
+  /registry/subscribe:
     post:
-      summary: 'CRVS-SUB : /crvs/subscribe'
-      description: Subscribe to a life event with crvs
-      operationId: post_g2p_crvs_subscribe
+      summary: 'REG-SUB : /registry/subscribe'
+      description: Subscribe to a life event with registry
+      operationId: post_g2p_registry_subscribe
       requestBody:
         description: ''
         required: true
@@ -183,11 +183,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /crvs/notify:
+  /registry/notify:
     post:
-      summary: 'CRVS-NTFY : /crvs/notify'
-      description: CRVS to notify a life event to subscrbiers
-      operationId: post_g2p_crvs_notify
+      summary: 'REG-NTFY : /registry/notify'
+      description: Registry to notify a life event to subscrbiers
+      operationId: post_g2p_registry_notify
       requestBody:
         description: ''
         required: true
@@ -239,9 +239,9 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /crvs/txn/status:
+  /registry/txn/status:
     post:
-      summary: 'CRVS-TXNSTS : /crvs/txn/status'
+      summary: 'REG-TXNSTS : /registry/txn/status'
       description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
       operationId: post_g2p_id_txnstatus
       requestBody:
@@ -300,9 +300,9 @@ paths:
       deprecated: false
   /identity/txn/on-status:
     post:
-      summary: 'CRVS-ON-TXNSTS : /crvs/txn/on-status'
+      summary: 'REG-ON-TXNSTS : /registry/txn/on-status'
       description: Response to async status check of previous civil registrt transanctions using callback
-      operationId: post_g2p_crvs_on-txnstatus
+      operationId: post_g2p_registry_on-txnstatus
       requestBody:
         description: ''
         required: true
@@ -359,8 +359,8 @@ paths:
 components:
   schemas:
     CREventType:
+      description: Civil registry event types
       type: string
-      description: Civil registry record types
       enum:
         - birth
         - death
@@ -386,17 +386,18 @@ components:
             status:
               description: Civil registry status
               type: string
-        - $ref: '#/components/schemas/PersonInfo'
-        - $ref: '#/components/schemas/PersonAdditionalInfo'
+        - $ref: '#/components/schemas/RegistryRecord'
     CRRecordBirth:
       description: |
         1. Civil registry birth and adoption type record
         2. Allows Country/Registry specific implementation extensions using key/value pairs.
       allOf:
-        - $ref: '#/components/schemas/CRRecord'
         - properties:
             registration_type:
-              $ref: '#/components/schemas/CREventType'
+              type: string
+              enum:
+                - birth
+                - adoption
             registration_number:
               description: Registration number
               type: string
@@ -415,17 +416,17 @@ components:
                           - mother
                           - father
                           - other
-            additional_attributes:
-              $ref: '#/components/schemas/AttributeNameValue'
+        - $ref: '#/components/schemas/CRRecord'
     CRRecordDeath:
       description: |
         1. Civil registry death record
         2. Allows Country/Registry specific implementation extensions using key/value pairs.
       allOf:
-        - $ref: '#/components/schemas/CRRecord'
         - properties:
-            registration_type:
-              $ref: '#/components/schemas/CREventType'
+            egistration_type:
+              type: string
+              enum:
+                - death
             registration_number:
               description: Registration number
               type: string
@@ -440,17 +441,20 @@ components:
             place_of_death:
               description: End-User's place of birth. The value of this member is a JSON structure containing some or all of the following members
               type: object
-            additional_attributes:
-              $ref: '#/components/schemas/AttributeNameValue'
+        - $ref: '#/components/schemas/CRRecord'
     CRRecordUnion:
       description: |
         1. Civil registry marriage, divorce, seperation, annulment type records
         2. Allows Country/Registry specific implementation extensions using key/value pairs.
       allOf:
-        - $ref: '#/components/schemas/CRRecord'
         - properties:
             registration_type:
-              $ref: '#/components/schemas/CREventType'
+              type: string
+              enum:
+                - marriage
+                - divorce
+                - seperation
+                - annulment
             registration_number:
               description: Registration number
               type: string
@@ -467,8 +471,7 @@ components:
                       enum:
                         - wife
                         - husband
-            additional_attributes:
-              $ref: '#/components/schemas/AttributeNameValue'
+        - $ref: '#/components/schemas/CRRecord'
     CRRelatedPerson:
       type: object
       description: 'Related person details '
@@ -490,25 +493,6 @@ components:
             - spouse
             - partner
             - other
-    CRSearchCriteria:
-      description: |
-        1. Civil registry specific extension to search.
-        2. Additional checks using conditioanl expressions is possible.
-        3. Allows Country/Registry specific implementation extensions using key/value pairs.
-      properties:
-        record_type:
-          $ref: '#/components/schemas/CREventType'
-        search_criteria:
-          anyOf:
-            - $ref: '#/components/schemas/CRRecord'
-            - $ref: '#/components/schemas/CRRecordBirth'
-            - $ref: '#/components/schemas/CRRecordDeath'
-            - $ref: '#/components/schemas/CRRecordUnion'
-        additional_attributes:
-          $ref: '#/components/schemas/ExpressionWithConditionList'
-      required:
-        - record_type
-        - search_criteria
     NotifyEventRequest:
       type: object
       description: Registry to notify a event to subscrbiers
@@ -519,6 +503,10 @@ components:
           $ref: '#/components/schemas/Timestamp'
         registry_type:
           $ref: '#/components/schemas/RegistryType'
+        event_type:
+          anyOf:
+            - $ref: '#/components/schemas/SearchRequest/properties/event_type/anyOf/0'
+            - $ref: '#/components/schemas/CREventType'
         registry_data:
           oneOf:
             - $ref: '#/components/schemas/PersonId'
@@ -535,40 +523,62 @@ components:
         - registry_data
     RegistryRecord:
       description: |
-        1. Attributes of a person to perform registry search.
-        2. Additional checks using conditioanl expressions is possible.
-        3. Allowes Country/Registry specific implementation extensions using key/value pairs.
-      allOf:
-        - properties:
-            id:
-              $ref: '#/components/schemas/PersonId'
-            issue_date:
-              type: string
-              format: date-time
-            status:
-              description: Registry status
-              type: string
-        - $ref: '#/components/schemas/PersonInfo'
-        - $ref: '#/components/schemas/PersonAdditionalInfo'
-        - properties:
-            additional_attributes:
-              $ref: '#/components/schemas/AttributeNameValue'
-    RegistrySearchCriteria:
-      description: |
-        1. Functional registry specific extension to search.
-        2. Additional checks using conditioanl expressions is possible.
-        3. Allows Country/Registry specific implementation extensions using key/value pairs.
+        1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
+        3. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
       properties:
-        record_type:
-          $ref: '#/components/schemas/RegistryType'
-        search_criteria:
-          anyOf:
-            - $ref: '#/components/schemas/RegistryRecord'
+        id:
+          $ref: '#/components/schemas/PersonId'
+        issue_date:
+          type: string
+          format: date-time
+        status:
+          description: Registry status
+          type: string
+        name:
+          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+          type: string
+        given_name:
+          description: 'Given name(s) or first name(s) of the End-User. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.'
+          type: string
+        family_name:
+          description: 'Surname(s) or last name(s) of the End-User. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.'
+          type: string
+        middle_name:
+          description: 'Middle name(s) of the End-User. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.'
+          type: string
+        email:
+          description: 'End-User''s preferred e-mail address. Its value MUST conform to the RFC 5322 [RFC5322] addr-spec syntax. The RP MUST NOT rely upon this value being unique, as discussed in Section 5.7.'
+          type: string
+        email_verified:
+          description: 'address was controlled by the End-User at the time the verification was performed. The means by which an e-mail address is verified is context-specific, and dependent upon the trust framework or contractual agreements within which the parties are operating.'
+          type: boolean
+        gender:
+          description: End-User's gender. Values defined by this specification are female and male. Other values MAY be used when neither of the defined values are applicable.
+          type: string
+        birthdate:
+          description: 'YYYY format is allowed. Note that depending on the underlying platform''s date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates.'
+          type: string
+        place_of_birth:
+          description: End-User's place of birth. The value of this member is a JSON structure containing some or all of the following members
+          type: object
+        phone_number:
+          description: 'number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
+          type: string
+        phone_number_verified:
+          description: 'True if the End-User''s phone number has been verified; otherwise false. When this Claim Value is true, this means that the OP took affirmative steps to ensure that this phone number was controlled by the End-User at the time the verification was performed. The means by which a phone number is verified is context-specific, and dependent upon the trust framework or contractual agreements within which the parties are operating. When true, the phone_number Claim MUST be in E.164 format and any extensions MUST be represented in RFC 3966 format.'
+          type: string
+        address:
+          $ref: '#/components/schemas/PersonAddress'
+        nationalities:
+          description: 'End-User''s nationalities using ICAO 3-letter codes [ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.'
+          type: array
+          items:
+            type: string
+        updated_at:
+          description: 'Time the End-User''s information was last updated. Its value is a JSON number representing the number of seconds from 1970-01-01T0:0:0Z as measured in UTC until the date/time'
+          type: number
         additional_attributes:
-          $ref: '#/components/schemas/ExpressionWithConditionList'
-      required:
-        - record_type
-        - search_criteria
+          $ref: '#/components/schemas/AttributeNameValue'
     RegistryType:
       type: string
       description: |
@@ -587,7 +597,10 @@ components:
         - other
     SearchRequest:
       type: object
-      description: Search request to query person with civil registry against demographics data attributes
+      description: |
+        1. Functional registry specific extension to search.
+        2. Additional checks using conditioanl expressions is possible.
+        3. Allows Country/Registry specific implementation extensions using key/value pairs.
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -595,10 +608,27 @@ components:
           $ref: '#/components/schemas/Timestamp'
         registry_type:
           $ref: '#/components/schemas/RegistryType'
-        search_criteria:
+        event_type:
           anyOf:
-            - $ref: '#/components/schemas/RegistrySearchCriteria'
-            - $ref: '#/components/schemas/CRSearchCriteria'
+            - description: Functional registry event types
+              type: string
+              enum:
+                - read
+                - link
+                - update
+                - unlink
+            - $ref: '#/components/schemas/CREventType'
+        search_criteria:
+          type: object
+          properties:
+            query:
+              anyOf:
+                - $ref: '#/components/schemas/RegistryRecord'
+                - $ref: '#/components/schemas/CRRecordBirth'
+                - $ref: '#/components/schemas/CRRecordDeath'
+                - $ref: '#/components/schemas/CRRecordUnion'
+            custom_query:
+              $ref: '#/components/schemas/ExpressionWithConditionList'
         filter:
           description: Attribute(s) to send in response
           items:
@@ -612,7 +642,7 @@ components:
       required:
         - reference_id
         - timestamp
-        - record_type
+        - registry_type
         - search_criteria
         - filter
     SearchResponse:
@@ -633,13 +663,18 @@ components:
           maxLength: 999
         registry_type:
           $ref: '#/components/schemas/RegistryType'
+        event_type:
+          anyOf:
+            - $ref: '#/components/schemas/SearchRequest/properties/event_type/anyOf/0'
+            - $ref: '#/components/schemas/CREventType'
         registry_data:
-          oneOf:
-            - $ref: '#/components/schemas/PersonId'
-            - $ref: '#/components/schemas/CRRecordBirth'
-            - $ref: '#/components/schemas/CRRecordDeath'
-            - $ref: '#/components/schemas/CRRecordUnion'
-            - $ref: '#/components/schemas/RegistryRecord'
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/PersonId'
+              - $ref: '#/components/schemas/CRRecordBirth'
+              - $ref: '#/components/schemas/CRRecordDeath'
+              - $ref: '#/components/schemas/CRRecordUnion'
+              - $ref: '#/components/schemas/RegistryRecord'
         pagination:
           $ref: '#/components/schemas/Pagination'
         locale:
@@ -670,13 +705,24 @@ components:
           $ref: '#/components/schemas/Timestamp'
         registry_type:
           $ref: '#/components/schemas/RegistryType'
-        search_criteria:
-          oneOf:
-            - $ref: '#/components/schemas/PersonId'
-            - $ref: '#/components/schemas/CRSearchCriteria'
-            - $ref: '#/components/schemas/RegistrySearchCriteria'
+        event_type:
+          anyOf:
+            - $ref: '#/components/schemas/SearchRequest/properties/event_type/anyOf/0'
+            - $ref: '#/components/schemas/CREventType'
+        subscribe_criteria:
+          type: object
+          properties:
+            query:
+              oneOf:
+                - $ref: '#/components/schemas/PersonId'
+                - $ref: '#/components/schemas/RegistryRecord'
+                - $ref: '#/components/schemas/CRRecordBirth'
+                - $ref: '#/components/schemas/CRRecordDeath'
+                - $ref: '#/components/schemas/CRRecordUnion'
+            custom_query:
+              $ref: '#/components/schemas/ExpressionWithConditionList'
         filter:
-          description: Record attribute(s) to send in response as verifiable credentials
+          description: Record attribute(s) to send in response thorugh callback notification events
           items:
             type: string
         locale:
@@ -685,7 +731,7 @@ components:
         - reference_id
         - timestamp
         - registry_type
-        - search_criteria
+        - subscribe_criteria
         - filter
     SubscribeStatusReasonCode:
       type: string

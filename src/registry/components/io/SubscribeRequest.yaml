@@ -7,13 +7,24 @@ properties:
     $ref: "../../../common/schema/Timestamp.yaml"
   registry_type:
     $ref: "./RegistryType.yaml"
-  search_criteria:
-    oneOf:
-    - $ref: "../../../common/schema/PersonId.yaml"
-    - $ref: "./CRSearchCriteria.yaml"
-    - $ref: "./RegistrySearchCriteria.yaml"
+  event_type:
+    anyOf:
+    - $ref: "./REGEventType.yaml"
+    - $ref: "./CREventType.yaml"
+  subscribe_criteria:
+    type: object
+    properties:
+      query:
+        oneOf:
+        - $ref: "../../../common/schema/PersonId.yaml"
+        - $ref: "./RegistryRecord.yaml"
+        - $ref: "./CRRecordBirth.yaml"
+        - $ref: "./CRRecordDeath.yaml"
+        - $ref: "./CRRecordUnion.yaml"
+      custom_query:
+        $ref: "../../../common/schema/ExpressionWithConditionList.yaml"
   filter:
-    description: Record attribute(s) to send in response as verifiable credentials
+    description: Record attribute(s) to send in response thorugh callback notification events
     items:
       type: string
   locale:
@@ -22,5 +33,5 @@ required:
   - reference_id
   - timestamp
   - registry_type
-  - search_criteria
+  - subscribe_criteria
   - filter

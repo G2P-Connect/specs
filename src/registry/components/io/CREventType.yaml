@@ -1,12 +1,12 @@
+description: Civil registry event types
 type: string
-description: Civil registry record types
 enum:
-- "birth"
-- "death"
-- "marriage"
-- "divorce"
-- "annulment"
-- "seperation"
-- "adoption"
-- "demographic_change"
-- "unregister"
+  - "birth"
+  - "death"
+  - "marriage"
+  - "divorce"
+  - "annulment"
+  - "seperation"
+  - "adoption"
+  - "demographic_change"
+  - "unregister"

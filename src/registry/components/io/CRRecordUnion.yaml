@@ -2,10 +2,14 @@ description: |
   1. Civil registry marriage, divorce, seperation, annulment type records
   2. Allows Country/Registry specific implementation extensions using key/value pairs.
 allOf:
-- $ref: "./CRRecord.yaml"
 - properties:
     registration_type:
-      $ref: "./CREventType.yaml"
+      type: string
+      enum: 
+        - "marriage"
+        - "divorce"
+        - "seperation"
+        - "annulment"
     registration_number:
       description: Registration number
       type: string
@@ -22,6 +26,5 @@ allOf:
                 enum:
                   - "wife"
                   - "husband"
-    additional_attributes:
-      $ref: "../../../common/schema/AttributeNameValue.yaml"
+- $ref: "./CRRecord.yaml"
     

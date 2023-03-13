@@ -15,11 +15,11 @@ servers:
     description: Sandbox Server
 
 paths:
- /crvs/search:
+ /registry/search:
   post: 
-    summary: "CRVS-SRCH : /crvs/search"
-    description: "Search person(s) in crvs using key identifiers"
-    operationId: post_g2p_crvs_search
+    summary: "REG-SRCH : /registry/search"
+    description: "Search person(s) in registry using key identifiers"
+    operationId: post_g2p_registry_search
     requestBody:
       description: ""
       required: true
@@ -73,11 +73,11 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /crvs/on-search:
+ /registry/on-search:
   post: 
-    summary: "CRVS-ON-SRCH : /crvs/on-search"
+    summary: "REG-ON-SRCH : /registry/on-search"
     description: "Search results through callback"
-    operationId: post_g2p_crvs_on-search
+    operationId: post_g2p_registry_on-search
     requestBody:
       description: ""
       required: true
@@ -130,11 +130,11 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /crvs/subscribe:
+ /registry/subscribe:
   post: 
-    summary: "CRVS-SUB : /crvs/subscribe"
-    description: "Subscribe to a life event with crvs"
-    operationId: post_g2p_crvs_subscribe
+    summary: "REG-SUB : /registry/subscribe"
+    description: "Subscribe to a life event with registry"
+    operationId: post_g2p_registry_subscribe
     requestBody:
       description: ""
       required: true
@@ -188,11 +188,11 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /crvs/notify:
+ /registry/notify:
   post: 
-    summary: "CRVS-NTFY : /crvs/notify"
-    description: "CRVS to notify a life event to subscrbiers"
-    operationId: post_g2p_crvs_notify
+    summary: "REG-NTFY : /registry/notify"
+    description: "Registry to notify a life event to subscrbiers"
+    operationId: post_g2p_registry_notify
     requestBody:
       description: ""
       required: true
@@ -245,9 +245,9 @@ paths:
       - x-access-token: [ ]
       # - Signature: [ ]
     deprecated: false
- /crvs/txn/status:
+ /registry/txn/status:
   post: 
-    summary: "CRVS-TXNSTS : /crvs/txn/status"
+    summary: "REG-TXNSTS : /registry/txn/status"
     description: "Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)"
     operationId: post_g2p_id_txnstatus
     requestBody:
@@ -307,9 +307,9 @@ paths:
     deprecated: false
  /identity/txn/on-status:
   post: 
-    summary: "CRVS-ON-TXNSTS : /crvs/txn/on-status"
+    summary: "REG-ON-TXNSTS : /registry/txn/on-status"
     description: "Response to async status check of previous civil registrt transanctions using callback"
-    operationId: post_g2p_crvs_on-txnstatus
+    operationId: post_g2p_registry_on-txnstatus
     requestBody:
       description: ""
       required: true

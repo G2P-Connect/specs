@@ -10,14 +10,10 @@ CRRecordUnion:
   $ref: "../io/CRRecordUnion.yaml"
 CRRelatedPerson:
   $ref: "../io/CRRelatedPerson.yaml"
-CRSearchCriteria:
-  $ref: "../io/CRSearchCriteria.yaml"
 NotifyEventRequest:
   $ref: "../io/NotifyEventRequest.yaml"
 RegistryRecord:
   $ref: "../io/RegistryRecord.yaml"
-RegistrySearchCriteria:
-  $ref: "../io/RegistrySearchCriteria.yaml"
 RegistryType:
   $ref: "../io/RegistryType.yaml"
 SearchRequest:

@@ -1,5 +1,8 @@
 type: object
-description: Search request to query person with civil registry against demographics data attributes
+description: | 
+  1. Functional registry specific extension to search.
+  2. Additional checks using conditioanl expressions is possible.
+  3. Allows Country/Registry specific implementation extensions using key/value pairs.
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
@@ -7,10 +10,21 @@ properties:
     $ref: "../../../common/schema/Timestamp.yaml"
   registry_type:
     $ref: "./RegistryType.yaml"
-  search_criteria:
+  event_type:
     anyOf:
-    - $ref: "./RegistrySearchCriteria.yaml"
-    - $ref: "./CRSearchCriteria.yaml"
+    - $ref: "./REGEventType.yaml"
+    - $ref: "./CREventType.yaml"
+  search_criteria:
+    type: object
+    properties:
+      query:
+        anyOf:
+        - $ref: "./RegistryRecord.yaml"
+        - $ref: "./CRRecordBirth.yaml"
+        - $ref: "./CRRecordDeath.yaml"
+        - $ref: "./CRRecordUnion.yaml"
+      custom_query:
+        $ref: "../../../common/schema/ExpressionWithConditionList.yaml"
   filter:
     description: Attribute(s) to send in response
     items:
@@ -24,6 +38,6 @@ properties:
 required:
   - reference_id
   - timestamp
-  - record_type
+  - registry_type
   - search_criteria
   - filter

@@ -15,13 +15,18 @@ properties:
     maxLength: 999
   registry_type:
     $ref: "./RegistryType.yaml"
+  event_type:
+    anyOf:
+    - $ref: "./REGEventType.yaml"
+    - $ref: "./CREventType.yaml"
   registry_data:
-    oneOf:
-    - $ref: "../../../common/schema/PersonId.yaml"
-    - $ref: "./CRRecordBirth.yaml"
-    - $ref: "./CRRecordDeath.yaml"
-    - $ref: "./CRRecordUnion.yaml"
-    - $ref: "./RegistryRecord.yaml"
+    items:
+      oneOf:
+      - $ref: "../../../common/schema/PersonId.yaml"
+      - $ref: "./CRRecordBirth.yaml"
+      - $ref: "./CRRecordDeath.yaml"
+      - $ref: "./CRRecordUnion.yaml"
+      - $ref: "./RegistryRecord.yaml"
   pagination: 
     $ref: "../../../common/schema/Pagination.yaml"
   locale:
@@ -30,3 +35,6 @@ required:
   - reference_id
   - timestamp
   - status
+
+
+ 

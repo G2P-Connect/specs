@@ -7,8 +7,8 @@
 * Blueprint Solutions
     * [Identity](./Identity.md)
     * [Credentialing](./Credentialing.md)
-    * Registries
-        * [Civil Registry](./CivilRegistry.md)
+    * [Registries](./Registry.md)
+        * <!-- * Civil Registry -->
         <!-- * Functional Registry -->
         <!-- * Social Regisry -->
     * Beneficiary Management

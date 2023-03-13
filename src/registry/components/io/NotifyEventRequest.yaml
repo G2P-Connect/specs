@@ -7,6 +7,10 @@ properties:
     $ref: "../../../common/schema/Timestamp.yaml"
   registry_type:
     $ref: "./RegistryType.yaml"
+  event_type:
+    anyOf:
+    - $ref: "./REGEventType.yaml"
+    - $ref: "./CREventType.yaml"
   registry_data:
     oneOf:
     - $ref: "../../../common/schema/PersonId.yaml"

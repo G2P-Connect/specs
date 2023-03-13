@@ -1,0 +1,7 @@
+description: Functional registry event types
+type: string
+enum:
+  - "read"
+  - "link"
+  - "update"
+  - "unlink"
