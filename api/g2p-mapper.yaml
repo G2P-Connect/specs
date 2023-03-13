@@ -1325,8 +1325,8 @@ components:
       properties:
         name:
           type: string
-          description: Person full name
-          example: John Smith
+          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+          example: Mr. John Smith
         contact_info:
           description: Person contact details
           properties:
@@ -1341,36 +1341,69 @@ components:
               type: string
             alt_email_id:
               type: string
-        identity_info:
+        document_details:
           type: object
-          description: Beneficiary identity info - foundational or functioanl id's
+          description: |
+            1. Person document detials as per OpenID <a href"https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-evidence-element">specs</a>
+            2. JSON object representing the document used to perform the identity verification. 
           properties:
-            id_type:
-              description: 'Identifier type or system to identify the beneficiary. Each country may enumerate the list as master data as an extension to g2p specifications. <br> examples: national_ids like PhilID, Aadhaar, SmartId, etc., or funcational_ids like voter_id, driving_license, tax_identification_no, etc.,'
+            type:
+              description: 'String denoting the type of the document. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.'
               type: string
-              example: PhilID
-            id:
-              description: Unique identifier number of the beneficairy
+            document_number:
+              description: 'String Representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note, number can be used as an alias for ''document_number'' for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use document_number.'
               type: string
-              example: '1234567890'
-            issue_date:
-              description: Date of issue of ID
+            personal_number:
+              description: 'String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.'
               type: string
-              format: date-time
-            expire_date:
-              description: Date of expire of ID
+            serial_number:
+              description: String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization).
               type: string
-              format: date-time
-            issuing_agency:
-              description: ID issuing agency name. Each country may enumerate this list as master data as an extension to g2p specifications.
+            date_of_issuance:
+              description: 'The date the document was issued as ISO 8601 [ISO8601] YYYY-MM-DD format.'
               type: string
-            additional_info:
-              description: 'Additional info, if any'
+            date_of_expiry:
+              description: 'The date the document will expire as ISO 8601 [ISO8601] YYYY-MM-DD format.'
               type: string
-              maxLength: 999
+            issuer:
+              description: JSON object containing information about the issuer of this document. This object consists of the following properties
+              type: object
+              properties:
+                name:
+                  description: Designation of the issuer of the document
+                  type: string
+                address:
+                  description: 'Person address info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim">specs</a>'
+                  properties:
+                    formatted:
+                      description: 'Full mailing address, formatted for display or use on a mailing label. This field MAY contain multiple lines, separated by newlines. Newlines can be represented either as a carriage return/line feed pair ("\r\n") or as a single line feed character ("\n").'
+                      type: string
+                    street_address:
+                      description: 'Full street address component, which MAY include house number, street name, Post Office Box, and multi-line extended street address information. This field MAY contain multiple lines, separated by newlines. Newlines can be represented either as a carriage return/line feed pair ("\r\n") or as a single line feed character ("\n").'
+                      type: string
+                    locality:
+                      description: City or locality component.
+                      type: string
+                    region:
+                      description: 'State, province, prefecture, or region component.'
+                      type: string
+                    postal_code:
+                      description: Zip code or postal code component.
+                      type: string
+                    country:
+                      description: 'state, province, region'
+                      type: string
+                    country_code:
+                      description: 'OPTIONAL. country part of an address represented using an ISO 3-letter code [ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [ISO3166-1] MAY be used for compatibility reasons. country_code MAY be used as alternative to the existing country field.'
+                      type: string
+                country_code:
+                  description: 'String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.'
+                  type: string
+                jurisdiction:
+                  description: String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
+                  type: string
           required:
-            - id_type
-            - id
+            - type
       required:
         - name
     PersonId:

@@ -1,0 +1,28 @@
+description: | 
+  1. Civil registry specific extensions to baseline entities derived from OpenID PersonInfo and PersonAdditionalInfo entities
+  2. Additional checks using conditioanl expressions is possible.
+  3. Allows Country/Registry specific implementation extensions using key/value pairs.
+allOf:
+- $ref: "../../../common/schema/PersonInfo.yaml"
+- $ref: "../../../common/schema/PersonAdditionalInfo.yaml"
+- properties:
+    id:
+        $ref: "../../../common/schema/PersonId.yaml"
+    issue_date: 
+      type: string
+      format: date-time
+    status:
+      description: civil registry status
+      type: string
+    deathdate:
+      description: YYYY format is allowed. Note that depending on the underlying platform's date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates.
+      type: string
+    place_of_death:
+      description: End-User's place of birth. The value of this member is a JSON structure containing some or all of the following members
+      type: object
+    related_persons:
+      items:
+        $ref: "../../../common/schema/PersonRelated.yaml"
+    additional_attributes:
+      $ref: "../../../common/schema/ExpressionList.yaml"
+

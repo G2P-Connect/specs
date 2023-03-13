@@ -1,15 +1,39 @@
+CREventType:
+  $ref: "../io/CREventType.yaml"
+CRRecord:
+  $ref: "../io/CRRecord.yaml"
+CRRecordBirth:
+  $ref: "../io/CRRecordBirth.yaml"
+CRRecordDeath:
+  $ref: "../io/CRRecordDeath.yaml"
+CRRecordUnion:
+  $ref: "../io/CRRecordUnion.yaml"
+CRRelatedPerson:
+  $ref: "../io/CRRelatedPerson.yaml"
+CRSearchCriteria:
+  $ref: "../io/CRSearchCriteria.yaml"
+NotifyEventRequest:
+  $ref: "../io/NotifyEventRequest.yaml"
+RegistryRecord:
+  $ref: "../io/RegistryRecord.yaml"
+RegistrySearchCriteria:
+  $ref: "../io/RegistrySearchCriteria.yaml"
+RegistryType:
+  $ref: "../io/RegistryType.yaml"
+SearchRequest:
+  $ref: "../io/SearchRequest.yaml"
+SearchResponse:
+  $ref: "../io/SearchResponse.yaml"
+SearchStatusReasonCode:
+  $ref: "../io/SearchStatusReasonCode.yaml"
+SubscribeRequest:
+  $ref: "../io/SubscribeRequest.yaml"
+SubscribeStatusReasonCode:
+  $ref: "../io/SubscribeStatusReasonCode.yaml"
 TxnStatusRequest:
   $ref: "../io/TxnStatusRequest.yaml"
 TxnStatusResponse:
   $ref: "../io/TxnStatusResponse.yaml"
-VerifyCriteria:
-  $ref: "../io/VerifyCriteria.yaml"
-VerifyRequest:
-  $ref: "../io/VerifyRequest.yaml"
-VerifyResponse:
-  $ref: "../io/VerifyResponse.yaml"
-VerifyStatusReasonCode:
-  $ref: "../io/VerifyStatusReasonCode.yaml"
 AttributeNameValue:
   $ref: "../../../common/schema/AttributeNameValue.yaml"
 Error:

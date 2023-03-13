@@ -5,7 +5,7 @@ properties:
     $ref: "./PersonName.yaml"
   contact_info:
     $ref: "./PersonContacts.yaml"
-  identity_info:
-    $ref: "./PersonIdDetails.yaml"
+  document_details:
+    $ref: "./PersonDocumentDetails.yaml"
 required:
   - name

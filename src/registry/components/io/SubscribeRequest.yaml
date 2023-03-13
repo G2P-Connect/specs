@@ -1,0 +1,26 @@
+type: object
+description: Subscribe to a life event with crvs
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  registry_type:
+    $ref: "./RegistryType.yaml"
+  search_criteria:
+    oneOf:
+    - $ref: "../../../common/schema/PersonId.yaml"
+    - $ref: "./CRSearchCriteria.yaml"
+    - $ref: "./RegistrySearchCriteria.yaml"
+  filter:
+    description: Record attribute(s) to send in response as verifiable credentials
+    items:
+      type: string
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - registry_type
+  - search_criteria
+  - filter

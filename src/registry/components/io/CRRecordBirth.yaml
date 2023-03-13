@@ -1,0 +1,28 @@
+description: | 
+  1. Civil registry birth and adoption type record
+  2. Allows Country/Registry specific implementation extensions using key/value pairs.
+allOf:
+- $ref: "./CRRecord.yaml"
+- properties:
+    registration_type:
+      $ref: "./CREventType.yaml"
+    registration_number:
+      description: Registration number
+      type: string
+    registration_date:
+      description: Registration date
+    link_registration_number:
+      description: Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,
+      type: string
+    related_persons:
+      items:
+        allOf:
+          - $ref: "./CRRelatedPerson.yaml"
+          - properties:
+              relationship:
+                enum:
+                  - "mother"
+                  - "father"
+                  - "other"
+    additional_attributes:
+      $ref: "../../../common/schema/AttributeNameValue.yaml"

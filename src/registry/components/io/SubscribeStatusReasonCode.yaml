@@ -1,0 +1,10 @@
+type: string
+description: Identity verification request status reason codes
+enum: 
+  - "rjct.reference_id.invalid"
+  - "rjct.reference_id.duplicate"
+  - "rjct.timestamp.invalid"
+  - "rjct.notify_types.invalid"
+  - "rjct.notify_details.invalid"
+  - "rjct.person_id.invalid"
+  - "rjct.event.already_subscribed"

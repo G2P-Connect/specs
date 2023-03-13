@@ -1,0 +1,12 @@
+type: object
+description: 'Attribute name value object'
+properties:
+  attribute_name: 
+    type: string
+    maxLength: 99
+  attribute_value:
+    type: string
+    maxLength: 999
+required: 
+  - attribute_name
+  - attribute_value

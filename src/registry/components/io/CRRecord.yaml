@@ -1,0 +1,16 @@
+description: | 
+  1. Civil registry specific extensions based on entities derived from OpenID PersonInfo and PersonAdditionalInfo entities
+  2. Additional checks using conditioanl expressions is possible.
+  3. Allows Country/Registry specific implementation extensions using key/value pairs.
+allOf:
+- properties:
+    id:
+      $ref: "../../../common/schema/PersonId.yaml"
+    issue_date: 
+      type: string
+      format: date-time
+    status:
+      description: Civil registry status
+      type: string
+- $ref: "../../../common/schema/PersonInfo.yaml"
+- $ref: "../../../common/schema/PersonAdditionalInfo.yaml"

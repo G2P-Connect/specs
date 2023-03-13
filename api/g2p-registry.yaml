@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Identity
+  title: Civil Registry
   description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credential'
   version: 0.1.0
   contact:
@@ -10,14 +10,14 @@ info:
     name: G2P Connect License
     url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: 'https://sandbox.dpg.org/v0.1.0'
+  - url: 'https://sandbox.dpg.org/v0.1.0/{namespace}'
     description: Sandbox Server
 paths:
-  /identity/verify:
+  /crvs/search:
     post:
-      summary: 'ID-VRFY : /identity/verify'
-      description: Verification of person's demographics against foundational id
-      operationId: post_g2p_id_verify
+      summary: 'CRVS-SRCH : /crvs/search'
+      description: Search person(s) in crvs using key identifiers
+      operationId: post_g2p_crvs_search
       requestBody:
         description: ''
         required: true
@@ -34,19 +34,19 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - issue
+                            - search
                 message:
                   type: object
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    verify_request:
+                    search_request:
                       type: array
                       items:
-                        $ref: '#/components/schemas/VerifyRequest'
+                        $ref: '#/components/schemas/SearchRequest'
                   required:
                     - transaction_id
-                    - verify_request
+                    - search_request
               required:
                 - header
                 - message
@@ -57,7 +57,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - issue
+                        - search
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -70,11 +70,11 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /credential/on-issue:
+  /crvs/on-search:
     post:
-      summary: 'ID-ON-VRFY : /idenity/on-issue'
-      description: Verification response through callback
-      operationId: post_g2p_id_on-verify
+      summary: 'CRVS-ON-SRCH : /crvs/on-search'
+      description: Search results through callback
+      operationId: post_g2p_crvs_on-search
       requestBody:
         description: ''
         required: true
@@ -91,19 +91,19 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - on-issue
+                            - on-search
                 message:
                   type: object
                   properties:
                     transaction_id:
                       $ref: '#/components/schemas/TransactionId'
-                    verify_response:
+                    search_response:
                       type: array
                       items:
-                        $ref: '#/components/schemas/VerifyResponse'
+                        $ref: '#/components/schemas/SearchResponse'
                   required:
                     - transaction_id
-                    - verify_response
+                    - search_response
               required:
                 - header
           multipart/form-data:
@@ -113,7 +113,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - on-issue
+                        - on-search
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -126,10 +126,123 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /credential/txn/status:
+  /crvs/subscribe:
     post:
-      summary: 'ID-TXNSTS : /identity/txn/status'
-      description: Perform async status check of previous identity transanctions using transaction_id and/or reference_id(s)
+      summary: 'CRVS-SUB : /crvs/subscribe'
+      description: Subscribe to a life event with crvs
+      operationId: post_g2p_crvs_subscribe
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    subscribe_request:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/SubscribeRequest'
+                  required:
+                    - transaction_id
+                    - subscribe_request
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - subscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /crvs/notify:
+    post:
+      summary: 'CRVS-NTFY : /crvs/notify'
+      description: CRVS to notify a life event to subscrbiers
+      operationId: post_g2p_crvs_notify
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader'
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  properties:
+                    transaction_id:
+                      $ref: '#/components/schemas/TransactionId'
+                    notify_event:
+                      type: array
+                      items:
+                        $ref: '#/components/schemas/NotifyEventRequest'
+                  required:
+                    - transaction_id
+                    - verify_response
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - notify
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /crvs/txn/status:
+    post:
+      summary: 'CRVS-TXNSTS : /crvs/txn/status'
+      description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
       operationId: post_g2p_id_txnstatus
       requestBody:
         description: ''
@@ -147,9 +260,9 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - issue
-                            - search
-                            - status
+                            - subscribe
+                            - notify
+                            - on-search
                 message:
                   type: object
                   properties:
@@ -170,9 +283,9 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - issue
-                        - search
-                        - status
+                        - subscribe
+                        - notify
+                        - on-search
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -187,9 +300,9 @@ paths:
       deprecated: false
   /identity/txn/on-status:
     post:
-      summary: 'ID-ON-TXNSTS : /identity/txn/on-status'
-      description: Response to async status check of previous identity transanctions using callback
-      operationId: post_g2p_id_on-txnstatus
+      summary: 'CRVS-ON-TXNSTS : /crvs/txn/on-status'
+      description: Response to async status check of previous civil registrt transanctions using callback
+      operationId: post_g2p_crvs_on-txnstatus
       requestBody:
         description: ''
         required: true
@@ -206,9 +319,9 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - on-issue
+                            - subscribe
+                            - notify
                             - on-search
-                            - on-status
                 message:
                   type: object
                   properties:
@@ -228,9 +341,9 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - on-issue
+                        - subscribe
+                        - notify
                         - on-search
-                        - on-status
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -245,6 +358,346 @@ paths:
       deprecated: false
 components:
   schemas:
+    CREventType:
+      type: string
+      description: Civil registry record types
+      enum:
+        - birth
+        - death
+        - marriage
+        - divorce
+        - annulment
+        - seperation
+        - adoption
+        - demographic_change
+        - unregister
+    CRRecord:
+      description: |
+        1. Civil registry specific extensions based on entities derived from OpenID PersonInfo and PersonAdditionalInfo entities
+        2. Additional checks using conditioanl expressions is possible.
+        3. Allows Country/Registry specific implementation extensions using key/value pairs.
+      allOf:
+        - properties:
+            id:
+              $ref: '#/components/schemas/PersonId'
+            issue_date:
+              type: string
+              format: date-time
+            status:
+              description: Civil registry status
+              type: string
+        - $ref: '#/components/schemas/PersonInfo'
+        - $ref: '#/components/schemas/PersonAdditionalInfo'
+    CRRecordBirth:
+      description: |
+        1. Civil registry birth and adoption type record
+        2. Allows Country/Registry specific implementation extensions using key/value pairs.
+      allOf:
+        - $ref: '#/components/schemas/CRRecord'
+        - properties:
+            registration_type:
+              $ref: '#/components/schemas/CREventType'
+            registration_number:
+              description: Registration number
+              type: string
+            registration_date:
+              description: Registration date
+            link_registration_number:
+              description: 'Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,'
+              type: string
+            related_persons:
+              items:
+                allOf:
+                  - $ref: '#/components/schemas/CRRelatedPerson'
+                  - properties:
+                      relationship:
+                        enum:
+                          - mother
+                          - father
+                          - other
+            additional_attributes:
+              $ref: '#/components/schemas/AttributeNameValue'
+    CRRecordDeath:
+      description: |
+        1. Civil registry death record
+        2. Allows Country/Registry specific implementation extensions using key/value pairs.
+      allOf:
+        - $ref: '#/components/schemas/CRRecord'
+        - properties:
+            registration_type:
+              $ref: '#/components/schemas/CREventType'
+            registration_number:
+              description: Registration number
+              type: string
+            registration_date:
+              description: Registration date
+            link_registration_number:
+              description: 'Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,'
+              type: string
+            deathdate:
+              description: 'YYYY format is allowed. Note that depending on the underlying platform''s date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates.'
+              type: string
+            place_of_death:
+              description: End-User's place of birth. The value of this member is a JSON structure containing some or all of the following members
+              type: object
+            additional_attributes:
+              $ref: '#/components/schemas/AttributeNameValue'
+    CRRecordUnion:
+      description: |
+        1. Civil registry marriage, divorce, seperation, annulment type records
+        2. Allows Country/Registry specific implementation extensions using key/value pairs.
+      allOf:
+        - $ref: '#/components/schemas/CRRecord'
+        - properties:
+            registration_type:
+              $ref: '#/components/schemas/CREventType'
+            registration_number:
+              description: Registration number
+              type: string
+            registration_date:
+              description: Registration date
+            link_registration_number:
+              description: 'Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,'
+              type: string
+            related_person:
+              allOf:
+                - $ref: '#/components/schemas/CRRelatedPerson'
+                - properties:
+                    relationship:
+                      enum:
+                        - wife
+                        - husband
+            additional_attributes:
+              $ref: '#/components/schemas/AttributeNameValue'
+    CRRelatedPerson:
+      type: object
+      description: 'Related person details '
+      properties:
+        id:
+          $ref: '#/components/schemas/PersonId'
+        name:
+          $ref: '#/components/schemas/PersonName'
+        relationship:
+          type: string
+          enum:
+            - mother
+            - father
+            - gaurdian
+            - bride
+            - groom
+            - wife
+            - husband
+            - spouse
+            - partner
+            - other
+    CRSearchCriteria:
+      description: |
+        1. Civil registry specific extension to search.
+        2. Additional checks using conditioanl expressions is possible.
+        3. Allows Country/Registry specific implementation extensions using key/value pairs.
+      properties:
+        record_type:
+          $ref: '#/components/schemas/CREventType'
+        search_criteria:
+          anyOf:
+            - $ref: '#/components/schemas/CRRecord'
+            - $ref: '#/components/schemas/CRRecordBirth'
+            - $ref: '#/components/schemas/CRRecordDeath'
+            - $ref: '#/components/schemas/CRRecordUnion'
+        additional_attributes:
+          $ref: '#/components/schemas/ExpressionWithConditionList'
+      required:
+        - record_type
+        - search_criteria
+    NotifyEventRequest:
+      type: object
+      description: Registry to notify a event to subscrbiers
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        registry_type:
+          $ref: '#/components/schemas/RegistryType'
+        registry_data:
+          oneOf:
+            - $ref: '#/components/schemas/PersonId'
+            - $ref: '#/components/schemas/CRRecordBirth'
+            - $ref: '#/components/schemas/CRRecordDeath'
+            - $ref: '#/components/schemas/CRRecordUnion'
+            - $ref: '#/components/schemas/RegistryRecord'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - registry_type
+        - registry_data
+    RegistryRecord:
+      description: |
+        1. Attributes of a person to perform registry search.
+        2. Additional checks using conditioanl expressions is possible.
+        3. Allowes Country/Registry specific implementation extensions using key/value pairs.
+      allOf:
+        - properties:
+            id:
+              $ref: '#/components/schemas/PersonId'
+            issue_date:
+              type: string
+              format: date-time
+            status:
+              description: Registry status
+              type: string
+        - $ref: '#/components/schemas/PersonInfo'
+        - $ref: '#/components/schemas/PersonAdditionalInfo'
+        - properties:
+            additional_attributes:
+              $ref: '#/components/schemas/AttributeNameValue'
+    RegistrySearchCriteria:
+      description: |
+        1. Functional registry specific extension to search.
+        2. Additional checks using conditioanl expressions is possible.
+        3. Allows Country/Registry specific implementation extensions using key/value pairs.
+      properties:
+        record_type:
+          $ref: '#/components/schemas/RegistryType'
+        search_criteria:
+          anyOf:
+            - $ref: '#/components/schemas/RegistryRecord'
+        additional_attributes:
+          $ref: '#/components/schemas/ExpressionWithConditionList'
+      required:
+        - record_type
+        - search_criteria
+    RegistryType:
+      type: string
+      description: |
+        1. Registry types like civil, population, family, household, school, college, farmer, land, utitlity, etc., 
+        2. Country specific implementations should extend and allow custom types.
+      enum:
+        - civil
+        - population
+        - family
+        - household
+        - school
+        - college
+        - farmer
+        - land
+        - utility
+        - other
+    SearchRequest:
+      type: object
+      description: Search request to query person with civil registry against demographics data attributes
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        registry_type:
+          $ref: '#/components/schemas/RegistryType'
+        search_criteria:
+          anyOf:
+            - $ref: '#/components/schemas/RegistrySearchCriteria'
+            - $ref: '#/components/schemas/CRSearchCriteria'
+        filter:
+          description: Attribute(s) to send in response
+          items:
+            type: string
+        sort:
+          $ref: '#/components/schemas/SearchSortList'
+        pagination:
+          $ref: '#/components/schemas/PaginationRequest'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - record_type
+        - search_criteria
+        - filter
+    SearchResponse:
+      type: object
+      description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        status:
+          $ref: '#/components/schemas/RequestStatus'
+        status_reason_code:
+          $ref: '#/components/schemas/SearchStatusReasonCode'
+        status_reason_message:
+          description: Status reason code message. Helps actionanble messaging for systems/end users
+          type: string
+          maxLength: 999
+        registry_type:
+          $ref: '#/components/schemas/RegistryType'
+        registry_data:
+          oneOf:
+            - $ref: '#/components/schemas/PersonId'
+            - $ref: '#/components/schemas/CRRecordBirth'
+            - $ref: '#/components/schemas/CRRecordDeath'
+            - $ref: '#/components/schemas/CRRecordUnion'
+            - $ref: '#/components/schemas/RegistryRecord'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - status
+    SearchStatusReasonCode:
+      type: string
+      description: Identity verification request status reason codes
+      enum:
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.search_criteria.invalid
+        - rjct.filter.invalid
+        - rjct.sort.invalid
+        - rjct.pagination.invalid
+        - rjct.search.too_many_records_found
+    SubscribeRequest:
+      type: object
+      description: Subscribe to a life event with crvs
+      properties:
+        reference_id:
+          $ref: '#/components/schemas/ReferenceId'
+        timestamp:
+          $ref: '#/components/schemas/Timestamp'
+        registry_type:
+          $ref: '#/components/schemas/RegistryType'
+        search_criteria:
+          oneOf:
+            - $ref: '#/components/schemas/PersonId'
+            - $ref: '#/components/schemas/CRSearchCriteria'
+            - $ref: '#/components/schemas/RegistrySearchCriteria'
+        filter:
+          description: Record attribute(s) to send in response as verifiable credentials
+          items:
+            type: string
+        locale:
+          $ref: '#/components/schemas/LanguageCode'
+      required:
+        - reference_id
+        - timestamp
+        - registry_type
+        - search_criteria
+        - filter
+    SubscribeStatusReasonCode:
+      type: string
+      description: Identity verification request status reason codes
+      enum:
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.notify_types.invalid
+        - rjct.notify_details.invalid
+        - rjct.person_id.invalid
+        - rjct.event.already_subscribed
     TxnStatusRequest:
       type: object
       description: Request to search identity service requests
@@ -267,103 +720,16 @@ components:
         - search_type
         - search_attribute
     TxnStatusResponse:
-      type: array
       items:
         oneOf:
-          - $ref: '#/components/schemas/VerifyResponse'
+          - $ref: '#/components/schemas/SubscribeRequest'
+          - $ref: '#/components/schemas/NotifyEventRequest'
+          - $ref: '#/components/schemas/SearchResponse'
       example:
         on-txnstatus-response:
           reference_id: test
           timestamp: test
           status: SUCC
-    VerifyCriteria:
-      description: |
-        1. Attributes of a person agianst which verification to be performed with identity system. 
-        2. Additional checks using attributes from PersonInfo and PersonAdditionalInfo may be used as expressions.
-        3. Country specific implementation may extend additional attributes as key/value pairs.
-      allOf:
-        - $ref: '#/components/schemas/PersonInfo'
-        - $ref: '#/components/schemas/PersonAdditionalInfo'
-        - properties:
-            additional_attributes:
-              $ref: '#/components/schemas/ExpressionList'
-    VerifyRequest:
-      type: object
-      description: Verify person with identity provider. Match attribtues in request object and return booelan match response along with a token.
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/Timestamp'
-        id:
-          $ref: '#/components/schemas/PersonId'
-        consent_obtained:
-          type: string
-          description: Is consent obtained for verification
-          enum:
-            - 'y'
-            - 'n'
-          example: 'y'
-        search_criteria:
-          $ref: '#/components/schemas/VerifyCriteria'
-        filter:
-          description: Attribute(s) to send in response
-          items:
-            type: string
-        sort:
-          $ref: '#/components/schemas/SearchSortList'
-        pagination:
-          $ref: '#/components/schemas/PaginationRequest'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - timestamp
-        - id
-        - consent_obtained
-        - search_criteria
-    VerifyResponse:
-      type: object
-      description: 'Digital credential issuance '
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/Timestamp'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/VerifyStatusReasonCode'
-        status_reason_message:
-          description: Status reason code message. Helps actionanble messaging for systems/end users
-          type: string
-          maxLength: 999
-        token:
-          description: verification token returned by identity system.
-          type: string
-        verify_results:
-          $ref: '#/components/schemas/ExpressionResultList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - timestamp
-        - status
-        - status_reason_code
-    VerifyStatusReasonCode:
-      type: string
-      description: Identity verification request status reason codes
-      enum:
-        - rjct.reference_id.invalid
-        - rjct.reference_id.duplicate
-        - rjct.timestamp.invalid
-        - 'rjct.{attribute_name}.invalid'
-        - 'rjct.{attribute_value}.invalid'
-        - 'rjct.{operator}.invalid'
-        - id.verify_success
-        - id.verify_failed
-        - id.cancelled
-        - id.suspended
     AttributeNameValue:
       type: object
       description: Attribute name value object

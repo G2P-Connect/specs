@@ -1,0 +1,19 @@
+description: | 
+  1. Attributes of a person to perform registry search.
+  2. Additional checks using conditioanl expressions is possible.
+  3. Allowes Country/Registry specific implementation extensions using key/value pairs.
+allOf:
+- properties:
+    id:
+      $ref: "../../../common/schema/PersonId.yaml"
+    issue_date: 
+      type: string
+      format: date-time
+    status:
+      description: Registry status
+      type: string
+- $ref: "../../../common/schema/PersonInfo.yaml"
+- $ref: "../../../common/schema/PersonAdditionalInfo.yaml"
+- properties:
+    additional_attributes:
+      $ref: "../../../common/schema/AttributeNameValue.yaml"

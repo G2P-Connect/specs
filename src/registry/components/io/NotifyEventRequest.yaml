@@ -1,0 +1,23 @@
+type: object
+description: Registry to notify a event to subscrbiers
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: "../../../common/schema/Timestamp.yaml"
+  registry_type:
+    $ref: "./RegistryType.yaml"
+  registry_data:
+    oneOf:
+    - $ref: "../../../common/schema/PersonId.yaml"
+    - $ref: "./CRRecordBirth.yaml"
+    - $ref: "./CRRecordDeath.yaml"
+    - $ref: "./CRRecordUnion.yaml"
+    - $ref: "./RegistryRecord.yaml"
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+required:
+  - reference_id
+  - timestamp
+  - registry_type
+  - registry_data

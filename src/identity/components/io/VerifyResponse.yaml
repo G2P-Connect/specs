@@ -14,9 +14,9 @@ properties:
     type: string
     maxLength: 999
   token:
-    description: verification token returned by identity system
+    description: verification token returned by identity system.
     type: string
-  results:
+  verify_results:
     $ref: "../../../common/schema/ExpressionResultList.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"

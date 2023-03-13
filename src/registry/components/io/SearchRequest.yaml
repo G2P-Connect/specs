@@ -1,21 +1,16 @@
 type: object
-description: Verify person with identity provider. Match attribtues in request object and return booelan match response along with a token.
+description: Search request to query person with civil registry against demographics data attributes
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
-  id:
-    $ref: "../../../common/schema/PersonId.yaml"
-  consent_obtained:
-    type: string
-    description: Is consent obtained for verification
-    enum:
-      - "y"
-      - "n"
-    example: "y"
+  registry_type:
+    $ref: "./RegistryType.yaml"
   search_criteria:
-    $ref: "./VerifyCriteria.yaml"
+    anyOf:
+    - $ref: "./RegistrySearchCriteria.yaml"
+    - $ref: "./CRSearchCriteria.yaml"
   filter:
     description: Attribute(s) to send in response
     items:
@@ -29,6 +24,6 @@ properties:
 required:
   - reference_id
   - timestamp
-  - id
-  - consent_obtained
+  - record_type
   - search_criteria
+  - filter

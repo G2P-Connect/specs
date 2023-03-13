@@ -1,11 +1,11 @@
 type: object
-description: "Related Person details"
+description: "Related person details "
 properties:
   id: 
-    $ref: "./PersonId.yaml"
+    $ref: "../../../common/schema/PersonId.yaml"
   name:
-    $ref: "./PersonName.yaml"
-  type:
+    $ref: "../../../common/schema/PersonName.yaml"
+  relationship:
     type: string
     enum:
       - "mother"

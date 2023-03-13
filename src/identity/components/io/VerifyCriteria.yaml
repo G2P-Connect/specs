@@ -1,0 +1,10 @@
+description: | 
+  1. Attributes of a person agianst which verification to be performed with identity system. 
+  2. Additional checks using attributes from PersonInfo and PersonAdditionalInfo may be used as expressions.
+  3. Country specific implementation may extend additional attributes as key/value pairs.
+allOf:
+- $ref: "../../../common/schema/PersonInfo.yaml"
+- $ref: "../../../common/schema/PersonAdditionalInfo.yaml"
+- properties:
+    additional_attributes:
+      $ref: "../../../common/schema/ExpressionList.yaml"

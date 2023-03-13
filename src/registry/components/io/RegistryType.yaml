@@ -1,0 +1,15 @@
+type: string
+description: |
+  1. Registry types like civil, population, family, household, school, college, farmer, land, utitlity, etc., 
+  2. Country specific implementations should extend and allow custom types.
+enum:
+ - "civil"
+ - "population"
+ - "family"
+ - "household"
+ - "school"
+ - "college"
+ - "farmer"
+ - "land"
+ - "utility"
+ - "other"
