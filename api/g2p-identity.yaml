@@ -391,8 +391,7 @@ components:
           type: string
           maxLength: 999
         token:
-          description: verification token returned by identity system.
-          type: string
+          $ref: '#/components/schemas/PersonId'
         verify_results:
           $ref: '#/components/schemas/ExpressionResultList'
         locale:
