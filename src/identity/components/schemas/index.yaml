@@ -1,9 +1,9 @@
+IdentityRecord:
+  $ref: "../io/IdentityRecord.yaml"
 TxnStatusRequest:
   $ref: "../io/TxnStatusRequest.yaml"
 TxnStatusResponse:
   $ref: "../io/TxnStatusResponse.yaml"
-VerifyCriteria:
-  $ref: "../io/VerifyCriteria.yaml"
 VerifyRequest:
   $ref: "../io/VerifyRequest.yaml"
 VerifyResponse:
