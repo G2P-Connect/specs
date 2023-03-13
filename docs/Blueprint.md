@@ -1,4 +1,3 @@
-## G2P Connect Core Interfaces 
 
 ![](./images/solution_bluerpint.png)
 
