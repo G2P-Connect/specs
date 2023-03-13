@@ -1270,6 +1270,10 @@ components:
           type: string
           format: uri
           example: ''
+        is_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: true
       required:
         - message_id
         - message_ts
@@ -1312,6 +1316,10 @@ components:
           description: Total no of requests present in the message request
           type: integer
           example: 21800
+        is_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: true
       required:
         - message_id
         - message_ts

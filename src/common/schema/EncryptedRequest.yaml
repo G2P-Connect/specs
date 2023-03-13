@@ -1,0 +1,16 @@
+description: Encrypted request
+type: object
+properties: 
+  data: 
+    description: Encrypted data using skey represented in base64 encoded format. For txn binding, Encrypted byte array to be prefixed with first 10 digits of transaction_id used in the payload.
+    type: string
+  hmac:
+    description: hmac value
+    type: string
+  skey:
+    description: encrypted session key using receiver's public key represented in base64 encoded format
+    type: string
+required: 
+  - data
+  - hmac
+  - skey

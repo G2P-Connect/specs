@@ -37,17 +37,9 @@ paths:
                           enum:
                             - disburse
                 message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    disburse_request:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/DisburseRequest"
-                  required:
-                    - transaction_id
-                    - disburse_request
+                  anyOf:
+                  - $ref: "#/components/schemas/EncryptedRequest"
+                  - $ref: "#/components/schemas/DisburseRequest"
               required:
                 - header
                 - message
@@ -95,17 +87,9 @@ paths:
                           enum:
                             - on-disburse
                 message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    disburse_response:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/DisburseResponse"
-                  required:
-                    - transaction_id
-                    - disburse_response
+                  anyOf:
+                  - $ref: "#/components/schemas/EncryptedRequest"
+                  - $ref: "#/components/schemas/DisburseResponse"
               required:
                 - header
         multipart/form-data:
@@ -152,15 +136,9 @@ paths:
                           enum:
                             - search
                 message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    search_request:
-                      $ref: "#/components/schemas/SearchRequest"
-                  required:
-                    - transaction_id
-                    - search_request
+                  anyOf:
+                  - $ref: "#/components/schemas/EncryptedRequest"
+                  - $ref: "#/components/schemas/SearchRequest"
               required:
                 - header
                 - message
@@ -208,17 +186,9 @@ paths:
                           enum:
                             - on-search
                 message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    search_response:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/SearchResponse"
-                  required:
-                    - transaction_id
-                    - search_response
+                  anyOf:
+                  - $ref: "#/components/schemas/EncryptedRequest"
+                  - $ref: "#/components/schemas/SearchResponse"
               required:
                 - header
         multipart/form-data:
@@ -321,17 +291,9 @@ paths:
                           enum:
                             - on-status
                 message:
-                  type: object
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    txnstatus_response:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/TxnStatusResponse"
-                  required:
-                    - transaction_id
-                    - txnstatus_response
+                  anyOf:
+                  - $ref: "#/components/schemas/EncryptedRequest"
+                  - $ref: "#/components/schemas/TxnStatusResponse"
               required:
                 - header
         multipart/form-data:
@@ -386,17 +348,9 @@ paths:
                           enum:
                             - search
                 message:
-                  type: object                    
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    disburse_response:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/DisburseResponse"
-                  required:
-                    - transaction_id
-                    - disburse_response
+                  anyOf:
+                  - $ref: "#/components/schemas/EncryptedRequest"
+                  - $ref: "#/components/schemas/DisburseResponse"
               required:
                 - header
       '401':
@@ -438,17 +392,9 @@ paths:
                           enum:
                             - search
                 message:
-                  type: object                    
-                  properties:
-                    transaction_id: 
-                      $ref: "#/components/schemas/TransactionId"
-                    disburse_response:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/DisburseResponse"
-                  required:
-                    - transaction_id
-                    - disburse_response
+                  anyOf:
+                  - $ref: "#/components/schemas/EncryptedRequest"
+                  - $ref: "#/components/schemas/DisburseResponse"
               required:
                 - header
       '401':

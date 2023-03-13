@@ -1,13 +1,21 @@
+DisburseRecord:
+  $ref: "../io/DisburseRecord.yaml"
 DisburseRequest:
   $ref: "../io/DisburseRequest.yaml"
 DisburseResponse:
   $ref: "../io/DisburseResponse.yaml"
+DisburseResponseRecord:
+  $ref: "../io/DisburseResponseRecord.yaml"
 DisburseStatusReasonCode:
   $ref: "../io/DisburseStatusReasonCode.yaml"
+SearchRecord:
+  $ref: "../io/SearchRecord.yaml"
 SearchRequest:
   $ref: "../io/SearchRequest.yaml"
 SearchResponse:
   $ref: "../io/SearchResponse.yaml"
+SearchResponseRecord:
+  $ref: "../io/SearchResponseRecord.yaml"
 SearchStatusReasonCode: 
   $ref: "../io/SearchStatusReasonCode.yaml"
 TxnStatusRequest:
@@ -20,6 +28,8 @@ Amount:
   $ref: "../../../common/schema/Amount.yaml"
 CurrencyCode: 
   $ref: "../../../common/schema/CurrencyCode.yaml"
+EncryptedRequest:
+  $ref: "../../../common/schema/EncryptedRequest.yaml"
 Error:
   $ref: "../../../common/schema/Error.yaml"
 FileInfo:

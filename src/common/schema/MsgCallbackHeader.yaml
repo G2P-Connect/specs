@@ -51,6 +51,10 @@ properties:
     type: string
     format: uri
     example: ""
+  is_encrypted:
+    description: Is message encrypted?
+    type: boolean
+    default: true
 required:
   - message_id
   - message_ts

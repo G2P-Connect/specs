@@ -36,17 +36,9 @@ paths:
                           enum:
                             - disburse
                 message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    disburse_request:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/DisburseRequest'
-                  required:
-                    - transaction_id
-                    - disburse_request
+                  anyOf:
+                    - $ref: '#/components/schemas/EncryptedRequest'
+                    - $ref: '#/components/schemas/DisburseRequest'
               required:
                 - header
                 - message
@@ -93,17 +85,9 @@ paths:
                           enum:
                             - on-disburse
                 message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    disburse_response:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/DisburseResponse'
-                  required:
-                    - transaction_id
-                    - disburse_response
+                  anyOf:
+                    - $ref: '#/components/schemas/EncryptedRequest'
+                    - $ref: '#/components/schemas/DisburseResponse'
               required:
                 - header
           multipart/form-data:
@@ -149,15 +133,9 @@ paths:
                           enum:
                             - search
                 message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    search_request:
-                      $ref: '#/components/schemas/SearchRequest'
-                  required:
-                    - transaction_id
-                    - search_request
+                  anyOf:
+                    - $ref: '#/components/schemas/EncryptedRequest'
+                    - $ref: '#/components/schemas/SearchRequest'
               required:
                 - header
                 - message
@@ -204,17 +182,9 @@ paths:
                           enum:
                             - on-search
                 message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    search_response:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/SearchResponse'
-                  required:
-                    - transaction_id
-                    - search_response
+                  anyOf:
+                    - $ref: '#/components/schemas/EncryptedRequest'
+                    - $ref: '#/components/schemas/SearchResponse'
               required:
                 - header
           multipart/form-data:
@@ -315,17 +285,9 @@ paths:
                           enum:
                             - on-status
                 message:
-                  type: object
-                  properties:
-                    transaction_id:
-                      $ref: '#/components/schemas/TransactionId'
-                    txnstatus_response:
-                      type: array
-                      items:
-                        $ref: '#/components/schemas/TxnStatusResponse'
-                  required:
-                    - transaction_id
-                    - txnstatus_response
+                  anyOf:
+                    - $ref: '#/components/schemas/EncryptedRequest'
+                    - $ref: '#/components/schemas/TxnStatusResponse'
               required:
                 - header
           multipart/form-data:
@@ -382,17 +344,9 @@ paths:
                             enum:
                               - search
                   message:
-                    type: object
-                    properties:
-                      transaction_id:
-                        $ref: '#/components/schemas/TransactionId'
-                      disburse_response:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/DisburseResponse'
-                    required:
-                      - transaction_id
-                      - disburse_response
+                    anyOf:
+                      - $ref: '#/components/schemas/EncryptedRequest'
+                      - $ref: '#/components/schemas/DisburseResponse'
                 required:
                   - header
       security:
@@ -431,17 +385,9 @@ paths:
                             enum:
                               - search
                   message:
-                    type: object
-                    properties:
-                      transaction_id:
-                        $ref: '#/components/schemas/TransactionId'
-                      disburse_response:
-                        type: array
-                        items:
-                          $ref: '#/components/schemas/DisburseResponse'
-                    required:
-                      - transaction_id
-                      - disburse_response
+                    anyOf:
+                      - $ref: '#/components/schemas/EncryptedRequest'
+                      - $ref: '#/components/schemas/DisburseResponse'
                 required:
                   - header
       security:
@@ -449,7 +395,7 @@ paths:
       deprecated: false
 components:
   schemas:
-    DisburseRequest:
+    DisburseRecord:
       type: object
       description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
       properties:
@@ -493,7 +439,31 @@ components:
         - payer_fa
         - payee_fa
         - amount
+    DisburseRequest:
+      type: object
+      description: Disbursement request
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        disbursements:
+          items:
+            $ref: '#/components/schemas/DisburseRecord'
+      required:
+        - transaction_id
+        - disburemsents
     DisburseResponse:
+      type: object
+      description: Disburse response
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        disbursements_status:
+          items:
+            $ref: '#/components/schemas/DisburseResponseRecord'
+      required:
+        - transaction_id
+        - disbursements_status
+    DisburseResponseRecord:
       type: object
       description: G2P Disbursement response i.e status of each disburemsent request for reconciliation by sender system
       properties:
@@ -550,7 +520,7 @@ components:
         - rjct.amount.invalid
         - rjct.schedule_ts.invalid
         - rjct.currency_code.invalid
-    SearchRequest:
+    SearchRecord:
       type: object
       description: Request to search disbursement using payer or payee fa
       properties:
@@ -575,9 +545,33 @@ components:
         - request_type
         - attribute_type
         - attribute_value
+    SearchRequest:
+      type: object
+      description: Search disbursement requests
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        search_criteria:
+          items:
+            $ref: '#/components/schemas/SearchRecord'
+      required:
+        - transaction_id
+        - search_criteria
     SearchResponse:
       type: object
-      description: Digital credential
+      description: Search response
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        disbursements_status:
+          items:
+            $ref: '#/components/schemas/SearchResponseRecord'
+      required:
+        - transaction_id
+        - disbursements_status
+    SearchResponseRecord:
+      type: object
+      description: Search response record
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -591,9 +585,9 @@ components:
           description: Status reason code message. Helps actionanble messaging for systems/end users
           type: string
           maxLength: 999
-        disbursements:
+        disbursements_status:
           items:
-            $ref: '#/components/schemas/DisburseResponse'
+            $ref: '#/components/schemas/DisburseResponseRecord'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -639,10 +633,17 @@ components:
         - search_type
         - search_attribute
     TxnStatusResponse:
-      type: array
-      items:
-        oneOf:
-          - $ref: '#/components/schemas/DisburseResponse'
+      type: object
+      description: Disburse response
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        disbursements_status:
+          items:
+            $ref: '#/components/schemas/DisburseResponseRecord'
+      required:
+        - transaction_id
+        - disbursements_status
       example:
         on-txnstatus-response:
           reference_id: test
@@ -667,6 +668,23 @@ components:
       type: string
       pattern: '^[A-Z]{3,3}$'
       example: SLL
+    EncryptedRequest:
+      description: Encrypted request
+      type: object
+      properties:
+        data:
+          description: 'Encrypted data using skey represented in base64 encoded format. For txn binding, Encrypted byte array to be prefixed with first 10 digits of transaction_id used in the payload.'
+          type: string
+        hmac:
+          description: hmac value
+          type: string
+        skey:
+          description: encrypted session key using receiver's public key represented in base64 encoded format
+          type: string
+      required:
+        - data
+        - hmac
+        - skey
     Error:
       description: |
         Describes an error object that is returned to standard post call request. <br>
@@ -782,6 +800,10 @@ components:
           type: string
           format: uri
           example: ''
+        is_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: true
       required:
         - message_id
         - message_ts
@@ -824,6 +846,10 @@ components:
           description: Total no of requests present in the message request
           type: integer
           example: 21800
+        is_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: true
       required:
         - message_id
         - message_ts

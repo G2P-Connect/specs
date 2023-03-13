@@ -8,18 +8,19 @@ G2P Connect Integration Specification assumes interactions between vaious DPI so
 > b. Countries may decide to manage ID to Financial Address mapping either at Payment Switch layer or Financial Institution(s) or Beneficiary Management Platforms or an independent entity, etc., <br>
 > c. Countries may not a foundational de-duplicated digital id
 
-For these reasons G2P Connect is **flexible** to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** the flows based on various use case scenarios that are specific to country's operating requirements.
+For these kind of scenarios, G2P Connect is **flexible** to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** flows based on various use case scenarios that are specific to country's operating requirements. 
 
 ## Objectives
 The following are key objectives of G2P Connect Specifications:
 
-1. Focus on G2P Connect solution blueprint - enable seamless integration between solutions relevant to G2P payment scope.
-2. Refer to popular existing standards where applicable, e.g., OAuth2, OpenID Connect, W3C Verifiable Crendentialing.
-3. Standardise message envelope to support **harmonised** integrationa across various solutions with key features:
+1. Focus on G2P Connect solution blueprint - enable seamless integration between solutions relevant to end to end G2P payment scope keeping policy maker and beneficairy at the center. 
+2. Flexible to accomodate existing standards where applicable, e.g., OAuth2, OpenID Connect, W3C Verifiable Crendentialing.
+3. Standardise message envelope to support **harmonised** integrations across various solutions with key features:
     - Transport layer agnositc communication
-    - Offline processing capability
+    - Async based processing with retry/polling support
+    - Offline processing capability enabling store & forward
     - Batch processing
-    - Capability to carry various payloads e.g. OpenID / country specific custom data or verifiable credentials
+    - Support plug n play for other payloads e.g. OpenID / country specific custom data or verifiable credentials
     - Support for digitally signed and encrypted payloads
 4. Enable integration between existing proprietary, DPI/DPGs or country specific custom in-house solutions.
 5. Focus is on standradising core interfaces and NOT on implementation.
@@ -67,9 +68,10 @@ All communications using G2P Connect specifications have following structure:
 5. For service end points that are exposed to end user interfacing UX channels where call back processing becomes challenging or technical not-feasibile, receiver systems are required to implement GET status api's. Sender systems may poll to GET transaction status/detailed information and limit count of individual business requests (i.e reference_id's). 
 
 ## File based processing 
-1. For file based exchange it is recommended to use the JSON payloads. JSON format is hierarchal, self describing to help in integrations. 
-2. If a country has use cases to use other formats (e.g. CSV) then it is recommended to use the same JSON definitions by flattening each root entity as a file row. In this scenario, signature element shall be part of the first row, header elements in second row followed by one or more message array list in each row.
-3. File exchange may happen using HTTPS, sFTP or any other file exchange mechanisms.
+1. For file based exchange it is recommended to use the JSON payloads. JSON format is hierarchal, self describing for easy integrations. 
+2. If a country has use case to use other formats (e.g. CSV) then it is recommended to use the same JSON definitions by flattening each entity as a file row. In this scenario, signature element shall be part of the first row, header elements in second row followed by one or more message array listed in each row. nested objects are to be flatted in the same row.
+3. Above logic shall work for encrypted request element as well.
+4. File exchange may happen using HTTPS, sFTP or any other file exchange mechanisms.
 
 ## Event based processing 
 1. G2P Connect JSON based request/response entities shall work as events over messaging infrastructure.
@@ -80,5 +82,4 @@ All communications using G2P Connect specifications have following structure:
 2. All currency codes represented in ISO 4217 format
 
 ## Acknowledgments
-Greatful for below organization, individuals for their contributions and/or influencing the G2P Connect standards:
-1. 
+Greatful for below organization, individuals for their contributions and/or influencing the G2P Connect standards. This is currently in Work In Progress. Completel list of acknowledgements shall be listed as part of the draft release shorlty.
