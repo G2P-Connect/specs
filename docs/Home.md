@@ -22,7 +22,7 @@ The following are key objectives of G2P Connect Specifications:
     - Capability to carry various payloads e.g. OpenID / country specific custom data or verifiable credentials
     - Support for digitally signed and encrypted payloads
 4. Enable integration between existing proprietary, DPI/DPGs or country specific custom in-house solutions.
-5. Focus on key interfaces and NOT on implementation 
+5. Focus is on standradising core interfaces and NOT on implementation.
 6. Each interface act as a connector between solutions and allow country implementations to realize various use cases.
 
 ## Message Structure

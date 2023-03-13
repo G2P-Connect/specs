@@ -17,7 +17,7 @@
 | FAMAP-ON-UPDT | POST /mapper/on-update | Update response through callback end point |
 | FAMAP-ULNK | POST /mapper/unlink | remove id/fa link from mapper registry | 
 | FAMAP-ON-ULNK | POST /mapper/on-unlink | Unlinking response through callback end point | 
-| FAMAP-RSLV | POST /mapper/resolve | Resolve fa / beneficiary id to a store of value | 
+| FAMAP-RSLV | POST /mapper/resolve | Resolve fa / beneficiary id to a store of value details | 
 | FAMAP-ON-RSLV | POST /mapper/on-resolve | Resolve response through callback end point | 
 | FAMAP-SRCH | POST /mapper/search | Resolve fa / beneficiary id to a store of value | 
 | FAMAP-ON-SRCH| POST /mapper/on-search | Resolve response through callback end point | 
