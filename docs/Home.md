@@ -10,6 +10,21 @@ G2P Connect Integration Specification assumes interactions between vaious DPI so
 
 For these reasons G2P Connect is **flexible** to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** the flows based on various use case scenarios that are specific to country's operating requirements.
 
+## Objectives
+The following are key objectives of G2P Connect Specifications:
+
+1. Focus on G2P Connect solution blueprint - enable seamless integration between solutions relevant to G2P payment scope.
+2. Refer to popular existing standards where applicable, e.g., OAuth2, OpenID Connect, W3C Verifiable Crendentialing.
+3. Standardise message envelope to support **harmonised** integrationa across various solutions with key features:
+    - Transport layer agnositc communication
+    - Offline processing capability
+    - Batch processing
+    - Capability to carry various payloads e.g. OpenID / country specific custom data or verifiable credentials
+    - Support for digitally signed and encrypted payloads
+4. Enable integration between existing proprietary, DPI/DPGs or country specific custom in-house solutions.
+5. Focus on key interfaces and NOT on implementation 
+6. Each interface act as a connector between solutions and allow country implementations to realize various use cases.
+
 ## Message Structure
 All communications using G2P Connect specifications have following structure:
 
