@@ -3,8 +3,8 @@
 ## G2P Connect Protocol
 * [Overview](./Home.md)
 * [Terminology](./Terminology.md)
-* [Interfaces](./Interfaces.md)
-* Blueprint Solutions
+* [Solution Blueprint](./Blueprint.md)
+* Interfaces
     * [Identity](./Identity.md)
     * [Credentialing](./Credentialing.md)
     * [Registries](./Registry.md)
