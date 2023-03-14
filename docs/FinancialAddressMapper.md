@@ -3,6 +3,11 @@
 2. Beneficiary identifier can be of national id, id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms.
 3. Country operational model shall decide the entity that manages one or more ID to Financial address map registries.
 
+## Assumptions
+1. Financial Address (FA) representred in normative form is pre-requisite for these api's to work. 
+2. Payer/Payee FAs are to be obtianed by the respective financial entity that holds store of value accounts.
+
+
 ## References
 1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)
 2. Discussion [thread](https://github.com/G2P-Connect/.github/discussions/16)

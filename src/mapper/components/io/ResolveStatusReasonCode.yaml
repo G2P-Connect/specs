@@ -10,6 +10,7 @@ enum:
   - "succ.fa.active"
   - "succ.fa.inactive"
   - "succ.fa.not_found"
+  - "succ.fa.not_linked_to_id"
   - "succ.id.active"
   - "succ.id.inactive"
   - "succ.id.not_found"

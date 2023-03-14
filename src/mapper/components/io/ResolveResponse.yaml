@@ -11,8 +11,6 @@ properties:
     $ref: "../../../common/schema/PersonId.yaml"
   account_provider_info:
     $ref: "../../../common/schema/AccountProviderInfo.yaml"
-  account_info:
-    $ref: "../../../common/schema/AccountInfo.yaml"
   status:
     $ref: "../../../common/schema/RequestStatus.yaml" 
   status_reason_code:

@@ -711,7 +711,9 @@ components:
         fa:
           $ref: '#/components/schemas/FinancialAddress'
         name:
-          $ref: '#/components/schemas/Person/properties/name'
+          type: string
+          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+          example: Mr. John Smith
         mobile_number:
           type: string
         additional_info:
@@ -772,24 +774,20 @@ components:
         - rjct.beneficiary_name.invalid
     ResolveRequest:
       type: object
-      description: Resolve financial address or ID to a store of value - provider only or account info
+      description: |
+        1. If id is null then only verify and resolve fa is linked to store of value account. Verification is done by entity issuing fa.
+        2. If id is not null then verify and resolve fa is linked store of value account. Additionally verify fa and id are issued to the same individual. If both conditions pass then resolve status can be set to yes.
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
-        type:
-          description: Enumerated options for various resolution options
-          type: string
-          enum:
-            - fa_to_account_provider
-            - fa_to_account_info
-            - id_to_account_provider
-            - id_to_account_info
         fa:
           $ref: '#/components/schemas/FinancialAddress'
         id:
-          $ref: '#/components/schemas/Person'
+          $ref: '#/components/schemas/PersonId'
+        name:
+          $ref: '#/components/schemas/LinkRequest/properties/name'
         scope:
           description: Resolve scope to return only yes_no or account provider or id details. Additional authorization based on caller to be enforced by the implementing system to return any sensitive data.
           type: string
@@ -804,7 +802,7 @@ components:
       required:
         - reference_id
         - timestamp
-        - type
+        - fa
     ResolveResponse:
       type: object
       description: Resolve financial address to store of value account info response
@@ -819,8 +817,6 @@ components:
           $ref: '#/components/schemas/PersonId'
         account_provider_info:
           $ref: '#/components/schemas/AccountProviderInfo'
-        account_info:
-          $ref: '#/components/schemas/AccountInfo'
         status:
           $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
@@ -850,6 +846,7 @@ components:
         - succ.fa.active
         - succ.fa.inactive
         - succ.fa.not_found
+        - succ.fa.not_linked_to_id
         - succ.id.active
         - succ.id.inactive
         - succ.id.not_found
@@ -869,11 +866,12 @@ components:
         attribute_type:
           type: string
           enum:
-            - payer_fa
-            - payee_fa
+            - fa
+            - id
         attribute_value:
           oneOf:
             - $ref: '#/components/schemas/FinancialAddressList'
+            - $ref: '#/components/schemas/PersonId'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
@@ -927,6 +925,7 @@ components:
         - rjct.srch_payer_fa.invalid
         - rjct.srch_payee_fa.invalid
         - rjct.share_attributes.invalid
+        - rjct.srch.too_many_record_found
     TxnStatusRequest:
       type: object
       description: Request to search disbursement using payer or payee fa
@@ -988,7 +987,7 @@ components:
       required:
         - reference_id
         - timestamp
-        - fa
+        - id
     UnlinkResponse:
       type: object
       description: ID to Store of value account unlinking response
@@ -1005,8 +1004,8 @@ components:
           description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
           type: string
           maxLength: 999
-        fa:
-          $ref: '#/components/schemas/FinancialAddress'
+        id:
+          $ref: '#/components/schemas/PersonId'
         additional_info:
           $ref: '#/components/schemas/KeyValueInfo'
         locale:
@@ -1028,7 +1027,7 @@ components:
         fa:
           $ref: '#/components/schemas/FinancialAddress'
         name:
-          $ref: '#/components/schemas/Person/properties/name'
+          $ref: '#/components/schemas/LinkRequest/properties/name'
         mobile_number:
           type: string
         additional_info:
@@ -1050,8 +1049,8 @@ components:
           $ref: '#/components/schemas/ReferenceId'
         timestamp:
           $ref: '#/components/schemas/Timestamp'
-        fa:
-          $ref: '#/components/schemas/FinancialAddress'
+        id:
+          $ref: '#/components/schemas/PersonId'
         status:
           $ref: '#/components/schemas/RequestStatus'
         status_reason_code:
@@ -1082,9 +1081,21 @@ components:
       description: Beneficiary store of value account info
       properties:
         name:
-          $ref: '#/components/schemas/Person/properties/name'
+          $ref: '#/components/schemas/LinkRequest/properties/name'
         contact_info:
-          $ref: '#/components/schemas/Person/properties/contact_info'
+          description: Person contact details
+          properties:
+            mobile_number:
+              type: string
+            alt_mobile_number:
+              type: string
+            phone:
+              type: string
+              description: landline
+            email_id:
+              type: string
+            alt_email_id:
+              type: string
         account_info:
           type: object
           properties:
@@ -1192,9 +1203,9 @@ components:
         - fileName
     FinancialAddress:
       type: string
-      description: '<br> 1. Financial address is a normative represenation of a store of value account represented as account@provider <br> 2. Every payer/payee financial address must be resolved to an actual store of value account number for processing the payment instruction <br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
+      description: '<br> 1. Financial address is case insensitive normative represenation of a store of value account represented as id-type:id@provider <br> 2. Every payer/payee financial address must resolve to an actual store of value account number for processing the payment instruction <br> 3. It is recommended the mapping between id and store of value account details to be held only at final store of value entity and intermediaries can hold  3. Few examples: <br> - token@id-provider e.g token:12345@mosip <br> - uid@pymt-rail e.g uid:12345@mosip <br> - vid@id-provider e.g vid:12345@PhilID <br> - mobile@mobile-provider e.g mobile:12345@m-pesa <br> - account-id@bank-psp-code e.g account:12345@gtbank <br> - account-no@ifsc-code.ifsc.npci e.g account:12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@gtbank <br> - token@psp-code e.g token:123456@sbi <br> - code@purpose-code.voucher-provider e.g voucher:12345@food.sodexo <br> - cdbc-id@cdbc e.g. 12345@DCash'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@PhilID
+      example: 'token:12345@gtbank'
     FinancialAddressList:
       items:
         $ref: '#/components/schemas/FinancialAddress'
@@ -1255,7 +1266,7 @@ components:
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '10089'
+          example: pymts.example.org
         sender_uri:
           description: sender url to accept callbacks
           type: string
@@ -1264,7 +1275,7 @@ components:
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '52077'
+          example: registry.example.org
         receiver_uri:
           description: receiver url to accept callbacks
           type: string
@@ -1302,16 +1313,16 @@ components:
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '10089'
+          example: registry.example.org
         sender_uri:
           description: sender url to accept callbacks
           type: string
           format: uri
-          example: 'https://pymts.sender.org/g2p/callback/on-disburse'
+          example: 'https://registry.sender.org/g2p/callback/on-disburse'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '52077'
+          example: pymts.example.org
         total_count:
           description: Total no of requests present in the message request
           type: integer
@@ -1340,98 +1351,11 @@ components:
       type: string
       description: 'Signature of {header}+{message} body verified using sender''s signing public key'
       example: 'Signature:  namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
-    Person:
-      type: object
-      description: Person indentity info
-      properties:
-        name:
-          type: string
-          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
-          example: Mr. John Smith
-        contact_info:
-          description: Person contact details
-          properties:
-            mobile_number:
-              type: string
-            alt_mobile_number:
-              type: string
-            phone:
-              type: string
-              description: landline
-            email_id:
-              type: string
-            alt_email_id:
-              type: string
-        document_details:
-          type: object
-          description: |
-            1. Person document detials as per OpenID <a href"https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-evidence-element">specs</a>
-            2. JSON object representing the document used to perform the identity verification. 
-          properties:
-            type:
-              description: 'String denoting the type of the document. The OP MAY use other than the predefined values in which case the RPs will either be unable to process the assertion, just store this value for audit purposes, or apply bespoken business logic to it.'
-              type: string
-            document_number:
-              description: 'String Representing an identifier/number that uniquely identifies a document that was issued to the End-User. This is used on one document and will change if it is reissued, e.g., a passport number, certificate number, etc. Note, number can be used as an alias for ''document_number'' for backward compatibility purposes but will be deprecated in future releases, implementers are recommended to use document_number.'
-              type: string
-            personal_number:
-              description: 'String representing an identifier that is assigned to the End-User and is not limited to being used in one document, for example a national identification number, personal identity number, citizen number, social security number, driver number, account number, customer number, licensee number, etc.'
-              type: string
-            serial_number:
-              description: String representing an identifier/number that identifies the document irrespective of any personalization information (this usually only applies to physical artifacts and is present before personalization).
-              type: string
-            date_of_issuance:
-              description: 'The date the document was issued as ISO 8601 [ISO8601] YYYY-MM-DD format.'
-              type: string
-            date_of_expiry:
-              description: 'The date the document will expire as ISO 8601 [ISO8601] YYYY-MM-DD format.'
-              type: string
-            issuer:
-              description: JSON object containing information about the issuer of this document. This object consists of the following properties
-              type: object
-              properties:
-                name:
-                  description: Designation of the issuer of the document
-                  type: string
-                address:
-                  description: 'Person address info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim">specs</a>'
-                  properties:
-                    formatted:
-                      description: 'Full mailing address, formatted for display or use on a mailing label. This field MAY contain multiple lines, separated by newlines. Newlines can be represented either as a carriage return/line feed pair ("\r\n") or as a single line feed character ("\n").'
-                      type: string
-                    street_address:
-                      description: 'Full street address component, which MAY include house number, street name, Post Office Box, and multi-line extended street address information. This field MAY contain multiple lines, separated by newlines. Newlines can be represented either as a carriage return/line feed pair ("\r\n") or as a single line feed character ("\n").'
-                      type: string
-                    locality:
-                      description: City or locality component.
-                      type: string
-                    region:
-                      description: 'State, province, prefecture, or region component.'
-                      type: string
-                    postal_code:
-                      description: Zip code or postal code component.
-                      type: string
-                    country:
-                      description: 'state, province, region'
-                      type: string
-                    country_code:
-                      description: 'OPTIONAL. country part of an address represented using an ISO 3-letter code [ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [ISO3166-1] MAY be used for compatibility reasons. country_code MAY be used as alternative to the existing country field.'
-                      type: string
-                country_code:
-                  description: 'String denoting the country or supranational organization that issued the document as ISO 3166/ICAO 3-letter codes [ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.'
-                  type: string
-                jurisdiction:
-                  description: String containing the name of the region(s)/state(s)/province(s)/municipality(ies) that issuer has jurisdiction over (if this information is not common knowledge or derivable from the address).
-                  type: string
-          required:
-            - type
-      required:
-        - name
     PersonId:
       type: string
-      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+      description: '<br> 1. Beneficiary id is case insensitve normative represenation as id-type:id@provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g token:12345@mosip, vid:12345@philid <br> - id@civil-registry.issuing-agency e.g id:12345@rwanda, id:12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g id:12345@voter.Rwanda, id:12345@DL.karnataka, mobile:12345@fruits.karnataka <br> Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.<br> e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@token.mosip
+      example: 'vid:12345@mosip'
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch

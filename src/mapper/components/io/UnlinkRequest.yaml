@@ -16,4 +16,4 @@ properties:
 required:
   - reference_id
   - timestamp
-  - fa
+  - id

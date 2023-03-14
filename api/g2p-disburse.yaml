@@ -10,7 +10,7 @@ info:
     name: G2P Connect License
     url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: 'https://sandbox.dpg.org/v0.1.0/{namespace}'
+  - url: 'https://sandbox.dpg.org/{namespace}/v0.1.0'
     description: Sandbox Server
 paths:
   /disburse:
@@ -735,9 +735,9 @@ components:
         - fileName
     FinancialAddress:
       type: string
-      description: '<br> 1. Financial address is a normative represenation of a store of value account represented as account@provider <br> 2. Every payer/payee financial address must be resolved to an actual store of value account number for processing the payment instruction <br> 3. Few examples: <br> - uid@pymt-rail e.g 12345@bsp <br> - uid@id-provider e.g 12345@PhilID <br> - mobile@mobile-provider e.g 12345@m-pesa <br> - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br> - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@mypsp <br> - token@psp-code e.g ot123456@mypsp <br> - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br> - cdbc-id@cdbc e.g. 12345@DCash'
+      description: '<br> 1. Financial address is case insensitive normative represenation of a store of value account represented as id-type:id@provider <br> 2. Every payer/payee financial address must resolve to an actual store of value account number for processing the payment instruction <br> 3. It is recommended the mapping between id and store of value account details to be held only at final store of value entity and intermediaries can hold  3. Few examples: <br> - token@id-provider e.g token:12345@mosip <br> - uid@pymt-rail e.g uid:12345@mosip <br> - vid@id-provider e.g vid:12345@PhilID <br> - mobile@mobile-provider e.g mobile:12345@m-pesa <br> - account-id@bank-psp-code e.g account:12345@gtbank <br> - account-no@ifsc-code.ifsc.npci e.g account:12345@HDFC0000001.ifsc.npci <br> - user-id@psp-code e.g. joeuser@gtbank <br> - token@psp-code e.g token:123456@sbi <br> - code@purpose-code.voucher-provider e.g voucher:12345@food.sodexo <br> - cdbc-id@cdbc e.g. 12345@DCash'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@PhilID
+      example: 'token:12345@gtbank'
     FinancialAddressList:
       items:
         $ref: '#/components/schemas/FinancialAddress'
@@ -785,7 +785,7 @@ components:
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '10089'
+          example: pymts.example.org
         sender_uri:
           description: sender url to accept callbacks
           type: string
@@ -794,7 +794,7 @@ components:
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '52077'
+          example: registry.example.org
         receiver_uri:
           description: receiver url to accept callbacks
           type: string
@@ -832,16 +832,16 @@ components:
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '10089'
+          example: registry.example.org
         sender_uri:
           description: sender url to accept callbacks
           type: string
           format: uri
-          example: 'https://pymts.sender.org/g2p/callback/on-disburse'
+          example: 'https://registry.sender.org/g2p/callback/on-disburse'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '52077'
+          example: pymts.example.org
         total_count:
           description: Total no of requests present in the message request
           type: integer

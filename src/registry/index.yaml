@@ -11,9 +11,8 @@ info:
    name: G2P Connect License
    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: https://sandbox.dpg.org/v0.1.0/{namespace}
+  - url: https://sandbox.dpg.org/{namespace}/v0.1.0 
     description: Sandbox Server
-
 paths:
  /registry/search:
   post: 

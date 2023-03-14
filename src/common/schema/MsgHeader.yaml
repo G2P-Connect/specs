@@ -20,16 +20,16 @@ properties:
   sender_id:
     description: send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.
     type: string
-    example: '10089'
+    example: 'registry.example.org'
   sender_uri:
     description: "sender url to accept callbacks"
     type: string
     format: uri
-    example: "https://pymts.sender.org/g2p/callback/on-disburse"
+    example: "https://registry.sender.org/g2p/callback/on-disburse"
   receiver_id:
     description: receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.
     type: string
-    example: '52077'
+    example: 'pymts.example.org'
   total_count:
     description: Total no of requests present in the message request
     type: integer

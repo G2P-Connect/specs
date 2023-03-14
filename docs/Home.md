@@ -67,35 +67,38 @@ All communications using G2P Connect specifications have following structure:
 ```yaml
 type: string
 description: "<br>
-  1. Financial address is case insensitive normative represenation of a store of value account represented as account@provider <br>
-  2. Every payer/payee financial address must resolv to an actual store of value account number for processing the payment instruction <br>
+  1. Financial address is case insensitive normative represenation of a store of value account represented as id-type:id@provider <br>
+  2. Every payer/payee financial address must resolve to an actual store of value account number for processing the payment instruction <br>
+  3. It is recommended the mapping between id and store of value account details to be held only at final store of value entity and intermediaries can hold 
   3. Few examples: <br>
-      - uid@pymt-rail e.g 12345@bsp <br>
-      - uid@id-provider e.g 12345@PhilID <br>
-      - mobile@mobile-provider e.g 12345@m-pesa <br>
-      - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br>
-      - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br>
-      - user-id@psp-code e.g. joeuser@mypsp <br>
-      - token@psp-code e.g ot123456@mypsp <br>
-      - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br>
+      - token@id-provider e.g token:12345@mosip <br>
+      - uid@pymt-rail e.g uid:12345@mosip <br>
+      - vid@id-provider e.g vid:12345@PhilID <br>
+      - mobile@mobile-provider e.g mobile:12345@m-pesa <br>
+      - account-id@bank-psp-code e.g account:12345@gtbank <br>
+      - account-no@ifsc-code.ifsc.npci e.g account:12345@HDFC0000001.ifsc.npci <br>
+      - user-id@psp-code e.g. joeuser@gtbank <br>
+      - token@psp-code e.g token:123456@sbi <br>
+      - code@purpose-code.voucher-provider e.g voucher:12345@food.sodexo <br>
       - cdbc-id@cdbc e.g. 12345@DCash"
 format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
-example: "12345@PhilID"
+example: "token:12345@gtbank"
 ```
 
 ```yaml
 type: string
 description: "<br>
-  1. Beneficiary id is case insensitve normative represenation as id@id-type.id-provider <br>
+  1. Beneficiary id is case insensitve normative represenation as id-type:id@provider <br>
   2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
   3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br>
   4. Few examples: <br>
-      - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br>
-      - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br>
-      - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br>
-  Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>"
+      - id@identifier-type.id-provider e.g token:12345@mosip, vid:12345@philid <br>
+      - id@civil-registry.issuing-agency e.g id:12345@rwanda, id:12345@ejanma.karnataka <br>
+      - id@functional-identifier.issuing-agency e.g id:12345@voter.Rwanda, id:12345@DL.karnataka, mobile:12345@fruits.karnataka <br>
+  Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.<br>
+        e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>"
 format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
-example: "12345@token.mosip"
+example: "vid:12345@mosip"
 ```
 
 ## Transport Protocol

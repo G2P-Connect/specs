@@ -1,22 +1,18 @@
 type: object
-description: Resolve financial address or ID to a store of value - provider only or account info
+description: |
+  1. If id is null then only verify and resolve fa is linked to store of value account. Verification is done by entity issuing fa.
+  2. If id is not null then verify and resolve fa is linked store of value account. Additionally verify fa and id are issued to the same individual. If both conditions pass then resolve status can be set to yes.
 properties:
   reference_id:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
-  type:
-    description: "Enumerated options for various resolution options"
-    type: string
-    enum: 
-      - "fa_to_account_provider"
-      - "fa_to_account_info"
-      - "id_to_account_provider"
-      - "id_to_account_info"
   fa:
     $ref: "../../../common/schema/FinancialAddress.yaml"
   id:
-    $ref: "../../../common/schema/Person.yaml"
+    $ref: "../../../common/schema/PersonId.yaml"
+  name: 
+    $ref: "../../../common/schema/PersonName.yaml"
   scope:
     description: Resolve scope to return only yes_no or account provider or id details. Additional authorization based on caller to be enforced by the implementing system to return any sensitive data.
     type: string
@@ -31,4 +27,4 @@ properties:
 required:
   - reference_id
   - timestamp
-  - type
+  - fa

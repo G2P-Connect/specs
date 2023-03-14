@@ -14,3 +14,4 @@ enum:
   - "rjct.srch_payer_fa.invalid"
   - "rjct.srch_payee_fa.invalid"
   - "rjct.share_attributes.invalid"
+  - "rjct.srch.too_many_record_found"

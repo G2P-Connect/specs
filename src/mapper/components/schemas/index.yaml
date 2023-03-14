@@ -58,8 +58,6 @@ MsgHeaderStatusReasonCode:
   $ref: "../../../common/schema/MsgHeaderStatusReasonCode.yaml"
 MsgSignature:
   $ref: "../../../common/schema/MsgSignature.yaml"
-Person:
-  $ref: "../../../common/schema/Person.yaml"
 PersonId:
   $ref: "../../../common/schema/PersonId.yaml"
 ReferenceId:

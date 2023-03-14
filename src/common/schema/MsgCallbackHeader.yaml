@@ -36,7 +36,7 @@ properties:
   sender_id:
     description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
     type: string
-    example: '10089'
+    example: 'pymts.example.org'
   sender_uri:
     description: "sender url to accept callbacks"
     type: string
@@ -45,7 +45,7 @@ properties:
   receiver_id:
     description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
     type: string
-    example: '52077'
+    example: 'registry.example.org'
   receiver_uri:
     description: "receiver url to accept callbacks"
     type: string

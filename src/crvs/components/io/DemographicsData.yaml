@@ -37,21 +37,8 @@ allOf:
     dod_place:
       description: date of death place
       type: string
-    related_persons:
-      items:
-        $ref: "../../../common/schema/PersonRelated.yaml"
+ #   related_persons:
+ #     items:
+ #       $ref: "../../../common/schema/PersonRelated.yaml"
     additional_attributes:
       $ref: "../../../common/schema/KeyValueInfo.yaml"
-
-
-
-description: | 
-  1. Attributes of a person to perform registry search.
-  2. Additional checks using conditioanl expressions is possible.
-  3. Allowes Country/Registry specific implementation extensions using key/value pairs.
-allOf:
-- $ref: "../../../common/schema/PersonInfo.yaml"
-- $ref: "../../../common/schema/PersonAdditionalInfo.yaml"
-- properties:
-    additional_attributes:
-      $ref: "../../../common/schema/ExpressionList.yaml"

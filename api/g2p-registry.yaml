@@ -10,7 +10,7 @@ info:
     name: G2P Connect License
     url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: 'https://sandbox.dpg.org/v0.1.0/{namespace}'
+  - url: 'https://sandbox.dpg.org/{namespace}/v0.1.0'
     description: Sandbox Server
 paths:
   /registry/search:
@@ -973,7 +973,7 @@ components:
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '10089'
+          example: pymts.example.org
         sender_uri:
           description: sender url to accept callbacks
           type: string
@@ -982,7 +982,7 @@ components:
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '52077'
+          example: registry.example.org
         receiver_uri:
           description: receiver url to accept callbacks
           type: string
@@ -1020,16 +1020,16 @@ components:
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '10089'
+          example: registry.example.org
         sender_uri:
           description: sender url to accept callbacks
           type: string
           format: uri
-          example: 'https://pymts.sender.org/g2p/callback/on-disburse'
+          example: 'https://registry.sender.org/g2p/callback/on-disburse'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
-          example: '52077'
+          example: pymts.example.org
         total_count:
           description: Total no of requests present in the message request
           type: integer
@@ -1152,9 +1152,9 @@ components:
           type: string
     PersonId:
       type: string
-      description: '<br> 1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
+      description: '<br> 1. Beneficiary id is case insensitve normative represenation as id-type:id@provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g token:12345@mosip, vid:12345@philid <br> - id@civil-registry.issuing-agency e.g id:12345@rwanda, id:12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g id:12345@voter.Rwanda, id:12345@DL.karnataka, mobile:12345@fruits.karnataka <br> Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.<br> e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 12345@token.mosip
+      example: 'vid:12345@mosip'
     PersonInfo:
       type: object
       description: 'Person identity info - foundational or functioanl id''s based on OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#Claims">specs</a>'

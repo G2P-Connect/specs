@@ -5,8 +5,8 @@ properties:
     $ref: "../../../common/schema/ReferenceId.yaml"
   timestamp: 
     $ref: "../../../common/schema/Timestamp.yaml"
-  fa:
-    $ref: "../../../common/schema/FinancialAddress.yaml" 
+  id: 
+    $ref: "../../../common/schema/PersonId.yaml"
   status:
     $ref: "../../../common/schema/RequestStatus.yaml" 
   status_reason_code:

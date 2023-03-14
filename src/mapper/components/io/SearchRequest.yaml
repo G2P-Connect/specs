@@ -13,11 +13,12 @@ properties:
   attribute_type:
     type: string
     enum:
-      - "payer_fa"
-      - "payee_fa"
+      - "fa"
+      - "id"
   attribute_value:
     oneOf:
       - $ref: "../../../common/schema/FinancialAddressList.yaml"
+      - $ref: "../../../common/schema/PersonId.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:
