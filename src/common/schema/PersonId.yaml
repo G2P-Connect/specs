@@ -1,6 +1,6 @@
 type: string
 description: "<br>
-  1. Beneficiary id is a normative case insensitive represenation represented as id@id-provider <br>
+  1. Beneficiary id is case insensitve normative represenation as id@id-type.id-provider <br>
   2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
   3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br>
   4. Few examples: <br>

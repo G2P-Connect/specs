@@ -1,14 +1,14 @@
 # G2P Connect - Protocol Standards
 
-G2P Connect API Specifications is an open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture Blueprint. 
+G2P Connect API Specifications is an open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture [Blueprint](./Blueprint.md). 
 
 G2P Connect Integration Specification assumes interactions between vaious DPI soultion providers (i.e DPGs, Proprietary/Existing systems) may vary due to country specific policies and availability of digital/banking/last mile connectivity infrastructure. For e.g., <br>
 
 > a. Few countries may have centralised payment switch operated by central bank while others may operate directly with financial institutions. <br>
-> b. Countries may decide to manage ID to Financial Address mapping either at Payment Switch layer or Financial Institution(s) or Beneficiary Management Platforms or an independent entity, etc., <br>
-> c. Countries may not a foundational de-duplicated digital id
+> b. Countries may decide to manage ID to Financial Address mapping either at Payment Switch layer or Financial Institution(s) or Beneficiary Management Platforms or an independent entity. <br>
+> c. Countries may not have a foundational de-duplicated digital id.
 
-For these kind of scenarios, G2P Connect is **flexible** to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** flows based on various use case scenarios that are specific to country's operating requirements. 
+G2P Connect is **flexible** to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** flows based on various use case scenarios that are specific to country's operating requirements. 
 
 ## Objectives
 The following are key objectives of G2P Connect Specifications:
@@ -37,6 +37,10 @@ All communications using G2P Connect specifications have following structure:
 
 
 ```json
+"signature": "Signature:  namespace=\"g2p\", kidId=\"{sender_id}|{unique_key_id}|{algorithm}\", algorithm=\"ed25519\", created=\"1606970629\", expires=\"1607030629\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)"
+```
+
+```json
 "header": {
     "version": "0.1.0",
     "message_id": "123456789020211216223812",
@@ -47,13 +51,52 @@ All communications using G2P Connect specifications have following structure:
     "receiver_id": "52077",
     "receiver_uri": "",
     "total_count": 21800
-},
+}
 ```
 
 ## Identifiers
 1. message_id: scope of message_id in header is to track paylaod delivery between sender and receiver. 
 2. transaction_id: scope of transaction_id in message is to uniquely corelate business request(s).
 3. reference_id: scope of the reference_id in message domain entity is to corelate individual business request. 
+
+## Normative Addressing
+1. To enable payment processing using various store of value accounts, G2P Connect uses normative addressing format and refer these as financial addresses (fa). e.g. payer fa, payee fa etc.,
+2. To enable integration with various identity systems/registries all beneficiary id's are also represented in normative formats.
+
+
+```yaml
+type: string
+description: "<br>
+  1. Financial address is case insensitive normative represenation of a store of value account represented as account@provider <br>
+  2. Every payer/payee financial address must resolv to an actual store of value account number for processing the payment instruction <br>
+  3. Few examples: <br>
+      - uid@pymt-rail e.g 12345@bsp <br>
+      - uid@id-provider e.g 12345@PhilID <br>
+      - mobile@mobile-provider e.g 12345@m-pesa <br>
+      - account-id@bank-psp-code e.g 12345@gtbank.rwanda <br>
+      - account-no@ifsc-code.ifsc.npci e.g 12345@HDFC0000001.ifsc.npci <br>
+      - user-id@psp-code e.g. joeuser@mypsp <br>
+      - token@psp-code e.g ot123456@mypsp <br>
+      - code@purpose-code.voucher-provider.voucher e.g 12345@food.sodexo.voucher, 12345@medical.xyz.voucher <br>
+      - cdbc-id@cdbc e.g. 12345@DCash"
+format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
+example: "12345@PhilID"
+```
+
+```yaml
+type: string
+description: "<br>
+  1. Beneficiary id is case insensitve normative represenation as id@id-type.id-provider <br>
+  2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
+  3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br>
+  4. Few examples: <br>
+      - id@identifier-type.id-provider e.g 12345@token.mosip, 12345@uid.aadhaar, 12345@vid.philid <br>
+      - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka <br>
+      - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br>
+  Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>"
+format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
+example: "12345@token.mosip"
+```
 
 ## Transport Protocol
 1. G2P Connect Integration Specification is designed to be transport layer agnostic viz. JSON entities over HTTPS, pub/sub event based messaging or file exchanges.
@@ -82,4 +125,6 @@ All communications using G2P Connect specifications have following structure:
 2. All currency codes represented in ISO 4217 format
 
 ## Acknowledgments
-Greatful for below organization, individuals for their contributions and/or influencing the G2P Connect standards. This is currently in Work In Progress. Completel list of acknowledgements shall be listed as part of the draft release shorlty.
+Thanks to below organization/individuals for their contributions and influencing the G2P Connect standards. 
+
+- (This is currently in Work In Progress. Completel list of acknowledgements shall be listed as part of the draft release shorlty.)
