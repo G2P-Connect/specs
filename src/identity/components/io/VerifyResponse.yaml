@@ -17,6 +17,8 @@ properties:
     $ref: "../../../common/schema/PersonId.yaml"
   verify_results:
     $ref: "../../../common/schema/ExpressionResultList.yaml"
+  pagination: 
+    $ref: "../../../common/schema/Pagination.yaml"
   locale:
     $ref: "../../../common/schema/LanguageCode.yaml"
 required:

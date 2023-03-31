@@ -394,6 +394,8 @@ components:
           $ref: '#/components/schemas/PersonId'
         verify_results:
           $ref: '#/components/schemas/ExpressionResultList'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
