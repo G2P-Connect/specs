@@ -72,7 +72,7 @@ paths:
       deprecated: false
   /credential/on-issue:
     post:
-      summary: 'ID-ON-VRFY : /idenity/on-issue'
+      summary: 'ID-ON-VRFY : /identity/on-issue'
       description: Verification response through callback
       operationId: post_g2p_id_on-verify
       requestBody:
