@@ -51,10 +51,15 @@ properties:
     type: string
     format: uri
     example: ""
-  is_encrypted:
-    description: Is message encrypted?
-    type: boolean
-    default: true
+  encryption_algo:
+    description: If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
+    type: string
+    example:
+      - aes
+      - rsa
+      - aes+rsa
+      - ecc
+      - other
 required:
   - message_id
   - message_ts

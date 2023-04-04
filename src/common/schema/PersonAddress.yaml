@@ -21,3 +21,7 @@ properties:
   country_code:
     description:  OPTIONAL. country part of an address represented using an ISO 3-letter code [ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [ISO3166-1] MAY be used for compatibility reasons. country_code MAY be used as alternative to the existing country field.
     type: string
+  lat_long:
+    description: Lat Long coordinate values seperated with a #/community/schema/OtherInfo"
+    type: string
+    example: 71.49338, 12.18903

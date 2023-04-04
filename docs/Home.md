@@ -50,7 +50,8 @@ All communications using G2P Connect specifications have following structure:
     "sender_uri": "https://pymts.sender.org/g2p/callback/on-disburse",
     "receiver_id": "52077",
     "receiver_uri": "",
-    "total_count": 21800
+    "total_count": 21800,
+    "encryption_algo": "aes+rsa"
 }
 ```
 
