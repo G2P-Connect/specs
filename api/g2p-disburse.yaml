@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Disbursement
-  description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/15">thread</a> <br><br> Social protection platform initiating G2P disbursements. Supports api, events and file based messaging'
+  description: 'Discussions <a href="https://github.com/G2P-Connect/.github/discussions/15">thread</a> <br><br> Social protection platform initiating G2P disbursements. Supports API, events, and file-based messaging.'
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -162,7 +162,7 @@ paths:
   /disburse/on-search:
     post:
       summary: 'DSBT-ON-SRCH : /credential/on-search'
-      description: Disbrusement search results through call back
+      description: Disbursement search results through call back
       operationId: post_g2p_dsbt_on-search
       requestBody:
         description: ''
@@ -210,7 +210,7 @@ paths:
   /disburse/txn/status:
     post:
       summary: 'DSBT-TXNSTS : /disburse/txn/status'
-      description: Perform async status check of previous disbursement transanctions using searchable attributes
+      description: Perform async status check of previous disbursement transactions using searchable attributes
       operationId: post_g2p_dsbt_txnstatus
       requestBody:
         description: ''
@@ -265,7 +265,7 @@ paths:
   /disburse/txn/on-status:
     post:
       summary: 'DSBT-ON-TXNSTS : /disburse/txn/on-status'
-      description: Response to async status check of previous disbursement transanctions using callback
+      description: Response to async status check of previous disbursement transactions using callback
       operationId: post_g2p_dsbt_on-txnstatus
       requestBody:
         description: ''
@@ -313,7 +313,7 @@ paths:
   '/disburse/search/{transaction_id}/{summary_only}':
     get:
       summary: 'DSBT-SRCH-TXNID: /disburse/search/{transaction_id}/{summary_only}'
-      description: Get disbursement processing status by polling <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding.
+      description: Get disbursement processing status by polling <br> 1. This end point is available to poll disbursement processing status info. <br> 2. It is recommended to fetch with default summay_only flag to reduce load on the systems. <br> 3. Disbursement processing systems may choose to implement rate limiting at transaction_id level to avoid request flooding.
       operationId: get_g2p_dsbt_search_by_txn_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
@@ -355,7 +355,7 @@ paths:
   '/disburse/search/{reference_id}':
     get:
       summary: 'DSBT-SRCH-REFID : /disburse/search/{reference_id}'
-      description: Get disbursement processing status by polling using reference_id <br> 1. This end point is avaiable to poll disbursement processing status info. <br> 2. Disbursement processing systems may chose to implement rate limiting at reference_id level to avoid request flooding.
+      description: Get disbursement processing status by polling using reference_id <br> 1. This end point is available to poll disbursement processing status info. <br> 2. Disbursement processing systems may choose to implement rate limiting at reference_id level to avoid request flooding.
       operationId: get_g2p_dsbt_search_by_ref_id
       parameters:
         - $ref: '#/components/parameters/accept-language'
@@ -397,7 +397,7 @@ components:
   schemas:
     DisburseRecord:
       type: object
-      description: Describes payment schema that enable transfer from payer to payee accounts. This entity supports immediate and scheduling one time payment request into future. Recurring payments is not part of the scope of this entity.
+      description: Describes payment schema that enables transfer from payer to payee accounts. This entity supports immediate and scheduling one-time payment requests into the future. Recurring payments are not part of the scope of this entity.
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -465,7 +465,7 @@ components:
         - disbursements_status
     DisburseResponseRecord:
       type: object
-      description: G2P Disbursement response i.e status of each disburemsent request for reconciliation by sender system
+      description: G2P Disbursement response i.e status of each disbursement request for reconciliation by sender system
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -775,11 +775,11 @@ components:
           type: string
           maxLength: 999
         total_count:
-          description: Total no of requests present in the message request
+          description: Total number of requests present in the message request
           type: integer
           example: 21800
         completed_count:
-          description: No of requests in complteed state. Complete includes success and error requests due to funcational errors
+          description: Number of requests in completed state. Complete includes success and error requests due to functional errors
           type: integer
           example: 50
         sender_id:
@@ -843,7 +843,7 @@ components:
           type: string
           example: pymts.example.org
         total_count:
-          description: Total no of requests present in the message request
+          description: Total number of requests present in the message request
           type: integer
           example: 21800
         is_encrypted:
@@ -981,4 +981,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: jwt
-      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
+      description: Authenticating using session token issued by platform/system API gateway or auth services issuing session token APIs using client id & secret
