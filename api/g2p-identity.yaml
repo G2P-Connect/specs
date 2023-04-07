@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Identity
-  description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credential'
+  description: 'Discussions <a href="https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credentials'
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -15,7 +15,7 @@ servers:
 paths:
   /identity/verify:
     post:
-      summary: 'ID-VRFY : /identity/verify'
+      summary: 'ID-VRFY: /identity/verify'
       description: Verification of person's demographics against foundational id
       operationId: post_g2p_id_verify
       requestBody:
@@ -72,7 +72,7 @@ paths:
       deprecated: false
   /credential/on-issue:
     post:
-      summary: 'ID-ON-VRFY : /idenity/on-issue'
+      summary: 'ID-ON-VRFY: /identity/on-issue'
       description: Verification response through callback
       operationId: post_g2p_id_on-verify
       requestBody:
@@ -129,7 +129,7 @@ paths:
   /credential/txn/status:
     post:
       summary: 'ID-TXNSTS : /identity/txn/status'
-      description: Perform async status check of previous identity transanctions using transaction_id and/or reference_id(s)
+      description: Perform async status check of previous identity transactions using transaction_id and/or reference_id(s)
       operationId: post_g2p_id_txnstatus
       requestBody:
         description: ''
@@ -187,7 +187,7 @@ paths:
       deprecated: false
   /identity/txn/on-status:
     post:
-      summary: 'ID-ON-TXNSTS : /identity/txn/on-status'
+      summary: 'ID-ON-TXNSTS: /identity/txn/on-status'
       description: Response to async status check of previous identity transanctions using callback
       operationId: post_g2p_id_on-txnstatus
       requestBody:
@@ -248,7 +248,7 @@ components:
     IdentityRecord:
       description: |
         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
-        3. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
+        2. Allows Country/Registry specific implementation extensions using Attribute Name/Value pairs.
       properties:
         id:
           $ref: '#/components/schemas/PersonId'
@@ -336,7 +336,7 @@ components:
           status: SUCC
     VerifyRequest:
       type: object
-      description: Verify person with identity provider. Match attribtues in request object and return booelan match response along with a token.
+      description: Verify person with identity provider. Match attributes in request object and return boolean match response along with a token.
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -346,7 +346,7 @@ components:
           $ref: '#/components/schemas/PersonId'
         consent_obtained:
           type: string
-          description: Is consent obtained for verification
+          description: Is consent obtained for verification?
           enum:
             - 'y'
             - 'n'
@@ -387,7 +387,7 @@ components:
         status_reason_code:
           $ref: '#/components/schemas/VerifyStatusReasonCode'
         status_reason_message:
-          description: Status reason code message. Helps actionanble messaging for systems/end users
+          description: Status reason code message. Helps actionable messaging for systems/end users
           type: string
           maxLength: 999
         token:
@@ -550,7 +550,7 @@ components:
           type: string
           format: binary
         fileFormat:
-          description: 'File content format. e.g json, csv, etc.,'
+          description: 'File content format, e.g., json, csv, etc.'
           type: string
           default: json
           example: csv
@@ -571,7 +571,7 @@ components:
         - key
         - value
     LanguageCode:
-      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
+      description: Indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
       pattern: '^[a-z]{3,3}$'
       example: en
@@ -600,7 +600,7 @@ components:
         status_reason_code:
           $ref: '#/components/schemas/MsgHeaderStatusReasonCode'
         status_reason_message:
-          description: 'Status reascon code message, if any, Helps actionanble messaging for system/end users'
+          description: 'Status reason code message, if any. Helps actionable messaging for system/end users'
           type: string
           maxLength: 999
         total_count:
@@ -700,7 +700,7 @@ components:
       description: 'Signature of {header}+{message} body verified using sender''s signing public key'
       example: 'Signature:  namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
     Pagination:
-      description: 'Pagination definition, count starts with 1'
+      description: 'Pagination definition, count starts from 1'
       type: object
       properties:
         page_size:
@@ -720,7 +720,7 @@ components:
         - page_number
         - total_count
     PaginationRequest:
-      description: 'Pagination definition, count starts with 1'
+      description: 'Pagination definition, count starts from 1'
       type: object
       properties:
         page_size:
@@ -786,10 +786,10 @@ components:
           description: Zip code or postal code component.
           type: string
         country:
-          description: 'state, province, region'
+          description: 'State, province, or region'
           type: string
         country_code:
-          description: 'OPTIONAL. country part of an address represented using an ISO 3-letter code [ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [ISO3166-1] MAY be used for compatibility reasons. country_code MAY be used as alternative to the existing country field.'
+          description: 'OPTIONAL. Country part of an address represented using an ISO 3-letter code [ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [ISO3166-1] MAY be used for compatibility reasons. country_code MAY be used as an alternative to the existing country field.'
           type: string
     PersonId:
       type: string
@@ -915,7 +915,7 @@ components:
     timestamp:
       in: header
       name: timestamp
-      description: 'request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
+      description: 'Request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
       required: true
       schema:
         type: string
@@ -932,7 +932,7 @@ components:
     summary_only:
       in: path
       name: summary_only
-      description: 'Optional. Defualt is false, If summary_only set to true then only the message header with stats / status to be returend as part of implementation'
+      description: 'Optional. Default is false. If summary_only is set to true, then only the message header with stats / status will be returned as part of the implementation.'
       required: true
       schema:
         type: boolean
@@ -977,9 +977,9 @@ components:
                   ack_status:
                     type: string
                     description: |
-                      1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by reciever back to the sender.
-                      2. NACK: If the request is valid (for basic checks) and there is no futher updates from reciever back to the sender.
-                      3. ERR: If the reuqest is invalid and reciver can't process the request. error object holds error code, message.
+                      1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by receiver back to the sender.
+                      2. NACK: If the request is valid (for basic checks) and there are no further updates from receiver back to the sender.
+                      3. ERR: If the request is invalid and reciver can't process the request. error object holds error code, message.
                     enum:
                       - ACK
                       - NACK
@@ -993,4 +993,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: jwt
-      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
+      description: Authenticating using session token issued by platform/system API gateway or auth services issuing session token APIs using client id & secret.
