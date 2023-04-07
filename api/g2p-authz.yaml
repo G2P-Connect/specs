@@ -56,7 +56,7 @@ components:
           example: '1001'
         client_secret:
           type: string
-          description: client secret shared to clients as part of client registration process or regualar rotation of client_secret.
+          description: Client secret shared to clients as part of client registration process or regular rotation of client_secret.
           example: 7Fjfp0ZBr1KtDRbnfVdmIw
         scope:
           $ref: '#/components/schemas/OidcScope'
@@ -64,7 +64,7 @@ components:
         - grant_type
         - client_id
         - client_secret
-      description: Request entity to obtain access token using gant_type = client_credential
+      description: Request entity to obtain access token using grant_type = client_credentials
     OAuth2ClientTokenResponse:
       type: object
       properties:
@@ -86,7 +86,7 @@ components:
       description: ''
     OidcScope:
       type: string
-      description: 'OIDC complaint auth tokens issued by an authorization service for OAuth2, OIDC complaint clients. <br><br> This is an indicative list: <br> disburse, on-disburse, disburse/status, disburse/on-status, mapper/link, mapper/unlink, etc.,'
+      description: 'OIDC compliant auth tokens issued by an authorization service for OAuth2, OIDC compliant clients. <br><br> This is an indicative list: <br> disburse, on-disburse, disburse/status, disburse/on-status, mapper/link, mapper/unlink, etc.,'
       items:
         enum:
           - disburse.disburse
@@ -123,7 +123,7 @@ components:
     timestamp:
       in: header
       name: timestamp
-      description: 'request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
+      description: 'Request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
       required: true
       schema:
         type: string
@@ -131,7 +131,7 @@ components:
     message_id_hdr:
       in: header
       name: message_id
-      description: Unique message id to communicate between sender and receiver systems and it's scope is restricted to transport layer only to successfully devier the message between sender and receiver.
+      description: Unique message ID to communicate between sender and receiver systems and its scope is restricted to transport layer only to successfully deliver the message between sender and receiver.
       schema:
         type: string
         example: '123456789020211216223812'
@@ -142,14 +142,14 @@ components:
         application/json:
           schema:
             type: object
-            description: 'HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx'
+            description: 'HTTP transport layer Error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx, and 5xx'
             properties:
               error:
                 type: object
                 properties:
                   code:
                     type: string
-                    description: error code
+                    description: Error code
                   message:
                     type: string
-                    description: error message
+                    description: Error message
