@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Civil Registry
-  description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credential'
+  description: 'Discussions <a href="https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credentials'
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -186,7 +186,7 @@ paths:
   /registry/notify:
     post:
       summary: 'REG-NTFY : /registry/notify'
-      description: Registry to notify a life event to subscrbiers
+      description: Registry to notify a life event to subscribers
       operationId: post_g2p_registry_notify
       requestBody:
         description: ''
@@ -474,7 +474,7 @@ components:
         - $ref: '#/components/schemas/CRRecord'
     CRRelatedPerson:
       type: object
-      description: 'Related person details '
+      description: 'Related person details'
       properties:
         id:
           $ref: '#/components/schemas/PersonId'
@@ -524,7 +524,7 @@ components:
     RegistryRecord:
       description: |
         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
-        3. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
+        2. Allows Country/Registry specific implementation extensions using Attribute Name/Value pairs.
       properties:
         id:
           $ref: '#/components/schemas/PersonId'
@@ -647,7 +647,7 @@ components:
         - filter
     SearchResponse:
       type: object
-      description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
+      description: Response to search request. Multiple responses for each page can be pushed to the caller as an implementation!
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -658,7 +658,7 @@ components:
         status_reason_code:
           $ref: '#/components/schemas/SearchStatusReasonCode'
         status_reason_message:
-          description: Status reason code message. Helps actionanble messaging for systems/end users
+          description: Status reason code message. Helps actionable messaging for systems/end users
           type: string
           maxLength: 999
         registry_type:
@@ -697,7 +697,7 @@ components:
         - rjct.search.too_many_records_found
     SubscribeRequest:
       type: object
-      description: Subscribe to a life event with crvs
+      description: Subscribe to a life event with registry
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -746,7 +746,7 @@ components:
         - rjct.event.already_subscribed
     TxnStatusRequest:
       type: object
-      description: Request to search identity service requests
+      description: Request to search identity service request
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -816,7 +816,7 @@ components:
             - err.service.unavailable
         message:
           type: string
-          description: message to describe above error code
+          description: Message to describe the above error code
           maxLength: 999
     ExpCondition:
       description: Condition in an expression
@@ -840,7 +840,7 @@ components:
       description: Expression
       properties:
         seq_num:
-          description: expression seq number for correlation
+          description: Expression sequence number for correlation
           type: number
           example: 1
         attribute_name:
@@ -867,7 +867,7 @@ components:
       description: Expression result
       properties:
         seq_num:
-          description: expression seq number for correlation
+          description: Expression sequence number for correlation
           type: number
           example: 1
         result:
@@ -899,7 +899,7 @@ components:
         $ref: '#/components/schemas/ExpressionWithCondition'
     FileInfo:
       type: object
-      description: File info. Used in file upload feature using HTTPS
+      description: File info. Used for file upload feature using HTTPS
       properties:
         action:
           description: G2P Connect specific actions. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
@@ -909,7 +909,7 @@ components:
           type: string
           format: binary
         fileFormat:
-          description: 'File content format. e.g json, csv, etc.,'
+          description: 'File content format. e.g., json, csv, etc.'
           type: string
           default: json
           example: csv
@@ -930,7 +930,7 @@ components:
         - key
         - value
     LanguageCode:
-      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
+      description: Indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
       pattern: '^[a-z]{3,3}$'
       example: en
@@ -939,11 +939,11 @@ components:
       description: Message header
       properties:
         version:
-          description: Messaing protocol specification version being used
+          description: Messaging protocol specification version being used
           type: string
           example: 0.1.0
         message_id:
-          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
+          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the original message_id for correlations.
           type: string
           example: '123456789020211216223812'
         message_ts:
@@ -959,7 +959,7 @@ components:
         status_reason_code:
           $ref: '#/components/schemas/MsgHeaderStatusReasonCode'
         status_reason_message:
-          description: 'Status reascon code message, if any, Helps actionanble messaging for system/end users'
+          description: 'Status reason code message, if any, Helps actionable messaging for system/end users'
           type: string
           maxLength: 999
         total_count:
@@ -967,7 +967,7 @@ components:
           type: integer
           example: 21800
         completed_count:
-          description: No of requests in complteed state. Complete includes success and error requests due to funcational errors
+          description: No of requests in completed state. Complete includes success and error requests due to functional errors
           type: integer
           example: 50
         sender_id:
@@ -1002,11 +1002,11 @@ components:
       description: Message header
       properties:
         version:
-          description: Messaing protocol specification version being used
+          description: Messaging protocol specification version being used
           type: string
           example: 0.1.0
         message_id:
-          description: 'Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,'
+          description: 'Unique message id to communicate between sender and receiver systems to reliably deliver the message over any transport layer i.e. https, pub/sub, sftp etc.'
           type: string
           example: '123456789020211216223812'
         message_ts:
@@ -1015,7 +1015,7 @@ components:
           format: date-time
           example: '2022-12-04T18:01:07+00:00'
         action:
-          description: 'G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.'
+          description: 'G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/forward processing. Helps identify payload type in message property.'
           type: string
         sender_id:
           description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
@@ -1057,7 +1057,7 @@ components:
     MsgSignature:
       type: string
       description: 'Signature of {header}+{message} body verified using sender''s signing public key'
-      example: 'Signature:  namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
+      example: 'Signature: namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
     Pagination:
       description: 'Pagination definition, count starts with 1'
       type: object
@@ -1148,7 +1148,7 @@ components:
           description: 'state, province, region'
           type: string
         country_code:
-          description: 'OPTIONAL. country part of an address represented using an ISO 3-letter code [ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [ISO3166-1] MAY be used for compatibility reasons. country_code MAY be used as alternative to the existing country field.'
+          description: 'OPTIONAL. Country part of an address represented using an ISO 3-letter code [ISO3166-3]'
           type: string
     PersonId:
       type: string
@@ -1336,9 +1336,9 @@ components:
                   ack_status:
                     type: string
                     description: |
-                      1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by reciever back to the sender.
-                      2. NACK: If the request is valid (for basic checks) and there is no futher updates from reciever back to the sender.
-                      3. ERR: If the reuqest is invalid and reciver can't process the request. error object holds error code, message.
+                      1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by receiver back to the sender.
+                      2. NACK: If the request is valid (for basic checks) and there are no further updates from receiver back to the sender.
+                      3. ERR: If the request is invalid and reciver can't process the request. error object holds error code, message.
                     enum:
                       - ACK
                       - NACK
@@ -1352,4 +1352,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: jwt
-      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
+      description: Authenticating using session token issued by platform/system API gateway or auth services issuing session token APIs using client ID & secret
