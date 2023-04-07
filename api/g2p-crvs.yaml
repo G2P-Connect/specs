@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Civil Registry
-  description: 'Discussions <a href= "https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credential'
+  description: 'Discussions <a href="https://github.com/G2P-Connect/.github/discussions/16">thread</a> <br><br> Manage issuance of digital credential'
   version: 0.1.0
   contact:
     name: G2P Connect
@@ -186,7 +186,7 @@ paths:
   /crvs/notify:
     post:
       summary: 'CRVS-NTFY : /crvs/notify'
-      description: CRVS to notify a life event to subscrbiers
+      description: CRVS to notify a life event to subscribers
       operationId: post_g2p_crvs_notify
       requestBody:
         description: ''
@@ -242,7 +242,7 @@ paths:
   /crvs/txn/status:
     post:
       summary: 'CRVS-TXNSTS : /crvs/txn/status'
-      description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
+      description: Perform async status check of previous civil registry transactions using transaction_id and/or reference_id(s)
       operationId: post_g2p_id_txnstatus
       requestBody:
         description: ''
@@ -301,7 +301,7 @@ paths:
   /identity/txn/on-status:
     post:
       summary: 'CRVS-ON-TXNSTS : /crvs/txn/on-status'
-      description: Response to async status check of previous civil registrt transanctions using callback
+      description: Response to async status check of previous civil registry transactions using callback
       operationId: post_g2p_crvs_on-txnstatus
       requestBody:
         description: ''
@@ -401,11 +401,11 @@ components:
                 - female
                 - transgender
             dob:
-              description: date of brith
+              description: date of birth
               type: string
               format: date-time
             dob_place:
-              description: date of brith place
+              description: date of birth place
               type: string
             dod:
               description: date of death
@@ -455,7 +455,7 @@ components:
         - unregister
     NotifyEvent:
       type: object
-      description: CRVS to notify a life event to subscrbiers
+      description: CRVS to notify a life event to subscribers
       properties:
         reference_id:
           $ref: '#/components/schemas/ReferenceId'
@@ -1110,9 +1110,9 @@ components:
                   ack_status:
                     type: string
                     description: |
-                      1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by reciever back to the sender.
-                      2. NACK: If the request is valid (for basic checks) and there is no futher updates from reciever back to the sender.
-                      3. ERR: If the reuqest is invalid and reciver can't process the request. error object holds error code, message.
+                      1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by receiver back to the sender.
+                      2. NACK: If the request is valid (for basic checks) and there are no further updates from receiver back to the sender.
+                      3. ERR: If the request is invalid and reciver can't process the request. error object holds error code, message.
                     enum:
                       - ACK
                       - NACK
@@ -1126,4 +1126,4 @@ components:
       type: http
       scheme: bearer
       bearerFormat: jwt
-      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
+      description: Authenticating using session token issued by platform/system API gateway or auth services issuing session token APIs using client id & secret
