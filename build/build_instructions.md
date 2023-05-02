@@ -36,7 +36,7 @@ sudo npm install -g swagger-cli
 ```
 2. Generate the resolved OpenAPI definition file <br>
     a. Go to the root directory of this repository i.e specs/ <br>
-    b. Run the build_apis.cmd file <br>
+    b. Run the build_apis.cmd file in the build folder<br>
     b. Alternatively, Run the following command for each index file in ./endpoints folder. for e.g., <br>
 
 ```
