@@ -12,7 +12,8 @@
         <!-- * Functional Registry -->
         <!-- * Social Regisry -->
     * Beneficiary Management
-         * [Financial Address Mapper](./FinancialAddressMapper.md)
+         * [Financial Address Mapper](MapperArchitecture.md)
+            * [Mapper Specs](./MapperSpecs.md)
         <!-- * Registration -->
         <!-- * Assess -->
         <!-- * Enroll -->

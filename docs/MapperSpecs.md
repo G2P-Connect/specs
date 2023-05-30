@@ -1,12 +1,7 @@
-## Overview
-1. Standardising linking, unlinking, update, resolve and status check capabilities between G2P enabling DPGS/Products/Systems.
-2. Beneficiary identifier can be of national id, id tokens, mobile number, email id, virtual payment ids, user id's, etc that are supported by underlying payment processing/rails platforms.
-3. Country operational model shall decide the entity that manages one or more ID to Financial address map registries.
 
 ## Assumptions
 1. Financial Address (FA) representred in normative form is pre-requisite for these api's to work. 
 2. Payer/Payee FAs are to be obtianed by the respective financial entity that holds store of value accounts.
-
 
 ## References
 1. API specification [link](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)
@@ -24,8 +19,6 @@
 | FAMAP-ON-ULNK | POST /mapper/on-unlink | Unlinking response through callback end point | 
 | FAMAP-RSLV | POST /mapper/resolve | Resolve fa / beneficiary id to a store of value details | 
 | FAMAP-ON-RSLV | POST /mapper/on-resolve | Resolve response through callback end point | 
-| FAMAP-SRCH | POST /mapper/search | Resolve fa / beneficiary id to a store of value | 
-| FAMAP-ON-SRCH| POST /mapper/on-search | Resolve response through callback end point | 
 | FAMAP-TXNSTS | POST /mapper/txn/status | Status check on any of the mapper actions using transaction_id or reference_id(s) | 
 | FAMAP-ON-TXNSTS | POST /mapper/txn/on-status | Status check response through callback end point | 
 
