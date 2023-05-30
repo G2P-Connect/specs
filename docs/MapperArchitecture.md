@@ -125,6 +125,6 @@ Countries may use the below checklist to start the DPI journey:
 2. Work with ecosystem participants to identify policies and operational guidelines to use the existing services digitally.
 
 ## 7. Additional References
-1. Financial Address Mapper - [Tech Architecture](../../publications/mapper_v1_0.pdf)
+1. Financial Address Mapper - [Tech Architecture](https://centre-for-dpi.github.io/docs/publications/mapper_architecture_v1_0.pdf)
 2. Financial Address Mapper - Policy Guidelines 
-3. Financial Address Mapper - [Mapper Specification](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)
+3. Financial Address Mapper - [Mapper API Specification](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)
