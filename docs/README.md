@@ -1,10 +1,6 @@
-# 🔍 Solution Blueprint
+# Home
 
 G2P Connect initiative is an open source effort to enable government-to-person digital payments built through **interoperable standards** and **design blueprints.**
-
-
-
-![G2P Connect - Solution Blueprint](.gitbook/assets/solution\_bluerpint.png)
 
 ## Mission&#x20;
 
@@ -15,9 +11,3 @@ It Offers:\
 2\. A set of **integration specifications** to ensure interoperability across the systems supporting G2P delivery \
 3\. An **integration sandbox** to support the development of solutions adhering to the blueprint and specifications
 
-## Objectives
-
-1. Open source effort
-2. Adopt open interface standards and design templates
-3. End to end architectural blueprint for G2P payments
-4. Enables integration with exsiting or new systems
