@@ -1,4 +1,4 @@
-# Home
+# 🥇 Objective
 
 G2P Connect initiative is an open source effort to enable government-to-person digital payments built through **interoperable standards** and **design blueprints.**
 
