@@ -1,4 +1,4 @@
-# Mapper Architecture
+# 🗂 Mapper Architecture
 
 ## Technology Architecture
 
@@ -144,8 +144,12 @@ Countries may use the below checklist to start the DPI journey:
 1. The Ministry/Department operating one or more social benefit program(s) may consider a single Mapper Registry as Digital Public Infrastructure building block Department to identify. This agency may own and operate the Mapper registry.
 2. Work with ecosystem participants to identify policies and operational guidelines to use the existing services digitally.
 
+
+
+
+
 ## 7. Additional References
 
-1. Financial Address Mapper - [Architecture Overview](https://centre-for-dpi.github.io/docs/publications/mapper\_architecture\_v1\_0.pdf)
+1. Financial Address Mapper - [Architecture Overview](https://docs.google.com/presentation/d/e/2PACX-1vRm6L3Bn2wvOA39-E78Y8K3vUPVy\_eH9IqAQkk9teNEKqxbM-fslXoh2scf5-\_MXLTWpkqg1R17ejd0/pub?start=false\&loop=false\&delayms=3000)
 2. Financial Address Mapper - Policy Overview
 3. Financial Address Mapper - [Mapper API Specification](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)
