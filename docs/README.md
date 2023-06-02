@@ -1,6 +1,6 @@
 # Overview
 
-G2P Connect API Specifications is an open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture [Blueprint](Blueprint.md).
+G2P Connect API Specifications is an open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture [Blueprint](g2p-connect-protocol/solution-blueprint.md).
 
 G2P Connect Integration Specification assumes interactions between vaious DPI soultion providers (i.e DPGs, Proprietary/Existing systems) may vary due to country specific policies and availability of digital/banking/last mile connectivity infrastructure. For e.g.,\
 
@@ -9,7 +9,7 @@ G2P Connect Integration Specification assumes interactions between vaious DPI so
 > b. Countries may decide to manage ID to Financial Address mapping either at Payment Switch layer or Financial Institution(s) or Beneficiary Management Platforms or an independent entity.\
 > c. Countries may not have a foundational de-duplicated digital id.
 
-G2P Connect is **flexible** to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** flows based on various use case scenarios that are specific to country's operating requirements.
+G2P Connect is flexible to enable DPI solution providers (i.e DPGs, Proprietary/Existing systems) to **orchestrate** flows based on various use case scenarios that are specific to country's operating requirements.
 
 ## Objectives
 
@@ -140,4 +140,4 @@ example: "vid:12345@mosip"
 
 Thanks to below organization/individuals for their contributions and influencing the G2P Connect standards.
 
-* (This is currently in Work In Progress. Completel list of acknowledgements shall be listed as part of the draft release shorlty.)
+1. G2P community members

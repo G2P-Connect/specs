@@ -24,6 +24,6 @@
 
 ### Request For Comments
 
-1. Authorization Scopes - [AUTHZ-TOKN-Scope-Draft-01](rfc/specs-draft/g2p\_authz\_scope\_codes.md)
+1. Authorization Scopes - [AUTHZ-TOKN-Scope-Draft-01](../../rfc/specs-draft/g2p\_authz\_scope\_codes.md)
 
 ### Integration Schematics
