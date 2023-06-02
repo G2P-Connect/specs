@@ -25,15 +25,8 @@
 | FAMAP-TXNSTS    | POST /mapper/txn/status    | Status check on any of the mapper actions using transaction\_id or reference\_id(s) |
 | FAMAP-ON-TXNSTS | POST /mapper/txn/on-status | Status check response through callback end point                                    |
 
-### Request For Comments
-
-### Request For Comments
-
-1. FA Mapper [Linking](../../../../rfc/specs-draft/g2p\_famap\_lnk\_status\_codes.md) status reason codes and messages
-2. FA Mapper \[Update]\(https://github.com/G2P-Connect/specs/blob/draft/docs/rfc/specs-draft/g2p\_famap\_updt\_status\_codes.md status reason codes and messages
-3. FA Mapper [Unlink](../../../../rfc/specs-draft/g2p\_famap\_ulnk\_status\_codes.md) status reason codes and messages
-4. FA Mapper [Resolve](../../../../rfc/specs-draft/g2p\_famap\_rslv\_status\_codes.md) status reason codes and messages
-
 ### Integration Schematics
 
-![](../../../../images/draw.io/interface-mapper.drawio.png)
+
+
+<figure><img src="../../../../images/draw.io/interface-mapper.drawio.png" alt="Mapper Interfaces"><figcaption></figcaption></figure>
