@@ -1,7 +1,3 @@
----
-layout: editorial
----
-
 # Solution Blueprint
 
 ![](.gitbook/assets/solution\_bluerpint.png)
