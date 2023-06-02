@@ -2,8 +2,8 @@
 
 ### Assumptions
 
-1. Financial Address (FA) representred in normative form is pre-requisite for these api's to work.
-2. Payer/Payee FAs are to be obtianed by the respective financial entity that holds store of value accounts.
+1. Financial Address (FA) representred in normative form is pre-requisite for these api's to work
+2. Payer/Payee FAs are to be obtianed by the respective financial entity that holds store of value accounts
 
 ### References
 

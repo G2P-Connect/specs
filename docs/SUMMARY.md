@@ -12,8 +12,6 @@
   * [Beneficiary Management](g2p-connect-protocol/interfaces/beneficiary-management/README.md)
     * [Financial Address Mapper](g2p-connect-protocol/interfaces/beneficiary-management/mapperarchitecture/README.md)
       * [Mapper Specs](g2p-connect-protocol/interfaces/beneficiary-management/mapperarchitecture/mapperspecs.md)
-    * [Financial Address Mapper](g2p-connect-protocol/interfaces/beneficiary-management/financial-address-mapper/README.md)
-      * [Mapper Specs](g2p-connect-protocol/interfaces/beneficiary-management/financial-address-mapper/mapper-specs.md)
   * [Social Program Management](g2p-connect-protocol/interfaces/social-program-management/README.md)
     * [Dibursement](Disbursement.md)
 * [Security](g2p-connect-protocol/security/README.md)
