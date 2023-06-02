@@ -1,6 +1,6 @@
-# Solution Blueprint
+# 🔍 Solution Blueprint
 
-![](.gitbook/assets/solution\_bluerpint.png)
+![G2P Connect - Solution Blueprint](.gitbook/assets/solution\_bluerpint.png)
 
 ### Core Interfaces
 
@@ -16,6 +16,6 @@
 
 ### Other Interfaces
 
-| Interface                                           | Code  | Version                                                        | Release Date | Description                             |
-| --------------------------------------------------- | ----- | -------------------------------------------------------------- | ------------ | --------------------------------------- |
-| [Authorization](protocol/security/authorization.md) | AuthZ | 0.1.0(https://g2p-connect.github.io/specs/dist/g2p-authz.html) | Draft        | OAuth2 compliant authz token to connect |
+| Interface (Code)                                            | Version | Release Date | Description                  |
+| ----------------------------------------------------------- | ------- | ------------ | ---------------------------- |
+| [Authorization](protocol/security/authorization.md) (AUTHZ) | 0.1.0   | Draft        | Authorization to access APIs |

@@ -1,8 +1,9 @@
-# Identity
+# 🆔 Identity
 
 ### Overview
 
-1. Standardising identity authenticate, kyc capabilities between G2P enabling DPGS/Products/Systems.
+1. G2P Connect recommends Gov Stack published Identity Building Block [specifications](https://govstack.gitbook.io/bb-identity/8-apis-and-services)&#x20;
+2. Below G2P Connect API's with batch / async support is an additional option for implementing systems to consider to integrate with digital ID systems.
 
 ### References
 

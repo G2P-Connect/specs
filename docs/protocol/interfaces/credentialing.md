@@ -1,9 +1,11 @@
-# Credentialing
+# 📃 Credentialing
 
 ### Overview
 
 1. Standardising credential issuance, search, verification, revokation and status check capabilities between G2P enabling DPGS/Products/Systems.
-2. Country operational model shall decide the entity that manages one or more crendentialling systems
+2. Country operational model shall decide the entity that manages one or more crendentialling systems.
+
+
 
 ### References
 
