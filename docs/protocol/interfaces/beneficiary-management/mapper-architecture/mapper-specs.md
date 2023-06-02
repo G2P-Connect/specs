@@ -29,4 +29,5 @@
 
 
 
-<figure><img src="../../../../images/draw.io/interface-mapper.drawio.png" alt="Mapper Interfaces"><figcaption></figcaption></figure>
+<figure><img src="../../../../.gitbook/assets/interface-mapper.drawio.png" alt=""><figcaption></figcaption></figure>
+
