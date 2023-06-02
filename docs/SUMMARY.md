@@ -20,6 +20,5 @@
 
 ## Additional Info
 
-* [API Home Page](https://g2p-connect.github.io/specs/)
 * [References](additional-info/references.md)
 * [Licensing](additional-info/licensing.md)
