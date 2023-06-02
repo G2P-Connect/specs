@@ -2,11 +2,11 @@
 
 ## G2P Connect Protocol
 
-* [Overview](README.md)
-* [Terminology](Terminology.md)
-* [Solution Blueprint](Blueprint.md)
-* [Interfaces](Interfaces.md)
-  * [Identity](Identity.md)
+* [Overview](g2p-connect-protocol/overview.md)
+* [Terminology](g2p-connect-protocol/terminology.md)
+* [Solution Blueprint](g2p-connect-protocol/solution-blueprint.md)
+* Interfaces
+  * [Identity](g2p-connect-protocol/identity.md)
   * [Credentialing](Credentialing.md)
   * [Registries](Registry.md)
   * [Beneficiary Management](g2p-connect-protocol/interfaces/beneficiary-management/README.md)
