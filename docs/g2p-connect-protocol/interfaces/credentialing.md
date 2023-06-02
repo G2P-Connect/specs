@@ -25,4 +25,4 @@
 
 ### Integration Schematics
 
-![](../images/draw.io/interface-credential.drawio.png)
+![](../../images/draw.io/interface-credential.drawio.png)

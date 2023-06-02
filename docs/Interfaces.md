@@ -6,7 +6,7 @@ Below core interfaces & codes help to easily identity functional areas for imple
 
 | Interface (Code)                                              | Version                                                               | Release Date | Description                                      |
 | ------------------------------------------------------------- | --------------------------------------------------------------------- | ------------ | ------------------------------------------------ |
-| [Identity ](Identity.md)(ID)                                  | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-identity.html)   | Draft        | APIs to access authentication & eKYC services    |
+| [Identity ](broken-reference)(ID)                             | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-identity.html)   | Draft        | APIs to access authentication & eKYC services    |
 | [Credential](Credential.md) (CRED)                            | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-credential.html) | Draft        | Issue, manage digital verifiable credentials     |
 | [Civil Registry](CivilRegistry.md) (CRVS)                     | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-crvs.html)       | Draft        | Subscribe, Notify and Search civil registry info |
 | [Financial Address Mapper](FinancialAddressMapper.md) (FAMAP) | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)     | Draft        | Manage ID to financial address mapper registry   |
