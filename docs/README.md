@@ -1,21 +1,23 @@
 # 🔍 Solution Blueprint
 
+G2P Connect initiative is an open source effort to enable government-to-person digital payments built through **interoperable standards** and **design blueprints.**
+
+
+
 ![G2P Connect - Solution Blueprint](.gitbook/assets/solution\_bluerpint.png)
 
-### Core Interfaces
+## Mission&#x20;
 
-| Interface (Code)                                                                                  | Version                                                               | Release Date | Description                                                     |
-| ------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------ | --------------------------------------------------------------- |
-| [Identity](protocol/interfaces/identity.md) (ID)                                                  | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-identity.html)   | Draft        | APIs to access authentication & eKYC services                   |
-| [Credentialing](protocol/interfaces/credentialing.md) (CRED)                                      | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-credential.html) | Draft        | Issue, manage digital verifiable credentials                    |
-| [Registries](protocol/interfaces/registries.md) (REG)                                             | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-registry.html)   | Draft        | Subscribe, Notify and Search registry info - civil / functional |
-| [Financial Address Mapper](protocol/interfaces/beneficiary-management/mapper-architecture/) (FAM) | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-mapper.html)     | Draft        | Manage ID to financial address mapper registry                  |
-| [Disbursement](protocol/interfaces/social-program-management/disbursement.md) (DSBT)              | [0.1.0](https://g2p-connect.github.io/specs/dist/g2p-disburse.html)   | Draft        | Payment disbursements                                           |
-| Social Program Management (SPM)                                                                   | 0.1.0                                                                 | Draft        | Manage social programs                                          |
-| Beneficiary Management (BM)                                                                       | 0.1.0                                                                 | Draft        | Manage beneficiaries                                            |
+G2P Connect is an **open source effort** to support the digital delivery of **government-to-person (G2P) payments**
 
-### Other Interfaces
+It Offers:\
+1\. A **technology architecture blueprint with a plug-and-play architecture** (allowing for choice of components) with built in privacy & security\
+2\. A set of **integration specifications** to ensure interoperability across the systems supporting G2P delivery \
+3\. An **integration sandbox** to support the development of solutions adhering to the blueprint and specifications
 
-| Interface (Code)                                            | Version | Release Date | Description                  |
-| ----------------------------------------------------------- | ------- | ------------ | ---------------------------- |
-| [Authorization](protocol/security/authorization.md) (AUTHZ) | 0.1.0   | Draft        | Authorization to access APIs |
+## Objectives
+
+1. Open source effort
+2. Adopt open interface standards and design templates
+3. End to end architectural blueprint for G2P payments
+4. Enables integration with exsiting or new systems
