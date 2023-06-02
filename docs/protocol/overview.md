@@ -136,8 +136,3 @@ example: "vid:12345@mosip"
 1. All dates and timestamps are represented in RFC3339 format including timezone e.g., 2022-12-04T18:01:07+05:30
 2. All currency codes represented in ISO 4217 format
 
-## Acknowledgments
-
-Thanks to below organization/individuals for their contributions and influencing the G2P Connect standards.
-
-1. G2P community members

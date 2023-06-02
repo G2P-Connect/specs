@@ -23,5 +23,6 @@
 
 ## Additional Info
 
-* [References](additional-info/references.md)
+* [👉 References](additional-info/references.md)
+* [🙏 Acknowledgments](additional-info/acknowledgments.md)
 * [🤝 Licensing](additional-info/licensing.md)
