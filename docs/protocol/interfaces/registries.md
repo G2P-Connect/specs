@@ -2,7 +2,7 @@
 
 ### Overview
 
-1. Standardising search, subscription, notification capabilities between G2P enabling DPGS/Products/Systems.
+1. Standardising search, subscription, notification capabilities between G2P enabling DPGS/Products/Systems
 
 ### References
 

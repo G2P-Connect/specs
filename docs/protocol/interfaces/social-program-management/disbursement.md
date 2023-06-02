@@ -25,8 +25,8 @@
 
 ### Request For Comments
 
-1. [Disbursement](rfc/specs-draft/g2p\_dsbt\_status\_codes.md) status reason codes and messages
+1. [Disbursement](../../../g2p-connect-protocol/interfaces/social-program-management/rfc/specs-draft/g2p\_dsbt\_status\_codes.md) status reason codes and messages
 
 ### Integration Schematics
 
-![](images/draw.io/interface-disb.drawio.png)
+![](../../../g2p-connect-protocol/interfaces/social-program-management/images/draw.io/interface-disb.drawio.png)

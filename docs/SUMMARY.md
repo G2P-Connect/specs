@@ -2,7 +2,7 @@
 
 ## G2P Connect
 
-* [Solution Blueprint](g2p-connect/README.md)
+* [Solution Blueprint](README.md)
 
 ## Protocol
 
