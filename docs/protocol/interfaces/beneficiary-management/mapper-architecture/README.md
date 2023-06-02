@@ -1,4 +1,4 @@
-# Financial Address Mapper
+# Mapper Architecture
 
 ## Technology Architecture
 
@@ -19,7 +19,7 @@ The G2P Connect Blueprint, among other functions, enables abstraction of the tar
 
 Designing a Financial Address Mapper (FAM) should meet below core design principles. It is highly recommended that policy & technical architects take below principles into consideration when conceptualising and designing Financial Address Mapper as a Digital Public Infrastructure.
 
-![](../../../../images/mapper\_principles.png)
+![](../../../../.gitbook/assets/mapper\_principles.png)
 
 ### 2.1 Minimalism
 
@@ -105,7 +105,7 @@ Beneficiaries get following benefits:
 1. Manage store of value account info to receive all social benefits with one single entity and manage any life cycle changes only once.
 2. Don’t have to share sensitive financial account information with multiple entities.
 
-![](../../../../images/mapper\_benefits\_benficiary.png)
+![](../../../../.gitbook/assets/mapper\_benefits\_benficiary.png)
 
 ### 3.4 Social Protection System
 
@@ -113,7 +113,7 @@ System delivering social protection to beneficiaries.
 
 Social protection systems enable with following capabilities: Help interface Beneficiary to manage ID to Store of value address with entity hosting the mapper registry. Create disbursement instructions to payment processing systems/rails to initiate benefit transfer using beneficiary id.
 
-![](../../../../images/mapper\_benefit\_depts.png)
+![](../../../../.gitbook/assets/mapper\_benefit\_depts.png)
 
 ## 4. Mapper Features
 
@@ -127,7 +127,7 @@ G2P Connect specifications recommends below features to be available to enable s
 
 Below is an illustration of mapper implemenation to benefit beneficiary to access funds or draw cash:
 
-![](../../../../images/mapper\_flow.png)
+![](../../../../.gitbook/assets/mapper\_flow.png)
 
 ## 5. Recommended Best Practices
 
@@ -135,7 +135,7 @@ Below is an illustration of mapper implemenation to benefit beneficiary to acces
 2. Entities enabling linking (and life cycle management services) with mapper registry MUST authenticate the Owner of the account holder with the ID of the person being linked is indeed the same person. Specifications allow any existing authentication methods followed by the store of value service provider.
 3. Obtaining consent is decentralised with the entities operating in the mapper registry ecosystem. This enables existing systems and business processes to adopt mapper registry as Digital Public Infrastructure. Migrating to Digital Consents shall help in population scale with trust and enable automation.
 
-![](../../../../images/mapper\_hosting\_options.png)
+![](../../../../.gitbook/assets/mapper\_hosting\_options.png)
 
 ## 6. Next Steps
 

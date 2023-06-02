@@ -23,10 +23,8 @@
 | DISB-STS-TXNID | GET /disburse/status/{transaction\_id} /{summary\_only} | Disbursement status to social protection, Treasury systems                                   |
 | DISB-STS-REFID | GET /disburse/status/{reference\_id}]                   | Disbursement status to social protection, Treasury systems                                   |
 
-### Request For Comments
 
-1. [Disbursement](../../../g2p-connect-protocol/interfaces/social-program-management/rfc/specs-draft/g2p\_dsbt\_status\_codes.md) status reason codes and messages
 
 ### Integration Schematics
 
-![](../../../g2p-connect-protocol/interfaces/social-program-management/images/draw.io/interface-disb.drawio.png)
+<figure><img src="../../../.gitbook/assets/interface-disb.drawio.png" alt=""><figcaption></figcaption></figure>

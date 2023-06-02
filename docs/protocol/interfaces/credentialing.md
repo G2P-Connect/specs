@@ -24,5 +24,3 @@
 | CRED-ON-TXNSTS | POST /credential/txn/on-status | Response async status using callback                                                                     |
 
 ### Integration Schematics
-
-![](../../images/draw.io/interface-credential.drawio.png)

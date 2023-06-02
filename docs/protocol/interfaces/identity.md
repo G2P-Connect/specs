@@ -27,10 +27,4 @@ Below are few utilities that community can open source:
 3. Online Auth/Kyc APIs using biometric based auth modalities using country specific Foundation ID implemenations.
 4. Demographic deduplication utilities for scoial protection platforms where de-duplicated foundational ID is not be available/accessible.
 
-### Request For Comments
-
-1. Identity [verification](rfc/specs-draft/g2p\_id\_vrfy\_status\_codes.md) status \[reason codes and messages
-
 ### Integration Schematics
-
-![](images/draw.io/interface-identity.drawio.png)

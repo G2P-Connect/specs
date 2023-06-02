@@ -76,10 +76,4 @@ enum:
   - "unlink"
 ```
 
-### Request For Comments
-
-1. REG [subscribe](../../rfc/specs-draft/g2p\_reg\_sub\_status\_codes.md) status reason codes and messages
-
 ### Integration Schematics
-
-![](../../images/draw.io/interface-crvs.drawio.png)

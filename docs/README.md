@@ -1,6 +1,6 @@
 # Solution Blueprint
 
-![](images/solution\_bluerpint.png)
+![](.gitbook/assets/solution\_bluerpint.png)
 
 ### Core Interfaces
 
