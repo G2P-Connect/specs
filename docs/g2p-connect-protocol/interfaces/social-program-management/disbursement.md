@@ -25,7 +25,7 @@
 
 ### Request For Comments
 
-1. [Disbursement](rfc/specs-draft/g2p\_dsbt\_status\_codes.md) status reason codes and messages
+1. [Disbursement](~/docs/rfc/specs-draft/g2p\_dsbt\_status\_codes.md) status reason codes and messages
 
 ### Integration Schematics
 
