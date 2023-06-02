@@ -2,7 +2,7 @@
 
 ## Technology Architecture
 
-### Version 1.0 (Draft)
+### Version 1.0
 
 ## 1. Introduction
 
