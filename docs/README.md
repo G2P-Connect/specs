@@ -1,3 +1,7 @@
+---
+layout: landing
+---
+
 # Solution Blueprint
 
 ![](.gitbook/assets/solution\_bluerpint.png)
