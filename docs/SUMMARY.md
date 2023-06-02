@@ -8,7 +8,7 @@
 
 * [Overview](protocol/overview.md)
 * [Terminology](protocol/terminology.md)
-* [Interfaces](Interfaces.md)
+* [Interfaces](protocol/interfaces/README.md)
   * [Identity](protocol/interfaces/identity.md)
   * [Credentialing](protocol/interfaces/credentialing.md)
   * [Registries](protocol/interfaces/registries.md)
