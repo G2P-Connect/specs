@@ -23,6 +23,7 @@
 
 ## Additional Info
 
+* [🤼 Discussions](https://github.com/orgs/G2P-Connect/discussions)
 * [👉 References](additional-info/references.md)
 * [🙏 Acknowledgments](additional-info/acknowledgments.md)
 * [🤝 Licensing](additional-info/licensing.md)
