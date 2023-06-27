@@ -1,6 +1,8 @@
-# 🥇 Objective
+# 🔍 Solution Blueprint
 
 ![G2P Connect - Solution Blueprint](.gitbook/assets/solution\_bluerpint.png)
+
+
 
 **Components of G2P Connect solution blueprint:**
 
