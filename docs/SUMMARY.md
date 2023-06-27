@@ -16,7 +16,7 @@
   * [🧏 Beneficiary Management](protocol/interfaces/beneficiary-management/README.md)
     * [🗂 Mapper Architecture](protocol/interfaces/beneficiary-management/mapper-architecture/README.md)
       * [🔗 Mapper Specs](protocol/interfaces/beneficiary-management/mapper-architecture/mapper-specs.md)
-      * [Eligibility Checks](protocol/interfaces/beneficiary-management/mapper-architecture/eligibility-checks.md)
+    * [Eligibility Checks](protocol/interfaces/beneficiary-management/eligibility-checks.md)
   * [⚙ Social Program Management](protocol/interfaces/social-program-management/README.md)
     * [💲 Dibursement](protocol/interfaces/social-program-management/disbursement.md)
 * [🔐 Security](protocol/security/README.md)
