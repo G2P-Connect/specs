@@ -3,7 +3,7 @@
 ## G2P Connect
 
 * [🥇 Objective](README.md)
-* [🔍 Solution Blueprint](README.md)
+*
 
 ## Protocol
 
@@ -12,7 +12,7 @@
 * [🔗 Interfaces](protocol/interfaces/README.md)
   * [🆔 Identity](protocol/interfaces/identity.md)
   * [📃 Credentialing](protocol/interfaces/credentialing.md)
-  * [® ® Registries](protocol/interfaces/registries.md)
+  * [® ® ® Registries](protocol/interfaces/registries.md)
   * [🧏 Beneficiary Management](protocol/interfaces/beneficiary-management/README.md)
     * [🗂 Mapper Architecture](protocol/interfaces/beneficiary-management/mapper-architecture/README.md)
       * [🔗 Mapper Specs](protocol/interfaces/beneficiary-management/mapper-architecture/mapper-specs.md)
