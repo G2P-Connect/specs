@@ -14,14 +14,22 @@
     * Purpose Codes
     * [Dibursement](https://g2p-connect.github.io/specs/dist/g2p-disburse.html)
 * Financial Service Provider (FSP) 
+    * Check Fund Availability
+    * Hold/Release Funds
     * Voucher Issuance Management
 * Last Mile Cash-in/Cash-out
+    * Withdrawal
+    * Deposit
+    * Fund Transfer
+    * Balance Enquiry
     * Agent Management
     * Device Management
-    * Payments
 * Telemetry Events
 * Grievance Mgmt
 * Security
     * [Authorization](https://g2p-connect.github.io/specs/dist/g2p-authz.html)
 * API source code
     * Github [repository](https://g2p-connect.github.io/specs/)
+
+
+**Note:** Categories without links will be coming soon with community support...
