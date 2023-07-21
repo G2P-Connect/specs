@@ -30,6 +30,3 @@
     * [Authorization](https://g2p-connect.github.io/specs/dist/g2p-authz.html)
 * API source code
     * Github [repository](https://g2p-connect.github.io/specs/)
-
-
-**Note:** Categories without links will be coming soon with community support...
