@@ -7,7 +7,7 @@
 1. Foundational Digital ID System
 2. Trusted Data Sharing & Digital Credentialing Infrastructure
 3. Civil & Other Federated Registries
-4. ID-Account Mapper
+4. [ID-Account Mapper](../protocol/interfaces/beneficiary-management/mapper-architecture/)
 5. Social Program & Beneficiary Management
 6. Payment & Settlement Switch
 7. Bank/Mobile-wallet System
