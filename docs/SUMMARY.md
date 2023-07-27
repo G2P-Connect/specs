@@ -20,7 +20,7 @@
   * [⚙ Social Program Management](protocol/interfaces/social-program-management/README.md)
     * [💲 Dibursement](protocol/interfaces/social-program-management/disbursement.md)
 * [🔐 Security](protocol/security/README.md)
-  * [🚪 Authorization](protocol/security/authorization.md)
+  * [Authorization](protocol/security/authorization.md)
   * [Singature Validation](protocol/security/singature-validation.md)
 
 ## Additional Info
