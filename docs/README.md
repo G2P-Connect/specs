@@ -1,4 +1,4 @@
-# 🥇 Objective
+# 🥇 Overview
 
 In its daily workings, governments across local, state and national levels make various payments to people of a country. This may be in the form of subsidies, pensions, scholarships, incentives during emergencies and more. Citizens may choose to receive these payments in different ways such as through cash, bank transfers, mobile wallets, prepaid vouchers, etc.&#x20;
 
@@ -6,7 +6,7 @@ Each government entity who is a facilitator of any of these g2p benefit schemes 
 
 Creating a centralised storage of data doesn’t work either because it creates honeypots that pose large security risks, have no formal method for setting accountability of data-updation and require building entirely new systems. This solution follows the traditional mindset of digitisation ie: taking things ‘online’ without accounting for political realities, human centric design, different speeds and degrees of adoption, and a future-focused, innovation mindset. This is not what Digital Public Infrastructure refers to.&#x20;
 
-A G2P DPI is about building an overarching architecture as a simple +1 step to your existing systems that ensures interoperability, inclusions, privacy, security, autonomy and asynchronous adoption by design.&#x20;
+<mark style="color:blue;">**A G2P DPI is about building an overarching architecture that ensures interoperability, inclusions, privacy, security, autonomy and asynchronous adoption by design.**</mark>&#x20;
 
 The common steps of executing any g2p payment includes:&#x20;
 
@@ -14,11 +14,13 @@ The common steps of executing any g2p payment includes:&#x20;
 2. Authenticating the identity of the eligible beneficiaries using online/offline, self/assisted modes
 3. Mapping the authenticated, eligible beneficiaries to a store of value of their choice in which they choose to receive these payments using multiple payment rails
 
-The easiest way to increase the efficiency, effectiveness and security of these g2p payments is to build a secure, decentralised architecture that provides common building blocks (solving for the 3 points listed above), that individual departments can then customise on top. This is what G2P Connect solves.&#x20;
+The easiest way to increase the efficiency, effectiveness and security of these g2p payments is to build a secure, decentralised architecture that provides common building blocks (solving for the 3 points listed above), that individual departments can then customise on top. This is what G2P Connect solves!
 
 G2P connect enables the creation of a shared infrastructure in a country that different agencies can use to deliver any kind of government to person payment digitally end-to-end. This includes establishing the identity of the beneficiary, eligibility, enrolment, mapping IDs to bank accounts, disbursement, last mile cash access  and scheme monitoring.&#x20;
 
-G2P Connect is a set of specifications and API that allows policy makers across various departments to ‘talk’ to each other without revealing any sensitive information. This means that:&#x20;
+<mark style="color:blue;">**G2P Connect is an open source effort to enable government-to-person digital payments built through interoperable**</mark> [<mark style="color:blue;">**standards**</mark>](https://g2p-connect.github.io/specs/dist/index.html) <mark style="color:blue;">**and design blueprints**</mark>
+
+G2P Connect enables policy makers across various departments to ‘talk’ to each other without revealing any sensitive information. This means that:&#x20;
 
 * Every department is allowed to own its own information. They simply standardise the information using a common identifier for each individual and link their database through APIs.&#x20;
 * Other departments that require information to make a decision regarding a transfer, can specify their eligibility criteria (which can freely change with the times) as they do currently

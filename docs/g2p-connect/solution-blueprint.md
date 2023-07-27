@@ -1,4 +1,4 @@
-# 📘 Blueprint
+# 📘 Solution Blueprint
 
 <figure><img src="../.gitbook/assets/solution_bluerpint.png" alt=""><figcaption><p>Solution Blueprint</p></figcaption></figure>
 

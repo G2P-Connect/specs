@@ -2,8 +2,8 @@
 
 ## G2P Connect
 
-* [🥇 Objective](README.md)
-* [📘 Blueprint](g2p-connect/blueprint.md)
+* [🥇 Overview](README.md)
+* [📘 Solution Blueprint](g2p-connect/solution-blueprint.md)
 
 ## Protocol
 
