@@ -1,4 +1,4 @@
-# 🥇 Overview
+# 🔍 Overview
 
 In its daily workings, governments across local, state and national levels make various payments to people of a country. This may be in the form of subsidies, pensions, scholarships, incentives during emergencies and more. Citizens may choose to receive these payments in different ways such as through cash, bank transfers, mobile wallets, prepaid vouchers, etc.&#x20;
 

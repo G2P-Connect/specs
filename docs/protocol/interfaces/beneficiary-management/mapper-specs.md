@@ -1,4 +1,4 @@
-# 🔗 Mapper Specs
+# Mapper Specs
 
 ### Assumptions
 
@@ -27,5 +27,4 @@
 
 ### Integration Schematics
 
-<figure><img src="../../../../.gitbook/assets/interface-mapper.drawio.png" alt=""><figcaption></figcaption></figure>
-
+<figure><img src="../../../.gitbook/assets/interface-mapper.drawio.png" alt=""><figcaption></figcaption></figure>

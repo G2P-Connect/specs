@@ -1,4 +1,4 @@
-# Overview
+# 🔍 Overview
 
 G2P Connect API Specifications is an open source effort to standardise the key integrations across functional categories defined in G2P Connect Technology Architecture [Blueprint](../g2p-connect/solution-blueprint.md).
 
