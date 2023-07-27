@@ -2,13 +2,13 @@
 
 ## G2P Connect
 
-* [🥇 Overview](README.md)
+* [🔍 Overview](README.md)
 * [📘 Solution Blueprint](g2p-connect/solution-blueprint.md)
 
 ## Protocol
 
-* [Overview](protocol/overview.md)
-* [Terminology](protocol/terminology.md)
+* [🔍 Overview](protocol/overview.md)
+* [🔡 Terminology](protocol/terminology.md)
 * [🔗 Interfaces](protocol/interfaces/README.md)
   * [🆔 Identity](protocol/interfaces/identity.md)
   * [📃 Credentialing](protocol/interfaces/credentialing.md)
