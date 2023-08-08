@@ -21,7 +21,7 @@ info:
 
     Each request is build up of three parts
     - signature 
-    - header
+    - header 
     - message
   version: 1.0.0
   contact:
