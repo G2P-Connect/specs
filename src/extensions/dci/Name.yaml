@@ -1,0 +1,21 @@
+type: object
+description: |
+  The name data object represents a person's name with various components. 
+  Reference: <a href="https://v2plus.hl7.org/2021Jan/data-type/XPN.html#XPN-1">FHIR XPN - extended person name</a> <br>
+  Note: Note: In some cultures, people can have multiple Surname(s), Given name(s), Second name(s), Suffix(s), or Prefix(s) to their name; all can be present in the respective attributes, being separated by separator character like space or /.
+properties:
+  sur_name:
+    type: string
+    description: Surname(s) or last name(s) of the applicant
+  given_name:
+    type: string
+    description: Given name(s) or first name(s) of the applicant
+  second_name:
+    type: string
+    description: Second name(s) or middle name(s) of the applicant
+  suffix:
+    type: string
+    description: Suffix part of the applicant's name
+  prefix:
+    type: string
+    description: Prefix part of the applicant's name

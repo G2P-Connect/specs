@@ -1,0 +1,4 @@
+type: array
+description: List of attribute Name/Value
+items:
+  $ref: AttributeNameValue.yaml

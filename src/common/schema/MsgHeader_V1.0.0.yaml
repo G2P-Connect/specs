@@ -1,0 +1,50 @@
+type: object
+description: 'Message header'
+properties:
+  version:  
+    description: "Messaing protocol specification version being used"
+    type: string
+    example: "0.1.0"
+  message_id: 
+    description: Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+    type: string
+    example: "123456789020211216223812"
+  message_ts:
+    description: 'Time of message generation in RFC3339 format'
+    type: string
+    format: date-time
+    example: '2022-12-04T18:01:07+00:00'
+  action:
+    description: G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.
+    type: string
+  sender_id:
+    description: send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.
+    type: string
+    example: 'registry.example.org'
+  sender_uri:
+    description: "sender url to accept callbacks"
+    type: string
+    format: uri
+    example: "https://registry.sender.org/g2p/callback/on-disburse"
+  receiver_id:
+    description: receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.
+    type: string
+    example: 'pymts.example.org'
+  total_count:
+    description: Total no of requests present in the message request
+    type: integer
+    example: 21800
+  encryption_algo:
+    description: If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
+    type: string
+    example:
+      - aes
+      - rsa
+      - ecc
+      - other
+required:
+  - message_id
+  - message_ts
+  - action
+  - sender_id
+  - total_count

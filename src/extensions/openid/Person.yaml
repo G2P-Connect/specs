@@ -1,0 +1,102 @@
+description: | 
+  1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
+  2. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
+  3. Person info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#Claims">specs</a>
+  4. Person additional info based on OpenID <a href="https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-additional-claims-about-end">specs</a>
+properties:
+  sub:
+    type: string
+    description: Subject - Identifier for the End-User at the Issuer.
+  name:
+    description: End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
+    type: string
+  given_name:
+    description: Given name(s) or first name(s) of the End-User. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.
+    type: string
+  family_name:
+    description: Surname(s) or last name(s) of the End-User. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.
+    type: string
+  middle_name:
+    description: Middle name(s) of the End-User. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
+    type: string
+  nickname:
+    description: Casual name of the End-User that may or may not be the same as the given_name. For instance, a nickname value of Mike might be returned alongside a given_name value of Michael.
+    type: string
+  preferred_username:
+    description: Shorthand name by which the End-User wishes to be referred to at the RP, such as janedoe or j.doe. This value MAY be any valid JSON string including special characters such as @, /, or whitespace. The RP MUST NOT rely upon this value being unique, as discussed in
+    type: string
+  profile:
+    description: URL of the End-User's profile page. The contents of this Web page SHOULD be about the End-User.
+    type: string
+  picture:
+    description: URL of the End-User's profile picture. This URL MUST refer to an image file (for example, a PNG, JPEG, or GIF image file), rather than to a Web page containing an image. Note that this URL SHOULD specifically reference a profile photo of the End-User suitable for displaying when describing the End-User, rather than an arbitrary photo taken by the End-User.
+    type: string
+  website:
+    description: URL of the End-User's Web page or blog. This Web page SHOULD contain information published by the End-User or an organization that the End-User is affiliated with.
+    type: string
+  email:
+    description: End-User's preferred e-mail address. Its value MUST conform to the RFC 5322 [RFC5322] addr-spec syntax. The RP MUST NOT rely upon this value being unique, as discussed in Section 5.7.
+    type: string
+  email_verified: 
+    description: address was controlled by the End-User at the time the verification was performed. The means by which an e-mail address is verified is context-specific, and dependent upon the trust framework or contractual agreements within which the parties are operating.
+    type: boolean
+  gender:
+    description: End-User's gender. Values defined by this specification are female and male. Other values MAY be used when neither of the defined values are applicable.
+    type: string
+  birthdate:
+    description: YYYY format is allowed. Note that depending on the underlying platform's date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates.
+    type: string
+  place_of_birth:
+    description: End-User's place of birth. The value of this member is a JSON structure containing some or all of the following members
+    type: object
+  deathdate:
+    description: YYYY format is allowed. Note that depending on the underlying platform's date related function, providing just year can result in varying month and day, so the implementers need to take this factor into account to correctly process the dates.
+    type: string
+  place_of_death:
+    description: End-User's place of birth. The value of this member is a JSON structure containing some or all of the following members
+    type: object
+  phone_number:
+    description: number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.
+    type: string
+  phone_number_verified:
+    description: True if the End-User's phone number has been verified; otherwise false. When this Claim Value is true, this means that the OP took affirmative steps to ensure that this phone number was controlled by the End-User at the time the verification was performed. The means by which a phone number is verified is context-specific, and dependent upon the trust framework or contractual agreements within which the parties are operating. When true, the phone_number Claim MUST be in E.164 format and any extensions MUST be represented in RFC 3966 format.
+    type: string
+  address:
+    $ref: "Address.yaml"
+  zoneinfo:
+    description: String from zoneinfo [zoneinfo] time zone database representing the End-User's time zone. For example, Europe/Paris or America/Los_Angeles.
+    type: string
+  locale:
+    description: Alpha-2 [ISO3166‑1] country code in uppercase, separated by a dash. For example, en-US or fr-CA. As a compatibility note, some implementations have used an underscore as the separator rather than a dash, for example, en_US; Relying Parties MAY choose to accept this locale syntax as well.
+    type: string
+  nationalities:
+    description: End-User's nationalities using ICAO 3-letter codes [ICAO-Doc9303], e.g., "USA" or "JPN". 2-letter ICAO codes MAY be used in some circumstances for compatibility reasons.
+    type: array
+    items:
+      type: string
+  updated_at:
+    description: Time the End-User's information was last updated. Its value is a JSON number representing the number of seconds from 1970-01-01T0:0:0Z as measured in UTC until the date/time
+    type: number
+  birth_family_name:
+    description: End-User's family name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the family name later in life for any reason. Note that in some cultures, people can have multiple family names or no family name; all can be present, with the names being separated by space characters.
+    type: string
+  birth_given_name:
+    description: End-User's given name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the given name later in life for any reason. Note that in some cultures, people can have multiple given names; all can be present, with the names being separated by space characters.
+    type: string
+  birth_middle_name:
+    description: End-User's middle name(s) when they were born, or at least from the time they were a child. This term can be used by a person who changes the middle name later in life for any reason. Note that in some cultures, people can have multiple middle names; all can be present, with the names being separated by space characters. Also note that in some cultures, middle names are not used.
+    type: string
+  salutation:
+    description: End-User's salutation, e.g., "Mr."
+    type: string
+  title:
+    description: End-User's title, e.g., "Dr."
+    type: string
+  msisdn:
+    description: End-User's mobile phone number formatted according to ITU-T recommendation [E.164], e.g., "1999550123"
+    type: string
+  also_known_as:
+    description: Stage name, religious name or any other type of alias/pseudonym with which a person is known in a specific context besides its legal name. This must be part of the applicable legislation and thus the trust framework (e.g., be an attribute on the identity card).
+    type: string
+  additional_attributes:
+    $ref: ../../common/schema/AttributeNameValueList.yaml

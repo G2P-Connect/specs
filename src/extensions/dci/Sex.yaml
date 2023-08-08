@@ -1,0 +1,14 @@
+type: string
+description: |
+  Standardized codes/values representing diverse Sex categories.
+  Reference: <a href="https://www.iso.org/standard/81682.html">ISO/IEC 5218:2022</a> <br>
+  
+  1 : Male
+  2 : Female
+  3 : Others
+  4 : Unknown
+enum:
+  - "1"
+  - "2"
+  - "3"
+  - "4"

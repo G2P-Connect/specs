@@ -1,0 +1,65 @@
+type: object
+description: | 
+  1. Functional registry specific extension to search.
+  2. Additional checks using conditioanl expressions is possible.
+  3. Allows Country/Registry specific implementation extensions using key/value pairs.
+properties:
+  transaction_id: 
+    $ref: ../../../common/schema/TransactionId.yaml
+  search_request:
+    type: array
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: "../../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: "../../../common/schema/DateTime.yaml"
+        registry_type:
+          $ref: "./RegistryType.yaml"
+        event_type:
+          anyOf:
+            - $ref: ./RegistryEventType.yaml
+            - $ref: ../civil/EventType.yaml
+            - $ref: ../../../extensions/dci/VitalEvents.yaml
+        search_criteria:
+          type: object
+          properties:
+            query:
+              oneOf:
+              - $ref: ../../../extensions/dci/IdentifierTypeValue.yaml
+              - $ref: ../../../common/schema/PersonId.yaml
+              - $ref: "../../../common/schema/ExpressionWithConditionList.yaml"
+            filter:
+              anyOf:
+                - properties: 
+                    attributes:
+                      description: Attribute(s) to send in response
+                      items:
+                        type: string
+                - properties:
+                    record_type:
+                      type: string
+                      description: |
+                        1. Pre defined Search Record type to return upon successful processing of search request
+                        2. Value is agreed as part of the api integration between sender and receiver
+                        3. e.g "person-record", "birth-record", "death-record", "farmer-record", "student-record"
+                      example: "birth-record"
+            sort:
+              $ref: "../../../common/schema/SearchSortList.yaml"
+            pagination:
+              $ref: "../../../common/schema/PaginationRequest.yaml"
+          required:
+            - query
+            - filter
+        consent:
+          $ref: "../../../common/schema/Consent.yaml"
+        locale:
+          $ref: "../../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - search_criteria
+required:
+  - transaction_id
+  - search_request

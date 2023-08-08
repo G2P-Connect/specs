@@ -1,0 +1,10 @@
+type: object
+properties:
+  latitude:
+    type: string
+    format: float
+    example: ''
+  longitude:
+    type: string
+    format: float
+    example: '' 

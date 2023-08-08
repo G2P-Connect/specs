@@ -1,0 +1,21 @@
+type: object
+description: Consent artefact. TODO - enrich consent object!
+properties:
+  id:
+    type: string
+    format: uri or did
+    description: consent id
+  ts:
+    $ref: ./DateTime.yaml
+  purpose:
+    type: object
+    properties:
+      text:
+        type: string
+      code: 
+        type: string
+        description: From a fixed set, documented at refUri
+      refUri:
+          type: string
+          format: uri
+          description: Uri to provide more info on consent codes

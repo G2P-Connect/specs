@@ -1,0 +1,645 @@
+openapi: 3.0.3
+info:
+  title: Interoperability APIs - Foundational/Functional registries
+  description: |-
+    The CRVS interoperability APIs describes different APIs some of them are usecase specific and other are generalized APIs to perform interoperable operations between CRVS registry and SP system.
+    You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+    That way, with time, we can improve the API in general, and expose some of the new features in upcoming version.
+
+    1. Search: The Search API provides functionality to search based on demographic, identifiers and custom query
+    2. Event subscription: The Event subscription APIs describe APIs useful to subscribe / unsubscribe events. When any event happens in crvs registry it sends event details on notify end point
+    3. Request status check: The request status checking APIs implement to check status of request sent in any above APIs
+    
+    Gitbook reference link:
+    - [CRVS - V1.0 ](https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/wUwmJRFD0Hn6jI5xMat1/standards/1.-crvs)
+
+    Code directory links:
+    - [Identifiers](https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/wUwmJRFD0Hn6jI5xMat1/standards/1.-crvs/4.2-data-standards/4.2.2-code-directory#cd.01-identifier_type)
+    - [Marital Status](https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/wUwmJRFD0Hn6jI5xMat1/standards/1.-crvs/4.2-data-standards/4.2.2-code-directory#cd.02-marital_status)
+    - [Sex](https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/wUwmJRFD0Hn6jI5xMat1/standards/1.-crvs/4.2-data-standards/4.2.2-code-directory#cd.03-sex)
+    - [Vital event types](https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/wUwmJRFD0Hn6jI5xMat1/standards/1.-crvs/4.2-data-standards/4.2.2-code-directory#cd.04-vital_events)   
+    
+    Each request is build up of three parts
+    - signature 
+    - header
+    - message
+  version: 1.0.0
+  contact:
+    name: DCI Social Protection
+    email: info@spdci.org
+  license:
+   name: DCI Social Protection License
+   url: https://github.com/spdci/standards/blob/draft/LICENSE.md
+servers:
+  - url: "https://sandbox.spdci.org/namespace/v1.0.0"
+    description: Sandbox Server
+    #variables: 
+     # namespace: 'dci-sp'
+tags: 
+  - name: Async
+    description: Async endpoints
+  - name: Sync 
+    description: Sync endpoints
+  - name: Schemas
+    description: Schemas
+paths:
+ /registry/search:
+  post: 
+    summary: "/registry/search"
+    description: Search person(s) in registry using identifier or custome attributes
+    operationId: post_reg_search
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  description: The search data using which registry search to be performed
+                  oneOf:
+                    - $ref: "#/components/schemas/SearchRequest"
+                    - $ref: "#/components/schemas/EncryptedMessage"
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - search
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /registry/on-search:
+  post: 
+    summary: "/registry/on-search"
+    description: Search results through callback
+    operationId: post_reg_on-search
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - on-search
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/SearchResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - on-search
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+    
+ /registry/subscribe:
+  post: 
+    summary: "/registry/subscribe"
+    description: Subscribe to a life event with registry
+    operationId: post_reg_subscribe
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                message:
+                  type: object
+                  description: The search data using which registry search to be performed
+                  oneOf:
+                    - $ref: "#/components/schemas/SubscribeRequest"
+                    - $ref: "#/components/schemas/EncryptedMessage"
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - subscribe
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /registry/notify:
+  post: 
+    summary: "/registry/notify"
+    description: Registry to notify a life event to subscrbiers
+    operationId: post_reg_notify
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/NotifyEventRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - notify
+    responses:
+        default:
+          $ref: "#/components/responses/HttpErrorResponse"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /registry/txn/status:
+  post: 
+    summary: "/registry/txn/status"
+    description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
+    operationId: post_reg_txnstatus
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                            - notify
+                            - on-search
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/TxnStatusRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - subscribe
+                      - notify
+                      - on-search
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /registry/txn/on-status:
+  post: 
+    summary: "/registry/txn/on-status"
+    description: Response to async status check of previous civil registrt transanctions using callback
+    operationId: post_reg_on-txnstatus
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                            - notify
+                            - on-search
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/TxnStatusResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - subscribe
+                      - notify
+                      - on-search
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /registry/sync/search:
+  post: 
+    summary: "/registry/sync/search"
+    description: Search person(s) in registry using identifier or custome attributes
+    operationId: post_reg_sync_search
+    tags: 
+      -  Sync
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  description: The search data using which registry search to be performed
+                  anyOf:
+                    - $ref: '#/components/schemas/SearchRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+    responses:
+        default:
+          description: "Registry search response"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:  
+                    $ref: "#/components/schemas/MsgSignature"
+                  header:
+                    allOf:
+                      - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                      - properties:
+                          action:
+                            enum:
+                              - on-search
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/SearchResponse'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /registry/sync/txn/status:
+  post: 
+    summary: "/registry/sync/txn/status"
+    description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
+    operationId: post_reg_sync_txnstatus
+    tags: 
+      -  Sync
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                            - notify
+                            - on-search
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/TxnStatusRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+    responses:
+        default:
+          description: "Transaction status check response"
+          content:
+            application/json:
+              schema:
+                  type: object
+                  properties:
+                    signature:  
+                      $ref: "#/components/schemas/MsgSignature"
+                    header:
+                      allOf:
+                        - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                        - properties:
+                            action:
+                              enum:
+                                - on-search
+                                - subscribe
+                                - notify
+                    message:
+                      type: object
+                      oneOf:
+                        - $ref: '#/components/schemas/TxnStatusResponse'
+                        - $ref: '#/components/schemas/EncryptedMessage'
+                  required:
+                    - header
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+components:
+  schemas:
+
+    ###### src/extensions/dci schema objects
+    dci_IdentifierType: 
+      $ref: ../extensions/dci/IdentifierType.yaml
+    dci_IdentifierTypeValue: 
+      $ref: ../extensions/dci/IdentifierTypeValue.yaml
+    dci_MaritalStatus: 
+      $ref: ../extensions/dci/MaritalStatus.yaml
+    dci_Name: 
+      $ref: ../extensions/dci/Name.yaml
+    dci_Person: 
+      $ref: ../extensions/dci/Person.yaml
+    dci_Sex: 
+      $ref: ../extensions/dci/Sex.yaml
+    dci_VitalEvents: 
+      $ref: ../extensions/dci/VitalEvents.yaml
+    
+      ###### src/extensions/openid schema objects
+    openid_Address: 
+      $ref: ../extensions/openid/Address.yaml
+    openid_Person: 
+      $ref: ../extensions/openid/Person.yaml
+    openid_PersonDocDetails: 
+      $ref: ../extensions/openid/PersonDocDetails.yaml
+
+    ###### src/registry/schema/civil schema objects
+    EventType: 
+      $ref: schema/civil/EventType.yaml
+    civilRegistryRecord: 
+      $ref: schema/civil/RegistryRecord.yaml
+    RelatedPerson: 
+      $ref: schema/civil/RelatedPerson.yaml
+    ###### src/registry/schema/core schema objects
+    NotifyEventRequest: 
+      $ref: schema/core/NotifyEventRequest.yaml
+    RegistryEventType: 
+      $ref: schema/core/RegistryEventType.yaml
+    RegistryType: 
+      $ref: schema/core/RegistryType.yaml
+    SearchRecord: 
+      $ref: schema/core/SearchRecord.yaml
+    SearchRequest: 
+      $ref: schema/core/SearchRequest.yaml
+    SearchResponse: 
+      $ref: schema/core/SearchResponse.yaml
+    SearchStatusReasonCode: 
+      $ref: schema/core/SearchStatusReasonCode.yaml
+    SubscribeRequest: 
+      $ref: schema/core/SubscribeRequest.yaml
+    SubscribeStatusReasonCode: 
+      $ref: schema/core/SubscribeStatusReasonCode.yaml               
+    TxnStatusRequest: 
+      $ref: schema/core/TxnStatusRequest.yaml            
+    TxnStatusResponse: 
+      $ref: schema/core/TxnStatusResponse.yaml              
+      
+  
+    ###### Common schema objects
+    Ack: 
+      $ref: ../common/schema/Ack.yaml
+    AdditionalInfo:
+      $ref: ../common/schema/AdditionalInfo.yaml
+    AttributeNameValue: 
+      $ref: ../common/schema/AttributeNameValue.yaml
+    AttributeNameValueList: 
+      $ref: ../common/schema/AttributeNameValueList.yaml
+    Consent: 
+      $ref: ../common/schema/Consent.yaml
+    DateTime: 
+      $ref: ../common/schema/DateTime.yaml
+    EncryptedMessage: 
+      $ref: ../common/schema/EncryptedMessage.yaml
+    Error: 
+      $ref: ../common/schema/Error.yaml
+    ExpCondition: 
+      $ref: ../common/schema/ExpCondition.yaml
+    ExpOperator: 
+      $ref: ../common/schema/ExpOperator.yaml
+    Expression: 
+      $ref: ../common/schema/Expression.yaml
+    ExpressionList: 
+      $ref: ../common/schema/ExpressionList.yaml
+    ExpressionResult: 
+      $ref: ../common/schema/ExpressionResult.yaml
+    ExpressionResultList: 
+      $ref: ../common/schema/ExpressionResultList.yaml
+    ExpressionWithCondition: 
+      $ref: ../common/schema/ExpressionWithCondition.yaml
+    ExpressionWithConditionList: 
+      $ref: ../common/schema/ExpressionWithConditionList.yaml
+    FileInfo: 
+      $ref: ../common/schema/FileInfo.yaml
+    GooglePlusCode: 
+      $ref: ../common/schema/GooglePlusCode.yaml
+    LanguageCode: 
+      $ref: ../common/schema/LanguageCode.yaml
+    LatLong: 
+      $ref: ../common/schema/LatLong.yaml
+    MsgCallbackHeader_V1.0.0: 
+      $ref: ../common/schema/MsgCallbackHeader_V1.0.0.yaml
+    MsgHeader_V1.0.0: 
+      $ref: ../common/schema/MsgHeader_V1.0.0.yaml
+    MsgHeaderStatusReasonCode: 
+      $ref: ../common/schema/MsgHeaderStatusReasonCode.yaml
+    MsgSignature: 
+      $ref:  ../common/schema/MsgSignature.yaml
+    Pagination: 
+      $ref: ../common/schema/Pagination.yaml
+    PaginationRequest: 
+      $ref: ../common/schema/PaginationRequest.yaml
+    PersonId: 
+      $ref: ../common/schema/PersonId.yaml
+    ReferenceId: 
+      $ref: ../common/schema/ReferenceId.yaml
+    ReferenceIdList: 
+      $ref: ../common/schema/ReferenceIdList.yaml
+    RequestStatus: 
+      $ref: ../common/schema/RequestStatus.yaml
+    SearchSort: 
+      $ref: ../common/schema/SearchSort.yaml
+    SearchSortList: 
+      $ref: ../common/schema/SearchSortList.yaml
+    TransactionId:  
+      $ref: ../common/schema/TransactionId.yaml
+  parameters:
+    accept-language:
+      $ref: ../common/parameter/accept-language.yaml
+    timestamp:
+      $ref: ../common/parameter/timestamp.yaml
+    transaction_id:
+      $ref: ../common/parameter/transaction_id.yaml
+    summary_only:
+      $ref: ../common/parameter/summary_only.yaml
+    beneficiary_id:
+      $ref: ../common/parameter/beneficiary_id.yaml
+  responses: 
+    HttpErrorResponse:
+      $ref: ../common/response/HttpErrorResponse.yaml       
+    Response:
+      $ref: ../common/response/Response.yaml    
+  securitySchemes:
+    x-access-token:
+      $ref: ../common/security/x-access-token.yaml

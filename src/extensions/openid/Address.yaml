@@ -1,0 +1,35 @@
+title: Address
+description: Address info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim">specs</a>
+properties:
+  address_line1:
+    description: 'Full mailing address, formatted for display or use on a mailing label. This field MAY contain multiple lines, separated by newlines. Newlines can be represented either as a carriage return/line feed pair ("\r\n") or as a single line feed character ("\n").'
+    type: string
+    example: ''
+  address_line_2:
+    description: 'Full street address component, which MAY include house number, street name, Post Office Box, and multi-line extended street address information. This field MAY contain multiple lines, separated by newlines. Newlines can be represented either as a carriage return/line feed pair ("\r\n") or as a single line feed character ("\n").'
+    type: string
+    example: ''
+  locality:
+    description: City or locality component.
+    type: string
+    example: ''
+  sub_region_code:
+    description: 'District or sub-regional code'
+    type: string
+  region_code:
+    description: 'State, province, prefecture, or region component.'
+    type: string
+    example: ''
+  postal_code:
+    description: 'Zip code or postal code component.'
+    type: string
+    example: ''
+  country_code:
+    description: Country part of an address represented using an ISO
+      3-letter code [ISO3166-3], e.g., "USA" or "JPN". 2-letter ISO codes [ISO3166-1] e.g. ,e.g. US, JP
+    type: string
+    example: ''
+  geo_location:
+    description: |
+      Refer https://github.com/google/open-location-code/wiki/Plus-codes-API for more details
+    $ref : ../../common/schema/GooglePlusCode.yaml  

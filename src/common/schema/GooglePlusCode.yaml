@@ -1,0 +1,17 @@
+type: object
+properties:
+  global_code:
+    type: string
+    example: ''
+  geometry: 
+    type: object
+    properties:
+      bounds: 
+        type: object
+        properties:
+          northeast:
+            $ref: LatLong.yaml
+          southwest:
+            $ref: LatLong.yaml
+      location:
+        $ref: LatLong.yaml

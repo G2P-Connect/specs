@@ -1,0 +1,22 @@
+type: object
+description: "Related person details "
+properties:
+  sub:
+    type: string
+    description: Subject - Identifier for the End-User at the Issuer.
+  name:
+    description: End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
+    type: string
+  relationship:
+    type: string
+    enum:
+      - "mother"
+      - "father"
+      - "gaurdian"
+      - "bride"
+      - "groom"
+      - "wife"
+      - "husband"
+      - "spouse"
+      - "partner"
+      - "other"

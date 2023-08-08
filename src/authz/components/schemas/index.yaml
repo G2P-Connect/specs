@@ -1,6 +1,0 @@
-OAuth2ClientTokenRequest:
-  $ref: "../io/OAuth2ClientTokenRequest.yaml"
-OAuth2ClientTokenResponse:
-  $ref: "../io/OAuth2ClientTokenResponse.yaml"
-OidcScope:
-  $ref: "../io/OidcScope.yaml"

@@ -1,3 +1,0 @@
-type: string
-description: Describes amount in decimal value format
-pattern: '^\d{1,13}\.\d{1,2}$'

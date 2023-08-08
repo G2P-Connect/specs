@@ -1,0 +1,53 @@
+type: object
+description: | 
+  1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
+  3. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
+properties:
+  identifier_type:
+    $ref: IdentifierType.yaml
+  identifier:
+    type: string
+    description: Value of the identifier
+  name: 
+    $ref: Name.yaml
+  phone_number:
+    description: Applicant preferred phone number. <a href="https://www.itu.int/rec/T-REC-E.164-201011-I/en">E.164</a> is recommended as the format, for more details refer
+    type: string
+  email:
+    description: Applicant preferred e-mail address. <a href="https://datatracker.ietf.org/doc/html/rfc5322">RFC 5322</a> [<a href="https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1">addr-spec</a> <a href="https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1">specification</a>] is recommended as the format
+    type: string
+  sex:
+    $ref: Sex.yaml
+  birthdate:
+    description: Represents Date and time of the applicant's birth. <a href="https://www.iso.org/standard/40874.html">ISO 8601:2004</a> is recommended as the date and time format. For more details on format refer 
+    type: string
+  birthplace:
+    $ref: ../openid/Address.yaml
+  deathdate:
+    $ref: ../../common/schema/DateTime.yaml
+  deathplace:
+    $ref: ../openid/Address.yaml
+  address:
+    $ref: ../openid/Address.yaml
+  marital_status:
+    $ref: MaritalStatus.yaml
+  marriagedate:
+    $ref: ../../common/schema/DateTime.yaml
+  divorcedate:
+    $ref: ../../common/schema/DateTime.yaml
+  parent1_identifier:
+    type: object
+    properties:
+      identifier_type:
+        $ref: IdentifierType.yaml
+      identifier:
+        type: string
+        description: Value of the identifier
+  parent2_identifier:
+    type: object
+    properties:
+      identifier_type:
+        $ref: IdentifierType.yaml
+      identifier:
+        type: string
+        description: Value of the identifier

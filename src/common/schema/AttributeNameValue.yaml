@@ -1,12 +1,18 @@
 type: object
-description: 'Attribute name value object'
+description: Attribute name value object
 properties:
-  attribute_name: 
+  name:
     type: string
     maxLength: 99
-  attribute_value:
-    type: string
-    maxLength: 999
-required: 
-  - attribute_name
-  - attribute_value
+    example: ''
+  value:
+    oneOf:
+      - type: string
+      - type: integer
+      - type: number
+      - type: boolean
+      - format: data-time
+    example: ''
+required:
+  - name
+  - value

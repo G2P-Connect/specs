@@ -1,4 +1,0 @@
-type: string
-description: "datetime in RFC3339 format"
-format: date-time
-example: '2022-12-04T17:20:07-04:00'

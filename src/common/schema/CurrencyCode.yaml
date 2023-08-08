@@ -1,6 +1,0 @@
-description: "<br>
-  1. Currency code allocated as per ISO 4217 format.<br>
-  2. Codes for the representation of currencies and funds."
-type: string
-pattern: '^[A-Z]{3,3}$'
-example: "SLL"

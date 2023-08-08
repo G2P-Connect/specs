@@ -10,6 +10,6 @@ content:
             ack_status:
               $ref: "../schema/Ack.yaml"
             timestamp:
-              $ref: "../schema/Timestamp.yaml"
+              $ref: ../schema/DateTime.yaml
             error:
               $ref: "../schema/Error.yaml"

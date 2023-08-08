@@ -1,3 +1,0 @@
-type: string
-description: End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
-example: "Mr. John Smith"

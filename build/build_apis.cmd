@@ -2,16 +2,8 @@
 # Assumes the command is run from the root folder i.e ./specs
 # For each new category, please make sure to add a reference link in this file for easy auto generation of yamls.
 
-swagger-cli -f 2 -t yaml bundle ./src/authz/index.yaml -o ./api/g2p-authz.yaml
-swagger-cli -f 2 -t yaml bundle ./src/mapper/index.yaml -o ./api/g2p-mapper.yaml
-swagger-cli -f 2 -t yaml bundle ./src/disburse/index.yaml -o ./api/g2p-disburse.yaml
-swagger-cli -f 2 -t yaml bundle ./src/credential/index.yaml -o ./api/g2p-credential.yaml
-swagger-cli -f 2 -t yaml bundle ./src/identity/index.yaml -o ./api/g2p-identity.yaml
-swagger-cli -f 2 -t yaml bundle ./src/registry/index.yaml -o ./api/g2p-registry.yaml
+swagger-cli -f 2 -t yaml bundle ./src/authz/auth_core_api_v1.0.0.yaml -o ./release/yaml/auth_core_api_v1.0.0.yaml
+swagger-cli -f 2 -t yaml bundle ./src/registry/registry_core_api_v1.0.0.yaml -o ./release/yaml/registry_core_api_v1.0.0.yaml
 
-redocly build-docs ./api/g2p-authz.yaml -o ./docs/dist/g2p-authz.html
-redocly build-docs ./api/g2p-mapper.yaml -o ./docs/dist/g2p-mapper.html
-redocly build-docs ./api/g2p-disburse.yaml -o ./docs/dist/g2p-disburse.html
-redocly build-docs ./api/g2p-credential.yaml -o ./docs/dist/g2p-credential.html
-redocly build-docs ./api/g2p-identity.yaml -o ./docs/dist/g2p-identity.html
-redocly build-docs ./api/g2p-registry.yaml -o ./docs/dist/g2p-registry.html
+redocly build-docs ./release/yaml/auth_core_api_v1.0.0.yaml  -o ./release/redoc/auth_core_api_v1_0.0.0.html
+redocly build-docs ./release/yaml/registry_core_api_v1.0.0.yaml  -o ./release/redoc/registry_core_api_v1_0.0.0.html

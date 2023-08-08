@@ -1,7 +1,0 @@
-type: string
-description: FA Mapper Update status reason codes
-enum: 
-  - "rjct.reference_id.invalid"
-  - "rjct.reference_id.duplicate"
-  - "rjct.timestamp.invalid"
-  - "rjct.beneficiary_name.invalid"
