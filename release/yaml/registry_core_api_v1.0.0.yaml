@@ -880,8 +880,9 @@ components:
               description: 'Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,'
               type: string
             related_persons:
+              type: array
               items:
-                - $ref: '#/components/schemas/RelatedPerson'
+                $ref: '#/components/schemas/RelatedPerson'
     RelatedPerson:
       type: object
       description: 'Related person details '
@@ -928,8 +929,7 @@ components:
                   - $ref: '#/components/schemas/civilReg_EventType'
                   - $ref: '#/components/schemas/coreReg_EventType'
               registry_data:
-                items:
-                  - $ref: '#/components/schemas/SearchRecord'
+                $ref: '#/components/schemas/SearchRecord'
               locale:
                 $ref: '#/components/schemas/LanguageCode'
             required:
@@ -1072,8 +1072,7 @@ components:
                   - $ref: '#/components/schemas/civilReg_EventType'
                   - $ref: '#/components/schemas/coreReg_EventType'
               registry_data:
-                items:
-                  - $ref: '#/components/schemas/SearchRecord'
+                $ref: '#/components/schemas/SearchRecord'
               pagination:
                 $ref: '#/components/schemas/Pagination'
               locale:

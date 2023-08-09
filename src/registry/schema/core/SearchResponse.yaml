@@ -28,8 +28,7 @@ properties:
             - $ref: ../civil/EventType.yaml
             - $ref: ./RegistryEventType.yaml
         registry_data:
-          items:
-            - $ref: "SearchRecord.yaml"
+          $ref: SearchRecord.yaml
         pagination: 
           $ref: "../../../common/schema/Pagination.yaml"
         locale:

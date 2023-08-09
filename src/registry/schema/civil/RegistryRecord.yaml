@@ -21,5 +21,6 @@ allOf:
       description: Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,
       type: string
     related_persons:
+      type: array
       items:
-        - $ref: "./RelatedPerson.yaml"
+        $ref: RelatedPerson.yaml

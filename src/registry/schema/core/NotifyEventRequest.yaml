@@ -20,8 +20,7 @@ properties:
             - $ref: ../civil/EventType.yaml
             - $ref: ./RegistryEventType.yaml
         registry_data:
-          items:
-            - $ref: "SearchRecord.yaml"
+          $ref: "SearchRecord.yaml"
         locale:
           $ref: "../../../common/schema/LanguageCode.yaml"
       required:
