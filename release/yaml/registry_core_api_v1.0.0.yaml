@@ -1183,7 +1183,8 @@ components:
           type: object
           description: |
             1. Holds record object as defined by above record_type by respective sender/receiver systems
-            2. Objects are defined in 
+            2. Objects are defined in respecitive schemas definition with entity/org namespace as prefix
+            3. Implementing systems shall reference to the requires objects based on the context of these API usage
     SearchStatusReasonCode:
       type: string
       description: Identity verification request status reason codes
