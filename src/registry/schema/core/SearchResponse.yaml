@@ -25,7 +25,7 @@ properties:
         event_type:
           $ref: AllEvents.yaml
         registry_data:
-          $ref: SearchRecord.yaml
+          $ref: SearchResultRecord.yaml
         pagination: 
           $ref: "../../../common/schema/Pagination.yaml"
         locale:

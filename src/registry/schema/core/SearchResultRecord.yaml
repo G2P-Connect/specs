@@ -1,0 +1,11 @@
+type: object
+description: |
+  Search result record as an outcome of search/subscribe action
+properties: 
+  record_type:
+    $ref: AllFilters.yaml
+  data:
+    type: object
+    description: |
+      1. Holds record object as defined by above record_type by respective sender/receiver systems
+      2. Objects are defined in 

@@ -17,7 +17,7 @@ properties:
         event_type:
           $ref: AllEvents.yaml
         registry_data:
-          $ref: "SearchRecord.yaml"
+          $ref: "SearchResultRecord.yaml"
         locale:
           $ref: "../../../common/schema/LanguageCode.yaml"
       required:

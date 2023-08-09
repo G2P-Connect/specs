@@ -1010,9 +1010,12 @@ components:
         - $ref: '#/components/schemas/aadhaar_RecordType'
     coreReg_AllQueries:
       description: |
-        1. Pre defined query objects injected by each coutnry/organisation to query registry
-        2. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons
-        3. Implementing systems may create pre-defined query objects based on use cases
+        1. Pre defined query objects injected by each country/org/system to query a registry
+        2. Implementing systems may create pre-defined query objects based on use cases and inject as custom extensions
+        3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
+          - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
+          - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
+          - search all farmers with land area less than 2 acers in district code 504
       oneOf:
         - $ref: '#/components/schemas/dci_IdentifierTypeValue'
         - $ref: '#/components/schemas/cdpi_PersonId'
@@ -1050,7 +1053,7 @@ components:
               event_type:
                 $ref: '#/components/schemas/coreReg_AllEvents'
               registry_data:
-                $ref: '#/components/schemas/SearchRecord'
+                $ref: '#/components/schemas/SearchResultRecord'
               locale:
                 $ref: '#/components/schemas/LanguageCode'
             required:
@@ -1082,21 +1085,6 @@ components:
           - "land"
           - "utility"
           - "other"
-    SearchRecord:
-      type: object
-      description: |
-        Search record based on filter attribute values i.e, pre defined record types or list of custom key value attributed
-      properties:
-        record_type:
-          oneOf:
-            - $ref: '#/components/schemas/coreReg_RecordType'
-            - $ref: '#/components/schemas/civilReg_RecordType'
-            - $ref: '#/components/schemas/aadhaar_RecordType'
-            - $ref: '#/components/schemas/dci_RecordType'
-        data:
-          type: object
-          description: |
-            Holds record object as defined by above record_type by respective sender/receiver systems
     SearchRequest:
       type: object
       description: |
@@ -1170,12 +1158,9 @@ components:
               registry_type:
                 $ref: '#/components/schemas/coreReg_Type'
               event_type:
-                oneOf:
-                  - $ref: '#/components/schemas/dci_VitalEvents'
-                  - $ref: '#/components/schemas/civilReg_EventType'
-                  - $ref: '#/components/schemas/coreReg_EventType'
+                $ref: '#/components/schemas/coreReg_AllEvents'
               registry_data:
-                $ref: '#/components/schemas/SearchRecord'
+                $ref: '#/components/schemas/SearchResultRecord'
               pagination:
                 $ref: '#/components/schemas/Pagination'
               locale:
@@ -1187,6 +1172,18 @@ components:
       required:
         - transaction_id
         - search_response
+    SearchResultRecord:
+      type: object
+      description: |
+        Search result record as an outcome of search/subscribe action
+      properties:
+        record_type:
+          $ref: '#/components/schemas/coreReg_AllFilters'
+        data:
+          type: object
+          description: |
+            1. Holds record object as defined by above record_type by respective sender/receiver systems
+            2. Objects are defined in 
     SearchStatusReasonCode:
       type: string
       description: Identity verification request status reason codes
@@ -1489,7 +1486,6 @@ components:
       items:
         $ref: '#/components/schemas/ExpressionResult'
     ExpressionWithCondition:
-      description: Expression with a condition
       type: object
       properties:
         expression1:

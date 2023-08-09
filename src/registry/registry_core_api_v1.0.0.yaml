@@ -578,12 +578,12 @@ components:
       $ref: schema/core/RecordType.yaml
     coreReg_Type: 
       $ref: schema/core/RegistryType.yaml
-    SearchRecord: 
-      $ref: schema/core/SearchRecord.yaml
     SearchRequest: 
       $ref: schema/core/SearchRequest.yaml
     SearchResponse: 
       $ref: schema/core/SearchResponse.yaml
+    SearchResultRecord: 
+      $ref: schema/core/SearchResultRecord.yaml
     SearchStatusReasonCode: 
       $ref: schema/core/SearchStatusReasonCode.yaml
     SubscribeRequest: 
