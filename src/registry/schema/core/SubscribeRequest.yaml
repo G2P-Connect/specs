@@ -15,7 +15,7 @@ properties:
         registry_type:
           $ref: "./RegistryType.yaml"
         event_type:
-          anyOf:
+          oneOf:
             - $ref: ./RegistryEventType.yaml
             - $ref: ../civil/EventType.yaml
             - $ref: ../../../extensions/dci/VitalEvents.yaml
@@ -25,7 +25,7 @@ properties:
             query:
               oneOf:
                 - $ref: ../../../extensions/dci/IdentifierTypeValue.yaml
-                - $ref: ../../../common/schema/PersonId.yaml
+                - $ref: ../../../extensions/cdpi/PersonId.yaml
                 - $ref: "../../../common/schema/ExpressionWithConditionList.yaml"
             filter:
               anyOf:

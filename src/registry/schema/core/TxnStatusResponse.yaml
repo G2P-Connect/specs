@@ -2,12 +2,10 @@ properties:
   transaction_id: 
     $ref: ../../../common/schema/TransactionId.yaml
   txnstatus_response:
-    type: array
-    properties: 
-      oneOf:
-        - $ref: "./SubscribeRequest.yaml"
-        - $ref: "./NotifyEventRequest.yaml"
-        - $ref: "./SearchResponse.yaml"
+    oneOf:
+      - $ref: SubscribeRequest.yaml
+      - $ref: NotifyEventRequest.yaml
+      - $ref: SearchResponse.yaml
     example:
       txnstatus_response: 
         reference_id: "test"

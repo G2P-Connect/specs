@@ -516,6 +516,10 @@ components:
       $ref: ../extensions/dci/Sex.yaml
     dci_VitalEvents: 
       $ref: ../extensions/dci/VitalEvents.yaml
+
+    ###### src/extensions/cdpi schema objects
+    cdpi_PersonId: 
+      $ref: ../extensions/cdpi/PersonId.yaml
     
       ###### src/extensions/openid schema objects
     openid_Address: 
@@ -610,8 +614,6 @@ components:
       $ref: ../common/schema/Pagination.yaml
     PaginationRequest: 
       $ref: ../common/schema/PaginationRequest.yaml
-    PersonId: 
-      $ref: ../common/schema/PersonId.yaml
     ReferenceId: 
       $ref: ../common/schema/ReferenceId.yaml
     ReferenceIdList: 

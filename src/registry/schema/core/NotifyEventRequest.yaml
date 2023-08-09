@@ -15,7 +15,7 @@ properties:
         registry_type:
           $ref: "./RegistryType.yaml"
         event_type:
-          anyOf:
+          oneOf:
             - $ref: ./RegistryEventType.yaml
             - $ref: ../civil/EventType.yaml
             - $ref: ../../../extensions/dci/VitalEvents.yaml

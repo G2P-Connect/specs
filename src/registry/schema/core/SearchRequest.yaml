@@ -28,7 +28,7 @@ properties:
             query:
               oneOf:
               - $ref: ../../../extensions/dci/IdentifierTypeValue.yaml
-              - $ref: ../../../common/schema/PersonId.yaml
+              - $ref: ../../../extensions/cdpi/PersonId.yaml
               - $ref: "../../../common/schema/ExpressionWithConditionList.yaml"
             filter:
               anyOf:

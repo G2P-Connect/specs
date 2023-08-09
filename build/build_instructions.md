@@ -21,6 +21,11 @@ do
     c. headers <br>
     d. parmeteres <br>
     e. security <br>
+3. Organisations, Countries and System specific standards are referenced in folder: standards/src/extensions/<name>
+    a. dci <br>
+    b. openId <br>
+    c. cdpi <br>
+    d. fhir <br>
 
 ## Building Open API consolidated yaml file
 1. Make sure all the yaml file have relative path references are resolved and core_xxx_api_vx.x.x.yaml files have reference to all the required files.
@@ -35,7 +40,7 @@ sudo npm install -g swagger-cli
     b. Alternatively, Run the following command for each index file in ./standards/ folder. for e.g., <br>
 
 ```
-swagger-cli -f 2 -t yaml bundle ./src/registry/registry_core_api_v1.0.0.yaml -o ./release/registry_core_api_v1.0.0.yaml
+swagger-cli -f 2 -t yaml bundle ./src/registry/registry_core_api_v1.0.0.yaml -o ./release/yaml/registry_core_api_v1.0.0.yaml
 
 ```
 
@@ -47,12 +52,12 @@ Created registry_core_api_v1.0.0.html from release/yaml/registry_core_api_v1.0.0
 3. To create redoc html pages for easy readability 
 
 ```
-redoc build-docs ./api/registry_core_api_v1.0.0.yaml -o ./docs/dist/registry_core_api_v1.0.0.html
+redoc build-docs ./src/registry_core_api_v1.0.0.yaml -o ./release/html/registry_core_api_v1.0.0.html
 ```
 
 If the command runs successfully, you should see an output like this for each api index file
 ```
-bundled successfully in: ./release/dist/redoc/registry_core_api_v1.0.0.html
+bundled successfully in: ./release/html/registry_core_api_v1.0.0.html
 ```
 
 5. Commit the changes and push the updated code to git repo. Create pull requests for teams to collaborate and merge to main branch!

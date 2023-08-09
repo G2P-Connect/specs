@@ -651,6 +651,19 @@ components:
         - '4'
         - '5'
         - '6'
+    cdpi_PersonId:
+      type: string
+      description: |
+        1. Person id is case insensitve normative represenation as id-type:id@provider <br>
+        2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
+        3. This property is intended to unambiguously refer to an object, such as a person, beneficiary, user, etc., <br>
+        4. Few examples: <br>
+            - id@identifier-type.id-provider e.g token:12345@mosip, vid:543215@mosip <br>
+            - id@civil-registry.issuing-agency e.g id:12345@crvs, brn:12345@ecrvs, mrn:12345@crvs <br>
+            - id@functional-identifier.issuing-agency e.g id:12345@voter-id, id:12345@driving-license, mobile:12345@farmer-reg <br>
+        Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 'vid:54321@mosip'
     openid_Address:
       title: Address
       description: 'Address info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim">specs</a>'
@@ -910,7 +923,7 @@ components:
               registry_type:
                 $ref: '#/components/schemas/RegistryType'
               event_type:
-                anyOf:
+                oneOf:
                   - $ref: '#/components/schemas/RegistryEventType'
                   - $ref: '#/components/schemas/EventType'
                   - $ref: '#/components/schemas/dci_VitalEvents'
@@ -987,7 +1000,7 @@ components:
                   query:
                     oneOf:
                       - $ref: '#/components/schemas/dci_IdentifierTypeValue'
-                      - $ref: '#/components/schemas/PersonId'
+                      - $ref: '#/components/schemas/cdpi_PersonId'
                       - $ref: '#/components/schemas/ExpressionWithConditionList'
                   filter:
                     anyOf:
@@ -1048,7 +1061,7 @@ components:
               registry_type:
                 $ref: '#/components/schemas/RegistryType'
               event_type:
-                anyOf:
+                oneOf:
                   - $ref: '#/components/schemas/RegistryEventType'
                   - $ref: '#/components/schemas/EventType'
                   - $ref: '#/components/schemas/dci_VitalEvents'
@@ -1096,7 +1109,7 @@ components:
               registry_type:
                 $ref: '#/components/schemas/RegistryType'
               event_type:
-                anyOf:
+                oneOf:
                   - $ref: '#/components/schemas/RegistryEventType'
                   - $ref: '#/components/schemas/EventType'
                   - $ref: '#/components/schemas/dci_VitalEvents'
@@ -1106,7 +1119,7 @@ components:
                   query:
                     oneOf:
                       - $ref: '#/components/schemas/dci_IdentifierTypeValue'
-                      - $ref: '#/components/schemas/PersonId'
+                      - $ref: '#/components/schemas/cdpi_PersonId'
                       - $ref: '#/components/schemas/ExpressionWithConditionList'
                   filter:
                     anyOf:
@@ -1180,12 +1193,10 @@ components:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
         txnstatus_response:
-          type: array
-          properties:
-            oneOf:
-              - $ref: '#/components/schemas/SubscribeRequest'
-              - $ref: '#/components/schemas/NotifyEventRequest'
-              - $ref: '#/components/schemas/SearchResponse'
+          oneOf:
+            - $ref: '#/components/schemas/SubscribeRequest'
+            - $ref: '#/components/schemas/NotifyEventRequest'
+            - $ref: '#/components/schemas/SearchResponse'
           example:
             txnstatus_response:
               reference_id: test
@@ -1629,11 +1640,6 @@ components:
           example: 5
       required:
         - page_size
-    PersonId:
-      type: string
-      description: '<br> 1. Beneficiary id is case insensitve normative represenation as id-type:id@provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. This property is intended to unambiguously refer to an object, such as a person, organization, etc., <br> 4. Few examples: <br> - id@identifier-type.id-provider e.g token:12345@mosip, vid:12345@philid <br> - id@civil-registry.issuing-agency e.g id:12345@rwanda, id:12345@ejanma.karnataka <br> - id@functional-identifier.issuing-agency e.g id:12345@voter.Rwanda, id:12345@DL.karnataka, mobile:12345@fruits.karnataka <br> Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.<br> e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
-      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 'vid:12345@mosip'
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch
