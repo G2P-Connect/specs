@@ -10,11 +10,7 @@ properties:
   operator:
     $ref: "./ExpOperator.yaml"
   attribute_value:
-    oneOf:
-      - type: string
-      - type: integer
-      - type: number
-      - type: boolean
+    $ref: AttributeValue.yaml
 required:
   - seq_num
   - attribute_name

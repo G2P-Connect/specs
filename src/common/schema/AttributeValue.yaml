@@ -1,0 +1,7 @@
+oneOf:
+  - type: string
+  - type: integer
+  - type: number
+  - type: boolean
+  - format: data-time
+example: '+91 9876543210'

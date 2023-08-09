@@ -570,6 +570,8 @@ components:
       $ref: ../common/schema/AttributeNameValue.yaml
     AttributeNameValueList: 
       $ref: ../common/schema/AttributeNameValueList.yaml
+    AttributeValue: 
+      $ref: ../common/schema/AttributeValue.yaml
     Consent: 
       $ref: ../common/schema/Consent.yaml
     DateTime: 

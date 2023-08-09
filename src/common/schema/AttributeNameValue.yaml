@@ -4,15 +4,9 @@ properties:
   name:
     type: string
     maxLength: 99
-    example: ''
+    example: 'phone_number'
   value:
-    oneOf:
-      - type: string
-      - type: integer
-      - type: number
-      - type: boolean
-      - format: data-time
-    example: ''
+    $ref: AttributeValue.yaml
 required:
   - name
   - value

@@ -1224,15 +1224,9 @@ components:
         name:
           type: string
           maxLength: 99
-          example: ''
+          example: phone_number
         value:
-          oneOf:
-            - type: string
-            - type: integer
-            - type: number
-            - type: boolean
-            - format: data-time
-          example: ''
+          $ref: '#/components/schemas/AttributeValue'
       required:
         - name
         - value
@@ -1241,6 +1235,14 @@ components:
       description: List of attribute Name/Value
       items:
         $ref: '#/components/schemas/AttributeNameValue'
+    AttributeValue:
+      oneOf:
+        - type: string
+        - type: integer
+        - type: number
+        - type: boolean
+        - format: data-time
+      example: +91 9876543210
     Consent:
       type: object
       description: Consent artefact. TODO - enrich consent object!
@@ -1369,11 +1371,7 @@ components:
         operator:
           $ref: '#/components/schemas/ExpOperator'
         attribute_value:
-          oneOf:
-            - type: string
-            - type: integer
-            - type: number
-            - type: boolean
+          $ref: '#/components/schemas/AttributeValue'
       required:
         - seq_num
         - attribute_name
