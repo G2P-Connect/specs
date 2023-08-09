@@ -11,15 +11,15 @@ properties:
   name: 
     $ref: Name.yaml
   phone_number:
-    description: Applicant preferred phone number. <a href="https://www.itu.int/rec/T-REC-E.164-201011-I/en">E.164</a> is recommended as the format, for more details refer
+    description: Applicant preferred phone number as in [E.164](https://www.itu.int/rec/T-REC-E.164-201011-I/en)
     type: string
   email:
-    description: Applicant preferred e-mail address. <a href="https://datatracker.ietf.org/doc/html/rfc5322">RFC 5322</a> [<a href="https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1">addr-spec</a> <a href="https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1">specification</a>] is recommended as the format
+    description: Applicant preferred e-mail address as in [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322) [addr-spec](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1) [specification](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1)
     type: string
   sex:
     $ref: Sex.yaml
   birthdate:
-    description: Represents Date and time of the applicant's birth. <a href="https://www.iso.org/standard/40874.html">ISO 8601:2004</a> is recommended as the date and time format. For more details on format refer 
+    description: Represents Date and time of the applicant's birth as in [ISO 8601](https://www.iso.org/standard/40874.html) 
     type: string
   birthplace:
     $ref: ../openid/Address.yaml

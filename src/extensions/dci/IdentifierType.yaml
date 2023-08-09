@@ -1,12 +1,12 @@
 type: string
 description: |
-  An identifier type includes unique numbers legally assigned to individuals.
-  Reference: <a href="https://id4d.worldbank.org/guide/types-id-systems">Types of ID</a><br>
+  An identifier type includes unique numbers legally assigned to individuals. <br>
+  Reference: [Types of ID](https://id4d.worldbank.org/guide/types-id-systems)
 
-  UIN : Unique Identification Number
-  BRN : Birth Registration Number or Birth Serial Number
-  MRN : Marriage Registration Number
-  DRN : Death Registration Number
+  UIN : Unique Identification Number <br>
+  BRN : Birth Registration Number or Birth Serial Number <br>
+  MRN : Marriage Registration Number <br>
+  DRN : Death Registration Number <br>
 enum:
   - "UIN"
   - "BRN"

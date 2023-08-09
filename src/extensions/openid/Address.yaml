@@ -31,5 +31,5 @@ properties:
     example: ''
   geo_location:
     description: |
-      Refer https://github.com/google/open-location-code/wiki/Plus-codes-API for more details
+      Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details
     $ref : ../../common/schema/GooglePlusCode.yaml  

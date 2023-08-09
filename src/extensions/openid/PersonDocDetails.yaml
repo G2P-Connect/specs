@@ -1,6 +1,6 @@
 type: object
 description: | 
-  1. Person document detials as per OpenID <a href"https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-evidence-element">specs</a>
+  1. Person document detials as per OpenID [identity-assurance](https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-evidence-element)
   2. JSON object representing the document used to perform the identity verification. 
 properties:
   type:

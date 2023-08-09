@@ -1,16 +1,16 @@
 type: string
 description: |
-  Marital status reference database: Standardized codes/values representing different marital status categories
-  Reference: <a href="https://hl7.org/fhir/DSTU2/valueset-marital-status.html">FHIR Marital Status</a><br>
+  Marital status reference database: Standardized codes/values representing different marital status categories <br>
+  Reference: [FHIR Marital Status](https://hl7.org/fhir/DSTU2/valueset-marital-status.html)<br>
   
-  Code : Values - Description
-  S : Never Married - No marriage contract has ever been entered
-  M : Married - A current marriage contract is active
-  W : Widow - The spouse has died
-  A : Annulled - Marriage contract has been declared null and to not have existed
-  D : Divorced - Marriage contract has been declared dissolved and inactive
-  L : Legally Separated - Legally Separated
-  U : Unmarried - The person is not presently married. The marital history is not known or stated.
+  Code : Values - Description <br>
+  S : Never Married - No marriage contract has ever been entered <br>
+  M : Married - A current marriage contract is active <br>
+  W : Widow - The spouse has died <br>
+  A : Annulled - Marriage contract has been declared null and to not have existed <br>
+  D : Divorced - Marriage contract has been declared dissolved and inactive <br>
+  L : Legally Separated - Legally Separated <br>
+  U : Unmarried - The person is not presently married. The marital history is not known or stated. <br>
 enum:
   - "S"
   - "M"

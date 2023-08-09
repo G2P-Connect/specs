@@ -1,6 +1,7 @@
 description: Civil registry event types
 type: string
 enum:
+  - "person"
   - "birth"
   - "death"
   - "marriage"
@@ -8,5 +9,5 @@ enum:
   - "annulment"
   - "seperation"
   - "adoption"
-  - "demographic_change"
+  - "demo_change"
   - "unregister"

@@ -500,13 +500,13 @@ components:
     dci_IdentifierType:
       type: string
       description: |
-        An identifier type includes unique numbers legally assigned to individuals.
-        Reference: <a href="https://id4d.worldbank.org/guide/types-id-systems">Types of ID</a><br>
+        An identifier type includes unique numbers legally assigned to individuals. <br>
+        Reference: [Types of ID](https://id4d.worldbank.org/guide/types-id-systems)
 
-        UIN : Unique Identification Number
-        BRN : Birth Registration Number or Birth Serial Number
-        MRN : Marriage Registration Number
-        DRN : Death Registration Number
+        UIN : Unique Identification Number <br>
+        BRN : Birth Registration Number or Birth Serial Number <br>
+        MRN : Marriage Registration Number <br>
+        DRN : Death Registration Number <br>
       enum:
         - UIN
         - BRN
@@ -522,17 +522,17 @@ components:
     dci_MaritalStatus:
       type: string
       description: |
-        Marital status reference database: Standardized codes/values representing different marital status categories
-        Reference: <a href="https://hl7.org/fhir/DSTU2/valueset-marital-status.html">FHIR Marital Status</a><br>
+        Marital status reference database: Standardized codes/values representing different marital status categories <br>
+        Reference: [FHIR Marital Status](https://hl7.org/fhir/DSTU2/valueset-marital-status.html)<br>
 
-        Code : Values - Description
-        S : Never Married - No marriage contract has ever been entered
-        M : Married - A current marriage contract is active
-        W : Widow - The spouse has died
-        A : Annulled - Marriage contract has been declared null and to not have existed
-        D : Divorced - Marriage contract has been declared dissolved and inactive
-        L : Legally Separated - Legally Separated
-        U : Unmarried - The person is not presently married. The marital history is not known or stated.
+        Code : Values - Description <br>
+        S : Never Married - No marriage contract has ever been entered <br>
+        M : Married - A current marriage contract is active <br>
+        W : Widow - The spouse has died <br>
+        A : Annulled - Marriage contract has been declared null and to not have existed <br>
+        D : Divorced - Marriage contract has been declared dissolved and inactive <br>
+        L : Legally Separated - Legally Separated <br>
+        U : Unmarried - The person is not presently married. The marital history is not known or stated. <br>
       enum:
         - S
         - M
@@ -544,8 +544,8 @@ components:
     dci_Name:
       type: object
       description: |
-        The name data object represents a person's name with various components. 
-        Reference: <a href="https://v2plus.hl7.org/2021Jan/data-type/XPN.html#XPN-1">FHIR XPN - extended person name</a> <br>
+        The name data object represents a person's name with various components. <br>
+        Reference: [FHIR XPN - extended person name](https://v2plus.hl7.org/2021Jan/data-type/XPN.html#XPN-1) <br>
         Note: Note: In some cultures, people can have multiple Surname(s), Given name(s), Second name(s), Suffix(s), or Prefix(s) to their name; all can be present in the respective attributes, being separated by separator character like space or /.
       properties:
         sur_name:
@@ -577,15 +577,15 @@ components:
         name:
           $ref: '#/components/schemas/dci_Name'
         phone_number:
-          description: 'Applicant preferred phone number. <a href="https://www.itu.int/rec/T-REC-E.164-201011-I/en">E.164</a> is recommended as the format, for more details refer'
+          description: 'Applicant preferred phone number as in [E.164](https://www.itu.int/rec/T-REC-E.164-201011-I/en)'
           type: string
         email:
-          description: 'Applicant preferred e-mail address. <a href="https://datatracker.ietf.org/doc/html/rfc5322">RFC 5322</a> [<a href="https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1">addr-spec</a> <a href="https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1">specification</a>] is recommended as the format'
+          description: 'Applicant preferred e-mail address as in [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322) [addr-spec](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1) [specification](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1)'
           type: string
         sex:
           $ref: '#/components/schemas/dci_Sex'
         birthdate:
-          description: 'Represents Date and time of the applicant''s birth. <a href="https://www.iso.org/standard/40874.html">ISO 8601:2004</a> is recommended as the date and time format. For more details on format refer'
+          description: 'Represents Date and time of the applicant''s birth as in [ISO 8601](https://www.iso.org/standard/40874.html)'
           type: string
         birthplace:
           $ref: '#/components/schemas/openid_Address'
@@ -621,7 +621,7 @@ components:
       type: string
       description: |
         Standardized codes/values representing diverse Sex categories.
-        Reference: <a href="https://www.iso.org/standard/81682.html">ISO/IEC 5218:2022</a> <br>
+        Reference: [ISO/IEC 5218:2022](https://www.iso.org/standard/81682.html)
 
         1 : Male
         2 : Female
@@ -636,14 +636,13 @@ components:
       type: string
       description: |
         Standardized codes/values represent vital events in an individual's life. 
-        Reference: <a href="https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf">Vital Events Statistics</a> <br>
-
-        1 : Live Birth
-        2 : Death
-        3 : Fetal death
-        4 : Marriage
-        5 : Divorce
-        6 : Adoption
+        Reference: [Vital Events Statistics](https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf)
+        1 : Live Birth <br>
+        2 : Death <br>
+        3 : Fetal death <br>
+        4 : Marriage <br>
+        5 : Divorce <br>
+        6 : Adoption <br>
       enum:
         - '1'
         - '2'
@@ -697,14 +696,14 @@ components:
           example: ''
         geo_location:
           description: |
-            Refer https://github.com/google/open-location-code/wiki/Plus-codes-API for more details
+            Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details
           $ref: '#/components/schemas/GooglePlusCode'
     openid_Person:
       description: |
         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
         2. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
-        3. Person info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#Claims">specs</a>
-        4. Person additional info based on OpenID <a href="https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-additional-claims-about-end">specs</a>
+        3. Person info as per OpenID [Claims](https://openid.net/specs/openid-connect-core-1_0.html#Claims)
+        4. Person additional info based on OpenID [name-additional-claims](https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-additional-claims-about-end)
       properties:
         sub:
           type: string
@@ -805,7 +804,7 @@ components:
     openid_PersonDocDetails:
       type: object
       description: |
-        1. Person document detials as per OpenID <a href"https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-evidence-element">specs</a>
+        1. Person document detials as per OpenID [identity-assurance](https://openid.net/specs/openid-connect-4-identity-assurance-1_0-13.html#name-evidence-element)
         2. JSON object representing the document used to perform the identity verification. 
       properties:
         type:
@@ -843,10 +842,11 @@ components:
               type: string
       required:
         - type
-    EventType:
+    civilReg_EventType:
       description: Civil registry event types
       type: string
       enum:
+        - person
         - birth
         - death
         - marriage
@@ -854,9 +854,9 @@ components:
         - annulment
         - seperation
         - adoption
-        - demographic_change
+        - demo_change
         - unregister
-    civilRegistryRecord:
+    civilReg_Record:
       description: |
         1. Civil registry record
         2. Allows Country/Registry specific implementation extensions as new custom defined objects
@@ -870,7 +870,7 @@ components:
               description: Civil registry status
               type: string
             registration_type:
-              $ref: '#/components/schemas/EventType'
+              $ref: '#/components/schemas/civilReg_EventType'
             registration_number:
               description: Registration number
               type: string
@@ -921,12 +921,12 @@ components:
               timestamp:
                 $ref: '#/components/schemas/DateTime'
               registry_type:
-                $ref: '#/components/schemas/RegistryType'
+                $ref: '#/components/schemas/coreReg_Type'
               event_type:
                 oneOf:
-                  - $ref: '#/components/schemas/RegistryEventType'
-                  - $ref: '#/components/schemas/EventType'
                   - $ref: '#/components/schemas/dci_VitalEvents'
+                  - $ref: '#/components/schemas/civilReg_EventType'
+                  - $ref: '#/components/schemas/coreReg_EventType'
               registry_data:
                 items:
                   - $ref: '#/components/schemas/SearchRecord'
@@ -939,30 +939,36 @@ components:
       required:
         - transaction_id
         - notify_event
-    RegistryEventType:
-      description: Functional registry event types
+    coreReg_EventType:
+      description: |
+        Functional registry event types
+        1. update - search or subscribe to update events; e.g update to postal_code 12345 between date_range
+        2. link - search or subscribe to linking events; e.g mobile no link with ID, national ID link with civil reg record, etc.,
+        3. unlink - search or subscribe to unlinking events;
+
+        Note: update event can also cover link/unlink events on a registry record.
       type: string
       enum:
-        - read
-        - link
         - update
+        - link
         - unlink
-    RegistryType:
+    coreReg_Type:
       type: string
       description: |
         1. Registry types like civil, population, family, household, school, college, farmer, land, utitlity, etc., 
-        2. Country specific implementations should extend and allow custom types.
-      enum:
-        - civil
-        - population
-        - family
-        - household
-        - school
-        - college
-        - farmer
-        - land
-        - utility
-        - other
+        2. Country specific implementations should extend and allow other registries.
+
+        examples:
+          1. "civil"
+          2. "population"
+          3. "family"
+          4. "household"
+          5. "school"
+          6. "college"
+          7. "farmer"
+          8. "land"
+          9. "utility"
+          10. "other"
     SearchRecord:
       type: object
       description: |
@@ -988,12 +994,12 @@ components:
               timestamp:
                 $ref: '#/components/schemas/DateTime'
               registry_type:
-                $ref: '#/components/schemas/RegistryType'
+                $ref: '#/components/schemas/coreReg_Type'
               event_type:
                 anyOf:
-                  - $ref: '#/components/schemas/RegistryEventType'
-                  - $ref: '#/components/schemas/EventType'
                   - $ref: '#/components/schemas/dci_VitalEvents'
+                  - $ref: '#/components/schemas/civilReg_EventType'
+                  - $ref: '#/components/schemas/coreReg_EventType'
               search_criteria:
                 type: object
                 properties:
@@ -1059,12 +1065,12 @@ components:
                 type: string
                 maxLength: 999
               registry_type:
-                $ref: '#/components/schemas/RegistryType'
+                $ref: '#/components/schemas/coreReg_Type'
               event_type:
                 oneOf:
-                  - $ref: '#/components/schemas/RegistryEventType'
-                  - $ref: '#/components/schemas/EventType'
                   - $ref: '#/components/schemas/dci_VitalEvents'
+                  - $ref: '#/components/schemas/civilReg_EventType'
+                  - $ref: '#/components/schemas/coreReg_EventType'
               registry_data:
                 items:
                   - $ref: '#/components/schemas/SearchRecord'
@@ -1107,12 +1113,12 @@ components:
               timestamp:
                 $ref: '#/components/schemas/DateTime'
               registry_type:
-                $ref: '#/components/schemas/RegistryType'
+                $ref: '#/components/schemas/coreReg_Type'
               event_type:
                 oneOf:
-                  - $ref: '#/components/schemas/RegistryEventType'
-                  - $ref: '#/components/schemas/EventType'
                   - $ref: '#/components/schemas/dci_VitalEvents'
+                  - $ref: '#/components/schemas/civilReg_EventType'
+                  - $ref: '#/components/schemas/coreReg_EventType'
               subscribe_criteria:
                 type: object
                 properties:
@@ -1267,9 +1273,8 @@ components:
               description: Uri to provide more info on consent codes
     DateTime:
       description: |
-        1. All dates and timestamps are represented in ISO 8601 format including timezone.
-        2. Reference: ISO 8601 Date & Time for example 2022-12-04T17:20:07-04:00. 
-        3. Refer https://www.iso.org/standard/40874.html'
+        1. All dates and timestamps are represented in ISO 8601 format including timezone - e.g 2022-12-04T17:20:07-04:00.
+        2. Reference: [ISO 8601](https://www.iso.org/standard/40874.html) 
       type: string
       format: date-time
       example: ''

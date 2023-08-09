@@ -530,18 +530,18 @@ components:
       $ref: ../extensions/openid/PersonDocDetails.yaml
 
     ###### src/registry/schema/civil schema objects
-    EventType: 
+    civilReg_EventType: 
       $ref: schema/civil/EventType.yaml
-    civilRegistryRecord: 
+    civilReg_Record: 
       $ref: schema/civil/RegistryRecord.yaml
     RelatedPerson: 
       $ref: schema/civil/RelatedPerson.yaml
     ###### src/registry/schema/core schema objects
     NotifyEventRequest: 
       $ref: schema/core/NotifyEventRequest.yaml
-    RegistryEventType: 
+    coreReg_EventType: 
       $ref: schema/core/RegistryEventType.yaml
-    RegistryType: 
+    coreReg_Type: 
       $ref: schema/core/RegistryType.yaml
     SearchRecord: 
       $ref: schema/core/SearchRecord.yaml

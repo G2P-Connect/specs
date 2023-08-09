@@ -1,14 +1,13 @@
 type: string
 description: |
   Standardized codes/values represent vital events in an individual's life. 
-  Reference: <a href="https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf">Vital Events Statistics</a> <br>
-
-  1 : Live Birth
-  2 : Death
-  3 : Fetal death
-  4 : Marriage
-  5 : Divorce
-  6 : Adoption
+  Reference: [Vital Events Statistics](https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf)
+  1 : Live Birth <br>
+  2 : Death <br>
+  3 : Fetal death <br>
+  4 : Marriage <br>
+  5 : Divorce <br>
+  6 : Adoption <br>
 enum:
   - "1"
   - "2"

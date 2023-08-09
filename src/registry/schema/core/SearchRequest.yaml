@@ -19,9 +19,9 @@ properties:
           $ref: "./RegistryType.yaml"
         event_type:
           anyOf:
-            - $ref: ./RegistryEventType.yaml
-            - $ref: ../civil/EventType.yaml
             - $ref: ../../../extensions/dci/VitalEvents.yaml
+            - $ref: ../civil/EventType.yaml
+            - $ref: ./RegistryEventType.yaml
         search_criteria:
           type: object
           properties:

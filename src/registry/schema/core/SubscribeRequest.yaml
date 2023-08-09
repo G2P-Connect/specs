@@ -16,9 +16,9 @@ properties:
           $ref: "./RegistryType.yaml"
         event_type:
           oneOf:
-            - $ref: ./RegistryEventType.yaml
-            - $ref: ../civil/EventType.yaml
             - $ref: ../../../extensions/dci/VitalEvents.yaml
+            - $ref: ../civil/EventType.yaml
+            - $ref: ./RegistryEventType.yaml
         subscribe_criteria:
           type: object
           properties:
