@@ -1,0 +1,8 @@
+description: |
+  1. Pre defined query objects injected by each coutnry/organisation to query registry
+  2. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons
+  3. Implementing systems may create pre-defined query objects based on use cases
+oneOf:
+  - $ref: ../../../extensions/dci/IdentifierTypeValue.yaml
+  - $ref: ../../../extensions/cdpi/PersonId.yaml
+  - $ref: "../../../common/schema/ExpressionWithConditionList.yaml"

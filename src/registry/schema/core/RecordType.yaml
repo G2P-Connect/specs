@@ -1,0 +1,4 @@
+type: array
+items:
+  type: string
+  description: List of attribute names from registry to return in respone object

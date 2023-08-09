@@ -1,0 +1,39 @@
+type: object
+description: Resident Local Address
+properties:
+  local-careof:
+    description: Care of information in local language
+    type: string
+  local-building:
+    description: Building information in local language
+    type: string
+  local-street:
+    description: Street information in local language
+    type: string
+  local-landmark:
+    description: Landmark information in local language
+    type: string
+  local-locality:
+    description: locality information in local language
+    type: string
+  pincode:
+    description: pincode
+    type: string
+  po-name-local:
+    description: Post office name in local
+    type: string
+  local-vtc:
+    description: vtc information in local language
+    type: string
+  local-subdistrict:
+    description: Sub district information in local language
+    type: string
+  local-district:
+    description: district information in local language
+    type: string
+  local-state:
+    description: State information in local language
+    type: string
+  local-country:
+    description: Country information in local language
+    type: string

@@ -501,6 +501,28 @@ paths:
 components:
   schemas:
 
+    ###### src/extensions/aadhaar schema objects
+    aadhaar_DeceasedRecord: 
+      $ref: ../extensions/aadhaar/DeceasedRecord.yaml
+    aadhaar_Document: 
+      $ref: ../extensions/aadhaar/Document.yaml
+    aadhaar_EKycDetails: 
+      $ref: ../extensions/aadhaar/EKycDetails.yaml
+    aadhaar_RecordType: 
+      $ref: ../extensions/aadhaar/RecordType.yaml
+    aadhaar_ResidentAddress:
+      $ref: ../extensions/aadhaar/EKycDetails.yaml
+    aadhaar_ResidentLocalAddress:
+      $ref: ../extensions/aadhaar/EKycDetails.yaml
+    aadhaar_ResidentLocalName:
+      $ref: ../extensions/aadhaar/EKycDetails.yaml
+    aadhaar_ResidentNationality:
+      $ref: ../extensions/aadhaar/EKycDetails.yaml
+    aadhaar_ResidentPhoto:
+      $ref: ../extensions/aadhaar/EKycDetails.yaml
+    aadhaar_ResidentRecord:
+      $ref: ../extensions/aadhaar/EKycDetails.yaml
+
     ###### src/extensions/dci schema objects
     dci_IdentifierType: 
       $ref: ../extensions/dci/IdentifierType.yaml
@@ -512,6 +534,8 @@ components:
       $ref: ../extensions/dci/Name.yaml
     dci_Person: 
       $ref: ../extensions/dci/Person.yaml
+    dci_RecordType: 
+      $ref: ../extensions/dci/RecordType.yaml
     dci_Sex: 
       $ref: ../extensions/dci/Sex.yaml
     dci_VitalEvents: 
@@ -533,14 +557,25 @@ components:
     civilReg_EventType: 
       $ref: schema/civil/EventType.yaml
     civilReg_Record: 
-      $ref: schema/civil/RegistryRecord.yaml
-    RelatedPerson: 
+      $ref: schema/civil/PersonRecord.yaml
+    civilReg_RecordType: 
+        $ref: schema/civil/RecordType.yaml
+    civilReg_RelatedPerson: 
       $ref: schema/civil/RelatedPerson.yaml
+
     ###### src/registry/schema/core schema objects
+    coreReg_AllEvents: 
+      $ref: schema/core/AllEvents.yaml
+    coreReg_AllFilters: 
+      $ref: schema/core/AllFilters.yaml
+    coreReg_AllQueries: 
+      $ref: schema/core/AllQueries.yaml  
+    coreReg_EventType: 
+      $ref: schema/core/EventType.yaml
     NotifyEventRequest: 
       $ref: schema/core/NotifyEventRequest.yaml
-    coreReg_EventType: 
-      $ref: schema/core/RegistryEventType.yaml
+    coreReg_RecordType: 
+      $ref: schema/core/RecordType.yaml
     coreReg_Type: 
       $ref: schema/core/RegistryType.yaml
     SearchRecord: 

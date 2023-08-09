@@ -1,16 +1,16 @@
 type: string
 description: |
-  1. Registry types like civil, population, family, household, school, college, farmer, land, utitlity, etc., 
-  2. Country specific implementations should extend and allow other registries.
-
+  Country specific implementations should extend and allow other registries.
   examples:
-    1. "civil"
-    2. "population"
-    3. "family"
-    4. "household"
-    5. "school"
-    6. "college"
-    7. "farmer"
-    8. "land"
-    9. "utility"
-    10. "other"
+    - "civil" 
+    - "population"
+    - "national-id"
+    - "family"
+    - "household"
+    - "social"
+    - "beneficiary"
+    - "student"
+    - "farmer"
+    - "land"
+    - "utility"
+    - "other"

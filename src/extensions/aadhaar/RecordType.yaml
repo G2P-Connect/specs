@@ -1,0 +1,6 @@
+type: string
+description: |
+  Predefined registry record to return in respone as object
+enum:
+  - "resident_record"
+  - "deceased_record"

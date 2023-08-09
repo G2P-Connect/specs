@@ -497,6 +497,73 @@ paths:
       deprecated: false
 components:
   schemas:
+    aadhaar_DeceasedRecord:
+      type: object
+      description: Deceased record obtainable from registries
+      properties:
+        reference_number:
+          description: 'unique reference number mantained in the registry for recording death record or '
+          type: string
+        name:
+          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+          type: string
+        gender:
+          description: 'End-User''s gender. Values defined by this specification are female, male, transgender.'
+          type: string
+        dob:
+          description: Date of Birth in DDMMYYYY format
+          type: string
+        dod:
+          description: Date of Death in DDMMYYYY format
+          type: string
+        reported_date:
+          description: Date in DDMMYYYY format to record on which the death incident reported
+          type: string
+        demo_check_status:
+          description: whether demo check has been undertaken or not
+          type: boolean
+        demo_check_date:
+          description: Date in DDMMYYYY format to capture the Demo Check Date
+          type: string
+        document:
+          description: Reference document collected for registering the deceased information
+          $ref: '#/components/schemas/aadhaar_Document'
+    aadhaar_Document:
+      type: object
+      description: Supporting document of the Resident
+      properties:
+        document_name:
+          description: Name of the document
+          type: string
+        document:
+          description: Bases 64 encoded document
+          type: string
+    aadhaar_EKycDetails:
+      type: object
+      description: eKYC details of the resident
+      properties:
+        ekyc_date:
+          description: Date on which eKYC has been done. A null value indicates that eKYC has not been undertaken
+          type: string
+    aadhaar_RecordType:
+      type: string
+      description: |
+        Predefined registry record to return in respone as object
+      enum:
+        - resident_record
+        - deceased_record
+    aadhaar_ResidentAddress:
+      $ref: '#/components/schemas/aadhaar_EKycDetails'
+    aadhaar_ResidentLocalAddress:
+      $ref: '#/components/schemas/aadhaar_EKycDetails'
+    aadhaar_ResidentLocalName:
+      $ref: '#/components/schemas/aadhaar_EKycDetails'
+    aadhaar_ResidentNationality:
+      $ref: '#/components/schemas/aadhaar_EKycDetails'
+    aadhaar_ResidentPhoto:
+      $ref: '#/components/schemas/aadhaar_EKycDetails'
+    aadhaar_ResidentRecord:
+      $ref: '#/components/schemas/aadhaar_EKycDetails'
     dci_IdentifierType:
       type: string
       description: |
@@ -617,6 +684,13 @@ components:
             identifier:
               type: string
               description: Value of the identifier
+    dci_RecordType:
+      type: string
+      description: |
+        Predefined registry record to return in respone as object
+      enum:
+        - person
+        - other
     dci_Sex:
       type: string
       description: |
@@ -636,7 +710,7 @@ components:
       type: string
       description: |
         Standardized codes/values represent vital events in an individual's life. 
-        Reference: [Vital Events Statistics](https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf)
+        Reference: [Vital Events Statistics](https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf)<br>
         1 : Live Birth <br>
         2 : Death <br>
         3 : Fetal death <br>
@@ -882,8 +956,18 @@ components:
             related_persons:
               type: array
               items:
-                $ref: '#/components/schemas/RelatedPerson'
-    RelatedPerson:
+                $ref: '#/components/schemas/civilReg_RelatedPerson'
+    civilReg_RecordType:
+      type: string
+      description: |
+        Predefined registry record to return in respone as object
+      enum:
+        - person_record
+        - brith_cert
+        - death_cert
+        - marriage_cert
+        - other_record
+    civilReg_RelatedPerson:
       type: object
       description: 'Related person details '
       properties:
@@ -906,6 +990,46 @@ components:
             - spouse
             - partner
             - other
+    coreReg_AllEvents:
+      description: |
+        1. List of all events type defined by respective registries, entities, coutnries and organisation as extensions
+        2. Events can be used for defining custom selection criteria with in the context of registry domain
+      oneOf:
+        - $ref: '#/components/schemas/dci_VitalEvents'
+        - $ref: '#/components/schemas/civilReg_EventType'
+        - $ref: '#/components/schemas/coreReg_EventType'
+    coreReg_AllFilters:
+      description: |
+        1. RecordType are pre defined list of attributes or an object to return upon successful search/subscribe requests
+        2. This is equivalent to columns name in a typical sql query i.e select col1, col2, col3 from table where condition
+        3. Based on record_type, required object definition are added as extension payloads
+      oneOf:
+        - $ref: '#/components/schemas/coreReg_RecordType'
+        - $ref: '#/components/schemas/civilReg_RecordType'
+        - $ref: '#/components/schemas/dci_RecordType'
+        - $ref: '#/components/schemas/aadhaar_RecordType'
+    coreReg_AllQueries:
+      description: |
+        1. Pre defined query objects injected by each coutnry/organisation to query registry
+        2. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons
+        3. Implementing systems may create pre-defined query objects based on use cases
+      oneOf:
+        - $ref: '#/components/schemas/dci_IdentifierTypeValue'
+        - $ref: '#/components/schemas/cdpi_PersonId'
+        - $ref: '#/components/schemas/ExpressionWithConditionList'
+    coreReg_EventType:
+      description: |
+        Functional registry event types
+        1. update - search or subscribe to update events; e.g update to postal_code 12345 between date_range
+        2. link - search or subscribe to linking events; e.g mobile no link with ID, national ID link with civil reg record, etc.,
+        3. unlink - search or subscribe to unlinking events;
+
+        Note: update event can also cover link/unlink events on a registry record.
+      type: string
+      enum:
+        - update
+        - link
+        - unlink
     NotifyEventRequest:
       type: object
       description: Registry to notify a event to subscrbiers
@@ -924,10 +1048,7 @@ components:
               registry_type:
                 $ref: '#/components/schemas/coreReg_Type'
               event_type:
-                oneOf:
-                  - $ref: '#/components/schemas/dci_VitalEvents'
-                  - $ref: '#/components/schemas/civilReg_EventType'
-                  - $ref: '#/components/schemas/coreReg_EventType'
+                $ref: '#/components/schemas/coreReg_AllEvents'
               registry_data:
                 $ref: '#/components/schemas/SearchRecord'
               locale:
@@ -939,42 +1060,43 @@ components:
       required:
         - transaction_id
         - notify_event
-    coreReg_EventType:
-      description: |
-        Functional registry event types
-        1. update - search or subscribe to update events; e.g update to postal_code 12345 between date_range
-        2. link - search or subscribe to linking events; e.g mobile no link with ID, national ID link with civil reg record, etc.,
-        3. unlink - search or subscribe to unlinking events;
-
-        Note: update event can also cover link/unlink events on a registry record.
-      type: string
-      enum:
-        - update
-        - link
-        - unlink
+    coreReg_RecordType:
+      type: array
+      items:
+        type: string
+        description: List of attribute names from registry to return in respone object
     coreReg_Type:
       type: string
       description: |
-        1. Registry types like civil, population, family, household, school, college, farmer, land, utitlity, etc., 
-        2. Country specific implementations should extend and allow other registries.
-
+        Country specific implementations should extend and allow other registries.
         examples:
-          1. "civil"
-          2. "population"
-          3. "family"
-          4. "household"
-          5. "school"
-          6. "college"
-          7. "farmer"
-          8. "land"
-          9. "utility"
-          10. "other"
+          - "civil" 
+          - "population"
+          - "national-id"
+          - "family"
+          - "household"
+          - "social"
+          - "beneficiary"
+          - "student"
+          - "farmer"
+          - "land"
+          - "utility"
+          - "other"
     SearchRecord:
       type: object
       description: |
-        1. Pre defined Search Record type to return upon successful processing of search request
-        2. Value is agreed as part of the api integration between sender and receiver
-        3. e.g "person-record", "birth-record", "death-record", "farmer-record", "student-record"
+        Search record based on filter attribute values i.e, pre defined record types or list of custom key value attributed
+      properties:
+        record_type:
+          oneOf:
+            - $ref: '#/components/schemas/coreReg_RecordType'
+            - $ref: '#/components/schemas/civilReg_RecordType'
+            - $ref: '#/components/schemas/aadhaar_RecordType'
+            - $ref: '#/components/schemas/dci_RecordType'
+        data:
+          type: object
+          description: |
+            Holds record object as defined by above record_type by respective sender/receiver systems
     SearchRequest:
       type: object
       description: |
@@ -996,33 +1118,14 @@ components:
               registry_type:
                 $ref: '#/components/schemas/coreReg_Type'
               event_type:
-                anyOf:
-                  - $ref: '#/components/schemas/dci_VitalEvents'
-                  - $ref: '#/components/schemas/civilReg_EventType'
-                  - $ref: '#/components/schemas/coreReg_EventType'
+                $ref: '#/components/schemas/coreReg_AllEvents'
               search_criteria:
                 type: object
                 properties:
                   query:
-                    oneOf:
-                      - $ref: '#/components/schemas/dci_IdentifierTypeValue'
-                      - $ref: '#/components/schemas/cdpi_PersonId'
-                      - $ref: '#/components/schemas/ExpressionWithConditionList'
+                    $ref: '#/components/schemas/coreReg_AllQueries'
                   filter:
-                    anyOf:
-                      - properties:
-                          attributes:
-                            description: Attribute(s) to send in response
-                            items:
-                              type: string
-                      - properties:
-                          record_type:
-                            type: string
-                            description: |
-                              1. Pre defined Search Record type to return upon successful processing of search request
-                              2. Value is agreed as part of the api integration between sender and receiver
-                              3. e.g "person-record", "birth-record", "death-record", "farmer-record", "student-record"
-                            example: birth-record
+                    $ref: '#/components/schemas/coreReg_AllFilters'
                   sort:
                     $ref: '#/components/schemas/SearchSortList'
                   pagination:
@@ -1114,33 +1217,14 @@ components:
               registry_type:
                 $ref: '#/components/schemas/coreReg_Type'
               event_type:
-                oneOf:
-                  - $ref: '#/components/schemas/dci_VitalEvents'
-                  - $ref: '#/components/schemas/civilReg_EventType'
-                  - $ref: '#/components/schemas/coreReg_EventType'
+                $ref: '#/components/schemas/coreReg_AllEvents'
               subscribe_criteria:
                 type: object
                 properties:
                   query:
-                    oneOf:
-                      - $ref: '#/components/schemas/dci_IdentifierTypeValue'
-                      - $ref: '#/components/schemas/cdpi_PersonId'
-                      - $ref: '#/components/schemas/ExpressionWithConditionList'
+                    $ref: '#/components/schemas/coreReg_AllQueries'
                   filter:
-                    anyOf:
-                      - properties:
-                          attributes:
-                            description: Attribute(s) to send in response
-                            items:
-                              type: string
-                      - properties:
-                          record_type:
-                            type: string
-                            description: |
-                              1. Pre defined Search Record type to return upon successful processing of search request
-                              2. Value is agreed as part of the api integration between sender and receiver
-                              3. e.g "person-record", "birth-record", "death-record", "farmer-record", "student-record"
-                            example: birth-record
+                    $ref: '#/components/schemas/coreReg_AllFilters'
                 required:
                   - query
                   - filter

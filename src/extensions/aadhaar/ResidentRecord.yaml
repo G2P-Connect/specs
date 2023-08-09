@@ -1,0 +1,39 @@
+type: object
+description: Resident Information
+properties:
+  name:
+    description: End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
+    type: string
+  gender:
+    description: End-User's gender. Values defined by this specification are female, male, transgender.
+    type: string
+  dob:
+    description: Date of Birth in DDMMYYYY format
+    type: string
+  dob_type:
+    description: Date of Birth Type i.e Declared, Approximate, Verified
+    type: string
+  phone:
+    description: Phone number of the resident. If the number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.
+    type: string
+  email:
+    description: End-User's preferred e-mail address. Its value MUST conform to the RFC 5322 [RFC5322] addr-spec syntax. The RP MUST NOT rely upon this value being unique, as discussed in Section 5.7.
+    type: string
+  address:
+    $ref: ResidentAddress.yaml
+  local_name:
+    $ref: ResidentLocalName.yaml
+  local_address:
+    $ref: ResidentLocalAddress.yaml
+  photo:
+    description: Image encoded as Base64 string
+    $ref: ResidentPhoto.yaml
+  nationality:
+    description: Nationality information of the Resident
+    $ref: ResidentNationality.yaml
+  kyc_status:
+    description: ekyc Details undertaken by the Resident
+    $ref: EKycDetails.yaml
+  document:
+    description: Document encoded as Base64 string
+    $ref: Document.yaml

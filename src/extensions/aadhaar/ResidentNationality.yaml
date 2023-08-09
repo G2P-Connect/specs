@@ -1,0 +1,24 @@
+type: object
+description: Resident Nationality Information
+properties:
+  nationality:
+    description: Nationality information of the Resident
+    type: string
+  passport_number:
+    description: Passport number of the Resident
+    type: string
+  passport_valid_upto:
+    description: Passport validity date in DDMMYYYY format
+    type: string
+  visa_number:
+    description: Visa number of the Resident
+    type: string
+  visa_vald_upto:
+    description: Visa validity details
+    type: string
+  oci_number:
+    description: OCI card deatils
+    type: string
+  oci_valid_upto:
+    description: OCI Validity date in DDMMYYYY format
+    type: string

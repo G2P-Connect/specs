@@ -1,7 +1,7 @@
 type: string
 description: |
   Standardized codes/values represent vital events in an individual's life. 
-  Reference: [Vital Events Statistics](https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf)
+  Reference: [Vital Events Statistics](https://mospi.gov.in/sites/default/files/publication_reports/vital_statistics_2010_0.pdf)<br>
   1 : Live Birth <br>
   2 : Death <br>
   3 : Fetal death <br>

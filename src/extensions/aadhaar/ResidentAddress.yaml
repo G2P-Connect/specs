@@ -1,0 +1,39 @@
+type: object
+description: Address of the Resident in English Language
+properties:
+  care_of:
+    description: Care of information
+    type: string
+  building:
+    description: Building identity
+    type: string
+  street:
+    description: Street details
+    type: string
+  landmark:
+    description: Landmark details
+    type: string
+  pincode:
+    description: Pincode
+    type: string
+  po-name:
+    description: Post office name
+    type: string
+  vtc:
+    description: Village Town City Code
+    type: string
+  vtc-name:
+    description: Village/Town/City Name
+    type: string
+  sub-district-name:
+    description: Sub District Name
+    type: string
+  district-name:
+    description: District Name
+    type: string
+  state:
+    description: State Name
+    type: string
+  country:
+    description: Country Name
+    type: string  

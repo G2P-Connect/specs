@@ -1,0 +1,6 @@
+type: object
+description: eKYC details of the resident
+properties:
+  ekyc_date:
+    description: Date on which eKYC has been done. A null value indicates that eKYC has not been undertaken
+    type: string

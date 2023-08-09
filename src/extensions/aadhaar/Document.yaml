@@ -1,0 +1,9 @@
+type: object
+description: Supporting document of the Resident
+properties:
+  document_name:
+    description: Name of the document
+    type: string
+  document:
+    description: Bases 64 encoded document
+    type: string

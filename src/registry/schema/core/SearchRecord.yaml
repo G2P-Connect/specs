@@ -1,5 +1,14 @@
 type: object
 description: |
-  1. Pre defined Search Record type to return upon successful processing of search request
-  2. Value is agreed as part of the api integration between sender and receiver
-  3. e.g "person-record", "birth-record", "death-record", "farmer-record", "student-record"
+  Search record based on filter attribute values i.e, pre defined record types or list of custom key value attributed
+properties: 
+  record_type:
+    oneOf: 
+      - $ref: RecordType.yaml
+      - $ref: ../civil/RecordType.yaml
+      - $ref: ../../../extensions/aadhaar/RecordType.yaml
+      - $ref: ../../../extensions/dci/RecordType.yaml
+  data:
+    type: object
+    description: |
+      Holds record object as defined by above record_type by respective sender/receiver systems

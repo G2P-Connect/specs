@@ -1,0 +1,30 @@
+type: object
+description: Deceased record obtainable from registries
+properties:
+  reference_number:
+    description: 'unique reference number mantained in the registry for recording death record or '
+    type: string
+  name:
+    description: End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences.
+    type: string
+  gender:
+    description: End-User's gender. Values defined by this specification are female, male, transgender.
+    type: string
+  dob:
+    description: Date of Birth in DDMMYYYY format
+    type: string
+  dod:
+    description: Date of Death in DDMMYYYY format
+    type: string
+  reported_date:
+    description: Date in DDMMYYYY format to record on which the death incident reported
+    type: string
+  demo_check_status:
+    description: whether demo check has been undertaken or not
+    type: boolean
+  demo_check_date:
+    description: Date in DDMMYYYY format to capture the Demo Check Date
+    type: string
+  document:
+    description: Reference document collected for registering the deceased information
+    $ref: Document.yaml

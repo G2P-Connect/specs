@@ -15,10 +15,7 @@ properties:
         registry_type:
           $ref: "./RegistryType.yaml"
         event_type:
-          oneOf:
-            - $ref: ../../../extensions/dci/VitalEvents.yaml
-            - $ref: ../civil/EventType.yaml
-            - $ref: ./RegistryEventType.yaml
+          $ref: AllEvents.yaml
         registry_data:
           $ref: "SearchRecord.yaml"
         locale:

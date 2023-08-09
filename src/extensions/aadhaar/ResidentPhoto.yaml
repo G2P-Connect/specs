@@ -1,0 +1,6 @@
+type: object
+description: Resident Photo
+properties:
+  photo:
+    description: Photo encoded as Base64 string
+    type: string

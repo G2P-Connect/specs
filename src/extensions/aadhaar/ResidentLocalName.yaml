@@ -1,0 +1,8 @@
+type: object
+description: Resident Local Name
+properties:
+  language_code:
+    $ref: ../common/schemaLanguageCode.yaml
+  local_name:
+    description: Local name of the Resident
+    type: string
