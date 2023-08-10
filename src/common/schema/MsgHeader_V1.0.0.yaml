@@ -6,26 +6,31 @@ properties:
     type: string
     example: "0.1.0"
   message_id: 
-    description: Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+    description: |
+      1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+      2. The scope of message_id end with successful ack of the message by the receiver.
+      3. To realy the message between hops, underlying relying parties may consider to store and forward the message with integirty, ie Signature intact.
     type: string
-    example: "123456789020211216223812"
+    example: "123"
   message_ts:
-    description: 'Time of message generation in RFC3339 format'
-    type: string
-    format: date-time
-    example: '2022-12-04T18:01:07+00:00'
+    $ref: DateTime.yaml
   action:
     description: G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.
     type: string
   sender_id:
-    description: send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.
+    description: | 
+      1. sender_id registered with the receiving system or gateway. 
+      2. Used for authorization, encryption, digital sign verfication, etc., 
     type: string
-    example: 'registry.example.org'
+    example: 'spp.example.org'
   sender_uri:
-    description: "sender url to accept callbacks"
+    description: |
+      1. sender url to accept callbacks. Applicable only for async communications and if response ack_status is ACK.
+      2. Default uri is assumed to be configred on the gateway as part of sender/receiver onboarding. 
+      3. For SFTP based communications, this shall be set to server/folder details.
     type: string
     format: uri
-    example: "https://registry.sender.org/g2p/callback/on-disburse"
+    example: "https://spp.example.org/{namespace}/callback/on-search"
   receiver_id:
     description: receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.
     type: string
@@ -35,11 +40,14 @@ properties:
     type: integer
     example: 21800
   encryption_algo:
-    description: If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
+    description: |
+      1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
+      2. example: aes, rsa, aes_rsa, ecc, other
     type: string
     example:
       - aes
       - rsa
+      - aes+rsa
       - ecc
       - other
 required:

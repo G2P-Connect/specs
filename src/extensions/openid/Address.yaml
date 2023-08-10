@@ -32,4 +32,6 @@ properties:
   geo_location:
     description: |
       Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details
-    $ref : ../../common/schema/GooglePlusCode.yaml  
+    oneOf:
+      - $ref: ../../common/schema/LatLong.yaml
+      - $ref : ../google/GooglePlusCode.yaml  

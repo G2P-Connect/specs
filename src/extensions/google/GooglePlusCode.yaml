@@ -1,0 +1,18 @@
+type: object
+description: Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details
+properties:
+  global_code:
+    type: string
+    example: ''
+  geometry: 
+    type: object
+    properties:
+      bounds: 
+        type: object
+        properties:
+          northeast:
+            $ref: ../../common/schema/LatLong.yaml
+          southwest:
+            $ref: ../../common/schema/LatLong.yaml
+      location:
+        $ref: ../../common/schema/LatLong.yaml

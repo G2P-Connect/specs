@@ -1,5 +1,7 @@
 type: object
-description: "Related person details "
+description: |
+  1. A sample related person into captured in civil registry
+  2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
 properties:
   sub:
     type: string
@@ -9,7 +11,9 @@ properties:
     type: string
   relationship:
     type: string
-    enum:
+    description: |
+      Indicative relationship values - mother, father, gaurdian, bride, groom, wife, husband, spouse, partner, other
+    example:
       - "mother"
       - "father"
       - "gaurdian"

@@ -2,9 +2,7 @@ type: object
 properties:
   latitude:
     type: string
-    format: float
-    example: ''
+    example: 11°24'12.2"N 
   longitude:
     type: string
-    format: float
-    example: '' 
+    example: 88°50'26.5"E 

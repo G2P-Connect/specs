@@ -553,17 +553,166 @@ components:
         - resident_record
         - deceased_record
     aadhaar_ResidentAddress:
-      $ref: '#/components/schemas/aadhaar_EKycDetails'
+      type: object
+      description: Address of the Resident in English Language
+      properties:
+        care_of:
+          description: Care of information
+          type: string
+        building:
+          description: Building identity
+          type: string
+        street:
+          description: Street details
+          type: string
+        landmark:
+          description: Landmark details
+          type: string
+        pincode:
+          description: Pincode
+          type: string
+        po-name:
+          description: Post office name
+          type: string
+        vtc:
+          description: Village Town City Code
+          type: string
+        vtc-name:
+          description: Village/Town/City Name
+          type: string
+        sub-district-name:
+          description: Sub District Name
+          type: string
+        district-name:
+          description: District Name
+          type: string
+        state:
+          description: State Name
+          type: string
+        country:
+          description: Country Name
+          type: string
     aadhaar_ResidentLocalAddress:
-      $ref: '#/components/schemas/aadhaar_EKycDetails'
+      type: object
+      description: Resident Local Address
+      properties:
+        local-careof:
+          description: Care of information in local language
+          type: string
+        local-building:
+          description: Building information in local language
+          type: string
+        local-street:
+          description: Street information in local language
+          type: string
+        local-landmark:
+          description: Landmark information in local language
+          type: string
+        local-locality:
+          description: locality information in local language
+          type: string
+        pincode:
+          description: pincode
+          type: string
+        po-name-local:
+          description: Post office name in local
+          type: string
+        local-vtc:
+          description: vtc information in local language
+          type: string
+        local-subdistrict:
+          description: Sub district information in local language
+          type: string
+        local-district:
+          description: district information in local language
+          type: string
+        local-state:
+          description: State information in local language
+          type: string
+        local-country:
+          description: Country information in local language
+          type: string
     aadhaar_ResidentLocalName:
-      $ref: '#/components/schemas/aadhaar_EKycDetails'
+      type: object
+      description: Resident Local Name
+      properties:
+        language_code:
+          $ref: '#/components/schemas/LanguageCode'
+        local_name:
+          description: Local name of the Resident
+          type: string
     aadhaar_ResidentNationality:
-      $ref: '#/components/schemas/aadhaar_EKycDetails'
+      type: object
+      description: Resident Nationality Information
+      properties:
+        nationality:
+          description: Nationality information of the Resident
+          type: string
+        passport_number:
+          description: Passport number of the Resident
+          type: string
+        passport_valid_upto:
+          description: Passport validity date in DDMMYYYY format
+          type: string
+        visa_number:
+          description: Visa number of the Resident
+          type: string
+        visa_vald_upto:
+          description: Visa validity details
+          type: string
+        oci_number:
+          description: OCI card deatils
+          type: string
+        oci_valid_upto:
+          description: OCI Validity date in DDMMYYYY format
+          type: string
     aadhaar_ResidentPhoto:
-      $ref: '#/components/schemas/aadhaar_EKycDetails'
+      type: object
+      description: Resident Photo
+      properties:
+        photo:
+          description: Photo encoded as Base64 string
+          type: string
     aadhaar_ResidentRecord:
-      $ref: '#/components/schemas/aadhaar_EKycDetails'
+      type: object
+      description: Resident Information
+      properties:
+        name:
+          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+          type: string
+        gender:
+          description: 'End-User''s gender. Values defined by this specification are female, male, transgender.'
+          type: string
+        dob:
+          description: Date of Birth in DDMMYYYY format
+          type: string
+        dob_type:
+          description: 'Date of Birth Type i.e Declared, Approximate, Verified'
+          type: string
+        phone:
+          description: 'Phone number of the resident. If the number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
+          type: string
+        email:
+          description: 'End-User''s preferred e-mail address. Its value MUST conform to the RFC 5322 [RFC5322] addr-spec syntax. The RP MUST NOT rely upon this value being unique, as discussed in Section 5.7.'
+          type: string
+        address:
+          $ref: '#/components/schemas/aadhaar_ResidentAddress'
+        local_name:
+          $ref: '#/components/schemas/aadhaar_ResidentLocalName'
+        local_address:
+          $ref: '#/components/schemas/aadhaar_ResidentLocalAddress'
+        photo:
+          description: Image encoded as Base64 string
+          $ref: '#/components/schemas/aadhaar_ResidentPhoto'
+        nationality:
+          description: Nationality information of the Resident
+          $ref: '#/components/schemas/aadhaar_ResidentNationality'
+        kyc_status:
+          description: ekyc Details undertaken by the Resident
+          $ref: '#/components/schemas/aadhaar_EKycDetails'
+        document:
+          description: Document encoded as Base64 string
+          $ref: '#/components/schemas/aadhaar_Document'
     dci_IdentifierType:
       type: string
       description: |
@@ -630,7 +779,7 @@ components:
         prefix:
           type: string
           description: Prefix part of the applicant's name
-    dci_Person:
+    dci_PersonRecord:
       type: object
       description: |
         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
@@ -771,8 +920,10 @@ components:
         geo_location:
           description: |
             Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details
-          $ref: '#/components/schemas/GooglePlusCode'
-    openid_Person:
+          oneOf:
+            - $ref: '#/components/schemas/LatLong'
+            - $ref: '#/components/schemas/GooglePlusCode'
+    openid_PersonRecord:
       description: |
         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
         2. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
@@ -916,10 +1067,32 @@ components:
               type: string
       required:
         - type
+    GooglePlusCode:
+      type: object
+      description: 'Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details'
+      properties:
+        global_code:
+          type: string
+          example: ''
+        geometry:
+          type: object
+          properties:
+            bounds:
+              type: object
+              properties:
+                northeast:
+                  $ref: '#/components/schemas/LatLong'
+                southwest:
+                  $ref: '#/components/schemas/LatLong'
+            location:
+              $ref: '#/components/schemas/LatLong'
     civilReg_EventType:
-      description: Civil registry event types
+      description: |
+        1. Civil registration event list used to record and interact with a typical civil registry
+        2. This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
+        3. Example Civil Registration events: person, birth, death, marriage, divorce, annulment, seperation, adoption, demo_change, unregister, etc.,
       type: string
-      enum:
+      example:
         - person
         - birth
         - death
@@ -930,12 +1103,12 @@ components:
         - adoption
         - demo_change
         - unregister
-    civilReg_Record:
+    civilReg_PersonRecord:
       description: |
-        1. Civil registry record
-        2. Allows Country/Registry specific implementation extensions as new custom defined objects
+        1. A sample person record to identity an individual or civil regisration event in a typical civil registry
+        2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
       allOf:
-        - $ref: '#/components/schemas/openid_Person'
+        - $ref: '#/components/schemas/openid_PersonRecord'
         - properties:
             issue_date:
               type: string
@@ -960,8 +1133,10 @@ components:
     civilReg_RecordType:
       type: string
       description: |
-        Predefined registry record to return in respone as object
-      enum:
+        1. A sample record list to identity various records that civil registry can produce
+        2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
+        3. Example Civil Registry records - person_record, birth_cert, death_cert, marriage_cert, etc.,
+      example:
         - person_record
         - brith_cert
         - death_cert
@@ -969,7 +1144,9 @@ components:
         - other_record
     civilReg_RelatedPerson:
       type: object
-      description: 'Related person details '
+      description: |
+        1. A sample related person into captured in civil registry
+        2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
       properties:
         sub:
           type: string
@@ -979,7 +1156,9 @@ components:
           type: string
         relationship:
           type: string
-          enum:
+          description: |
+            Indicative relationship values - mother, father, gaurdian, bride, groom, wife, husband, spouse, partner, other
+          example:
             - mother
             - father
             - gaurdian
@@ -998,16 +1177,16 @@ components:
         - $ref: '#/components/schemas/dci_VitalEvents'
         - $ref: '#/components/schemas/civilReg_EventType'
         - $ref: '#/components/schemas/coreReg_EventType'
-    coreReg_AllFilters:
+    coreReg_AllRecordTypes:
       description: |
-        1. RecordType are pre defined list of attributes or an object to return upon successful search/subscribe requests
-        2. This is equivalent to columns name in a typical sql query i.e select col1, col2, col3 from table where condition
+        1. RecordType are pre defined as list of attributes or an object to return upon successful search/subscribe requests
+        2. This is equivalent to column list in a typical sql query i.e select col1, col2, col3 from table where condition
         3. Based on record_type, required object definition are added as extension payloads
       oneOf:
-        - $ref: '#/components/schemas/coreReg_RecordType'
         - $ref: '#/components/schemas/civilReg_RecordType'
         - $ref: '#/components/schemas/dci_RecordType'
         - $ref: '#/components/schemas/aadhaar_RecordType'
+        - $ref: '#/components/schemas/other_RecordType'
     coreReg_AllQueries:
       description: |
         1. Pre defined query objects injected by each country/org/system to query a registry
@@ -1022,10 +1201,10 @@ components:
         - $ref: '#/components/schemas/ExpressionWithConditionList'
     coreReg_EventType:
       description: |
-        Functional registry event types
-        1. update - search or subscribe to update events; e.g update to postal_code 12345 between date_range
-        2. link - search or subscribe to linking events; e.g mobile no link with ID, national ID link with civil reg record, etc.,
-        3. unlink - search or subscribe to unlinking events;
+        Functional registry event types:
+          1. update - search or subscribe to update events; e.g update to postal_code 12345 between date_range
+          2. link - search or subscribe to linking events; e.g mobile no link with ID, national ID link with civil reg record, etc.,
+          3. unlink - search or subscribe to unlinking events; <br>
 
         Note: update event can also cover link/unlink events on a registry record.
       type: string
@@ -1053,7 +1232,17 @@ components:
               event_type:
                 $ref: '#/components/schemas/coreReg_AllEvents'
               registry_data:
-                $ref: '#/components/schemas/SearchResultRecord'
+                type: object
+                description: |
+                  Search result record as an outcome of search/subscribe action
+                properties:
+                  record_type:
+                    $ref: '#/components/schemas/coreReg_AllRecordTypes'
+                  record:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/registry_data/properties/record'
+                required:
+                  - record_type
+                  - record
               locale:
                 $ref: '#/components/schemas/LanguageCode'
             required:
@@ -1063,28 +1252,31 @@ components:
       required:
         - transaction_id
         - notify_event
-    coreReg_RecordType:
+    other_RecordType:
       type: array
       items:
         type: string
-        description: List of attribute names from registry to return in respone object
+        description: List of attribute names from a registry to return in respone object
     coreReg_Type:
       type: string
       description: |
-        Country specific implementations should extend and allow other registries.
-        examples:
-          - "civil" 
-          - "population"
-          - "national-id"
-          - "family"
-          - "household"
-          - "social"
-          - "beneficiary"
-          - "student"
-          - "farmer"
-          - "land"
-          - "utility"
-          - "other"
+        1. Country specific implementations should extend and allow other registries.
+        2. In most scenarios, receiver i.e receipient of search/subsribe request determine which registry is being searched
+        3. example: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
+      example:
+        - civil
+        - population
+        - national-id
+        - family
+        - household
+        - social
+        - beneficiary
+        - disability
+        - student
+        - farmer
+        - land
+        - utility
+        - other
     SearchRequest:
       type: object
       description: |
@@ -1112,8 +1304,8 @@ components:
                 properties:
                   query:
                     $ref: '#/components/schemas/coreReg_AllQueries'
-                  filter:
-                    $ref: '#/components/schemas/coreReg_AllFilters'
+                  record_type:
+                    $ref: '#/components/schemas/coreReg_AllRecordTypes'
                   sort:
                     $ref: '#/components/schemas/SearchSortList'
                   pagination:
@@ -1160,7 +1352,27 @@ components:
               event_type:
                 $ref: '#/components/schemas/coreReg_AllEvents'
               registry_data:
-                $ref: '#/components/schemas/SearchResultRecord'
+                type: object
+                description: |
+                  Search result record as an outcome of search/subscribe action
+                properties:
+                  record_type:
+                    $ref: '#/components/schemas/coreReg_AllRecordTypes'
+                  record:
+                    type: object
+                    description: |
+                      1. Records retured as response to search/subsribe actions to exchange registry data 
+                      2. record_type acts as namespace to define record being retunred for receiving system to unmarshel and use
+                      3. Objects are defined in respecitive schemas definition with entity/org namespace as prefix
+                      3. Implementing systems shall reference to the requires objects based on the context of these API usage
+                    oneOf:
+                      - $ref: '#/components/schemas/civilReg_PersonRecord'
+                      - $ref: '#/components/schemas/dci_PersonRecord'
+                      - $ref: '#/components/schemas/aadhaar_ResidentRecord'
+                      - $ref: '#/components/schemas/aadhaar_DeceasedRecord'
+                required:
+                  - record_type
+                  - record
               pagination:
                 $ref: '#/components/schemas/Pagination'
               locale:
@@ -1172,19 +1384,6 @@ components:
       required:
         - transaction_id
         - search_response
-    SearchResultRecord:
-      type: object
-      description: |
-        Search result record as an outcome of search/subscribe action
-      properties:
-        record_type:
-          $ref: '#/components/schemas/coreReg_AllFilters'
-        data:
-          type: object
-          description: |
-            1. Holds record object as defined by above record_type by respective sender/receiver systems
-            2. Objects are defined in respecitive schemas definition with entity/org namespace as prefix
-            3. Implementing systems shall reference to the requires objects based on the context of these API usage
     SearchStatusReasonCode:
       type: string
       description: Identity verification request status reason codes
@@ -1221,8 +1420,8 @@ components:
                 properties:
                   query:
                     $ref: '#/components/schemas/coreReg_AllQueries'
-                  filter:
-                    $ref: '#/components/schemas/coreReg_AllFilters'
+                  record_type:
+                    $ref: '#/components/schemas/coreReg_AllRecordTypes'
                 required:
                   - query
                   - filter
@@ -1354,8 +1553,7 @@ components:
               description: Uri to provide more info on consent codes
     DateTime:
       description: |
-        1. All dates and timestamps are represented in ISO 8601 format including timezone - e.g 2022-12-04T17:20:07-04:00.
-        2. Reference: [ISO 8601](https://www.iso.org/standard/40874.html) 
+        1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
       type: string
       format: date-time
       example: ''
@@ -1519,24 +1717,6 @@ components:
       required:
         - action
         - fileName
-    GooglePlusCode:
-      type: object
-      properties:
-        global_code:
-          type: string
-          example: ''
-        geometry:
-          type: object
-          properties:
-            bounds:
-              type: object
-              properties:
-                northeast:
-                  $ref: '#/components/schemas/LatLong'
-                southwest:
-                  $ref: '#/components/schemas/LatLong'
-            location:
-              $ref: '#/components/schemas/LatLong'
     LanguageCode:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
@@ -1547,12 +1727,10 @@ components:
       properties:
         latitude:
           type: string
-          format: float
-          example: ''
+          example: 11°24'12.2"N
         longitude:
           type: string
-          format: float
-          example: ''
+          example: 88°50'26.5"E
     MsgCallbackHeader_V1.0.0:
       type: object
       description: Message header
@@ -1562,14 +1740,14 @@ components:
           type: string
           example: 0.1.0
         message_id:
-          description: Unique message id to communicate between sender and receiver systems. Receiving system should echo the orignial message_id for correlations.
+          description: |
+            1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+            2. The scope of message_id end with successful ack of the message by the receiver.
+            3. To realy the message between hops, underlying relying parties may consider to store and forward the message with integirty, ie Signature intact.
           type: string
-          example: '123456789020211216223812'
+          example: '789'
         message_ts:
-          description: Time of message generation in RFC3339 format
-          type: string
-          format: date-time
-          example: '2022-12-04T18:02:35+00:00'
+          $ref: '#/components/schemas/DateTime'
         action:
           description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
           type: string
@@ -1590,25 +1768,19 @@ components:
           type: integer
           example: 50
         sender_id:
-          description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+          description: |
+            1. sender_id registered with the receiving system or gateway. 
+            2. Used for authorization, encryption, digital sign verfication, etc., 
           type: string
-          example: pymts.example.org
-        sender_uri:
-          description: sender url to accept callbacks
-          type: string
-          format: uri
-          example: ''
+          example: civilregistry.example.org
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
           example: registry.example.org
-        receiver_uri:
-          description: receiver url to accept callbacks
-          type: string
-          format: uri
-          example: ''
         encryption_algo:
-          description: 'If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload'
+          description: |
+            1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
+            2. example: aes, rsa, aes_rsa, ecc, other
           type: string
           example:
             - aes
@@ -1630,26 +1802,31 @@ components:
           type: string
           example: 0.1.0
         message_id:
-          description: 'Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,'
+          description: |
+            1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+            2. The scope of message_id end with successful ack of the message by the receiver.
+            3. To realy the message between hops, underlying relying parties may consider to store and forward the message with integirty, ie Signature intact.
           type: string
-          example: '123456789020211216223812'
+          example: '123'
         message_ts:
-          description: Time of message generation in RFC3339 format
-          type: string
-          format: date-time
-          example: '2022-12-04T18:01:07+00:00'
+          $ref: '#/components/schemas/DateTime'
         action:
           description: 'G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.'
           type: string
         sender_id:
-          description: 'send id registered with the receiving system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+          description: |
+            1. sender_id registered with the receiving system or gateway. 
+            2. Used for authorization, encryption, digital sign verfication, etc., 
           type: string
-          example: registry.example.org
+          example: spp.example.org
         sender_uri:
-          description: sender url to accept callbacks
+          description: |
+            1. sender url to accept callbacks. Applicable only for async communications and if response ack_status is ACK.
+            2. Default uri is assumed to be configred on the gateway as part of sender/receiver onboarding. 
+            3. For SFTP based communications, this shall be set to server/folder details.
           type: string
           format: uri
-          example: 'https://registry.sender.org/g2p/callback/on-disburse'
+          example: 'https://spp.example.org/{namespace}/callback/on-search'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
@@ -1659,11 +1836,14 @@ components:
           type: integer
           example: 21800
         encryption_algo:
-          description: 'If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload'
+          description: |
+            1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
+            2. example: aes, rsa, aes_rsa, ecc, other
           type: string
           example:
             - aes
             - rsa
+            - aes+rsa
             - ecc
             - other
       required:

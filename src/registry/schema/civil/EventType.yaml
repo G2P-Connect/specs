@@ -1,6 +1,9 @@
-description: Civil registry event types
+description: |
+  1. Civil registration event list used to record and interact with a typical civil registry
+  2. This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
+  3. Example Civil Registration events: person, birth, death, marriage, divorce, annulment, seperation, adoption, demo_change, unregister, etc.,
 type: string
-enum:
+example:
   - "person"
   - "birth"
   - "death"

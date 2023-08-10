@@ -1,9 +1,0 @@
-description: |
-  1. RecordType are pre defined list of attributes or an object to return upon successful search/subscribe requests
-  2. This is equivalent to columns name in a typical sql query i.e select col1, col2, col3 from table where condition
-  3. Based on record_type, required object definition are added as extension payloads
-oneOf:
-  - $ref: RecordType.yaml
-  - $ref: ../civil/RecordType.yaml
-  - $ref: ../../../extensions/dci/RecordType.yaml
-  - $ref: ../../../extensions/aadhaar/RecordType.yaml   

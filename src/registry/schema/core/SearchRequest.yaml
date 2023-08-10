@@ -24,8 +24,8 @@ properties:
           properties:
             query:
               $ref: AllQueries.yaml
-            filter:
-              $ref: AllFilters.yaml
+            record_type:
+              $ref: AllRecordTypes.yaml
             sort:
               $ref: "../../../common/schema/SearchSortList.yaml"
             pagination:

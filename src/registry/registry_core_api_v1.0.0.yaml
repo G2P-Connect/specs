@@ -511,17 +511,17 @@ components:
     aadhaar_RecordType: 
       $ref: ../extensions/aadhaar/RecordType.yaml
     aadhaar_ResidentAddress:
-      $ref: ../extensions/aadhaar/EKycDetails.yaml
+      $ref: ../extensions/aadhaar/ResidentAddress.yaml
     aadhaar_ResidentLocalAddress:
-      $ref: ../extensions/aadhaar/EKycDetails.yaml
+      $ref: ../extensions/aadhaar/ResidentLocalAddress.yaml
     aadhaar_ResidentLocalName:
-      $ref: ../extensions/aadhaar/EKycDetails.yaml
+      $ref: ../extensions/aadhaar/ResidentLocalName.yaml
     aadhaar_ResidentNationality:
-      $ref: ../extensions/aadhaar/EKycDetails.yaml
+      $ref: ../extensions/aadhaar/ResidentNationality.yaml
     aadhaar_ResidentPhoto:
-      $ref: ../extensions/aadhaar/EKycDetails.yaml
+      $ref: ../extensions/aadhaar/ResidentPhoto.yaml
     aadhaar_ResidentRecord:
-      $ref: ../extensions/aadhaar/EKycDetails.yaml
+      $ref: ../extensions/aadhaar/ResidentRecord.yaml
 
     ###### src/extensions/dci schema objects
     dci_IdentifierType: 
@@ -532,8 +532,8 @@ components:
       $ref: ../extensions/dci/MaritalStatus.yaml
     dci_Name: 
       $ref: ../extensions/dci/Name.yaml
-    dci_Person: 
-      $ref: ../extensions/dci/Person.yaml
+    dci_PersonRecord: 
+      $ref: ../extensions/dci/PersonRecord.yaml
     dci_RecordType: 
       $ref: ../extensions/dci/RecordType.yaml
     dci_Sex: 
@@ -548,15 +548,18 @@ components:
       ###### src/extensions/openid schema objects
     openid_Address: 
       $ref: ../extensions/openid/Address.yaml
-    openid_Person: 
-      $ref: ../extensions/openid/Person.yaml
+    openid_PersonRecord:
+      $ref: ../extensions/openid/PersonRecord.yaml
     openid_PersonDocDetails: 
       $ref: ../extensions/openid/PersonDocDetails.yaml
+    
+    GooglePlusCode: 
+      $ref: ../extensions/google/GooglePlusCode.yaml
 
     ###### src/registry/schema/civil schema objects
     civilReg_EventType: 
       $ref: schema/civil/EventType.yaml
-    civilReg_Record: 
+    civilReg_PersonRecord: 
       $ref: schema/civil/PersonRecord.yaml
     civilReg_RecordType: 
         $ref: schema/civil/RecordType.yaml
@@ -566,24 +569,22 @@ components:
     ###### src/registry/schema/core schema objects
     coreReg_AllEvents: 
       $ref: schema/core/AllEvents.yaml
-    coreReg_AllFilters: 
-      $ref: schema/core/AllFilters.yaml
+    coreReg_AllRecordTypes: 
+      $ref: schema/core/AllRecordTypes.yaml
     coreReg_AllQueries: 
       $ref: schema/core/AllQueries.yaml  
     coreReg_EventType: 
       $ref: schema/core/EventType.yaml
     NotifyEventRequest: 
       $ref: schema/core/NotifyEventRequest.yaml
-    coreReg_RecordType: 
-      $ref: schema/core/RecordType.yaml
+    other_RecordType: 
+      $ref: schema/core/RegistryRecordType.yaml
     coreReg_Type: 
       $ref: schema/core/RegistryType.yaml
     SearchRequest: 
       $ref: schema/core/SearchRequest.yaml
     SearchResponse: 
       $ref: schema/core/SearchResponse.yaml
-    SearchResultRecord: 
-      $ref: schema/core/SearchResultRecord.yaml
     SearchStatusReasonCode: 
       $ref: schema/core/SearchStatusReasonCode.yaml
     SubscribeRequest: 
@@ -633,8 +634,6 @@ components:
       $ref: ../common/schema/ExpressionWithConditionList.yaml
     FileInfo: 
       $ref: ../common/schema/FileInfo.yaml
-    GooglePlusCode: 
-      $ref: ../common/schema/GooglePlusCode.yaml
     LanguageCode: 
       $ref: ../common/schema/LanguageCode.yaml
     LatLong: 
