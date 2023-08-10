@@ -1,0 +1,26 @@
+type: object
+description: Un-Subscribe to a life event with crvs
+properties:
+  transaction_id: 
+    $ref: ../../../common/schema/TransactionId.yaml
+  subscribe_request:
+    type: array
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: "../../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../../common/schema/DateTime.yaml
+        subscription_codes:
+          description: "The code used to monitor and manage subscriptions, including both tracking and unsubscribing, can be determined by the implementer and will vary in format based on their choice."
+          type: array
+          items:
+            type: string          
+      required:
+        - reference_id
+        - timestamp
+        - subscribe_criteria
+required:
+  - transaction_id
+  - subscribe_request

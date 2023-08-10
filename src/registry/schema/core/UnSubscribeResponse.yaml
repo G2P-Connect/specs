@@ -1,0 +1,12 @@
+type: object
+description: Un-Subscribe to a life event with crvs
+properties:
+  transaction_id: 
+    $ref: ../../../common/schema/TransactionId.yaml
+  unsubscribed_events:
+    type: array
+    items: 
+      $ref: SubscriptionObject.yaml
+required:
+  - transaction_id
+  - subscribe_request

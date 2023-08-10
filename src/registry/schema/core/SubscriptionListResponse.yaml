@@ -1,0 +1,12 @@
+type: object
+description: Subscription list
+properties:
+  transaction_id: 
+    $ref: ../../../common/schema/TransactionId.yaml
+  subscriptions:
+    type: array
+    items: 
+      $ref: SubscriptionObject.yaml
+required:
+  - transaction_id
+  - subscriptions

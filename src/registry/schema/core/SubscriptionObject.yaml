@@ -1,0 +1,40 @@
+type: object
+properties:
+  reference_id:
+    $ref: "../../../common/schema/ReferenceId.yaml"
+  timestamp: 
+    $ref: ../../../common/schema/DateTime.yaml
+  status:
+    $ref: "../../../common/schema/RequestStatus.yaml" 
+  status_reason_code:
+    $ref: "./SubscribeStatusReasonCode.yaml" 
+  status_reason_message:
+    description: "Status reason code message. Helps actionanble messaging for systems/end users"
+    type: string
+    maxLength: 999
+  registry_type:
+    $ref: "./RegistryType.yaml"
+  event_type:
+    $ref: AllEvents.yaml
+  frequency:
+    $ref: EventFrequency.yaml
+  subscribe_criteria:
+    type: object
+    properties:
+      query:
+        $ref: AllQueries.yaml
+      filter:
+        $ref: AllFilters.yaml
+    required: 
+      - query
+      - filter
+  locale:
+    $ref: "../../../common/schema/LanguageCode.yaml"
+  subscription_code:
+    description: "The code used to monitor and manage subscriptions, including both tracking and unsubscribing, can be determined by the implementer and will vary in format based on their choice."
+    type: string
+    maxLength: 999
+required:
+  - reference_id
+  - timestamp
+  - subscribe_criteria

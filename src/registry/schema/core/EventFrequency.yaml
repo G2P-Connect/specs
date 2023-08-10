@@ -1,0 +1,3 @@
+type: string
+example: ''
+enum: ['immediate','hourly','daily','weekly'] 
