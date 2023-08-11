@@ -3,7 +3,7 @@ description: Subscribe to a life event with crvs
 properties:
   transaction_id: 
     $ref: ../../../common/schema/TransactionId.yaml
-  subscribe_request:
+  subscribe_response:
     type: array
     items: 
       $ref: SubscriptionObject.yaml

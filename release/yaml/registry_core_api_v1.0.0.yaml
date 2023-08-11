@@ -1957,8 +1957,8 @@ components:
                 properties:
                   query:
                     $ref: '#/components/schemas/coreReg_AllQueries'
-                  filter:
-                    $ref: '#/components/schemas/coreReg_AllFilters'
+                  record_type:
+                    $ref: '#/components/schemas/coreReg_AllRecordTypes'
                 required:
                   - query
                   - filter

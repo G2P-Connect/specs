@@ -23,8 +23,8 @@ properties:
     properties:
       query:
         $ref: AllQueries.yaml
-      filter:
-        $ref: AllFilters.yaml
+      record_type:
+        $ref: AllRecordTypes.yaml
     required: 
       - query
       - filter
