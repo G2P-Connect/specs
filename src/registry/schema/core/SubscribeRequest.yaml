@@ -25,12 +25,13 @@ properties:
               $ref: AllRecordTypes.yaml
           required: 
             - query
-            - filter
+            - record_type
         locale:
           $ref: "../../../common/schema/LanguageCode.yaml"
       required:
         - reference_id
         - timestamp
+        - event_type
         - subscribe_criteria
 required:
   - transaction_id

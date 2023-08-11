@@ -497,222 +497,19 @@ paths:
       deprecated: false
 components:
   schemas:
-    aadhaar_DeceasedRecord:
-      type: object
-      description: Deceased record obtainable from registries
-      properties:
-        reference_number:
-          description: 'unique reference number mantained in the registry for recording death record or '
-          type: string
-        name:
-          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
-          type: string
-        gender:
-          description: 'End-User''s gender. Values defined by this specification are female, male, transgender.'
-          type: string
-        dob:
-          description: Date of Birth in DDMMYYYY format
-          type: string
-        dod:
-          description: Date of Death in DDMMYYYY format
-          type: string
-        reported_date:
-          description: Date in DDMMYYYY format to record on which the death incident reported
-          type: string
-        demo_check_status:
-          description: whether demo check has been undertaken or not
-          type: boolean
-        demo_check_date:
-          description: Date in DDMMYYYY format to capture the Demo Check Date
-          type: string
-        document:
-          description: Reference document collected for registering the deceased information
-          $ref: '#/components/schemas/aadhaar_Document'
-    aadhaar_Document:
-      type: object
-      description: Supporting document of the Resident
-      properties:
-        document_name:
-          description: Name of the document
-          type: string
-        document:
-          description: Bases 64 encoded document
-          type: string
-    aadhaar_EKycDetails:
-      type: object
-      description: eKYC details of the resident
-      properties:
-        ekyc_date:
-          description: Date on which eKYC has been done. A null value indicates that eKYC has not been undertaken
-          type: string
-    aadhaar_RecordType:
+    cdpi_PersonId:
       type: string
       description: |
-        Predefined registry record to return in respone as object
-      enum:
-        - resident_record
-        - deceased_record
-    aadhaar_ResidentAddress:
-      type: object
-      description: Address of the Resident in English Language
-      properties:
-        care_of:
-          description: Care of information
-          type: string
-        building:
-          description: Building identity
-          type: string
-        street:
-          description: Street details
-          type: string
-        landmark:
-          description: Landmark details
-          type: string
-        pincode:
-          description: Pincode
-          type: string
-        po-name:
-          description: Post office name
-          type: string
-        vtc:
-          description: Village Town City Code
-          type: string
-        vtc-name:
-          description: Village/Town/City Name
-          type: string
-        sub-district-name:
-          description: Sub District Name
-          type: string
-        district-name:
-          description: District Name
-          type: string
-        state:
-          description: State Name
-          type: string
-        country:
-          description: Country Name
-          type: string
-    aadhaar_ResidentLocalAddress:
-      type: object
-      description: Resident Local Address
-      properties:
-        local-careof:
-          description: Care of information in local language
-          type: string
-        local-building:
-          description: Building information in local language
-          type: string
-        local-street:
-          description: Street information in local language
-          type: string
-        local-landmark:
-          description: Landmark information in local language
-          type: string
-        local-locality:
-          description: locality information in local language
-          type: string
-        pincode:
-          description: pincode
-          type: string
-        po-name-local:
-          description: Post office name in local
-          type: string
-        local-vtc:
-          description: vtc information in local language
-          type: string
-        local-subdistrict:
-          description: Sub district information in local language
-          type: string
-        local-district:
-          description: district information in local language
-          type: string
-        local-state:
-          description: State information in local language
-          type: string
-        local-country:
-          description: Country information in local language
-          type: string
-    aadhaar_ResidentLocalName:
-      type: object
-      description: Resident Local Name
-      properties:
-        language_code:
-          $ref: '#/components/schemas/LanguageCode'
-        local_name:
-          description: Local name of the Resident
-          type: string
-    aadhaar_ResidentNationality:
-      type: object
-      description: Resident Nationality Information
-      properties:
-        nationality:
-          description: Nationality information of the Resident
-          type: string
-        passport_number:
-          description: Passport number of the Resident
-          type: string
-        passport_valid_upto:
-          description: Passport validity date in DDMMYYYY format
-          type: string
-        visa_number:
-          description: Visa number of the Resident
-          type: string
-        visa_vald_upto:
-          description: Visa validity details
-          type: string
-        oci_number:
-          description: OCI card deatils
-          type: string
-        oci_valid_upto:
-          description: OCI Validity date in DDMMYYYY format
-          type: string
-    aadhaar_ResidentPhoto:
-      type: object
-      description: Resident Photo
-      properties:
-        photo:
-          description: Photo encoded as Base64 string
-          type: string
-    aadhaar_ResidentRecord:
-      type: object
-      description: Resident Information
-      properties:
-        name:
-          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
-          type: string
-        gender:
-          description: 'End-User''s gender. Values defined by this specification are female, male, transgender.'
-          type: string
-        dob:
-          description: Date of Birth in DDMMYYYY format
-          type: string
-        dob_type:
-          description: 'Date of Birth Type i.e Declared, Approximate, Verified'
-          type: string
-        phone:
-          description: 'Phone number of the resident. If the number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
-          type: string
-        email:
-          description: 'End-User''s preferred e-mail address. Its value MUST conform to the RFC 5322 [RFC5322] addr-spec syntax. The RP MUST NOT rely upon this value being unique, as discussed in Section 5.7.'
-          type: string
-        address:
-          $ref: '#/components/schemas/aadhaar_ResidentAddress'
-        local_name:
-          $ref: '#/components/schemas/aadhaar_ResidentLocalName'
-        local_address:
-          $ref: '#/components/schemas/aadhaar_ResidentLocalAddress'
-        photo:
-          description: Image encoded as Base64 string
-          $ref: '#/components/schemas/aadhaar_ResidentPhoto'
-        nationality:
-          description: Nationality information of the Resident
-          $ref: '#/components/schemas/aadhaar_ResidentNationality'
-        kyc_status:
-          description: ekyc Details undertaken by the Resident
-          $ref: '#/components/schemas/aadhaar_EKycDetails'
-        document:
-          description: Document encoded as Base64 string
-          $ref: '#/components/schemas/aadhaar_Document'
+        1. Person id is case insensitve normative represenation as id-type:id@provider <br>
+        2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
+        3. This property is intended to unambiguously refer to an object, such as a person, beneficiary, user, etc., <br>
+        4. Few examples: <br>
+            - id@identifier-type.id-provider e.g token:12345@mosip, vid:543215@mosip <br>
+            - id@civil-registry.issuing-agency e.g id:12345@crvs, brn:12345@ecrvs, mrn:12345@crvs <br>
+            - id@functional-identifier.issuing-agency e.g id:12345@voter-id, id:12345@driving-license, mobile:12345@farmer-reg <br>
+        Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 'vid:54321@mosip'
     dci_IdentifierType:
       type: string
       description: |
@@ -873,19 +670,387 @@ components:
         - '4'
         - '5'
         - '6'
-    cdpi_PersonId:
+    GooglePlusCode:
+      type: object
+      description: 'Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details'
+      properties:
+        global_code:
+          type: string
+          example: ''
+        geometry:
+          type: object
+          properties:
+            bounds:
+              type: object
+              properties:
+                northeast:
+                  $ref: '#/components/schemas/LatLong'
+                southwest:
+                  $ref: '#/components/schemas/LatLong'
+            location:
+              $ref: '#/components/schemas/LatLong'
+    mosip_EventType:
       type: string
       description: |
-        1. Person id is case insensitve normative represenation as id-type:id@provider <br>
-        2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
-        3. This property is intended to unambiguously refer to an object, such as a person, beneficiary, user, etc., <br>
-        4. Few examples: <br>
-            - id@identifier-type.id-provider e.g token:12345@mosip, vid:543215@mosip <br>
-            - id@civil-registry.issuing-agency e.g id:12345@crvs, brn:12345@ecrvs, mrn:12345@crvs <br>
-            - id@functional-identifier.issuing-agency e.g id:12345@voter-id, id:12345@driving-license, mobile:12345@farmer-reg <br>
-        Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
-      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 'vid:54321@mosip'
+        Standardized codes/values represent key events to [integrate](https://docs.mosip.io/1.2.0/integrations/mosip-opencrvs-integration#scope) with civil registries. <br><br>
+        **Sample flow to explain birth registration between MOSIP and CRVS systems:**
+        1. Step 1: MOSIP subscribes to BIRTH_REGISTERED event with CRVS for RegistrationRecord
+        2. Step 2: CRVS subscribes to BIRTH_REGISTERED event with MOSIP for MOSIPVerifiableCredential
+        3. Step 3: CRVS notifies RegistrationRecord data to MOSIP 
+        4. Step 4: MOSIP notifies MOSIPVerifiableCredential data to CRVS <br>
+
+        **Sample flow to explain data modification (push) flow from MOSIP to CRVS systems:**
+          1. Step 1: CRVS subscribes to DATA_MODIFICATION event with MOSIP for MOSIPToken data
+          2. Step 2: MOSIP notifies MOSIPToken data to CRVS<br>
+
+        **Note:** 
+        1. Data modifiation (pull) flow can be accomodated with sync/search or existing mosip's eKyc auth api.
+        2. Death, Death Reversal fllows same pattern as described in for birth registration.
+      enum:
+        - BIRTH_REGISTERED
+        - DEATH_REGISTERED
+        - DEATH_REVERSAL
+        - DATA_MODIFICATION
+    mosip_LangaugeValue:
+      type: object
+      description: multi language value object
+      properties:
+        langugage:
+          type: string
+          example: eng
+        value:
+          type: string
+          example: value
+    mosip_LanguageValueList:
+      type: array
+      items:
+        - $ref: '#/components/schemas/mosip_LangaugeValue'
+    mosip_MOSIPVerifiableCredential:
+      type: object
+      description: 'MOSIP Verifiable Credential for a [person](https://github.com/opencrvs/mosip-mediator/blob/master/samples/decrypted-sample-received-credentials.json)'
+      properties:
+        issuedTo:
+          description: ''
+          type: string
+        protectedAttributes:
+          type: array
+          items:
+            - type: string
+        credentialSubject:
+          description: MOSIP Verifiable Credential for Proof of identity
+          type: object
+          properties:
+            gender:
+              $ref: '#/components/schemas/mosip_LanguageValueList'
+            city:
+              $ref: '#/components/schemas/mosip_LanguageValueList'
+            postalCode:
+              type: string
+              example: '14022'
+            fullName:
+              type: string
+              example: Thirteen Mosip
+            dateOfBirth:
+              type: string
+              example: '2022'
+            province:
+              $ref: '#/components/schemas/mosip_LanguageValueList'
+            phone:
+              type: string
+              example: '9898989898'
+            addressLine1:
+              $ref: '#/components/schemas/mosip_LanguageValueList'
+            addressLine2:
+              $ref: '#/components/schemas/mosip_LanguageValueList'
+            id:
+              type: string
+              example: '2835824850916304'
+            UIN:
+              type: string
+              example: '7346597054'
+            region:
+              $ref: '#/components/schemas/mosip_LanguageValueList'
+            email:
+              type: string
+              example: thirteen.mosip.123@mailinator.com
+        id:
+          type: string
+          example: 'http://mosip.io/credentials/e2039315-87b0-4012-942e-e0d7c879994b'
+        type:
+          type: array
+          items:
+            type: string
+            example: MOSIPVerifiableCredential
+        consent:
+          type: string
+        issuer:
+          type: string
+          example: 'https://mosip.io/issuers/'
+    mosip_RecordType:
+      type: string
+      description: |
+        Predefined registry record to return in respone as object
+      enum:
+        - RegistrationRecord
+        - MOSIPVerifiableCredential
+    mosip_RegistrationRecord:
+      type: object
+      description: 'Birth Registration record to sync with MOSIP. [Reference](https://github.com/mosip/mosip-opencrvs/blob/develop/mediator/src/main/java/io/mosip/opencrvs/dto/SyncDto.java)'
+      properties:
+        registrationId:
+          type: string
+        packetId:
+          type: string
+        additionalInfoReqId:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        registrationType:
+          type: string
+        packetHashValue:
+          type: string
+        packetSize:
+          type: integer
+        supervisorStatus:
+          type: string
+        supervisorComment:
+          type: string
+        opentionalValues:
+          type: array
+          items:
+            - type: string
+        langCode:
+          type: string
+        createDateTime:
+          $ref: '#/components/schemas/DateTime'
+        updateDateTime:
+          $ref: '#/components/schemas/DateTime'
+        deletedDateTime:
+          $ref: '#/components/schemas/DateTime'
+        isActive:
+          type: boolean
+        isDeleted:
+          type: boolean
+    nid_DeceasedRecord:
+      type: object
+      description: Deceased record obtainable from registries
+      properties:
+        reference_number:
+          description: 'unique reference number mantained in the registry for recording death record or '
+          type: string
+        name:
+          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+          type: string
+        gender:
+          description: 'End-User''s gender. Values defined by this specification are female, male, transgender.'
+          type: string
+        dob:
+          description: Date of Birth in DDMMYYYY format
+          type: string
+        dod:
+          description: Date of Death in DDMMYYYY format
+          type: string
+        reported_date:
+          description: Date in DDMMYYYY format to record on which the death incident reported
+          type: string
+        demo_check_status:
+          description: whether demo check has been undertaken or not
+          type: boolean
+        demo_check_date:
+          description: Date in DDMMYYYY format to capture the Demo Check Date
+          type: string
+        document:
+          description: Reference document collected for registering the deceased information
+          $ref: '#/components/schemas/nid_Document'
+    nid_Document:
+      type: object
+      description: Supporting document of the Resident
+      properties:
+        document_name:
+          description: Name of the document
+          type: string
+        document:
+          description: Bases 64 encoded document
+          type: string
+    nid_EKycDetails:
+      type: object
+      description: eKYC details of the resident
+      properties:
+        ekyc_date:
+          description: Date on which eKYC has been done. A null value indicates that eKYC has not been undertaken
+          type: string
+    nid_RecordType:
+      type: string
+      description: |
+        Predefined registry record to return in respone as object
+      enum:
+        - resident_record
+        - deceased_record
+    nid_ResidentAddress:
+      type: object
+      description: Address of the Resident in English Language
+      properties:
+        care_of:
+          description: Care of information
+          type: string
+        building:
+          description: Building identity
+          type: string
+        street:
+          description: Street details
+          type: string
+        landmark:
+          description: Landmark details
+          type: string
+        pincode:
+          description: Pincode
+          type: string
+        po-name:
+          description: Post office name
+          type: string
+        vtc:
+          description: Village Town City Code
+          type: string
+        vtc-name:
+          description: Village/Town/City Name
+          type: string
+        sub-district-name:
+          description: Sub District Name
+          type: string
+        district-name:
+          description: District Name
+          type: string
+        state:
+          description: State Name
+          type: string
+        country:
+          description: Country Name
+          type: string
+    nid_ResidentLocalAddress:
+      type: object
+      description: Resident Local Address
+      properties:
+        local-careof:
+          description: Care of information in local language
+          type: string
+        local-building:
+          description: Building information in local language
+          type: string
+        local-street:
+          description: Street information in local language
+          type: string
+        local-landmark:
+          description: Landmark information in local language
+          type: string
+        local-locality:
+          description: locality information in local language
+          type: string
+        pincode:
+          description: pincode
+          type: string
+        po-name-local:
+          description: Post office name in local
+          type: string
+        local-vtc:
+          description: vtc information in local language
+          type: string
+        local-subdistrict:
+          description: Sub district information in local language
+          type: string
+        local-district:
+          description: district information in local language
+          type: string
+        local-state:
+          description: State information in local language
+          type: string
+        local-country:
+          description: Country information in local language
+          type: string
+    nid_ResidentLocalName:
+      type: object
+      description: Resident Local Name
+      properties:
+        language_code:
+          $ref: '#/components/schemas/LanguageCode'
+        local_name:
+          description: Local name of the Resident
+          type: string
+    nid_ResidentNationality:
+      type: object
+      description: Resident Nationality Information
+      properties:
+        nationality:
+          description: Nationality information of the Resident
+          type: string
+        passport_number:
+          description: Passport number of the Resident
+          type: string
+        passport_valid_upto:
+          description: Passport validity date in DDMMYYYY format
+          type: string
+        visa_number:
+          description: Visa number of the Resident
+          type: string
+        visa_vald_upto:
+          description: Visa validity details
+          type: string
+        oci_number:
+          description: OCI card deatils
+          type: string
+        oci_valid_upto:
+          description: OCI Validity date in DDMMYYYY format
+          type: string
+    nid_ResidentPhoto:
+      type: object
+      description: Resident Photo
+      properties:
+        photo:
+          description: Photo encoded as Base64 string
+          type: string
+    nid_ResidentRecord:
+      type: object
+      description: Resident Information
+      properties:
+        name:
+          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+          type: string
+        gender:
+          description: 'End-User''s gender. Values defined by this specification are female, male, transgender.'
+          type: string
+        dob:
+          description: Date of Birth in DDMMYYYY format
+          type: string
+        dob_type:
+          description: 'Date of Birth Type i.e Declared, Approximate, Verified'
+          type: string
+        phone:
+          description: 'Phone number of the resident. If the number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
+          type: string
+        email:
+          description: 'End-User''s preferred e-mail address. Its value MUST conform to the RFC 5322 [RFC5322] addr-spec syntax. The RP MUST NOT rely upon this value being unique, as discussed in Section 5.7.'
+          type: string
+        address:
+          $ref: '#/components/schemas/nid_ResidentAddress'
+        local_name:
+          $ref: '#/components/schemas/nid_ResidentLocalName'
+        local_address:
+          $ref: '#/components/schemas/nid_ResidentLocalAddress'
+        photo:
+          description: Image encoded as Base64 string
+          $ref: '#/components/schemas/nid_ResidentPhoto'
+        nationality:
+          description: Nationality information of the Resident
+          $ref: '#/components/schemas/nid_ResidentNationality'
+        kyc_status:
+          description: ekyc Details undertaken by the Resident
+          $ref: '#/components/schemas/nid_EKycDetails'
+        document:
+          description: Document encoded as Base64 string
+          $ref: '#/components/schemas/nid_Document'
     openid_Address:
       title: Address
       description: 'Address info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim">specs</a>'
@@ -1067,25 +1232,6 @@ components:
               type: string
       required:
         - type
-    GooglePlusCode:
-      type: object
-      description: 'Refer [Plus Codes](https://github.com/google/open-location-code/wiki/Plus-codes-API) for more details'
-      properties:
-        global_code:
-          type: string
-          example: ''
-        geometry:
-          type: object
-          properties:
-            bounds:
-              type: object
-              properties:
-                northeast:
-                  $ref: '#/components/schemas/LatLong'
-                southwest:
-                  $ref: '#/components/schemas/LatLong'
-            location:
-              $ref: '#/components/schemas/LatLong'
     civilReg_EventType:
       description: |
         1. Civil registration event list used to record and interact with a typical civil registry
@@ -1176,6 +1322,7 @@ components:
       oneOf:
         - $ref: '#/components/schemas/dci_VitalEvents'
         - $ref: '#/components/schemas/civilReg_EventType'
+        - $ref: '#/components/schemas/mosip_EventType'
         - $ref: '#/components/schemas/coreReg_EventType'
     coreReg_AllRecordTypes:
       description: |
@@ -1185,7 +1332,8 @@ components:
       oneOf:
         - $ref: '#/components/schemas/civilReg_RecordType'
         - $ref: '#/components/schemas/dci_RecordType'
-        - $ref: '#/components/schemas/aadhaar_RecordType'
+        - $ref: '#/components/schemas/nid_RecordType'
+        - $ref: '#/components/schemas/mosip_RecordType'
         - $ref: '#/components/schemas/other_RecordType'
     coreReg_AllQueries:
       description: |
@@ -1248,6 +1396,7 @@ components:
             required:
               - reference_id
               - timestamp
+              - event_type
               - registry_data
       required:
         - transaction_id
@@ -1312,7 +1461,7 @@ components:
                     $ref: '#/components/schemas/PaginationRequest'
                 required:
                   - query
-                  - filter
+                  - record_type
               consent:
                 $ref: '#/components/schemas/Consent'
               locale:
@@ -1320,6 +1469,7 @@ components:
             required:
               - reference_id
               - timestamp
+              - event_type
               - search_criteria
       required:
         - transaction_id
@@ -1368,8 +1518,10 @@ components:
                     oneOf:
                       - $ref: '#/components/schemas/civilReg_PersonRecord'
                       - $ref: '#/components/schemas/dci_PersonRecord'
-                      - $ref: '#/components/schemas/aadhaar_ResidentRecord'
-                      - $ref: '#/components/schemas/aadhaar_DeceasedRecord'
+                      - $ref: '#/components/schemas/nid_ResidentRecord'
+                      - $ref: '#/components/schemas/nid_DeceasedRecord'
+                      - $ref: '#/components/schemas/mosip_RegistrationRecord'
+                      - $ref: '#/components/schemas/mosip_MOSIPVerifiableCredential'
                 required:
                   - record_type
                   - record
@@ -1380,6 +1532,7 @@ components:
             required:
               - reference_id
               - timestamp
+              - event_type
               - status
       required:
         - transaction_id
@@ -1424,12 +1577,13 @@ components:
                     $ref: '#/components/schemas/coreReg_AllRecordTypes'
                 required:
                   - query
-                  - filter
+                  - record_type
               locale:
                 $ref: '#/components/schemas/LanguageCode'
             required:
               - reference_id
               - timestamp
+              - event_type
               - subscribe_criteria
       required:
         - transaction_id

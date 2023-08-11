@@ -500,29 +500,10 @@ paths:
     deprecated: false
 components:
   schemas:
-
-    ###### src/extensions/aadhaar schema objects
-    aadhaar_DeceasedRecord: 
-      $ref: ../extensions/aadhaar/DeceasedRecord.yaml
-    aadhaar_Document: 
-      $ref: ../extensions/aadhaar/Document.yaml
-    aadhaar_EKycDetails: 
-      $ref: ../extensions/aadhaar/EKycDetails.yaml
-    aadhaar_RecordType: 
-      $ref: ../extensions/aadhaar/RecordType.yaml
-    aadhaar_ResidentAddress:
-      $ref: ../extensions/aadhaar/ResidentAddress.yaml
-    aadhaar_ResidentLocalAddress:
-      $ref: ../extensions/aadhaar/ResidentLocalAddress.yaml
-    aadhaar_ResidentLocalName:
-      $ref: ../extensions/aadhaar/ResidentLocalName.yaml
-    aadhaar_ResidentNationality:
-      $ref: ../extensions/aadhaar/ResidentNationality.yaml
-    aadhaar_ResidentPhoto:
-      $ref: ../extensions/aadhaar/ResidentPhoto.yaml
-    aadhaar_ResidentRecord:
-      $ref: ../extensions/aadhaar/ResidentRecord.yaml
-
+    ###### src/extensions/cdpi schema objects
+    cdpi_PersonId: 
+      $ref: ../extensions/cdpi/PersonId.yaml
+    
     ###### src/extensions/dci schema objects
     dci_IdentifierType: 
       $ref: ../extensions/dci/IdentifierType.yaml
@@ -541,21 +522,56 @@ components:
     dci_VitalEvents: 
       $ref: ../extensions/dci/VitalEvents.yaml
 
-    ###### src/extensions/cdpi schema objects
-    cdpi_PersonId: 
-      $ref: ../extensions/cdpi/PersonId.yaml
+    ###### src/extensions/fhir schema objects
     
-      ###### src/extensions/openid schema objects
+    ###### src/extensions/google schema objects
+    GooglePlusCode: 
+      $ref: ../extensions/google/GooglePlusCode.yaml
+
+    ###### src/extensions/mosip schema objects
+    mosip_EventType: 
+      $ref: ../extensions/mosip/EventType.yaml
+    mosip_LangaugeValue: 
+      $ref: ../extensions/mosip/LangaugeValue.yaml
+    mosip_LanguageValueList: 
+      $ref: ../extensions/mosip/LanguageValueList.yaml
+    mosip_MOSIPVerifiableCredential: 
+      $ref: ../extensions/mosip/MOSIPVerifiableCredential.yaml
+    mosip_RecordType: 
+      $ref: ../extensions/mosip/RecordType.yaml
+    mosip_RegistrationRecord: 
+      $ref: ../extensions/mosip/RegistrationRecord.yaml  
+        
+    ###### src/extensions/nid schema objects
+    nid_DeceasedRecord: 
+      $ref: ../extensions/nid/DeceasedRecord.yaml
+    nid_Document: 
+      $ref: ../extensions/nid/Document.yaml
+    nid_EKycDetails: 
+      $ref: ../extensions/nid/EKycDetails.yaml
+    nid_RecordType: 
+      $ref: ../extensions/nid/RecordType.yaml
+    nid_ResidentAddress:
+      $ref: ../extensions/nid/ResidentAddress.yaml
+    nid_ResidentLocalAddress:
+      $ref: ../extensions/nid/ResidentLocalAddress.yaml
+    nid_ResidentLocalName:
+      $ref: ../extensions/nid/ResidentLocalName.yaml
+    nid_ResidentNationality:
+      $ref: ../extensions/nid/ResidentNationality.yaml
+    nid_ResidentPhoto:
+      $ref: ../extensions/nid/ResidentPhoto.yaml
+    nid_ResidentRecord:
+      $ref: ../extensions/nid/ResidentRecord.yaml
+    
+    ###### src/extensions/openid schema objects
     openid_Address: 
       $ref: ../extensions/openid/Address.yaml
     openid_PersonRecord:
       $ref: ../extensions/openid/PersonRecord.yaml
     openid_PersonDocDetails: 
       $ref: ../extensions/openid/PersonDocDetails.yaml
-    
-    GooglePlusCode: 
-      $ref: ../extensions/google/GooglePlusCode.yaml
-
+   
     ###### src/registry/schema/civil schema objects
     civilReg_EventType: 
       $ref: schema/civil/EventType.yaml

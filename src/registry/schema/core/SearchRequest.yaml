@@ -32,7 +32,7 @@ properties:
               $ref: "../../../common/schema/PaginationRequest.yaml"
           required:
             - query
-            - filter
+            - record_type
         consent:
           $ref: "../../../common/schema/Consent.yaml"
         locale:
@@ -40,6 +40,7 @@ properties:
       required:
         - reference_id
         - timestamp
+        - event_type
         - search_criteria
 required:
   - transaction_id

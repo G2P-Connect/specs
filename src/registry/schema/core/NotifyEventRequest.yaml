@@ -33,6 +33,7 @@ properties:
       required:
         - reference_id
         - timestamp
+        - event_type
         - registry_data
 required: 
   - transaction_id

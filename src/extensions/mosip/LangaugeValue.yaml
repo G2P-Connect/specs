@@ -1,0 +1,9 @@
+type: object
+description: multi language value object
+properties:
+  langugage:
+    type: string
+    example: "eng"
+  value:
+    type: string
+    example: "value"

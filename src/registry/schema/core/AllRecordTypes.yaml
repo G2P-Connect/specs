@@ -5,5 +5,6 @@ description: |
 oneOf:
   - $ref: ../civil/RecordType.yaml
   - $ref: ../../../extensions/dci/RecordType.yaml
-  - $ref: ../../../extensions/aadhaar/RecordType.yaml   
+  - $ref: ../../../extensions/nid/RecordType.yaml
+  - $ref: ../../../extensions/mosip/RecordType.yaml   
   - $ref: RegistryRecordType.yaml

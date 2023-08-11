@@ -1,0 +1,41 @@
+type: object
+description: Birth Registration record to sync with MOSIP. [Reference](https://github.com/mosip/mosip-opencrvs/blob/develop/mediator/src/main/java/io/mosip/opencrvs/dto/SyncDto.java)
+properties:
+  registrationId:
+    type: string
+  packetId:
+    type: string
+  additionalInfoReqId:
+    type: string
+  name:
+    type: string
+  email:
+    type: string
+  phone: 
+    type: string
+  registrationType:
+    type: string
+  packetHashValue:
+    type: string
+  packetSize:
+    type: integer
+  supervisorStatus:
+    type: string
+  supervisorComment:
+    type: string
+  opentionalValues:
+    type: array
+    items:
+      - type: string
+  langCode:
+    type: string
+  createDateTime:
+    $ref: ../../common/schema/DateTime.yaml
+  updateDateTime:
+    $ref: ../../common/schema/DateTime.yaml
+  deletedDateTime:
+    $ref: ../../common/schema/DateTime.yaml
+  isActive:
+    type: boolean
+  isDeleted:
+    type: boolean

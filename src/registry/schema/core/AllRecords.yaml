@@ -7,5 +7,7 @@ description: |
 oneOf: 
   - $ref: ../civil/PersonRecord.yaml
   - $ref: ../../../extensions/dci/PersonRecord.yaml
-  - $ref: ../../../extensions/aadhaar/ResidentRecord.yaml
-  - $ref: ../../../extensions/aadhaar/DeceasedRecord.yaml
+  - $ref: ../../../extensions/nid/ResidentRecord.yaml
+  - $ref: ../../../extensions/nid/DeceasedRecord.yaml
+  - $ref: ../../../extensions/mosip/RegistrationRecord.yaml
+  - $ref: ../../../extensions/mosip/MOSIPVerifiableCredential.yaml

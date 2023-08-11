@@ -4,4 +4,5 @@ description: |
 oneOf:
   - $ref: ../../../extensions/dci/VitalEvents.yaml
   - $ref: ../civil/EventType.yaml
+  - $ref: ../../../extensions/mosip/EventType.yaml
   - $ref: ./EventType.yaml

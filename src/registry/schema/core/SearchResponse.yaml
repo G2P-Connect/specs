@@ -43,6 +43,7 @@ properties:
       required:
         - reference_id
         - timestamp
+        - event_type
         - status
 required:
   - transaction_id
