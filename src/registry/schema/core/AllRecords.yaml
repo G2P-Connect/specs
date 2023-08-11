@@ -1,0 +1,11 @@
+type: object
+description: |
+  1. Records retured as response to search/subsribe actions to exchange registry data 
+  2. record_type acts as namespace to define record being retunred for receiving system to unmarshel and use
+  3. Objects are defined in respecitive schemas definition with entity/org namespace as prefix
+  3. Implementing systems shall reference to the requires objects based on the context of these API usage
+oneOf: 
+  - $ref: ../civil/PersonRecord.yaml
+  - $ref: ../../../extensions/dci/PersonRecord.yaml
+  - $ref: ../../../extensions/aadhaar/ResidentRecord.yaml
+  - $ref: ../../../extensions/aadhaar/DeceasedRecord.yaml

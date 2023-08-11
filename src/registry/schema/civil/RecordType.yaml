@@ -1,7 +1,9 @@
 type: string
 description: |
-  Predefined registry record to return in respone as object
-enum:
+  1. A sample record list to identity various records that civil registry can produce
+  2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
+  3. Example Civil Registry records - person_record, birth_cert, death_cert, marriage_cert, etc.,
+example:
   - "person_record"
   - "brith_cert"
   - "death_cert"

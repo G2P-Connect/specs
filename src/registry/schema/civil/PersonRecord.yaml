@@ -1,8 +1,8 @@
 description: | 
-  1. Civil registry record
-  2. Allows Country/Registry specific implementation extensions as new custom defined objects
+  1. A sample person record to identity an individual or civil regisration event in a typical civil registry
+  2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
 allOf:
-- $ref: ../../../extensions/openid/Person.yaml
+- $ref: ../../../extensions/openid/PersonRecord.yaml
 - properties:
     issue_date: 
       type: string
