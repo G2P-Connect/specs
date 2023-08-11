@@ -1929,7 +1929,7 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
-        subscribe_request:
+        subscribe_response:
           type: array
           items:
             type: object
@@ -2022,7 +2022,7 @@ components:
         unsubscribed_events:
           type: array
           items:
-            $ref: '#/components/schemas/SubscribeResponse/properties/subscribe_request/items'
+            $ref: '#/components/schemas/SubscribeResponse/properties/subscribe_response/items'
       required:
         - transaction_id
         - subscribe_request
@@ -2053,7 +2053,7 @@ components:
         subscriptions:
           type: array
           items:
-            $ref: '#/components/schemas/SubscribeResponse/properties/subscribe_request/items'
+            $ref: '#/components/schemas/SubscribeResponse/properties/subscribe_response/items'
       required:
         - transaction_id
         - subscriptions
