@@ -3,9 +3,8 @@ properties:
     $ref: ../../../common/schema/TransactionId.yaml
   txnstatus_response:
     oneOf:
-      - $ref: SubscribeRequest.yaml
-      - $ref: NotifyEventRequest.yaml
       - $ref: SearchResponse.yaml
+      - $ref: NotifyEventRequest.yaml
     example:
       txnstatus_response: 
         reference_id: "test"

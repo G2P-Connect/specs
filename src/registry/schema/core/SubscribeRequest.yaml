@@ -16,6 +16,8 @@ properties:
           $ref: "./RegistryType.yaml"
         event_type:
           $ref: AllEvents.yaml
+        frequency:
+          $ref: ../../../common/schema/EventFrequency.yaml
         subscribe_criteria:
           type: object
           properties:

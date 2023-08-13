@@ -1,0 +1,9 @@
+# type: string
+# description: "Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br>
+#         1. not_found: Subscription not found <br>
+#         2. pdng: Pending; Request initiated <br>
+#         3. succ: Success; Request successful <br>"
+# enum:
+# - "not_found"
+# - "pdng"
+# - "succ"
