@@ -5,7 +5,7 @@ description: |
   3. This property is intended to unambiguously refer to an object, such as a person, beneficiary, user, etc., <br>
   4. Few examples: <br>
       - id@identifier-type.id-provider e.g token:12345@mosip, vid:543215@mosip <br>
-      - id@civil-registry.issuing-agency e.g id:12345@crvs, brn:12345@ecrvs, mrn:12345@crvs <br>
+      - id@civil-registry.issuing-agency e.g id:12345@crvs, brn:12345@crvs, mrn:12345@crvs <br>
       - id@functional-identifier.issuing-agency e.g id:12345@voter-id, id:12345@driving-license, mobile:12345@farmer-reg <br>
   Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
 format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
