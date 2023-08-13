@@ -477,7 +477,6 @@ paths:
     operationId: post_reg_notify
     tags: 
       -  Async
-      -  Sync
     requestBody:
       description: ""
       required: true
