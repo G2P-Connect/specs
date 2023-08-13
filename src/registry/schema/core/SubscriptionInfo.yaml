@@ -9,7 +9,7 @@ properties:
   event_type:
     $ref: AllEvents.yaml
   frequency:
-    $ref: EventFrequency.yaml
+    $ref: ../../../common/schema/EventFrequency.yaml
   subscribe_criteria:
     type: object
     properties:
