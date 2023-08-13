@@ -12,7 +12,7 @@
     * Program Management
     * Eligibility Rules
     * Purpose Codes
-    * [Dibursement](https://g2p-connect.github.io/specs/release/html/disburse_core_v1.0.0.html)
+    * Dibursement
 * Financial Service Provider (FSP) 
     * Check Fund Availability
     * Hold/Release Funds
