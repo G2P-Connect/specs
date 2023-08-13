@@ -206,270 +206,270 @@ paths:
     security:
       - x-access-token: [ ]
     deprecated: false
- /registry/on-subscribe:
-  post: 
-    summary: "/registry/on-subscribe"
-    description: Subscribe results through callback
-    operationId: post_reg_on-subscribe
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - on-subscribe
-                message:
-                  type: object
-                  description: Subscription information 
-                  oneOf:
-                    - $ref: "#/components/schemas/SubscribeResponse"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - on-subscribe
-    responses:
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /registry/unsubscribe:
-  post: 
-    summary: "/registry/unsubscribe"
-    description: Unsubscribe to a life event
-    operationId: post_reg_unsubscribe
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - unsubscribe
-                message:
-                  type: object
-                  description: The unsubscribe request that contain subscription ids which to be removed from subscription list 
-                  oneOf:
-                    - $ref: "#/components/schemas/UnSubscribeRequest"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - unsubscribe
-    responses:
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /registry/on-unsubscribe:
-  post: 
-    summary: "/registry/on-unsubscribe"
-    description: Unsubscribe to a life event with registry
-    operationId: post_reg_on-unsubscribe
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - on-unsubscribe
-                message:
-                  type: object
-                  oneOf:
-                    - $ref: "#/components/schemas/UnSubscribeResponse"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - on-unsubscribe
-    responses:
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /registry/subscriptions:
-  post: 
-    summary: "/registry/subscriptions"
-    description: To retrieve list of all subscription
-    operationId: post_reg_subscriptions
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - subscriptions
-                message:
-                  type: object
-                  description: To perform search based on registry type or event type
-                  oneOf:
-                    - $ref: "#/components/schemas/SubscriptionListRequest"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - subscriptions
-    responses: 
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /registry/on-subscriptions:
-  post: 
-    summary: "/registry/on-subscriptions"
-    description: To retrive list of subscriptions
-    operationId: post_reg_on-subscriptions
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - on-subscriptions
-                message:
-                  type: object
-                  description: The resposne to subscriber with list of subscriptions
-                  oneOf:
-                    - $ref: "#/components/schemas/SubscriptionListResponse"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - on-subscriptions
-    responses: 
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
+#  /registry/on-subscribe:
+#   post: 
+#     summary: "/registry/on-subscribe"
+#     description: Subscribe results through callback
+#     operationId: post_reg_on-subscribe
+#     tags: 
+#       -  Async
+#     requestBody:
+#       description: ""
+#       required: true
+#       content:
+#         application/json:
+#           schema:
+#               type: object
+#               properties:
+#                 signature:  
+#                   $ref: "#/components/schemas/MsgSignature"
+#                 header:
+#                   allOf:
+#                     - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+#                     - properties:
+#                         action:
+#                           enum:
+#                             - on-subscribe
+#                 message:
+#                   type: object
+#                   description: Subscription information 
+#                   oneOf:
+#                     - $ref: "#/components/schemas/SubscribeResponse"
+#                     - $ref: "#/components/schemas/EncryptedMessage"
+#               required:
+#                 - header
+#                 - message
+#         multipart/form-data:
+#           schema:
+#             allOf:
+#               - $ref: "#/components/schemas/FileInfo"
+#               - properties:
+#                   action:
+#                     enum:
+#                       - on-subscribe
+#     responses:
+#         default:
+#           $ref: "#/components/responses/Response"
+#         '401':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '403':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '500':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#     security:
+#       - x-access-token: [ ]
+#     deprecated: false
+#  /registry/unsubscribe:
+#   post: 
+#     summary: "/registry/unsubscribe"
+#     description: Unsubscribe to a life event
+#     operationId: post_reg_unsubscribe
+#     tags: 
+#       -  Async
+#     requestBody:
+#       description: ""
+#       required: true
+#       content:
+#         application/json:
+#           schema:
+#               type: object
+#               properties:
+#                 signature:  
+#                   $ref: "#/components/schemas/MsgSignature"
+#                 header:
+#                   allOf:
+#                     - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+#                     - properties:
+#                         action:
+#                           enum:
+#                             - unsubscribe
+#                 message:
+#                   type: object
+#                   description: The unsubscribe request that contain subscription ids which to be removed from subscription list 
+#                   oneOf:
+#                     - $ref: "#/components/schemas/UnSubscribeRequest"
+#                     - $ref: "#/components/schemas/EncryptedMessage"
+#               required:
+#                 - header
+#                 - message
+#         multipart/form-data:
+#           schema:
+#             allOf:
+#               - $ref: "#/components/schemas/FileInfo"
+#               - properties:
+#                   action:
+#                     enum:
+#                       - unsubscribe
+#     responses:
+#         default:
+#           $ref: "#/components/responses/Response"
+#         '401':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '403':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '500':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#     security:
+#       - x-access-token: [ ]
+#     deprecated: false
+#  /registry/on-unsubscribe:
+#   post: 
+#     summary: "/registry/on-unsubscribe"
+#     description: Unsubscribe to a life event with registry
+#     operationId: post_reg_on-unsubscribe
+#     tags: 
+#       -  Async
+#     requestBody:
+#       description: ""
+#       required: true
+#       content:
+#         application/json:
+#           schema:
+#               type: object
+#               properties:
+#                 signature:  
+#                   $ref: "#/components/schemas/MsgSignature"
+#                 header:
+#                   allOf:
+#                     - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+#                     - properties:
+#                         action:
+#                           enum:
+#                             - on-unsubscribe
+#                 message:
+#                   type: object
+#                   oneOf:
+#                     - $ref: "#/components/schemas/UnSubscribeResponse"
+#                     - $ref: "#/components/schemas/EncryptedMessage"
+#               required:
+#                 - header
+#                 - message
+#         multipart/form-data:
+#           schema:
+#             allOf:
+#               - $ref: "#/components/schemas/FileInfo"
+#               - properties:
+#                   action:
+#                     enum:
+#                       - on-unsubscribe
+#     responses:
+#         default:
+#           $ref: "#/components/responses/Response"
+#         '401':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '403':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '500':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#     security:
+#       - x-access-token: [ ]
+#     deprecated: false
+#  /registry/subscriptions:
+#   post: 
+#     summary: "/registry/subscriptions"
+#     description: To retrieve list of all subscription
+#     operationId: post_reg_subscriptions
+#     tags: 
+#       -  Async
+#     requestBody:
+#       description: ""
+#       required: true
+#       content:
+#         application/json:
+#           schema:
+#               type: object
+#               properties:
+#                 signature:  
+#                   $ref: "#/components/schemas/MsgSignature"
+#                 header:
+#                   allOf:
+#                     - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+#                     - properties:
+#                         action:
+#                           enum:
+#                             - subscriptions
+#                 message:
+#                   type: object
+#                   description: To perform search based on registry type or event type
+#                   oneOf:
+#                     - $ref: "#/components/schemas/SubscriptionListRequest"
+#                     - $ref: "#/components/schemas/EncryptedMessage"
+#               required:
+#                 - header
+#                 - message
+#         multipart/form-data:
+#           schema:
+#             allOf:
+#               - $ref: "#/components/schemas/FileInfo"
+#               - properties:
+#                   action:
+#                     enum:
+#                       - subscriptions
+#     responses: 
+#         default:
+#           $ref: "#/components/responses/Response"
+#         '401':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '403':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '500':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#     security:
+#       - x-access-token: [ ]
+#     deprecated: false
+#  /registry/on-subscriptions:
+#   post: 
+#     summary: "/registry/on-subscriptions"
+#     description: To retrive list of subscriptions
+#     operationId: post_reg_on-subscriptions
+#     tags: 
+#       -  Async
+#     requestBody:
+#       description: ""
+#       required: true
+#       content:
+#         application/json:
+#           schema:
+#               type: object
+#               properties:
+#                 signature:  
+#                   $ref: "#/components/schemas/MsgSignature"
+#                 header:
+#                   allOf:
+#                     - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+#                     - properties:
+#                         action:
+#                           enum:
+#                             - on-subscriptions
+#                 message:
+#                   type: object
+#                   description: The resposne to subscriber with list of subscriptions
+#                   oneOf:
+#                     - $ref: "#/components/schemas/SubscriptionListResponse"
+#                     - $ref: "#/components/schemas/EncryptedMessage"
+#               required:
+#                 - header
+#                 - message
+#         multipart/form-data:
+#           schema:
+#             allOf:
+#               - $ref: "#/components/schemas/FileInfo"
+#               - properties:
+#                   action:
+#                     enum:
+#                       - on-subscriptions
+#     responses: 
+#         default:
+#           $ref: "#/components/responses/Response"
+#         '401':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '403':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '500':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#     security:
+#       - x-access-token: [ ]
+#     deprecated: false
  /registry/notify:
   post: 
     summary: "/registry/notify"
@@ -699,11 +699,81 @@ paths:
     security:
       - x-access-token: [ ]
     deprecated: false
- /registry/sync/subscribe:
+#  /registry/sync/subscribe:
+#   post: 
+#     summary: " /registry/sync/subscribe"
+#     description: Subscribe to a life event with registry
+#     operationId: post_reg_sync_subscribe
+#     tags: 
+#       -  Sync
+#     requestBody:
+#       description: ""
+#       required: true
+#       content:
+#         application/json:
+#           schema:
+#               type: object
+#               properties:
+#                 signature:  
+#                   $ref: "#/components/schemas/MsgSignature"
+#                 header:
+#                   allOf:
+#                     - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+#                     - properties:
+#                         action:
+#                           enum:
+#                             - subscribe
+#                 message:
+#                   type: object
+#                   description: Subscription request which contaion query with frequency and other info on which notification to be sent by registry to subscriber
+#                   oneOf:
+#                     - $ref: "#/components/schemas/SubscribeRequest"
+#                     - $ref: "#/components/schemas/EncryptedMessage"
+#               required:
+#                 - header
+#                 - message
+#         multipart/form-data:
+#           schema:
+#             allOf:
+#               - $ref: "#/components/schemas/FileInfo"
+#               - properties:
+#                   action:
+#                     enum:
+#                       - subscribe
+#     responses:
+#         default:
+#           description: "Subscription response"
+#           content:
+#             application/json:
+#               schema:
+#                 type: object
+#                 properties:
+#                   signature:  
+#                     $ref: "#/components/schemas/MsgSignature"
+#                   header:
+#                     allOf:
+#                       - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+#                   message:
+#                     type: object
+#                     oneOf:
+#                       - $ref: '#/components/schemas/SubscribeResponse'
+#                       - $ref: '#/components/schemas/EncryptedMessage'
+#                 required:
+#                   - header
+#         '401':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '403':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#         '500':
+#           $ref: "#/components/responses/HttpErrorResponse"
+#     security:
+#       - x-access-token: [ ]
+#     deprecated: false
+ /registry/sync/subscriptions:
   post: 
-    summary: " /registry/sync/subscribe"
-    description: Subscribe to a life event with registry
-    operationId: post_reg_sync_subscribe
+    summary: "/registry/sync/subscriptions"
+    description: To retrive list of subscriptions
+    operationId: post_reg_sync_subscriptions
     tags: 
       -  Sync
     requestBody:
@@ -722,27 +792,19 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - subscribe
+                            - fetch_subscriptions
                 message:
                   type: object
-                  description: Subscription request which contaion query with frequency and other info on which notification to be sent by registry to subscriber
+                  description: To perform search based on registry type or event type
                   oneOf:
-                    - $ref: "#/components/schemas/SubscribeRequest"
+                    - $ref: "#/components/schemas/FetchSubscriptionsRequest"
                     - $ref: "#/components/schemas/EncryptedMessage"
               required:
                 - header
                 - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - subscribe
-    responses:
+    responses: 
         default:
-          description: "Subscription response"
+          description: "Subscription list response"
           content:
             application/json:
               schema:
@@ -756,7 +818,7 @@ paths:
                   message:
                     type: object
                     oneOf:
-                      - $ref: '#/components/schemas/SubscribeResponse'
+                      - $ref: '#/components/schemas/FetchSubscriptionsResponse'
                       - $ref: '#/components/schemas/EncryptedMessage'
                 required:
                   - header
@@ -840,77 +902,6 @@ paths:
     security:
       - x-access-token: [ ]
     deprecated: false
- /registry/sync/subscriptions:
-  post: 
-    summary: "/registry/sync/subscriptions"
-    description: To retrive list of subscriptions
-    operationId: post_reg_sync_subscriptions
-    tags: 
-      -  Sync
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - subscriptions
-                message:
-                  type: object
-                  description: To perform search based on registry type or event type
-                  oneOf:
-                    - $ref: "#/components/schemas/SubscriptionListRequest"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - subscriptions
-    responses: 
-        default:
-          description: "Subscription list response"
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  signature:  
-                    $ref: "#/components/schemas/MsgSignature"
-                  header:
-                    allOf:
-                      - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
-                  message:
-                    type: object
-                    oneOf:
-                      - $ref: '#/components/schemas/SubscriptionListResponse'
-                      - $ref: '#/components/schemas/EncryptedMessage'
-                required:
-                  - header
-                  - message
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
  /registry/sync/txn/status:
   post: 
     summary: "/registry/sync/txn/status"
@@ -934,9 +925,8 @@ paths:
                     - properties:
                         action:
                           enum:
+                            - search
                             - subscribe
-                            - notify
-                            - on-search
                 message:
                   type: object
                   oneOf:
@@ -962,7 +952,6 @@ paths:
                             action:
                               enum:
                                 - on-search
-                                - subscribe
                                 - notify
                     message:
                       type: object
@@ -1051,12 +1040,18 @@ components:
     ###### src/registry/schema/core schema objects
     coreReg_AllEvents: 
       $ref: schema/core/AllEvents.yaml
+    coreReg_AllQueries: 
+      $ref: schema/core/AllQueries.yaml 
+    coreReg_AllRecords: 
+      $ref: schema/core/AllRecords.yaml
     coreReg_AllRecordTypes: 
       $ref: schema/core/AllRecordTypes.yaml
-    coreReg_AllQueries: 
-      $ref: schema/core/AllQueries.yaml  
     coreReg_EventType: 
       $ref: schema/core/EventType.yaml
+    FetchSubscriptionsRequest: 
+      $ref: schema/core/FetchSubscriptionsRequest.yaml
+    FetchSubscriptionsResponse:
+      $ref: schema/core/FetchSubscriptionsResponse.yaml
     NotifyEventRequest: 
       $ref: schema/core/NotifyEventRequest.yaml
     other_RecordType: 
@@ -1071,23 +1066,26 @@ components:
       $ref: schema/core/SearchStatusReasonCode.yaml
     SubscribeRequest: 
       $ref: schema/core/SubscribeRequest.yaml
-    SubscribeResponse: 
-      $ref: schema/core/SubscribeResponse.yaml
+    # SubscribeResponse: 
+    #   $ref: schema/core/SubscribeResponse.yaml
     SubscribeStatusReasonCode: 
       $ref: schema/core/SubscribeStatusReasonCode.yaml
+    SubscriptionCode: 
+      $ref: schema/core/SubscriptionCode.yaml
+    SubscriptionInfo:
+      $ref: schema/core/SubscriptionInfo.yaml
+    SubscriptionStatus:
+        $ref: schema/core/SubscriptionStatus.yaml
+    TxnStatusRequest: 
+      $ref: schema/core/TxnStatusRequest.yaml            
+    TxnStatusResponse: 
+      $ref: schema/core/TxnStatusResponse.yaml  
     UnSubscribeRequest: 
       $ref: schema/core/UnSubscribeRequest.yaml
     UnSubscribeResponse: 
       $ref: schema/core/UnSubscribeResponse.yaml
-    SubscriptionListRequest: 
-      $ref: schema/core/SubscriptionListRequest.yaml
-    SubscriptionListResponse: 
-      $ref: schema/core/SubscriptionListResponse.yaml                      
-    TxnStatusRequest: 
-      $ref: schema/core/TxnStatusRequest.yaml            
-    TxnStatusResponse: 
-      $ref: schema/core/TxnStatusResponse.yaml              
-      
+    UnSubscribeStatusReasonCode: 
+      $ref: schema/core/UnSubscribeStatusReasonCode.yaml           
   
     ###### Common schema objects
     Ack: 
@@ -1108,6 +1106,8 @@ components:
       $ref: ../common/schema/EncryptedMessage.yaml
     Error: 
       $ref: ../common/schema/Error.yaml
+    EventFrequency:
+      $ref: ../common/schema/EventFrequency.yaml
     ExpCondition: 
       $ref: ../common/schema/ExpCondition.yaml
     ExpOperator: 

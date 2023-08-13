@@ -1,12 +1,12 @@
-type: object
-description: Subscribe to a life event with crvs
-properties:
-  transaction_id: 
-    $ref: ../../../common/schema/TransactionId.yaml
-  subscribe_response:
-    type: array
-    items: 
-      $ref: SubscriptionObject.yaml
-required:
-  - transaction_id
-  - subscribe_request
+# type: object
+# description: Subscribe to a life event with crvs
+# properties:
+#   transaction_id: 
+#     $ref: ../../../common/schema/TransactionId.yaml
+#   subscribe_response:
+#     type: array
+#     items: 
+#       $ref: SubscriptionInfo.yaml
+# required:
+#   - transaction_id
+#   - subscribe_response

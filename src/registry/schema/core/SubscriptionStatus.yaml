@@ -1,0 +1,5 @@
+type: string
+description: subscription status
+enum:
+  - "subscribe"
+  - "unsubscribe"

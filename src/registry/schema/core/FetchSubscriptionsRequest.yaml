@@ -1,0 +1,24 @@
+type: object
+description: Fetch list of active subscriptions based on sender id,registry type and event type
+properties:
+  transaction_id: 
+    $ref: ../../../common/schema/TransactionId.yaml
+  fetch_subscriptions_request:
+    type: object
+    properties:
+      timestamp: 
+        $ref: "../../../common/schema/DateTime.yaml"
+      registry_type:
+        $ref: "./RegistryType.yaml"
+      event_type:
+        $ref: AllEvents.yaml
+      subscription_code:
+        $ref: SubscriptionCode.yaml
+      locale:
+        $ref: "../../../common/schema/LanguageCode.yaml"
+    required:
+      - timestamp
+      - event_type
+required:
+  - transaction_id
+    

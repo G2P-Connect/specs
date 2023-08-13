@@ -17,7 +17,7 @@ properties:
         event_type:
           $ref: AllEvents.yaml
         frequency:
-          $ref: EventFrequency.yaml
+          $ref: ../../../common/schema/EventFrequency.yaml
         subscribe_criteria:
           type: object
           properties:
@@ -27,7 +27,7 @@ properties:
               $ref: AllRecordTypes.yaml
           required: 
             - query
-            - filter
+            - record_type
         locale:
           $ref: "../../../common/schema/LanguageCode.yaml"
       required:
