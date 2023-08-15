@@ -435,109 +435,6 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /mapper/search:
-    post:
-      summary: /mapper/search
-      description: Search mapper by searchable attributes
-      operationId: post_mapper_search
-      tags:
-        - Async
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
-                    - properties:
-                        action:
-                          enum:
-                            - search
-                message:
-                  type: object
-                  oneOf:
-                    - $ref: '#/components/schemas/SearchRequest'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-                - message
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - search
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
-  /mapper/on-search:
-    post:
-      summary: /mapper/on-search
-      description: Mapper search results through call back
-      operationId: post_mapper_on-search
-      tags:
-        - Async
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
-                    - properties:
-                        action:
-                          enum:
-                            - on-search
-                message:
-                  type: object
-                  oneOf:
-                    - $ref: '#/components/schemas/SearchResponse'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - on-search'
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          $ref: '#/components/responses/Response'
-      security:
-        - x-access-token: []
-      deprecated: false
   /mapper/txn/status:
     post:
       summary: /mapper/txn/status
@@ -922,72 +819,6 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /mapper/sync/search:
-    post:
-      summary: /mapper/sync/search
-      description: Search mapper by searchable attributes
-      operationId: post_reg_sync_search
-      tags:
-        - Sync
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
-                    - properties:
-                        action:
-                          enum:
-                            - search
-                message:
-                  type: object
-                  description: The search data using which registry search to be performed
-                  anyOf:
-                    - $ref: '#/components/schemas/SearchRequest'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-                - message
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          description: Registry search response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  signature:
-                    $ref: '#/components/schemas/MsgSignature'
-                  header:
-                    allOf:
-                      - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
-                      - properties:
-                          action:
-                            enum:
-                              - on-search
-                  message:
-                    type: object
-                    oneOf:
-                      - $ref: '#/components/schemas/SearchResponse'
-                      - $ref: '#/components/schemas/EncryptedMessage'
-                required:
-                  - header
-      security:
-        - x-access-token: []
-      deprecated: false
   /registry/sync/txn/status:
     post:
       summary: /registry/sync/txn/status
@@ -1323,55 +1154,75 @@ components:
       type: object
       description: ID to Store of value account linking request
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        id:
-          $ref: '#/components/schemas/cdpi_PersonId'
-        fa:
-          $ref: '#/components/schemas/cdpi_FinancialAddress'
-        name:
-          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
-          type: string
-        phone_number:
-          description: 'number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
-          type: string
-        additional_info:
-          $ref: '#/components/schemas/AttributeNameValueList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        link_request:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              id:
+                $ref: '#/components/schemas/cdpi_PersonId'
+              fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              name:
+                description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+                type: string
+              phone_number:
+                description: 'number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
+                type: string
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - id
+              - fa
       required:
-        - reference_id
-        - timestamp
-        - id
-        - fa
+        - transaction_id
+        - link_request
     LinkResponse:
       type: object
       description: Beneficiary ID to Store of value account linking response
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        fa:
-          $ref: '#/components/schemas/cdpi_FinancialAddress'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/LinkStatusReasonCode'
-        status_reason_message:
-          description: Status reascon code message. Helps actionanble messaging for systems/end users
-          type: string
-          maxLength: 999
-        additional_info:
-          $ref: '#/components/schemas/AttributeNameValueList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        link_response:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/LinkStatusReasonCode'
+              status_reason_message:
+                description: Status reascon code message. Helps actionanble messaging for systems/end users
+                type: string
+                maxLength: 999
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - status
       required:
-        - reference_id
-        - timestamp
-        - status
+        - transaction_id
+        - link_response
     LinkStatusReasonCode:
       type: string
       description: FA Mapper Link status reason codes
@@ -1391,62 +1242,82 @@ components:
         1. If id is null then only verify and resolve fa is linked to store of value account. Verification is done by entity issuing fa.
         2. If id is not null then verify and resolve fa is linked store of value account. Additionally verify fa and id are issued to the same individual. If both conditions pass then resolve status can be set to yes.
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        fa:
-          $ref: '#/components/schemas/cdpi_FinancialAddress'
-        id:
-          $ref: '#/components/schemas/cdpi_PersonId'
-        name:
-          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
-          type: string
-        scope:
-          description: Resolve scope to return only yes_no or account provider or id details. Additional authorization based on caller to be enforced by the implementing system to return any sensitive data.
-          type: string
-          enum:
-            - yes_no
-            - details
-          default: yes_no
-        additional_info:
-          $ref: '#/components/schemas/AttributeNameValueList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        resolve_request:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              id:
+                $ref: '#/components/schemas/cdpi_PersonId'
+              name:
+                description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+                type: string
+              scope:
+                description: Resolve scope to return only yes_no or account provider or id details. Additional authorization based on caller to be enforced by the implementing system to return any sensitive data.
+                type: string
+                enum:
+                  - yes_no
+                  - details
+                default: yes_no
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - fa
       required:
-        - reference_id
-        - timestamp
-        - fa
+        - transaction_id
+        - resolve_request
     ResolveResponse:
       type: object
       description: Resolve financial address to store of value account info response
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        fa:
-          $ref: '#/components/schemas/cdpi_FinancialAddress'
-        id:
-          $ref: '#/components/schemas/cdpi_PersonId'
-        account_provider_info:
-          $ref: '#/components/schemas/fa_AccountProviderInfo'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/ResolveStatusReasonCode'
-        status_reason_message:
-          description: Status reascon code message. Helps actionanble messaging for systems/end users
-          type: string
-          maxLength: 999
-        additional_info:
-          $ref: '#/components/schemas/AttributeNameValueList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        resolve_response:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              id:
+                $ref: '#/components/schemas/cdpi_PersonId'
+              account_provider_info:
+                $ref: '#/components/schemas/fa_AccountProviderInfo'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/ResolveStatusReasonCode'
+              status_reason_message:
+                description: Status reascon code message. Helps actionanble messaging for systems/end users
+                type: string
+                maxLength: 999
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - status
       required:
-        - reference_id
-        - timestamp
-        - status
+        - transaction_id
+        - resolve_response
     ResolveStatusReasonCode:
       type: string
       description: FA Mapper Resolve status reason codes
@@ -1464,152 +1335,129 @@ components:
         - succ.id.active
         - succ.id.inactive
         - succ.id.not_found
-    SearchRequest:
-      type: object
-      description: Request to search mapper requests
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        request_type:
-          type: string
-          enum:
-            - link
-            - unlink
-            - update
-            - resolve
-        attribute_type:
-          type: string
-          enum:
-            - fa
-            - id
-        attribute_value:
-          oneOf:
-            - $ref: '#/components/schemas/cdpi_FinancialAddress'
-            - $ref: '#/components/schemas/cdpi_PersonId'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - request_type
-        - attribute_type
-        - attribute_value
-    SearchResponse:
-      type: object
-      description: Digital credential
-      properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/SearchStatusReasonCode'
-        status_reason_message:
-          description: Status reason code message. Helps actionanble messaging for systems/end users
-          type: string
-          maxLength: 999
-        mapper:
-          items:
-            oneOf:
-              - $ref: '#/components/schemas/LinkResponse'
-              - $ref: '#/components/schemas/UnlinkResponse'
-              - $ref: '#/components/schemas/UpdateResponse'
-              - $ref: '#/components/schemas/ResolveResponse'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
-      required:
-        - reference_id
-        - timestamp
-        - status
-    SearchStatusReasonCode:
-      type: string
-      description: Financial mapper search reason codes
-      enum:
-        - rjct.reference_id.invalid
-        - rjct.reference_id.duplicate
-        - rjct.timestamp.invalid
-        - rjct.request_type.invalid
-        - rjct.attribute_type.invalid
-        - rjct.srch_transaction_id.invalid
-        - rjct.srch_transaction_id.not_found
-        - rjct_srch_reference_id_invalid
-        - rjct_srch_reference_id_not_found
-        - rjct.reference_id.invalid
-        - rjct.srch_payer_fa.invalid
-        - rjct.srch_payee_fa.invalid
-        - rjct.share_attributes.invalid
-        - rjct.srch.too_many_record_found
     TxnStatusRequest:
       type: object
       description: Request to search disbursement using payer or payee fa
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        request_type:
-          type: string
-          enum:
-            - link
-            - unlink
-            - update
-            - resolve
-        search_type:
-          type: string
-          enum:
-            - transaction_id
-            - reference_id_list
-        search_attribute:
-          oneOf:
-            - $ref: '#/components/schemas/TransactionId'
-            - $ref: '#/components/schemas/ReferenceIdList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        txnstatus_request:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              request_type:
+                type: string
+                enum:
+                  - link
+                  - unlink
+                  - update
+                  - resolve
+              search_type:
+                type: string
+                enum:
+                  - transaction_id
+                  - reference_id_list
+              search_attribute:
+                oneOf:
+                  - $ref: '#/components/schemas/TransactionId'
+                  - $ref: '#/components/schemas/ReferenceIdList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - search_type
+              - search_attribute
       required:
-        - reference_id
-        - search_type
-        - search_attribute
+        - transaction_id
+        - txnstatus_request
     TxnStatusResponse:
-      type: array
-      items:
-        oneOf:
-          - $ref: '#/components/schemas/LinkResponse'
-          - $ref: '#/components/schemas/ResolveResponse'
-          - $ref: '#/components/schemas/UpdateResponse'
-          - $ref: '#/components/schemas/UnlinkResponse'
-      example:
-        status-response:
-          reference_id: test
-          timestamp: test
-          fa: test
-          status: SUCC
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        txnstatus_response:
+          oneOf:
+            - $ref: '#/components/schemas/LinkResponse'
+            - $ref: '#/components/schemas/ResolveResponse'
+            - $ref: '#/components/schemas/UpdateResponse'
+            - $ref: '#/components/schemas/UnlinkResponse'
+          example:
+            status-response:
+              reference_id: test
+              timestamp: test
+              fa: test
+              status: SUCC
+      required:
+        - transaction_id
+        - txnstatus_response
     UnlinkRequest:
       type: object
       description: ID to Store of value account unlinking request. Unlink request removes entry against requested id/fa pair.
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        id:
-          $ref: '#/components/schemas/cdpi_PersonId'
-        fa:
-          $ref: '#/components/schemas/cdpi_FinancialAddress'
-        additional_info:
-          $ref: '#/components/schemas/AttributeNameValueList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        unlink_request:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              id:
+                $ref: '#/components/schemas/cdpi_PersonId'
+              fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - id
       required:
-        - reference_id
-        - timestamp
-        - id
+        - transaction_id
+        - unlink_request
     UnlinkResponse:
-      type: string
-      description: FA Mapper Unlink status reason codes
-      enum:
-        - rjct.reference_id.invalid
-        - rjct.reference_id.duplicate
-        - rjct.timestamp.invalid
-        - rjct.beneficiary_name.invalid
+      type: object
+      description: ID to Store of value account unlinking response
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        unlink_response:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/UnlinkStatusReasonCode'
+              status_reason_message:
+                description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
+                type: string
+                maxLength: 999
+              id:
+                $ref: '#/components/schemas/cdpi_PersonId'
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - status
+      required:
+        - transaction_id
+        - unlink_response
     UnlinkStatusReasonCode:
       type: string
       description: FA Mapper Unlink status reason codes
@@ -1622,56 +1470,76 @@ components:
       type: object
       description: ID to Store of value account update request. ID can only unlinked.
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        id:
-          $ref: '#/components/schemas/cdpi_PersonId'
-        fa:
-          $ref: '#/components/schemas/cdpi_FinancialAddress'
-        name:
-          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
-          type: string
-        phone_number:
-          description: 'number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
-          type: string
-        additional_info:
-          $ref: '#/components/schemas/AttributeNameValueList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        update_request:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              id:
+                $ref: '#/components/schemas/cdpi_PersonId'
+              fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              name:
+                description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
+                type: string
+              phone_number:
+                description: 'number contains an extension, it is RECOMMENDED that the extension be represented using the RFC 3966 [RFC3966] extension syntax, for example, +1 (604) 555-1234;ext=5678.'
+                type: string
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - id
+              - fa
       required:
-        - reference_id
-        - timestamp
-        - id
-        - fa
+        - transaction_id
+        - update_request
     UpdateResponse:
       type: object
       description: ID to Store of value account update response
       properties:
-        reference_id:
-          $ref: '#/components/schemas/ReferenceId'
-        timestamp:
-          $ref: '#/components/schemas/DateTime'
-        id:
-          $ref: '#/components/schemas/cdpi_PersonId'
-        status:
-          $ref: '#/components/schemas/RequestStatus'
-        status_reason_code:
-          $ref: '#/components/schemas/UpdateStatusReasonCode'
-        status_reason_message:
-          description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
-          type: string
-          maxLength: 999
-        additional_info:
-          $ref: '#/components/schemas/AttributeNameValueList'
-        locale:
-          $ref: '#/components/schemas/LanguageCode'
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        update_response:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              id:
+                $ref: '#/components/schemas/cdpi_PersonId'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/UpdateStatusReasonCode'
+              status_reason_message:
+                description: 'Status reascon code message, if any, Helps actionanble messaging for systems/end users'
+                type: string
+                maxLength: 999
+              additional_info:
+                $ref: '#/components/schemas/AttributeNameValueList'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - fa
+              - status
       required:
-        - reference_id
-        - timestamp
-        - fa
-        - status
+        - transaction_id
+        - update_response
     UpdateStatusReasonCode:
       type: string
       description: FA Mapper Update status reason codes
