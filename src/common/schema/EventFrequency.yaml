@@ -1,0 +1,19 @@
+type: object
+description: |
+  1. Frequency at which subscribed services should be notified. 
+  2. start_time, end_time represent data range where the notification frequency is applicable 
+properties:
+  start_time:
+    $ref: DateTime.yaml
+  end_time:
+    $ref: DateTime.yaml
+  frequency:
+    type: string
+    description: |
+      Frequency at which notification is required. This will be in the form of cron expression. 
+      Example - "0 0 0 5,15 * ? *" 
+      which says At 00:00:00am, on the 5th and 15th day, every month
+required:
+  - start_time
+  - end_time
+  - frequency
