@@ -1,0 +1,39 @@
+type: object
+description: 'Resolve financial address to store of value account info response'
+properties:
+  transaction_id: 
+    $ref: ../../../common/schema/TransactionId.yaml
+  resolve_response:
+    type: array
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: "../../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../../common/schema/DateTime.yaml
+        fa:
+          $ref: ../../../extensions/cdpi/FinancialAddress.yaml 
+        id:
+          $ref: ../../../extensions/cdpi/PersonId.yaml
+        account_provider_info:
+          $ref: "../fa/AccountProviderInfo.yaml"
+        status:
+          $ref: "../../../common/schema/RequestStatus.yaml" 
+        status_reason_code:
+          $ref: "./ResolveStatusReasonCode.yaml" 
+        status_reason_message:
+          description: "Status reascon code message. Helps actionanble messaging for systems/end users"
+          type: string
+          maxLength: 999
+        additional_info:
+          $ref: "../../../common/schema/AttributeNameValueList.yaml"
+        locale:
+          $ref: "../../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - status
+required: 
+  - transaction_id
+  - resolve_response

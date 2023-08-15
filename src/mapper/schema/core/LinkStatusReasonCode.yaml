@@ -1,0 +1,12 @@
+type: string
+description: FA Mapper Link status reason codes
+enum: 
+  - "rjct.reference_id.invalid"
+  - "rjct.reference_id.duplicate"
+  - "rjct.timestamp.invalid"
+  - "rjct.id.invalid"
+  - "rjct.fa.invalid"
+  - "rjct.name.invalid"
+  - "rjct.mobile_number.invalid"
+  - "rjct.unknown.retry"
+  - "rjct.other.error"

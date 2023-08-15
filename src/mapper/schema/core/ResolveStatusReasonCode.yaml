@@ -1,0 +1,16 @@
+type: string
+description: FA Mapper Resolve status reason codes
+enum: 
+  - "rjct.reference_id.invalid"
+  - "rjct.reference_id.duplicate"
+  - "rjct.timestamp.invalid"
+  - "rjct.id.invalid"
+  - "rjct.fa.invalid"
+  - "rjct.resolve_type.not_supported"
+  - "succ.fa.active"
+  - "succ.fa.inactive"
+  - "succ.fa.not_found"
+  - "succ.fa.not_linked_to_id"
+  - "succ.id.active"
+  - "succ.id.inactive"
+  - "succ.id.not_found"

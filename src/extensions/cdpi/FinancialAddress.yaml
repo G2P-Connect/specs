@@ -1,0 +1,17 @@
+type: string
+description: |
+  1. Financial address is case insensitive normative represenation of a store of value account represented as id-type:id@provider
+  2. Every payer/payee financial address must resolve to an actual store of value account number for processing the payment instruction
+  3. It is recommended the mapping between id and store of value account details to be held only at final store of value entity and intermediaries can hold 
+  3. Few examples: <br>
+      - token@id-provider e.g token:12345@national-id <br>
+      - uid@pymt-rail e.g uid:12345@national-id <br>
+      - vid@id-provider e.g vid:12345@national-id <br>
+      - mobile@mobile-provider e.g mobile:12345@mobile-pymt <br>
+      - account-id@bank-psp-code e.g account:12345@national-bank <br>
+      - account-no@ifsc-code.ifsc.pymt-rail e.g account:12345@abcd0000001.ifsc.pymt-rail <br>
+      - user-id@psp-code e.g. joeuser@national-bank <br>
+      - token@psp-code e.g token:123456@a123 <br>
+      - code@purpose-code.voucher-provider e.g voucher:12345@food.coupon-network <br>
+format: "^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$"
+example: token:12345@gtbank

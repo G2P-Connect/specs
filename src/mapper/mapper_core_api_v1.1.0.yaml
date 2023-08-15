@@ -1,22 +1,17 @@
-openapi: 3.0.3
+openapi: 3.0.0
 info:
-  title: Functional Registies Access APIs
+  title: Interoperability APIs - Financial Address Mapper Mgmt
   description: |
-    APIs to access any functioanl registries. Few key features:
-    1. [Standradising](https://g2pconnect.cdpi.dev/protocol/overview) message enevelope to seperate functional data strucutres.
-    2. Systems implementing this standard core API infrastructure enables interoperability amonth themselves.
+    Manage finanacial address mapper 
   version: 1.0.0
   contact:
-    name: G2P Connect 
-    email: info@cdpi.dev
+    name: G2P Connect
+    email: info@g2pconnect.global
   license:
-    name: CDPI CC BY-SA 4.0
-    url: https://github.com/G2P-Connect/specs/blob/draft/LICENSE.md
-externalDocs:
-  description: G2P Connect Registry Interfaces
-  url: https://g2pconnect.cdpi.dev/protocol/interfaces/registries
+   name: G2P Connect License
+   url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
-  - url: "https://sandbox.spdci.org/namespace/v1.0.0"
+  - url: "https://sandbox.dpg.org/namespace/v1.0.0"
     description: Sandbox Server
 tags: 
   - name: Async
@@ -26,13 +21,13 @@ tags:
   - name: Schemas
     description: Schemas
 paths:
- /registry/search:
+ /mapper/subscribe:
   post: 
-    summary: "/registry/search"
-    description: Search person(s) in registry using identifier or custome attributes
-    operationId: post_reg_search
-    tags: 
-      -  Async
+    summary: "/mapper/subscribe"
+    description: Subscribe to  ID to Financial Address in the mapper registry
+    operationId: post_mapper_subscribe
+    tags:
+      - Async
     requestBody:
       description: ""
       required: true
@@ -49,12 +44,18 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - search
+                            - link
+                            - update
+                            - unlink
+                            - resolve
                 message:
                   type: object
                   description: The search data using which registry search to be performed
                   oneOf:
-                    - $ref: "#/components/schemas/SearchRequest"
+                    - $ref: "#/components/schemas/LinkRequest"
+                    - $ref: "#/components/schemas/UpdateRequest"
+                    - $ref: "#/components/schemas/UnlinkRequest"
+                    - $ref: "#/components/schemas/ResolveRequest"
                     - $ref: "#/components/schemas/EncryptedMessage"
               required:
                 - header
@@ -66,7 +67,10 @@ paths:
               - properties:
                   action:
                     enum:
-                      - search
+                      - link
+                      - update
+                      - unlink
+                      - resolve
     responses:
         default:
           $ref: "#/components/responses/Response"
@@ -78,12 +82,13 @@ paths:
           $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
+      # - Signature: [ ]
     deprecated: false
- /registry/on-search:
+ /mapper/notify:
   post: 
-    summary: "/registry/on-search"
-    description: Search results through callback
-    operationId: post_reg_on-search
+    summary: "/mapper/on-link"
+    description: Linking response throuhg callback 
+    operationId: post_mapper_on-link
     tags: 
       -  Async
     requestBody:
@@ -102,11 +107,17 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - on-search
+                            - on-link
+                            - on-update
+                            - on-unlink
+                            - on-resolve
                 message:
                   type: object
                   oneOf:
-                    - $ref: '#/components/schemas/SearchResponse'
+                    - $ref: '#/components/schemas/LinkResponse'
+                    - $ref: '#/components/schemas/UpdateResponse'
+                    - $ref: '#/components/schemas/UnlinkResponse'
+                    - $ref: '#/components/schemas/ResolveResponse'
                     - $ref: '#/components/schemas/EncryptedMessage'
               required:
                 - header
@@ -117,7 +128,10 @@ paths:
               - properties:
                   action:
                     enum:
-                      - on-search
+                      - on-link
+                      - on-update
+                      - on-unlink
+                      - on-resolve
     responses:
         default:
           $ref: "#/components/responses/Response"
@@ -129,13 +143,14 @@ paths:
           $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
+      # - Signature: [ ]
     deprecated: false
-    
- /registry/subscribe:
+ /mapper/txn/status:
   post: 
-    summary: "/registry/subscribe"
-    description: Subscribe to a life event with registry
-    operationId: post_reg_subscribe
+    summary: "/mapper/txn/status"
+    description: |
+      Perform async status check of previous mapper transanctions using transaction_id and/or reference_id(s)
+    operationId: post_mapper_txnstatus
     tags: 
       -  Async
     requestBody:
@@ -154,113 +169,10 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - subscribe
-                message:
-                  type: object
-                  description: The search data using which registry search to be performed
-                  oneOf:
-                    - $ref: "#/components/schemas/SubscribeRequest"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - subscribe
-    responses:
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /registry/notify:
-  post: 
-    summary: "/registry/notify"
-    description: Registry to notify a life event to subscrbiers
-    operationId: post_reg_notify
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - notify
-                message:
-                  type: object
-                  oneOf:
-                    - $ref: '#/components/schemas/NotifyEventRequest'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - notify
-    responses:
-        default:
-          $ref: "#/components/responses/HttpErrorResponse"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - x-access-token: [ ]
-    deprecated: false
- /registry/txn/status:
-  post: 
-    summary: "/registry/txn/status"
-    description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
-    operationId: post_reg_txnstatus
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - subscribe
-                            - notify
-                            - on-search
+                            - link
+                            - update
+                            - resolve
+                            - unlink
                 message:
                   type: object
                   oneOf:
@@ -276,9 +188,11 @@ paths:
               - properties:
                   action:
                     enum:
-                      - subscribe
-                      - notify
-                      - on-search
+                      - link
+                      - update
+                      - resolve
+                      - unlink
+                      - search
     responses:
         default:
           $ref: "#/components/responses/Response"
@@ -290,12 +204,13 @@ paths:
           $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
+      # - Signature: [ ]
     deprecated: false
- /registry/txn/on-status:
+ /mapper/txn/on-status:
   post: 
-    summary: "/registry/txn/on-status"
-    description: Response to async status check of previous civil registrt transanctions using callback
-    operationId: post_reg_on-txnstatus
+    summary: "/mapper/txn/on-status"
+    description: "Response to async status check of previous mapper transanctions using callback"
+    operationId: post_mapper_on-txnstatus
     tags: 
       -  Async
     requestBody:
@@ -314,9 +229,10 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - subscribe
-                            - notify
-                            - on-search
+                            - on-link
+                            - on-update
+                            - on-resolve
+                            - on-unlink
                 message:
                   type: object
                   oneOf:
@@ -331,8 +247,10 @@ paths:
               - properties:
                   action:
                     enum:
-                      - subscribe
-                      - notify
+                      - on-link
+                      - on-update
+                      - on-resolve
+                      - on-unlink
                       - on-search
     responses:
         default:
@@ -345,12 +263,13 @@ paths:
           $ref: "#/components/responses/HttpErrorResponse"
     security:
       - x-access-token: [ ]
+      # - Signature: [ ]
     deprecated: false
- /registry/sync/search:
+ /mapper/sync/link:
   post: 
-    summary: "/registry/sync/search"
-    description: Search person(s) in registry using identifier or custome attributes
-    operationId: post_reg_sync_search
+    summary: "/mapper/sync/link"
+    description: Linking ID to Financial Address in the mapper registry
+    operationId: post_reg_sync_link
     tags: 
       -  Sync
     requestBody:
@@ -369,19 +288,19 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - search
+                            - link
                 message:
                   type: object
-                  description: The search data using which registry search to be performed
+                  description: The link data to map id to fa
                   anyOf:
-                    - $ref: '#/components/schemas/SearchRequest'
+                    - $ref: '#/components/schemas/LinkRequest'
                     - $ref: '#/components/schemas/EncryptedMessage'
               required:
                 - header
                 - message
     responses:
         default:
-          description: "Registry search response"
+          description: Linking response throuhg callback 
           content:
             application/json:
               schema:
@@ -399,7 +318,205 @@ paths:
                   message:
                     type: object
                     oneOf:
-                      - $ref: '#/components/schemas/SearchResponse'
+                      - $ref: '#/components/schemas/LinkResponse'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /mapper/sync/update:
+  post: 
+    summary: "/mapper/sync/update"
+    description: Update ID or Financial Address in the mapper registry
+    operationId: post_reg_sync_update
+    tags: 
+      -  Sync
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - link
+                message:
+                  type: object
+                  description: The link data to map id to fa
+                  anyOf:
+                    - $ref: '#/components/schemas/UpdateRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+    responses:
+        default:
+          description: Linking response throuhg callback 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:  
+                    $ref: "#/components/schemas/MsgSignature"
+                  header:
+                    allOf:
+                      - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                      - properties:
+                          action:
+                            enum:
+                              - on-search
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/UpdateResponse'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /mapper/sync/unlink:
+  post: 
+    summary: "/mapper/sync/unlink"
+    description: Unlink ID to Financial Address in the mapper registry
+    operationId: post_reg_sync_unlink
+    tags: 
+      -  Sync
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - link
+                message:
+                  type: object
+                  description: Request message to unlink id from fa 
+                  anyOf:
+                    - $ref: '#/components/schemas/UnlinkRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+    responses:
+        default:
+          description: Unlink response throuhg callback 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:  
+                    $ref: "#/components/schemas/MsgSignature"
+                  header:
+                    allOf:
+                      - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                      - properties:
+                          action:
+                            enum:
+                              - on-search
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/UnlinkResponse'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - x-access-token: [ ]
+    deprecated: false
+ /mapper/sync/resolve:
+  post: 
+    summary: "/mapper/sync/resolve"
+    description: Resolve ID to a Financial Address in the mapper registry
+    operationId: post_reg_sync_resolve
+    tags: 
+      -  Sync
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - link
+                message:
+                  type: object
+                  description: Request message to resolve id to a fa 
+                  anyOf:
+                    - $ref: '#/components/schemas/ResolveRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+    responses:
+        default:
+          description: Resolve response through callback 
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:  
+                    $ref: "#/components/schemas/MsgSignature"
+                  header:
+                    allOf:
+                      - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                      - properties:
+                          action:
+                            enum:
+                              - on-search
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/ResolveResponse'
                       - $ref: '#/components/schemas/EncryptedMessage'
                 required:
                   - header
@@ -415,7 +532,7 @@ paths:
  /registry/sync/txn/status:
   post: 
     summary: "/registry/sync/txn/status"
-    description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
+    description: Perform sync status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
     operationId: post_reg_sync_txnstatus
     tags: 
       -  Sync
@@ -435,9 +552,11 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - subscribe
-                            - notify
-                            - on-search
+                            - link
+                            - update
+                            - resolve
+                            - unlink
+                            - search
                 message:
                   type: object
                   oneOf:
@@ -462,9 +581,11 @@ paths:
                         - properties:
                             action:
                               enum:
+                                - on-link
+                                - on-update
+                                - on-resolve
+                                - on-unlink
                                 - on-search
-                                - subscribe
-                                - notify
                     message:
                       type: object
                       oneOf:
@@ -486,25 +607,12 @@ components:
     ###### src/extensions/cdpi schema objects
     cdpi_PersonId: 
       $ref: ../extensions/cdpi/PersonId.yaml
-
+    cdpi_FinancialAddress: 
+      $ref: ../extensions/cdpi/FinancialAddress.yaml
+    cdpi_FinancialAddressList: 
+      $ref: ../extensions/cdpi/FinancialAddressList.yaml
+    
     ###### src/extensions/dci schema objects
-    dci_IdentifierType: 
-      $ref: ../extensions/dci/IdentifierType.yaml
-    dci_IdentifierTypeValue: 
-      $ref: ../extensions/dci/IdentifierTypeValue.yaml
-    dci_MaritalStatus: 
-      $ref: ../extensions/dci/MaritalStatus.yaml
-    dci_Name: 
-      $ref: ../extensions/dci/Name.yaml
-    dci_PersonRecord: 
-      $ref: ../extensions/dci/PersonRecord.yaml
-    dci_RecordType: 
-      $ref: ../extensions/dci/RecordType.yaml
-    dci_Sex: 
-      $ref: ../extensions/dci/Sex.yaml
-    dci_VitalEvents: 
-      $ref: ../extensions/dci/VitalEvents.yaml
-
     ###### src/extensions/fhir schema objects
     
     ###### src/extensions/google schema objects
@@ -512,41 +620,7 @@ components:
       $ref: ../extensions/google/GooglePlusCode.yaml
 
     ###### src/extensions/mosip schema objects
-    mosip_EventType: 
-      $ref: ../extensions/mosip/EventType.yaml
-    mosip_LangaugeValue: 
-      $ref: ../extensions/mosip/LangaugeValue.yaml
-    mosip_LanguageValueList: 
-      $ref: ../extensions/mosip/LanguageValueList.yaml
-    mosip_MOSIPVerifiableCredential: 
-      $ref: ../extensions/mosip/MOSIPVerifiableCredential.yaml
-    mosip_RecordType: 
-      $ref: ../extensions/mosip/RecordType.yaml
-    mosip_RegistrationRecord: 
-      $ref: ../extensions/mosip/RegistrationRecord.yaml  
-        
-    ###### src/extensions/nid schema objects
-    nid_DeceasedRecord: 
-      $ref: ../extensions/nid/DeceasedRecord.yaml
-    nid_Document: 
-      $ref: ../extensions/nid/Document.yaml
-    nid_EKycDetails: 
-      $ref: ../extensions/nid/EKycDetails.yaml
-    nid_RecordType: 
-      $ref: ../extensions/nid/RecordType.yaml
-    nid_ResidentAddress:
-      $ref: ../extensions/nid/ResidentAddress.yaml
-    nid_ResidentLocalAddress:
-      $ref: ../extensions/nid/ResidentLocalAddress.yaml
-    nid_ResidentLocalName:
-      $ref: ../extensions/nid/ResidentLocalName.yaml
-    nid_ResidentNationality:
-      $ref: ../extensions/nid/ResidentNationality.yaml
-    nid_ResidentPhoto:
-      $ref: ../extensions/nid/ResidentPhoto.yaml
-    nid_ResidentRecord:
-      $ref: ../extensions/nid/ResidentRecord.yaml
-    
+    ###### src/extensions/nid schema objects      
     ###### src/extensions/openid schema objects
     openid_Address: 
       $ref: ../extensions/openid/Address.yaml
@@ -554,46 +628,41 @@ components:
       $ref: ../extensions/openid/PersonRecord.yaml
     openid_PersonDocDetails: 
       $ref: ../extensions/openid/PersonDocDetails.yaml
-   
-    ###### src/registry/schema/civil schema objects
-    civilReg_EventType: 
-      $ref: schema/civil/EventType.yaml
-    civilReg_PersonRecord: 
-      $ref: schema/civil/PersonRecord.yaml
-    civilReg_RecordType: 
-        $ref: schema/civil/RecordType.yaml
-    civilReg_RelatedPerson: 
-      $ref: schema/civil/RelatedPerson.yaml
+    
+    ###### src/registry/schema/fa schema objects
+    fa_AccountProviderInfo: 
+      $ref: schema/fa/AccountProviderInfo.yaml
 
     ###### src/registry/schema/core schema objects
-    coreReg_AllEvents: 
-      $ref: schema/core/AllEvents.yaml
-    coreReg_AllRecordTypes: 
-      $ref: schema/core/AllRecordTypes.yaml
-    coreReg_AllQueries: 
-      $ref: schema/core/AllQueries.yaml  
-    coreReg_EventType: 
-      $ref: schema/core/EventType.yaml
-    NotifyEventRequest: 
-      $ref: schema/core/NotifyEventRequest.yaml
-    other_RecordType: 
-      $ref: schema/core/RegistryRecordType.yaml
-    coreReg_Type: 
-      $ref: schema/core/RegistryType.yaml
-    SearchRequest: 
-      $ref: schema/core/SearchRequest.yaml
-    SearchResponse: 
-      $ref: schema/core/SearchResponse.yaml
-    SearchStatusReasonCode: 
-      $ref: schema/core/SearchStatusReasonCode.yaml
-    SubscribeRequest: 
-      $ref: schema/core/SubscribeRequest.yaml
-    SubscribeStatusReasonCode: 
-      $ref: schema/core/SubscribeStatusReasonCode.yaml               
+    LinkRequest: 
+      $ref: schema/core/LinkRequest.yaml
+    LinkResponse: 
+      $ref: schema/core/LinkResponse.yaml 
+    LinkStatusReasonCode: 
+      $ref: schema/core/LinkStatusReasonCode.yaml
+    ResolveRequest: 
+      $ref: schema/core/ResolveRequest.yaml
+    ResolveResponse: 
+      $ref: schema/core/ResolveResponse.yaml
+    ResolveStatusReasonCode: 
+      $ref: schema/core/ResolveStatusReasonCode.yaml
     TxnStatusRequest: 
       $ref: schema/core/TxnStatusRequest.yaml            
     TxnStatusResponse: 
-      $ref: schema/core/TxnStatusResponse.yaml              
+      $ref: schema/core/TxnStatusResponse.yaml 
+    UnlinkRequest: 
+      $ref: schema/core/UnlinkRequest.yaml
+    UnlinkResponse: 
+      $ref: schema/core/UnlinkResponse.yaml                             
+    UnlinkStatusReasonCode: 
+      $ref: schema/core/UnlinkStatusReasonCode.yaml  
+    UpdateRequest: 
+      $ref: schema/core/UpdateRequest.yaml
+    UpdateResponse: 
+      $ref: schema/core/UpdateResponse.yaml                             
+    UpdateStatusReasonCode: 
+      $ref: schema/core/UpdateStatusReasonCode.yaml               
+                    
       
   
     ###### Common schema objects
@@ -661,6 +730,7 @@ components:
       $ref: ../common/schema/SearchSortList.yaml
     TransactionId:  
       $ref: ../common/schema/TransactionId.yaml
+
   parameters:
     accept-language:
       $ref: ../common/parameter/accept-language.yaml
@@ -676,7 +746,7 @@ components:
     HttpErrorResponse:
       $ref: ../common/response/HttpErrorResponse.yaml       
     Response:
-      $ref: ../common/response/Response.yaml    
+      $ref: ../common/response/Response.yaml       
   securitySchemes:
     x-access-token:
       $ref: ../common/security/x-access-token.yaml
