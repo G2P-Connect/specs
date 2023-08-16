@@ -840,7 +840,7 @@ components:
     mosip_LanguageValueList:
       type: array
       items:
-        - $ref: '#/components/schemas/mosip_LangaugeValue'
+        $ref: '#/components/schemas/mosip_LangaugeValue'
     mosip_MOSIPVerifiableCredential:
       type: object
       description: 'MOSIP Verifiable Credential for a [person](https://github.com/opencrvs/mosip-mediator/blob/master/samples/decrypted-sample-received-credentials.json)'
@@ -851,7 +851,7 @@ components:
         protectedAttributes:
           type: array
           items:
-            - type: string
+            type: string
         credentialSubject:
           description: MOSIP Verifiable Credential for Proof of identity
           type: object
@@ -938,7 +938,7 @@ components:
         opentionalValues:
           type: array
           items:
-            - type: string
+            type: string
         langCode:
           type: string
         createDateTime:
