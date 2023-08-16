@@ -4,11 +4,14 @@ info:
   description: Provide access_token to registered clients/services. Issue OAuth2 compliant authorization token.
   version: 1.0.0
   contact:
-    name: DCI Social Protection
-    email: info@spdci.org
+    name: G2P Connect 
+    email: info@cdpi.dev
   license:
-   name: DCI Social Protection License
-   url: https://github.com/spdci/standards/blob/draft/LICENSE.md
+    name: CDPI CC BY-SA 4.0
+    url: https://github.com/G2P-Connect/specs/blob/draft/LICENSE.md
+externalDocs:
+  description: G2P Connect Authorization
+  url: https://g2pconnect.cdpi.dev/protocol/security/authorization
 servers:
   - url: "https://sandbox.spdci.org/namespace/v1.0.0"
     description: Sandbox Server
