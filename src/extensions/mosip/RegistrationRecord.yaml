@@ -26,7 +26,7 @@ properties:
   opentionalValues:
     type: array
     items:
-      - type: string
+      type: string
   langCode:
     type: string
   createDateTime:
