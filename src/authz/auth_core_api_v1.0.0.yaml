@@ -1,6 +1,10 @@
 openapi: 3.0.3
 info:
   title: Interoperability APIs - Authz
+  x-logo:
+    url: 'https://spdci.github.io/api-documentation/draft/dci-logo.png'
+    backgroundColor: '#FFFFFF'
+    altText: 'Digital Convergence Initiative'    
   description: Provide access_token to registered clients/services. Issue OAuth2 compliant authorization token.
   version: 1.0.0
   contact:

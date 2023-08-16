@@ -1,8 +1,8 @@
-### G2P Connect APIs
+### DCI APIs
 
  * Identity
  * Credential
- * [Registries](https://g2p-connect.github.io/specs/release/html/registry_core_api_v1.0.0.html)
+ * [Registries](https://spdci.github.io/standards/release/html/registry_core_api_v1.0.0.html)
 * Beneficiary Management
     * Registration
     * Assess
@@ -27,6 +27,6 @@
 * Telemetry Events
 * Grievance Mgmt
 * Security
-    * [Authorization](https://g2p-connect.github.io/specs/release/html/authz_core_api_v1.0.0.html)
+    * [Authorization](https://spdci.github.io/standards/release/html/authz_core_api_v1.0.0.html)
 * API source code
-    * Github [repository](https://g2p-connect.github.io/specs/src)
+    * Github [repository](https://spdci.github.io/standards/src)
