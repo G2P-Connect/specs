@@ -2,7 +2,7 @@
 
  * Identity
  * Credential
- * [Registries](https://spdci.github.io/standards/release/html/registry_core_api_v1.0.0.html)
+ * [Registries](https://spdci.github.io/standards/release/html/registry_core_api_v1_0.0.0.html)
 * Beneficiary Management
     * Registration
     * Assess
@@ -27,6 +27,6 @@
 * Telemetry Events
 * Grievance Mgmt
 * Security
-    * [Authorization](https://spdci.github.io/standards/release/html/authz_core_api_v1.0.0.html)
+    * [Authorization](https://spdci.github.io/standards/release/html/auth_core_api_v1_0.0.0.html)
 * API source code
     * Github [repository](https://spdci.github.io/standards/src)
