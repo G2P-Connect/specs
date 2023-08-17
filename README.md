@@ -1,7 +1,7 @@
 # API documentation
 
 The APIs in swagger format accessible through
-    1. DCI:  [standards](https://spdci.github.io/standards/)
+    1. DCI:  [standards](https://spdci.github.io/standards/release/index.html)
     2. G2P Community: [specifications](https://g2p-connect.github.io/specs/release/index.html)
 
 ## Discussion forum 
@@ -15,7 +15,7 @@ To initiate any discussion please visit [discussion page](https://github.com/org
 4. specs/release filder API files are for final consumption by solution providers to make their services compatible with G2P Connect / DCI standards.
 
 ### Reference Links
-1. Build [Instructions](../build/build_instructions.md)
+1. Build [Instructions](./build/build_instructions.md)
 
 ## Directory structure 
 
