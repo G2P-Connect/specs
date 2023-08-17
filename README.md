@@ -1,6 +1,6 @@
 # API documentation
 
-The APIs in swagger format accessible through
+The APIs are accessible through
     1. DCI:  [standards](https://spdci.github.io/standards/release/index.html)
     2. G2P Community: [specifications](https://g2p-connect.github.io/specs/release/index.html)
 
@@ -48,7 +48,7 @@ To initiate any discussion please visit [discussion page](https://github.com/org
             ├── registry_core_api_v1.0.0.yaml
             ├── registry_civil_api_v1.0.0.yaml
             ├── registry_nid_api_v1.0.0.yaml
-            ├── registry_framer_api_v1.0.0.yaml
+            ├── registry_farmer_api_v1.0.0.yaml
             ├── registry_disability_api_v1.0.0.yaml  
         ├── mapper
             ├── schema
