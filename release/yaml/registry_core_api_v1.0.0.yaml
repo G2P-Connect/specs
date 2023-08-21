@@ -44,6 +44,63 @@ tags:
     description: Sync endpoints
   - name: Schemas
     description: Schemas
+  - name: SearchRequest
+    x-displayName: SearchRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchRequest" />    
+  - name: SearchResponse
+    x-displayName: SearchResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchResponse" />    
+  - name: SubscribeRequest
+    x-displayName: SubscribeRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeRequest" />    
+  - name: NotifyEventRequest
+    x-displayName: NotifyEventRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/NotifyEventRequest" />    
+  - name: TxnStatusRequest
+    x-displayName: TxnStatusRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusRequest" />    
+  - name: TxnStatusResponse
+    x-displayName: TxnStatusResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusResponse" />    
+  - name: FetchSubscriptionsRequest
+    x-displayName: FetchSubscriptionsRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/FetchSubscriptionsRequest" />    
+  - name: FetchSubscriptionsResponse
+    x-displayName: FetchSubscriptionsResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/FetchSubscriptionsResponse" />    
+  - name: UnSubscribeRequest
+    x-displayName: UnSubscribeRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeRequest" />    
+  - name: UnSubscribeResponse
+    x-displayName: UnSubscribeResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeResponse" />  
+x-tagGroups:
+  - name: API Definitions
+    tags:
+      - Async
+      - Sync
+  - name: Schema Objects
+    tags:
+      - SearchRequest
+      - SearchResponse
+      - SubscribeRequest
+      - NotifyEventRequest
+      - TxnStatusRequest
+      - TxnStatusResponse
+      - FetchSubscriptionsRequest
+      - FetchSubscriptionsResponse
+      - UnSubscribeRequest
+      - UnSubscribeResponse
 paths:
   /registry/search:
     post:
@@ -727,9 +784,15 @@ components:
         phone_number:
           description: 'Applicant preferred phone number as in [E.164](https://www.itu.int/rec/T-REC-E.164-201011-I/en)'
           type: string
+        phone_number_verified:
+          description: True if the End-User's phone number has been verified; otherwise false.
+          type: string
         email:
           description: 'Applicant preferred e-mail address as in [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322) [addr-spec](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1) [specification](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1)'
           type: string
+        email_verified:
+          description: 'Email address was controlled by the End-User at the time the verification was performed. The means by which an e-mail address is verified is context-specific, and dependent upon the trust framework or contractual agreements within which the parties are operating.'
+          type: boolean
         sex:
           $ref: '#/components/schemas/dci_Sex'
         birthdate:
@@ -1616,52 +1679,59 @@ components:
         - other
     SearchRequest:
       type: object
-      description: |
-        1. Functional registry specific extension to search.
-        2. Additional checks using conditioanl expressions is possible.
-        3. Allows Country/Registry specific implementation extensions using key/value pairs.
       properties:
-        transaction_id:
-          $ref: '#/components/schemas/TransactionId'
-        search_request:
-          type: array
-          items:
-            type: object
-            properties:
-              reference_id:
-                $ref: '#/components/schemas/ReferenceId'
-              timestamp:
-                $ref: '#/components/schemas/DateTime'
-              registry_type:
-                $ref: '#/components/schemas/coreReg_Type'
-              event_type:
-                $ref: '#/components/schemas/coreReg_AllEvents'
-              search_criteria:
+        version:
+          description: 'The version format should use semantic versioning, which means dividing each version identifier into three parts: MAJOR, MINOR, and PATCH. These parts are then combined using the format ''MAJOR.MINOR.PATCH'' '
+          type: string
+          example: ''
+        data:
+          type: object
+          description: |
+            1. Functional registry specific extension to search.
+            2. Additional checks using conditioanl expressions is possible.
+            3. Allows Country/Registry specific implementation extensions using key/value pairs.
+          properties:
+            transaction_id:
+              $ref: '#/components/schemas/TransactionId'
+            search_request:
+              type: array
+              items:
                 type: object
                 properties:
-                  query:
-                    $ref: '#/components/schemas/coreReg_AllQueries'
-                  record_type:
-                    $ref: '#/components/schemas/coreReg_AllRecordTypes'
-                  sort:
-                    $ref: '#/components/schemas/SearchSortList'
-                  pagination:
-                    $ref: '#/components/schemas/PaginationRequest'
+                  reference_id:
+                    $ref: '#/components/schemas/ReferenceId'
+                  timestamp:
+                    $ref: '#/components/schemas/DateTime'
+                  registry_type:
+                    $ref: '#/components/schemas/coreReg_Type'
+                  event_type:
+                    $ref: '#/components/schemas/coreReg_AllEvents'
+                  search_criteria:
+                    type: object
+                    properties:
+                      query:
+                        $ref: '#/components/schemas/coreReg_AllQueries'
+                      record_type:
+                        $ref: '#/components/schemas/coreReg_AllRecordTypes'
+                      sort:
+                        $ref: '#/components/schemas/SearchSortList'
+                      pagination:
+                        $ref: '#/components/schemas/PaginationRequest'
+                    required:
+                      - query
+                      - record_type
+                  consent:
+                    $ref: '#/components/schemas/Consent'
+                  locale:
+                    $ref: '#/components/schemas/LanguageCode'
                 required:
-                  - query
-                  - record_type
-              consent:
-                $ref: '#/components/schemas/Consent'
-              locale:
-                $ref: '#/components/schemas/LanguageCode'
-            required:
-              - reference_id
-              - timestamp
-              - event_type
-              - search_criteria
-      required:
-        - transaction_id
-        - search_request
+                  - reference_id
+                  - timestamp
+                  - event_type
+                  - search_criteria
+          required:
+            - transaction_id
+            - search_request
     SearchResponse:
       type: object
       description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
