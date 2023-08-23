@@ -1534,6 +1534,8 @@ components:
           - search all farmers with land area less than 2 acers in district code 504
       oneOf:
         - $ref: '#/components/schemas/dci_IdentifierTypeValue'
+        - $ref: '#/components/schemas/cdpi_PersonId'
+        - $ref: '#/components/schemas/ExpressionWithConditionList'
     coreReg_AllRecords:
       type: object
       description: |
