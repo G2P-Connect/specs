@@ -1,3 +1,4 @@
+type: string
 description: |
   Functional registry event types:
     1. update - search or subscribe to update events; e.g update to postal_code 12345 between date_range
@@ -5,7 +6,6 @@ description: |
     3. unlink - search or subscribe to unlinking events; <br>
 
   Note: update event can also cover link/unlink events on a registry record.
-type: string
 enum:
   - "update"
   - "link"

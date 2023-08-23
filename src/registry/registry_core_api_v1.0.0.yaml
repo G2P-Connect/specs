@@ -1050,7 +1050,6 @@ components:
       $ref: ../extensions/dci/Sex.yaml
     dci_VitalEvents: 
       $ref: ../extensions/dci/VitalEvents.yaml
-
     ###### src/extensions/fhir schema objects
     
     ###### src/extensions/google schema objects

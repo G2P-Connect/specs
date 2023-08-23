@@ -3,7 +3,7 @@ description: |
   1. Country specific implementations should extend and allow other registries.
   2. In most scenarios, receiver i.e receipient of search/subsribe request determine which registry is being searched
   3. example: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
-example:
+enum:
   - "civil" 
   - "population"
   - "national-id"

@@ -26,14 +26,10 @@ properties:
   local_address:
     $ref: ResidentLocalAddress.yaml
   photo:
-    description: Image encoded as Base64 string
     $ref: ResidentPhoto.yaml
   nationality:
-    description: Nationality information of the Resident
     $ref: ResidentNationality.yaml
   kyc_status:
-    description: ekyc Details undertaken by the Resident
     $ref: EKycDetails.yaml
   document:
-    description: Document encoded as Base64 string
     $ref: Document.yaml
