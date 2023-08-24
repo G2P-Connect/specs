@@ -1579,7 +1579,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: 'Fetch list of active subscriptions based on sender id,registry type and event type'
@@ -1608,7 +1609,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: Subscription list
@@ -1628,7 +1630,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: Registry to notify a event to subscrbiers
@@ -1703,7 +1706,6 @@ components:
       type: object
       properties:
         version:
-          description: 'The version format should use semantic versioning, which means dividing each version identifier into three parts: MAJOR, MINOR, and PATCH. These parts are then combined using the format ''MAJOR.MINOR.PATCH'' '
           type: string
           example: 1.0.0
         data:
@@ -1758,7 +1760,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
@@ -1826,7 +1829,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: Subscribe to a life event with crvs
@@ -1925,7 +1929,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: Request to search identity service requests
@@ -1959,7 +1964,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           properties:
@@ -1977,7 +1983,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: Un-Subscribe to a life event with crvs
@@ -1998,7 +2005,8 @@ components:
       type: object
       properties:
         version:
-          $ref: '#/components/schemas/SearchRequest/properties/version'
+          type: string
+          example: 1.0.0
         data:
           type: object
           description: Un-Subscribe to a life event with crvs
