@@ -1961,17 +1961,15 @@ components:
         version:
           $ref: '#/components/schemas/SearchRequest/properties/version'
         data:
+          type: object
           properties:
             transaction_id:
               $ref: '#/components/schemas/TransactionId'
             txnstatus_response:
+              type: object
               oneOf:
-                - $ref: '#/components/schemas/SearchResponse/properties/data'
-                - $ref: '#/components/schemas/NotifyEventRequest/properties/data'
-              example:
-                txnstatus_response:
-                  reference_id: test
-                  status: SUCC
+                - $ref: '#/components/schemas/SearchResponse'
+                - $ref: '#/components/schemas/NotifyEventRequest'
           required:
             - transaction_id
             - txnstatus_response
