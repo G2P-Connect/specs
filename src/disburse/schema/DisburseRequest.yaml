@@ -1,0 +1,56 @@
+type: object
+description: Disbursement request
+properties:
+  transaction_id: 
+    $ref: "../../common/schema/TransactionId.yaml"
+  disbursements:
+    type: array
+    items: 
+      type: object
+      description: |
+        1. Describes payment schema that enable transfer from payer to payee accounts. 
+        2. This entity supports immediate and scheduling one time payment request into future. 
+        3. Recurring payments is not part of the scope of this entity.
+      properties:
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        payer_fa:
+          $ref: "../../extensions/cdpi/FinancialAddress.yaml"
+        payee_fa:
+          $ref: "../../extensions/cdpi/FinancialAddress.yaml"
+        amount:
+          $ref: "../../common/schema/Amount.yaml"
+        scheduled_timestamp: 
+          allOf:
+            - description: If not present then immediate disbursement else schedule as per scheduled date-time
+            - $ref: "../../common/schema/DateTime.yaml"
+        payer_name:
+          description: "Payer account name for easy reference. Usually each scheme may have a seperate holding account."
+          type: string
+          example: "Farmer draught relief scheme 2023"
+        payee_name:
+          description: "Payer name for easy reference. Usually beneficiary name as per scheme registration info"
+          type: string
+          example: "Joe John"
+        note:
+          description: "Note to payer/payee to reflect on statements"
+          type: string
+          maxLength: 99
+        purpose:
+          $ref: "../../common/schema/Purpose.yaml"
+        instruction:
+          description: "Additional systems instruction for interfacing systems/platforms to integrate, reconcile"
+          type: string
+          maxLength: 999
+        currency_code:
+          $ref: "../../common/schema/CurrencyCode.yaml"
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+      - reference_id
+      - payer_fa
+      - payee_fa
+      - amount
+required:
+  - transaction_id
+  - disburemsents

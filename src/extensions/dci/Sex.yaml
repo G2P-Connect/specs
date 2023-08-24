@@ -2,7 +2,6 @@ type: string
 description: |
   Standardized codes/values representing diverse Sex categories.
   Reference: [ISO/IEC 5218:2022](https://www.iso.org/standard/81682.html)
-  
   1 : Male
   2 : Female
   3 : Others

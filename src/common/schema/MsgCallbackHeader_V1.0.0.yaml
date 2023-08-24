@@ -4,7 +4,7 @@ properties:
   version:  
     description: "Messaing protocol specification version being used"
     type: string
-    example: "0.1.0"
+    default: 1.0.0
   message_id: 
     description: |
       1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
@@ -43,17 +43,10 @@ properties:
     description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
     type: string
     example: 'registry.example.org'
-  encryption_algo:
-      description: |
-        1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
-        2. example: aes, rsa, aes_rsa, ecc, other
-      type: string
-      example:
-        - aes
-        - rsa
-        - aes+rsa
-        - ecc
-        - other
+  is_msg_encrypted:
+    description: Is message encrypted?
+    type: boolean
+    default: false
 required:
   - message_id
   - message_ts

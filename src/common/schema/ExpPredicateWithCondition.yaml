@@ -1,0 +1,10 @@
+type: object
+properties:
+  expression1:
+    $ref: "./ExpPredicate.yaml"
+  condition:
+    $ref: "./ExpCondition.yaml"
+  expression2:
+    $ref: "./ExpPredicate.yaml"
+required: 
+  - expression1

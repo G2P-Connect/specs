@@ -1,14 +1,13 @@
 openapi: 3.0.0
 info:
   title: Interoperability APIs - Financial Address Mapper Mgmt
-  description: |
-    Manage finanacial address mapper 
+  description: Financial [Address Mapper](https://g2pconnect.cdpi.dev/protocol/interfaces/beneficiary-management/mapper-architecture) Mgmt APIs
   version: 1.0.0
   contact:
     name: G2P Connect
     email: info@g2pconnect.global
   license:
-   name: G2P Connect License
+   name: CDPI CC BY-SA 4.0e
    url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
   - url: "https://sandbox.dpg.org/namespace/v1.0.0"
@@ -20,6 +19,91 @@ tags:
     description: Sync endpoints
   - name: Schemas
     description: Schemas
+  - name: Status Codes
+    description: Status Codes
+  - name: LinkRequest
+    x-displayName: LinkRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LinkRequest" />    
+  - name: LinkResponse
+    x-displayName: LinkResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LinkResponse" />    
+  - name: LinkStatusReasonCode
+    x-displayName: LinkStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LinkStatusReasonCode" />   
+  - name: ResolveRequest
+    x-displayName: ResolveRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ResolveRequest" />    
+  - name: ResolveResponse
+    x-displayName: ResolveResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ResolveResponse" />    
+  - name: ResolveStatusReasonCode
+    x-displayName: ResolveStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ResolveStatusReasonCode" />
+  - name: UpdateRequest
+    x-displayName: UpdateRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UpdateRequest" />    
+  - name: UpdateResponse
+    x-displayName: UpdateResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UpdateResponse" />   
+  - name: UpdateStatusReasonCode
+    x-displayName: UpdateStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UpdateStatusReasonCode" /> 
+  - name: UnlinkRequest
+    x-displayName: UnlinkRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnlinkRequest" />    
+  - name: UnlinkResponse
+    x-displayName: UnlinkResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnlinkResponse" />   
+  - name: UnlinkStatusReasonCode
+    x-displayName: UnlinkStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnlinkStatusReasonCode" />  
+  - name: TxnStatusRequest
+    x-displayName: TxnStatusRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusRequest" />    
+  - name: TxnStatusResponse
+    x-displayName: TxnStatusResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusResponse" />    
+  - name: EncryptedMessage
+    x-displayName: EncryptedMessage
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/EncryptedMessage" />    
+x-tagGroups:
+  - name: API Definitions
+    tags:
+      - Async
+      - Sync
+  - name: Schema Objects
+    tags:
+      - LinkRequest
+      - LinkResponse 
+      - ResolveRequest
+      - ResolveResponse
+      - UpdateRequest
+      - UpdateResponse
+      - UnlinkRequest
+      - UnlinkResponse
+      - TxnStatusRequest
+      - TxnStatusResponse
+  - name: Status Codes
+    tags: 
+      - LinkStatusReasonCode
+      - ResolveStatusReasonCode
+      - UpdateStatusReasonCode
+      - UnlinkStatusReasonCode  
 paths:
  /mapper/link:
   post: 
@@ -468,11 +552,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - link
-                            - update
-                            - resolve
-                            - unlink
-                            - search
+                            - txn-status
                 message:
                   type: object
                   oneOf:
@@ -488,11 +568,7 @@ paths:
               - properties:
                   action:
                     enum:
-                      - link
-                      - update
-                      - resolve
-                      - unlink
-                      - search
+                      - txn-status
     responses:
         default:
           $ref: "#/components/responses/Response"
@@ -529,11 +605,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - on-link
-                            - on-update
-                            - on-resolve
-                            - on-unlink
-                            - on-search
+                            - txn-on-status
                 message:
                   type: object
                   oneOf:
@@ -548,11 +620,7 @@ paths:
               - properties:
                   action:
                     enum:
-                      - on-link
-                      - on-update
-                      - on-resolve
-                      - on-unlink
-                      - on-search
+                      - txn-on-status
     responses:
         default:
           $ref: "#/components/responses/Response"
@@ -853,11 +921,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - link
-                            - update
-                            - resolve
-                            - unlink
-                            - search
+                            - txn-status
                 message:
                   type: object
                   oneOf:
@@ -882,11 +946,7 @@ paths:
                         - properties:
                             action:
                               enum:
-                                - on-link
-                                - on-update
-                                - on-resolve
-                                - on-unlink
-                                - on-search
+                                - txn-on-status
                     message:
                       type: object
                       oneOf:
@@ -930,39 +990,37 @@ components:
     openid_PersonDocDetails: 
       $ref: ../extensions/openid/PersonDocDetails.yaml
     
-    ###### src/registry/schema/fa schema objects
-    fa_AccountProviderInfo: 
-      $ref: schema/fa/AccountProviderInfo.yaml
-
     ###### src/registry/schema/core schema objects
+    AccountProviderInfo: 
+      $ref: schema/AccountProviderInfo.yaml
     LinkRequest: 
-      $ref: schema/core/LinkRequest.yaml
+      $ref: schema/LinkRequest.yaml
     LinkResponse: 
-      $ref: schema/core/LinkResponse.yaml 
+      $ref: schema/LinkResponse.yaml 
     LinkStatusReasonCode: 
-      $ref: schema/core/LinkStatusReasonCode.yaml
+      $ref: schema/LinkStatusReasonCode.yaml
     ResolveRequest: 
-      $ref: schema/core/ResolveRequest.yaml
+      $ref: schema/ResolveRequest.yaml
     ResolveResponse: 
-      $ref: schema/core/ResolveResponse.yaml
+      $ref: schema/ResolveResponse.yaml
     ResolveStatusReasonCode: 
-      $ref: schema/core/ResolveStatusReasonCode.yaml
+      $ref: schema/ResolveStatusReasonCode.yaml
     TxnStatusRequest: 
-      $ref: schema/core/TxnStatusRequest.yaml            
+      $ref: schema/TxnStatusRequest.yaml            
     TxnStatusResponse: 
-      $ref: schema/core/TxnStatusResponse.yaml 
+      $ref: schema/TxnStatusResponse.yaml 
     UnlinkRequest: 
-      $ref: schema/core/UnlinkRequest.yaml
+      $ref: schema/UnlinkRequest.yaml
     UnlinkResponse: 
-      $ref: schema/core/UnlinkResponse.yaml                             
+      $ref: schema/UnlinkResponse.yaml                             
     UnlinkStatusReasonCode: 
-      $ref: schema/core/UnlinkStatusReasonCode.yaml  
+      $ref: schema/UnlinkStatusReasonCode.yaml  
     UpdateRequest: 
-      $ref: schema/core/UpdateRequest.yaml
+      $ref: schema/UpdateRequest.yaml
     UpdateResponse: 
-      $ref: schema/core/UpdateResponse.yaml                             
+      $ref: schema/UpdateResponse.yaml                             
     UpdateStatusReasonCode: 
-      $ref: schema/core/UpdateStatusReasonCode.yaml               
+      $ref: schema/UpdateStatusReasonCode.yaml               
                     
       
   
@@ -989,18 +1047,16 @@ components:
       $ref: ../common/schema/ExpCondition.yaml
     ExpOperator: 
       $ref: ../common/schema/ExpOperator.yaml
-    Expression: 
-      $ref: ../common/schema/Expression.yaml
-    ExpressionList: 
-      $ref: ../common/schema/ExpressionList.yaml
-    ExpressionResult: 
-      $ref: ../common/schema/ExpressionResult.yaml
-    ExpressionResultList: 
-      $ref: ../common/schema/ExpressionResultList.yaml
-    ExpressionWithCondition: 
-      $ref: ../common/schema/ExpressionWithCondition.yaml
-    ExpressionWithConditionList: 
-      $ref: ../common/schema/ExpressionWithConditionList.yaml
+    ExpPredicate: 
+      $ref: ../common/schema/ExpPredicate.yaml
+    ExpPredicateList: 
+      $ref: ../common/schema/ExpPredicateList.yaml
+    ExpPredicateWithCondition: 
+      $ref: ../common/schema/ExpPredicateWithCondition.yaml
+    ExpPredicateWithConditionList: 
+      $ref: ../common/schema/ExpPredicateWithConditionList.yaml
+    ExpTemplate:
+      $ref: ../common/schema/ExpTemplate.yaml
     FileInfo: 
       $ref: ../common/schema/FileInfo.yaml
     LanguageCode: 

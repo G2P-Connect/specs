@@ -1,0 +1,58 @@
+type: object
+description: | 
+  1. Functional registry specific extension to search.
+  2. Additional checks using conditioanl expressions is possible.
+  3. Allows Country/Registry specific implementation extensions using key/value pairs.
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  search_request:
+    type: array
+    description: |
+      1. Batch requests enabel multiple individual requests with respective consent/authorize codes
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: "../../common/schema/DateTime.yaml"
+        search_criteria:
+          type: object
+          properties:
+            version:
+              type: string
+              default: 1.0.0
+            reg_type:
+              $ref: RegistryType.yaml
+            reg_event_type:
+              $ref: RegistryEventType.yaml
+            query_type:
+              $ref: ../../common/schema/QueryType.yaml
+            query:
+              $ref: RegistryQueries.yaml
+            result_record_type:
+              allOf:
+                - description: Registry record type to return in search response
+                - $ref: RegistryRecordType.yaml
+            sort:
+              $ref: ../../common/schema/SearchSortList.yaml
+            pagination:
+              $ref: ../../common/schema/PaginationRequest.yaml
+            consent:
+              $ref: ../../common/schema/Consent.yaml
+            authorize:
+              $ref: ../../common/schema/Authorize.yaml
+          required:
+            - query_type
+            - query
+            - result_record_type
+        locale:
+          $ref: ../../common/schema/LanguageCode.yaml
+      required:
+        - reference_id
+        - timestamp
+        - search_criteria
+required:
+  - transaction_id
+  - search_request

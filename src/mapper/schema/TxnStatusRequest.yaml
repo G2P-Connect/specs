@@ -1,0 +1,35 @@
+type: object
+description: Request to fetch txn status on various service requests
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  txnstatus_request:
+    type: object
+    properties:
+      reference_id:
+        $ref: "../../common/schema/ReferenceId.yaml"
+      txn_type:
+        type: string
+        description: txn type to fetch status 
+        enum: ["link", "resolve", "update", "unlink"]
+      attribute_type:
+        type: string
+        enum:
+          - "transaction_id"
+          - "reference_id_list"
+          - "correlation_id"
+      attribute_value:
+        oneOf:
+          - $ref: ../../common/schema/TransactionId.yaml
+          - $ref: ../../common/schema/ReferenceIdList.yaml
+          - $ref: ../../common/schema/CorrelationId.yaml
+      locale:
+        $ref: ../../common/schema/LanguageCode.yaml
+    required:
+      - reference_id
+      - txn_type
+      - attribute_type
+      - attribute_value
+required: 
+  - transaction_id
+  - txnstatus_request

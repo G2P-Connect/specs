@@ -1,0 +1,45 @@
+type: object
+description: Subscribe to a life event with crvs
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  subscribe_request:
+    type: array
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: ../../common/schema/ReferenceId.yaml
+        timestamp: 
+          $ref: ../../common/schema/DateTime.yaml
+        subscribe_criteria:
+          type: object
+          properties:
+            version:
+              type: string
+              default: 1.0.0
+            reg_type:
+              $ref: RegistryType.yaml
+            reg_event_type:
+              $ref: RegistryEventType.yaml
+            frequency:
+              $ref: ../../common/schema/EventFrequency.yaml
+            filter_type:
+              $ref: ../../common/schema/QueryType.yaml
+            filter:
+              $ref: RegistryQueries.yaml
+            notify_record_type:
+              $ref: RegistryRecordType.yaml
+          required: 
+            - reg_event_type
+            - filter
+            - notify_record_type
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - subscribe_criteria
+required:
+  - transaction_id
+  - subscribe_request

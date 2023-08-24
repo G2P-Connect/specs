@@ -1,4 +1,7 @@
-description: Unique transaction_id set by txn initiating system (i.e sender) to co-relate requests across processing systems/service end points
+description: |
+  1. transaction_id set by txn initiating system (i.e sender) to co-relate all related requests in the context of a business transaction.
+  2. transaction_id should be samme across processing systems/service end points.
+  2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
 type: string
 maxLength: 99
-example: 012345678901234567890
+example: "0123456789"

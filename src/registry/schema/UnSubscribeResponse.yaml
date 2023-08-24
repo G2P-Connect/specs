@@ -1,0 +1,34 @@
+type: object
+description: Un-Subscribe to a life event with crvs
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  correlation_id:
+    $ref: ../../common/schema/CorrelationId.yaml
+  timesatmp:
+    $ref: ../../common/schema/DateTime.yaml
+  status:
+    $ref: "../../common/schema/RequestStatus.yaml" 
+  status_reason_code:
+    $ref: "UnSubscribeStatusReasonCode.yaml" 
+  status_reason_message:
+    description: "Status reason code message. Helps actionanble messaging for systems/end users"
+    type: string
+    maxLength: 999
+  subscription_status:
+    type: array
+    items: 
+      type: object
+      properties:
+        code:
+          $ref: SubscriptionCode.yaml
+        status:
+          $ref: SubscriptionStatus.yaml
+      required:
+        - code
+        - status
+required:
+  - transaction_id
+  - correlation_id
+  - timestamp
+  - status

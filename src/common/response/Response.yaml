@@ -1,4 +1,4 @@
-description: "Acknowledgement of message received after successful validation of message and signature"
+description: Acknowledgement of message received after successful validation of message and signature
 content:
   application/json:
     schema:
@@ -8,8 +8,14 @@ content:
           type: object
           properties: 
             ack_status:
-              $ref: "../schema/Ack.yaml"
+              $ref: ../schema/Ack.yaml
             timestamp:
               $ref: ../schema/DateTime.yaml
             error:
-              $ref: "../schema/Error.yaml"
+              $ref: ../schema/Error.yaml
+            correlation_id:
+              $ref: ../schema/CorrelationId.yaml
+          required: 
+            - ack_status
+            - timestamp
+            - correlation_id

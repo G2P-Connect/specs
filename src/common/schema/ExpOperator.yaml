@@ -6,4 +6,5 @@ enum:
   - "eq"
   - "ge"
   - "le"
+  - "in"
 example: "eq"

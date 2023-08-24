@@ -1,0 +1,1300 @@
+openapi: 3.0.3
+info:
+  title: G2P Disbursement APIs
+  description: 'G2P [Disbursement](https://g2pconnect.cdpi.dev/protocol/interfaces/social-program-management/disbursement) APIs'
+  version: 1.0.0
+  contact:
+    name: G2P Connect
+    email: info@cdpi.dev
+  license:
+    name: CDPI CC BY-SA 4.0
+    url: 'https://github.com/G2P-Connect/specs/blob/draft/LICENSE.md'
+servers:
+  - url: 'https://sandbox.spdci.org/namespace/v1.0.0'
+    description: Sandbox Server
+tags:
+  - name: Async
+    description: Async endpoints
+  - name: Sync
+    description: Sync endpoints
+  - name: Schemas
+    description: Schemas
+  - name: Status Codes
+    description: Status Codes
+  - name: DisburseRequest
+    x-displayName: DisburseRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/DisburseRequest" /> 
+  - name: DisburseResponse
+    x-displayName: DisburseResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/DisburseResponse" />    
+  - name: DisburseStatusReasonCode
+    x-displayName: DisburseStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/DisburseStatusReasonCode" />    
+  - name: SearchRequest
+    x-displayName: SearchRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchRequest" />    
+  - name: SearchResponse
+    x-displayName: SearchResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchResponse" />    
+  - name: SearchStatusReasonCode
+    x-displayName: SearchStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchStatusReasonCode" />    
+  - name: TxnStatusRequest
+    x-displayName: TxnStatusRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusRequest" />    
+  - name: TxnStatusResponse
+    x-displayName: TxnStatusResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusResponse" />    
+  - name: EncryptedMessage
+    x-displayName: EncryptedMessage
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/EncryptedMessage" />    
+x-tagGroups:
+  - name: API Definitions
+    tags:
+      - Async
+      - Sync
+  - name: Schema Objects
+    tags:
+      - DisburseRequest
+      - DisburseResponse
+      - SearchRequest
+      - SearchResponse
+      - TxnStatusRequest
+      - TxnStatusResponse
+      - EncryptedMessage
+  - name: Status Codes
+    tags:
+      - DisburseStatusReasonCode
+      - SearchStatusReasonCode
+paths:
+  /disburse:
+    post:
+      summary: /disburse
+      description: Initiate payment through disbursement instructions
+      operationId: post_dsbt_disburse
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - disburse
+                message:
+                  anyOf:
+                    - $ref: '#/components/schemas/DisburseRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - disburse
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /on-disburse:
+    post:
+      summary: /on-disburse
+      description: Disburse response through callback
+      operationId: post_dsbt_on-disburse
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-disburse
+                message:
+                  anyOf:
+                    - $ref: '#/components/schemas/DisburseResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-disburse
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/search:
+    post:
+      summary: /disbruse/search
+      description: Search disbursement by searchable attributes
+      operationId: post_dsbt_search
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  anyOf:
+                    - $ref: '#/components/schemas/SearchRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/on-search:
+    post:
+      summary: /disburse/on-search
+      description: Disbrusement search results through callback
+      operationId: post_dsbt_on-search
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-search
+                message:
+                  anyOf:
+                    - $ref: '#/components/schemas/SearchResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-search'
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/txn/status:
+    post:
+      summary: /disburse/txn/status
+      description: Status check of previous disbursement transanctions using transaction_id and/or reference_id(s)
+      operationId: post_dsbt_txnstatus
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-disburse
+                            - on-search
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/TxnStatusRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-disburse
+                        - on-search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/txn/on-status:
+    post:
+      summary: /disburse/txn/on-status
+      description: Status check response through callback
+      operationId: post_dsbt_on-txnstatus
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-disburse
+                            - on-search
+                message:
+                  anyOf:
+                    - $ref: '#/components/schemas/TxnStatusResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-disburse
+                        - on-search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/sync/disburse:
+    post:
+      summary: /disburse/sync/disburse
+      description: Initiate payment through disbursement instructions through sync call
+      operationId: post_dsbt_sync_disbuse
+      tags:
+        - Sync
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  description: The search data using which registry search to be performed
+                  anyOf:
+                    - $ref: '#/components/schemas/DisburseRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Disburse response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:
+                    $ref: '#/components/schemas/MsgSignature'
+                  header:
+                    allOf:
+                      - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                      - properties:
+                          action:
+                            enum:
+                              - on-search
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/DisburseResponse'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/sync/search:
+    post:
+      summary: /disburse/sync/search
+      description: |
+        1. Fetch disbursement processing status though sync call
+        2. Disbursement processing systems may chose to implement rate limiting at transaction_id level to avoid request flooding
+      operationId: post_dsbt_sync_search
+      tags:
+        - Sync
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                message:
+                  type: object
+                  description: The search data using which registry search to be performed
+                  anyOf:
+                    - $ref: '#/components/schemas/SearchRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Registry search response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:
+                    $ref: '#/components/schemas/MsgSignature'
+                  header:
+                    allOf:
+                      - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                      - properties:
+                          action:
+                            enum:
+                              - on-search
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/SearchResponse'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+      security:
+        - x-access-token: []
+      deprecated: false
+  /disburse/sync/txn/status:
+    post:
+      summary: /disburse/sync/txn/status
+      description: Sync status check of disburse Async APIs
+      operationId: post_dsbt_sync_txnstatus
+      tags:
+        - Sync
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - search
+                            - subscribe
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/TxnStatusRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Transaction status check response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:
+                    $ref: '#/components/schemas/MsgSignature'
+                  header:
+                    allOf:
+                      - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                      - properties:
+                          action:
+                            enum:
+                              - on-search
+                              - notify
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/TxnStatusResponse'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+      security:
+        - x-access-token: []
+      deprecated: false
+components:
+  schemas:
+    cdpi_PersonId:
+      type: string
+      description: |
+        1. Person id is case insensitve normative represenation as id-type:id@provider <br>
+        2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
+        3. This property is intended to unambiguously refer to an object, such as a person, beneficiary, user, etc., <br>
+        4. Few examples: <br>
+            - id@identifier-type.id-provider e.g token:12345@nid, vid:543215@nid <br>
+            - id@civil-registry.issuing-agency e.g id:12345@civil-reg, brn:12345@civil-reg, mrn:12345@civil-reg <br>
+            - id@functional-identifier.issuing-agency e.g id:12345@voter-id, id:12345@driving-license, mobile:12345@farmer-reg <br>
+        Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 'vid:54321@nid'
+    cdpi_FinancialAddress:
+      type: string
+      description: |
+        1. Financial address is case insensitive normative represenation of a store of value account represented as id-type:id@provider
+        2. Every payer/payee financial address must resolve to an actual store of value account number for processing the payment instruction
+        3. It is recommended the mapping between id and store of value account details to be held only at final store of value entity and intermediaries can hold 
+        3. Few examples: <br>
+            - token@id-provider e.g token:12345@national-id <br>
+            - uid@pymt-rail e.g uid:12345@national-id <br>
+            - vid@id-provider e.g vid:12345@national-id <br>
+            - mobile@mobile-provider e.g mobile:12345@mobile-pymt <br>
+            - account-id@bank-psp-code e.g account:12345@national-bank <br>
+            - account-no@ifsc-code.ifsc.pymt-rail e.g account:12345@abcd0000001.ifsc.pymt-rail <br>
+            - user-id@psp-code e.g. joeuser@national-bank <br>
+            - token@psp-code e.g token:123456@a123 <br>
+            - code@purpose-code.voucher-provider e.g voucher:12345@food.coupon-network <br>
+      format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
+      example: 'token:12345@gtbank'
+    DisburseRequest:
+      type: object
+      description: Disbursement request
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        disbursements:
+          type: array
+          items:
+            type: object
+            description: |
+              1. Describes payment schema that enable transfer from payer to payee accounts. 
+              2. This entity supports immediate and scheduling one time payment request into future. 
+              3. Recurring payments is not part of the scope of this entity.
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              payer_fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              payee_fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              amount:
+                $ref: '#/components/schemas/Amount'
+              scheduled_timestamp:
+                allOf:
+                  - description: If not present then immediate disbursement else schedule as per scheduled date-time
+                  - $ref: '#/components/schemas/DateTime'
+              payer_name:
+                description: Payer account name for easy reference. Usually each scheme may have a seperate holding account.
+                type: string
+                example: Farmer draught relief scheme 2023
+              payee_name:
+                description: Payer name for easy reference. Usually beneficiary name as per scheme registration info
+                type: string
+                example: Joe John
+              note:
+                description: Note to payer/payee to reflect on statements
+                type: string
+                maxLength: 99
+              purpose:
+                $ref: '#/components/schemas/Purpose'
+              instruction:
+                description: 'Additional systems instruction for interfacing systems/platforms to integrate, reconcile'
+                type: string
+                maxLength: 999
+              currency_code:
+                $ref: '#/components/schemas/CurrencyCode'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - payer_fa
+              - payee_fa
+              - amount
+      required:
+        - transaction_id
+        - disburemsents
+    DisburseResponse:
+      type: object
+      description: Disburse response
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        disbursements_status:
+          type: array
+          items:
+            type: object
+            description: |
+              1. G2P Disbursement response i.e status of each disburemsent request for reconciliation by sender system
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                description: Disbursement response status datetime in RFC3339 format
+                type: string
+                format: date-time
+                example: '2022-12-04T17:20:07-04:00'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/DisburseStatusReasonCode'
+              status_reason_message:
+                description: Status reason code message. Helps actionanble messaging for systems/end users
+                type: string
+                maxLength: 999
+              instruction:
+                description: 'Additional systems instruction for interfacing systems/platforms to integrate, reconcile'
+                type: string
+                maxLength: 999
+              amount:
+                $ref: '#/components/schemas/Amount'
+              payer_fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              payer_name:
+                description: Payer account name for easy reference. Usually each scheme may have a seperate holding account.
+                type: string
+                example: Farmer draught relief scheme 2023
+              payee_fa:
+                $ref: '#/components/schemas/cdpi_FinancialAddress'
+              payee_name:
+                description: Payer name for easy reference. Usually beneficiary name as per scheme registration info
+                type: string
+                example: Joe John
+              currency_code:
+                $ref: '#/components/schemas/CurrencyCode'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - status
+      required:
+        - transaction_id
+        - disbursements_status
+    DisburseStatusReasonCode:
+      type: string
+      description: Disbursement status reason codes
+      enum:
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.payer_fa.invalid
+        - rjct.payee_fa.invalid
+        - rjct.amount.invalid
+        - rjct.schedule_ts.invalid
+        - rjct.currency_code.invalid
+    SearchRequest:
+      type: object
+      description: Search disbursement requests
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        search_criteria:
+          type: array
+          items:
+            type: object
+            description: |
+              1. Request to search disbursement using payer or payee fa
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              request_type:
+                type: string
+                enum:
+                  - disburse
+              attribute_type:
+                type: string
+                enum:
+                  - payer_fa
+                  - payee_fa
+              attribute_value:
+                oneOf:
+                  - $ref: '#/components/schemas/cdpi_FinancialAddress'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - request_type
+              - attribute_type
+              - attribute_value
+      required:
+        - transaction_id
+        - search_criteria
+    SearchResponse:
+      type: object
+      description: Search response
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        disbursements_status:
+          type: array
+          items:
+            type: object
+            description: Search response record
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/SearchStatusReasonCode'
+              status_reason_message:
+                description: Status reason code message. Helps actionanble messaging for systems/end users
+                type: string
+                maxLength: 999
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - status
+      required:
+        - transaction_id
+        - disbursements_status
+    SearchStatusReasonCode:
+      type: string
+      description: Disbursement search reason codes
+      enum:
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.request_type.invalid
+        - rjct.attribute_type.invalid
+        - rjct.srch_transaction_id.invalid
+        - rjct.srch_transaction_id.not_found
+        - rjct_srch_reference_id.invalid
+        - rjct_srch_reference_id.not_found
+        - rjct.srch.too_many_records_found
+        - rjct.srch_payer_fa.invalid
+        - rjct.srch_payee_fa.invalid
+        - rjct.share_attributes.invalid
+    TxnStatusRequest:
+      type: object
+      description: Request to fetch txn status on various service requests
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        txnstatus_request:
+          type: object
+          properties:
+            reference_id:
+              $ref: '#/components/schemas/ReferenceId'
+            txn_type:
+              type: string
+              description: txn type to fetch status
+              enum:
+                - disburse
+                - search
+            attribute_type:
+              type: string
+              enum:
+                - transaction_id
+                - reference_id_list
+                - correlation_id
+            attribute_value:
+              oneOf:
+                - $ref: '#/components/schemas/TransactionId'
+                - $ref: '#/components/schemas/ReferenceIdList'
+                - $ref: '#/components/schemas/TxnStatusResponse/properties/correlation_id'
+            locale:
+              $ref: '#/components/schemas/LanguageCode'
+          required:
+            - reference_id
+            - txn_type
+            - attribute_type
+            - attribute_value
+      required:
+        - transaction_id
+        - txnstatus_request
+    TxnStatusResponse:
+      type: object
+      description: txn status info on various service requests
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          description: |
+            1. correlation_id acknowledged by end txn processing system (i.e receiver) to co-relate all related requests in the context of a business transaction.
+            2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
+          type: string
+          maxLength: 99
+          example: '9876543210'
+        txnstatus_response:
+          type: object
+          properties:
+            txn_type:
+              type: string
+              description: txn type to fetch status
+              enum:
+                - on-disburse
+                - on-search
+            txn_status:
+              oneOf:
+                - $ref: '#/components/schemas/DisburseResponse'
+                - $ref: '#/components/schemas/SearchRequest'
+          example:
+            $ref: '#/components/schemas/DisburseResponse'
+          required:
+            - txn_type
+            - txn_status
+      required:
+        - transaction_id
+        - correlation_id
+        - txnstatus_response
+    Ack:
+      type: string
+      description: |
+        1. ACK: If the request is valid (for basic checks) and async callback (i.e webhook) will be invoked by reciever back to the sender.
+        2. NACK: If the request is valid (for basic checks) and there is no futher updates from reciever back to the sender.
+        3. ERR: If the reuqest is invalid and reciver can't process the request. error object holds error code, message.
+      enum:
+        - ACK
+        - NACK
+        - ERR
+    AdditionalInfo:
+      type: object
+      description: Additional JSON property oject to hold custom user defined contextual data
+    Amount:
+      type: string
+      description: Describes amount in decimal value format
+      pattern: '^\d{1,13}\.\d{1,2}$'
+    AttributeNameValue:
+      type: object
+      description: Attribute name value object
+      properties:
+        name:
+          type: string
+          maxLength: 99
+          example: phone_number
+        value:
+          $ref: '#/components/schemas/AttributeValue'
+      required:
+        - name
+        - value
+    AttributeNameValueList:
+      type: array
+      description: List of attribute Name/Value
+      items:
+        $ref: '#/components/schemas/AttributeNameValue'
+    AttributeValue:
+      oneOf:
+        - type: string
+        - type: integer
+        - type: number
+        - type: boolean
+        - format: data-time
+      example: +91 9876543210
+    CurrencyCode:
+      description: <br> 1. Currency code allocated as per ISO 4217 format.<br> 2. Codes for the representation of currencies and funds.
+      type: string
+      pattern: '^[A-Z]{3,3}$'
+      example: SLL
+    DateTime:
+      description: |
+        1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
+      type: string
+      format: date-time
+      example: ''
+    EncryptedMessage:
+      description: Encrypted payload
+      type: object
+      properties:
+        header:
+          type: object
+          properties:
+            alg:
+              type: string
+              description: The JWE algorithm used for encryption
+            enc:
+              type: string
+              description: The encryption algorithm used for encrypting the plaintext
+            kid:
+              type: string
+              description: The key identifier for the encryption key
+          required:
+            - alg
+            - enc
+            - kid
+        data:
+          type: string
+          description: This is the result of encrypting the plaintext using the CEK and the IV. It's Base64Url-encoded.
+        encrypted_key:
+          type: string
+          description: The base64-url encoded encrypted key
+        auth_tag:
+          type: string
+          description: 'This is a Base64Url-encoded value that provides evidence of the integrity and authenticity of the ciphertext, Initialization Vector, and Additional Authenticated Data'
+        iv:
+          type: string
+          description: This is a Base64Url-encoded random bit string to be used as the Initialization Vector (IV) when encrypting the plaintext to produce the ciphertext. The size of the IV depends on the encryption algorithm used.
+      required:
+        - header
+        - data
+        - encrypted_key
+        - auth_tag
+        - iv
+    Error:
+      description: |
+        Describes an error object that is returned to standard post call request. <br>
+        1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br>
+        2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
+      type: object
+      properties:
+        code:
+          type: string
+          description: Standard error code
+          enum:
+            - err.request.bad
+            - err.request.unauthorized
+            - err.request.forbidden
+            - err.request.not_found
+            - err.request.timeout
+            - err.version.not_supported
+            - err.request.too_many_requests
+            - err.sender_id.invalid
+            - err.sender_uri.invalid
+            - err.receiver_id.invalid
+            - err.signature.missing
+            - err.signature.invalid
+            - err.encryption.invalid
+            - err.service.unavailable
+        message:
+          type: string
+          description: message to describe above error code
+          maxLength: 999
+    FileInfo:
+      type: object
+      description: File info. Used in file upload feature using HTTPS
+      properties:
+        action:
+          description: G2P Connect specific actions. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
+        fileName:
+          description: Disbursement instruction file representing Disburse or OnDisburse end point elements i.e signature/header/message entities as a file record
+          type: string
+          format: binary
+        fileFormat:
+          description: 'File content format. e.g json, csv, etc.,'
+          type: string
+          default: json
+          example: csv
+      required:
+        - action
+        - fileName
+    LanguageCode:
+      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
+      type: string
+      pattern: '^[a-z]{3,3}$'
+      example: en
+    MsgCallbackHeader_V1.0.0:
+      type: object
+      description: Message header
+      properties:
+        version:
+          description: Messaing protocol specification version being used
+          type: string
+          default: 1.0.0
+        message_id:
+          description: |
+            1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+            2. The scope of message_id end with successful ack of the message by the receiver.
+            3. To realy the message between hops, underlying relying parties may consider to store and forward the message with integirty, ie Signature intact.
+          type: string
+          example: '789'
+        message_ts:
+          $ref: '#/components/schemas/DateTime'
+        action:
+          description: G2P Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+          type: string
+        status:
+          $ref: '#/components/schemas/RequestStatus'
+        status_reason_code:
+          $ref: '#/components/schemas/MsgHeaderStatusReasonCode'
+        status_reason_message:
+          description: 'Status reascon code message, if any, Helps actionanble messaging for system/end users'
+          type: string
+          maxLength: 999
+        total_count:
+          description: Total no of requests present in the message request
+          type: integer
+          example: 21800
+        completed_count:
+          description: No of requests in complteed state. Complete includes success and error requests due to funcational errors
+          type: integer
+          example: 50
+        sender_id:
+          description: |
+            1. sender_id registered with the receiving system or gateway. 
+            2. Used for authorization, encryption, digital sign verfication, etc., 
+          type: string
+          example: civilregistry.example.org
+        receiver_id:
+          description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+          type: string
+          example: registry.example.org
+        is_msg_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: false
+      required:
+        - message_id
+        - message_ts
+        - action
+        - status
+    MsgHeader_V1.0.0:
+      type: object
+      description: Message header
+      properties:
+        version:
+          description: Messaing protocol specification version being used
+          type: string
+          default: 1.0.0
+        message_id:
+          description: |
+            1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+            2. The scope of message_id end with successful ack of the message by the receiver.
+            3. To realy the message between hops, underlying relying parties may consider to store and forward the message with integirty, ie Signature intact.
+          type: string
+          example: '123'
+        message_ts:
+          $ref: '#/components/schemas/DateTime'
+        action:
+          description: 'G2P Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps identity payload type in message property.'
+          type: string
+        sender_id:
+          description: |
+            1. sender_id registered with the receiving system or gateway. 
+            2. Used for authorization, encryption, digital sign verfication, etc., 
+          type: string
+          example: spp.example.org
+        sender_uri:
+          description: |
+            1. sender url to accept callbacks. Applicable only for async communications and if response ack_status is ACK.
+            2. Default uri is assumed to be configred on the gateway as part of sender/receiver onboarding. 
+            3. For SFTP based communications, this shall be set to server/folder details.
+          type: string
+          format: uri
+          example: 'https://spp.example.org/{namespace}/callback/on-search'
+        receiver_id:
+          description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
+          type: string
+          example: pymts.example.org
+        total_count:
+          description: Total no of requests present in the message request
+          type: integer
+          example: 21800
+        is_msg_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: false
+      required:
+        - message_id
+        - message_ts
+        - action
+        - sender_id
+        - total_count
+    MsgHeaderStatusReasonCode:
+      type: string
+      description: Message header related common status reason codes
+      enum:
+        - rjct.version.invalid
+        - rjct.message_id.duplicate
+        - rjct.message_ts.invalid
+        - rjct.action.invalid
+        - rjct.action.not_supported
+        - rjct.total_count.invalid
+        - rjct.total_count.limit_exceeded
+        - rjct.errors.too_many
+    MsgSignature:
+      type: string
+      description: 'Signature of {header}+{message} body verified using sender''s signing public key'
+      example: 'Signature:  namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
+    Pagination:
+      description: 'Pagination definition, count starts with 1'
+      type: object
+      properties:
+        page_size:
+          type: number
+          format: int32
+          example: 2000
+        page_number:
+          type: number
+          format: int32
+          example: 5
+        total_count:
+          type: number
+          format: int32
+          example: 24250
+      required:
+        - page_size
+        - page_number
+        - total_count
+    PaginationRequest:
+      description: 'Pagination definition, count starts with 1'
+      type: object
+      properties:
+        page_size:
+          type: number
+          format: int32
+          example: 2000
+        page_number:
+          type: number
+          format: int32
+          default: 1
+          example: 5
+      required:
+        - page_size
+    Purpose:
+      description: 'Payment disbursement purpose e.g Salary, Farmer Relief 2023, etc.,'
+      type: string
+      maxLength: 99
+      example: Farmer Relief 2023
+    ReferenceId:
+      type: string
+      description: Unique reference_id set by txn initiating system for each request in a batch
+      example: '12345678901234567890'
+    ReferenceIdList:
+      items:
+        $ref: '#/components/schemas/ReferenceId'
+    RequestStatus:
+      type: string
+      description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. rcvd: Received; Request received <br> 2. pdng: Pending; Request initiated <br> 3. succ: Success; Request successful <br> 4. rjct: Rejected; Request rejected'
+      enum:
+        - rcvd
+        - pdng
+        - succ
+        - rjct
+    SearchSort:
+      description: Sorting definition
+      type: object
+      properties:
+        attribute_name:
+          type: string
+          description: attribute name
+        sort_order:
+          type: string
+          enum:
+            - asc
+            - desc
+    SearchSortList:
+      items:
+        $ref: '#/components/schemas/SearchSort'
+    TransactionId:
+      description: |
+        1. transaction_id set by txn initiating system (i.e sender) to co-relate all related requests in the context of a business transaction.
+        2. transaction_id should be samme across processing systems/service end points.
+        2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
+      type: string
+      maxLength: 99
+      example: 0123456789
+  responses:
+    HttpErrorResponse:
+      description: HTTP layer error details
+      content:
+        application/json:
+          schema:
+            type: object
+            description: 'HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx'
+            properties:
+              error:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    description: error code
+                  message:
+                    type: string
+                    description: error message
+    Response:
+      description: Acknowledgement of message received after successful validation of message and signature
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: object
+                properties:
+                  ack_status:
+                    $ref: '#/components/schemas/Ack'
+                  timestamp:
+                    $ref: '#/components/schemas/DateTime'
+                  error:
+                    $ref: '#/components/schemas/Error'
+                  correlation_id:
+                    $ref: '#/components/schemas/TxnStatusResponse/properties/correlation_id'
+                required:
+                  - ack_status
+                  - timestamp
+                  - correlation_id
+  securitySchemes:
+    x-access-token:
+      type: http
+      scheme: bearer
+      bearerFormat: jwt
+      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret

@@ -1,0 +1,37 @@
+type: object
+description: 'Beneficiary ID to Store of value account linking response'
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  correlation_id:
+    $ref: ../../common/schema/CorrelationId.yaml
+  link_response:
+    type: array
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../common/schema/DateTime.yaml
+        fa:
+          $ref: ../../extensions/cdpi/FinancialAddress.yaml
+        status:
+          $ref: "../../common/schema/RequestStatus.yaml" 
+        status_reason_code:
+          $ref: "./LinkStatusReasonCode.yaml" 
+        status_reason_message:
+          description: "Status reascon code message. Helps actionanble messaging for systems/end users"
+          type: string
+          maxLength: 999
+        additional_info:
+          $ref: "../../common/schema/AttributeNameValueList.yaml"
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - status
+required:
+  - transaction_id
+  - link_response

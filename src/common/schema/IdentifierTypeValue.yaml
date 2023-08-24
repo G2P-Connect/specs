@@ -1,0 +1,7 @@
+properties:
+  identifier_type:
+    $ref: IdentifierType.yaml
+  identifier_value:
+    type: string
+    description: Actual Value of the subject defined in identifier_type
+    example: "12314567890"

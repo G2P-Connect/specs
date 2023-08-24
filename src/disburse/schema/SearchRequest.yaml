@@ -1,0 +1,38 @@
+type: object
+description: Search disbursement requests
+properties:
+  transaction_id: 
+    $ref: "../../common/schema/TransactionId.yaml"
+  search_criteria:
+    type: array
+    items:
+      type: object
+      description: |
+        1. Request to search disbursement using payer or payee fa
+      properties:
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: "../../common/schema/DateTime.yaml"
+        request_type:
+          type: string
+          enum:
+            - "disburse"
+        attribute_type:
+          type: string
+          enum:
+            - "payer_fa"
+            - "payee_fa"
+        attribute_value:
+          oneOf:
+            - $ref: "../../extensions/cdpi/FinancialAddress.yaml"
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - request_type
+        - attribute_type
+        - attribute_value
+required:
+  - transaction_id
+  - search_criteria

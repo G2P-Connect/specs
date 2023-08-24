@@ -1,0 +1,28 @@
+type: object
+description: txn status info on various service requests
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  correlation_id:
+    $ref: ../../common/schema/CorrelationId.yaml
+  txnstatus_response:
+    type: object
+    properties: 
+      txn_type:
+        type: string
+        description: txn type to fetch status 
+        enum: ["on-search", "on-subscribe", "on-unsubscribe"]
+      txn_status:
+        oneOf:
+          - $ref: SearchResponse.yaml
+          - $ref: SubscribeResponse.yaml
+          - $ref: UnSubscribeResponse.yaml
+    example:
+      $ref: SearchResponse.yaml
+    required: 
+      - txn_type
+      - txn_status
+required: 
+  - transaction_id
+  - correlation_id
+  - txnstatus_response

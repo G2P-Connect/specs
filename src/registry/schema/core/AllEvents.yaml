@@ -1,8 +1,0 @@
-description: |
-  1. List of all events type defined by respective registries, entities, coutnries and organisation as extensions
-  2. Events can be used for defining custom selection criteria with in the context of registry domain
-oneOf:
-  - $ref: ../../../extensions/dci/VitalEvents.yaml
-  - $ref: ../civil/EventType.yaml
-  - $ref: ../../../extensions/mosip/EventType.yaml
-  - $ref: ./EventType.yaml

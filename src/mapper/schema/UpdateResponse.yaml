@@ -1,0 +1,38 @@
+type: object
+description: 'ID to Store of value account update response'
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  correlation_id:
+    $ref: ../../common/schema/CorrelationId.yaml
+  update_response:
+    type: array
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../common/schema/DateTime.yaml
+        id: 
+          $ref: ../../extensions/cdpi/PersonId.yaml
+        status:
+          $ref: "../../common/schema/RequestStatus.yaml" 
+        status_reason_code:
+          $ref: UpdateStatusReasonCode.yaml
+        status_reason_message:
+          description: "Status reascon code message, if any, Helps actionanble messaging for systems/end users"
+          type: string
+          maxLength: 999
+        additional_info:
+            $ref: "../../common/schema/AttributeNameValueList.yaml"
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - fa
+        - status
+required: 
+  - transaction_id
+  - update_response

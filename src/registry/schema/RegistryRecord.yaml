@@ -1,0 +1,4 @@
+type: object
+description: Registy record object based on record_type attribute.
+example:
+  $ref: ../../extensions/dci/PersonRecord.yaml

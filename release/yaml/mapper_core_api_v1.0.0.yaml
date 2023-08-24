@@ -1,14 +1,13 @@
 openapi: 3.0.0
 info:
   title: Interoperability APIs - Financial Address Mapper Mgmt
-  description: |
-    Manage finanacial address mapper 
+  description: 'Financial [Address Mapper](https://g2pconnect.cdpi.dev/protocol/interfaces/beneficiary-management/mapper-architecture) Mgmt APIs'
   version: 1.0.0
   contact:
     name: G2P Connect
     email: info@g2pconnect.global
   license:
-    name: G2P Connect License
+    name: CDPI CC BY-SA 4.0e
     url: 'https://github.com/G2P-Connect/specs/blob/main/LICENSE'
 servers:
   - url: 'https://sandbox.dpg.org/namespace/v1.0.0'
@@ -20,6 +19,91 @@ tags:
     description: Sync endpoints
   - name: Schemas
     description: Schemas
+  - name: Status Codes
+    description: Status Codes
+  - name: LinkRequest
+    x-displayName: LinkRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LinkRequest" />    
+  - name: LinkResponse
+    x-displayName: LinkResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LinkResponse" />    
+  - name: LinkStatusReasonCode
+    x-displayName: LinkStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/LinkStatusReasonCode" />   
+  - name: ResolveRequest
+    x-displayName: ResolveRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ResolveRequest" />    
+  - name: ResolveResponse
+    x-displayName: ResolveResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ResolveResponse" />    
+  - name: ResolveStatusReasonCode
+    x-displayName: ResolveStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/ResolveStatusReasonCode" />
+  - name: UpdateRequest
+    x-displayName: UpdateRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UpdateRequest" />    
+  - name: UpdateResponse
+    x-displayName: UpdateResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UpdateResponse" />   
+  - name: UpdateStatusReasonCode
+    x-displayName: UpdateStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UpdateStatusReasonCode" /> 
+  - name: UnlinkRequest
+    x-displayName: UnlinkRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnlinkRequest" />    
+  - name: UnlinkResponse
+    x-displayName: UnlinkResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnlinkResponse" />   
+  - name: UnlinkStatusReasonCode
+    x-displayName: UnlinkStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnlinkStatusReasonCode" />  
+  - name: TxnStatusRequest
+    x-displayName: TxnStatusRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusRequest" />    
+  - name: TxnStatusResponse
+    x-displayName: TxnStatusResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusResponse" />    
+  - name: EncryptedMessage
+    x-displayName: EncryptedMessage
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/EncryptedMessage" />    
+x-tagGroups:
+  - name: API Definitions
+    tags:
+      - Async
+      - Sync
+  - name: Schema Objects
+    tags:
+      - LinkRequest
+      - LinkResponse
+      - ResolveRequest
+      - ResolveResponse
+      - UpdateRequest
+      - UpdateResponse
+      - UnlinkRequest
+      - UnlinkResponse
+      - TxnStatusRequest
+      - TxnStatusResponse
+  - name: Status Codes
+    tags:
+      - LinkStatusReasonCode
+      - ResolveStatusReasonCode
+      - UpdateStatusReasonCode
+      - UnlinkStatusReasonCode
 paths:
   /mapper/link:
     post:
@@ -459,11 +543,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - link
-                            - update
-                            - resolve
-                            - unlink
-                            - search
+                            - txn-status
                 message:
                   type: object
                   oneOf:
@@ -479,11 +559,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - link
-                        - update
-                        - resolve
-                        - unlink
-                        - search
+                        - txn-status
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -519,11 +595,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - on-link
-                            - on-update
-                            - on-resolve
-                            - on-unlink
-                            - on-search
+                            - txn-on-status
                 message:
                   type: object
                   oneOf:
@@ -538,11 +610,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - on-link
-                        - on-update
-                        - on-resolve
-                        - on-unlink
-                        - on-search
+                        - txn-on-status
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -842,11 +910,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - link
-                            - update
-                            - resolve
-                            - unlink
-                            - search
+                            - txn-status
                 message:
                   type: object
                   oneOf:
@@ -877,11 +941,7 @@ paths:
                       - properties:
                           action:
                             enum:
-                              - on-link
-                              - on-update
-                              - on-resolve
-                              - on-unlink
-                              - on-search
+                              - txn-on-status
                   message:
                     type: object
                     oneOf:
@@ -901,12 +961,12 @@ components:
         2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
         3. This property is intended to unambiguously refer to an object, such as a person, beneficiary, user, etc., <br>
         4. Few examples: <br>
-            - id@identifier-type.id-provider e.g token:12345@mosip, vid:543215@mosip <br>
-            - id@civil-registry.issuing-agency e.g id:12345@crvs, brn:12345@crvs, mrn:12345@crvs <br>
+            - id@identifier-type.id-provider e.g token:12345@nid, vid:543215@nid <br>
+            - id@civil-registry.issuing-agency e.g id:12345@civil-reg, brn:12345@civil-reg, mrn:12345@civil-reg <br>
             - id@functional-identifier.issuing-agency e.g id:12345@voter-id, id:12345@driving-license, mobile:12345@farmer-reg <br>
         Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 'vid:54321@mosip'
+      example: 'vid:54321@nid'
     cdpi_FinancialAddress:
       type: string
       description: |
@@ -1128,7 +1188,7 @@ components:
               type: string
       required:
         - type
-    fa_AccountProviderInfo:
+    AccountProviderInfo:
       type: object
       description: Store of value account provider info
       properties:
@@ -1193,6 +1253,13 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          description: |
+            1. correlation_id acknowledged by end txn processing system (i.e receiver) to co-relate all related requests in the context of a business transaction.
+            2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
+          type: string
+          maxLength: 99
+          example: '9876543210'
         link_response:
           type: array
           items:
@@ -1284,6 +1351,8 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          $ref: '#/components/schemas/LinkResponse/properties/correlation_id'
         resolve_response:
           type: array
           items:
@@ -1298,7 +1367,7 @@ components:
               id:
                 $ref: '#/components/schemas/cdpi_PersonId'
               account_provider_info:
-                $ref: '#/components/schemas/fa_AccountProviderInfo'
+                $ref: '#/components/schemas/AccountProviderInfo'
               status:
                 $ref: '#/components/schemas/RequestStatus'
               status_reason_code:
@@ -1337,60 +1406,77 @@ components:
         - succ.id.not_found
     TxnStatusRequest:
       type: object
-      description: Request to search disbursement using payer or payee fa
+      description: Request to fetch txn status on various service requests
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
         txnstatus_request:
-          type: array
-          items:
-            type: object
-            properties:
-              reference_id:
-                $ref: '#/components/schemas/ReferenceId'
-              request_type:
-                type: string
-                enum:
-                  - link
-                  - unlink
-                  - update
-                  - resolve
-              search_type:
-                type: string
-                enum:
-                  - transaction_id
-                  - reference_id_list
-              search_attribute:
-                oneOf:
-                  - $ref: '#/components/schemas/TransactionId'
-                  - $ref: '#/components/schemas/ReferenceIdList'
-              locale:
-                $ref: '#/components/schemas/LanguageCode'
-            required:
-              - reference_id
-              - search_type
-              - search_attribute
+          type: object
+          properties:
+            reference_id:
+              $ref: '#/components/schemas/ReferenceId'
+            txn_type:
+              type: string
+              description: txn type to fetch status
+              enum:
+                - link
+                - resolve
+                - update
+                - unlink
+            attribute_type:
+              type: string
+              enum:
+                - transaction_id
+                - reference_id_list
+                - correlation_id
+            attribute_value:
+              oneOf:
+                - $ref: '#/components/schemas/TransactionId'
+                - $ref: '#/components/schemas/ReferenceIdList'
+                - $ref: '#/components/schemas/LinkResponse/properties/correlation_id'
+            locale:
+              $ref: '#/components/schemas/LanguageCode'
+          required:
+            - reference_id
+            - txn_type
+            - attribute_type
+            - attribute_value
       required:
         - transaction_id
         - txnstatus_request
     TxnStatusResponse:
+      type: object
+      description: txn status info on various service requests
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          $ref: '#/components/schemas/LinkResponse/properties/correlation_id'
         txnstatus_response:
-          oneOf:
-            - $ref: '#/components/schemas/LinkResponse'
-            - $ref: '#/components/schemas/ResolveResponse'
-            - $ref: '#/components/schemas/UpdateResponse'
-            - $ref: '#/components/schemas/UnlinkResponse'
+          type: object
+          properties:
+            txn_type:
+              type: string
+              description: txn type to fetch status
+              enum:
+                - on-link
+                - on-resolve
+                - on-update
+                - on-unlink
+            txn_status:
+              oneOf:
+                - $ref: '#/components/schemas/LinkResponse'
+                - $ref: '#/components/schemas/ResolveResponse'
+                - $ref: '#/components/schemas/UpdateResponse'
+                - $ref: '#/components/schemas/UnlinkResponse'
           example:
-            status-response:
-              reference_id: test
-              timestamp: test
-              fa: test
-              status: SUCC
+            $ref: '#/components/schemas/LinkResponse'
+          required:
+            - txn_type
+            - txn_status
       required:
         - transaction_id
+        - correlation_id
         - txnstatus_response
     UnlinkRequest:
       type: object
@@ -1428,6 +1514,8 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          $ref: '#/components/schemas/LinkResponse/properties/correlation_id'
         unlink_response:
           type: array
           items:
@@ -1509,6 +1597,8 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          $ref: '#/components/schemas/LinkResponse/properties/correlation_id'
         update_response:
           type: array
           items:
@@ -1699,8 +1789,9 @@ components:
         - eq
         - ge
         - le
+        - in
       example: eq
-    Expression:
+    ExpPredicate:
       description: Expression
       properties:
         seq_num:
@@ -1719,43 +1810,57 @@ components:
         - attribute_name
         - operator
         - attribute_value
-    ExpressionList:
+    ExpPredicateList:
       description: list of attributes with matching conditions
       items:
-        $ref: '#/components/schemas/Expression'
-    ExpressionResult:
-      description: Expression result
-      properties:
-        seq_num:
-          description: expression seq number for correlation
-          type: number
-          example: 1
-        result:
-          type: string
-          enum:
-            - 'y'
-            - 'n'
-          example: 'y'
-      required:
-        - seq_num
-        - result
-    ExpressionResultList:
-      items:
-        $ref: '#/components/schemas/ExpressionResult'
-    ExpressionWithCondition:
+        $ref: '#/components/schemas/ExpPredicate'
+    ExpPredicateWithCondition:
       type: object
       properties:
         expression1:
-          $ref: '#/components/schemas/Expression'
+          $ref: '#/components/schemas/ExpPredicate'
         condition:
           $ref: '#/components/schemas/ExpCondition'
         expression2:
-          $ref: '#/components/schemas/Expression'
+          $ref: '#/components/schemas/ExpPredicate'
       required:
         - expression1
-    ExpressionWithConditionList:
+    ExpPredicateWithConditionList:
       items:
-        $ref: '#/components/schemas/ExpressionWithCondition'
+        $ref: '#/components/schemas/ExpPredicateWithCondition'
+    ExpTemplate:
+      type: string
+      description: |
+        1. Query expression's syntax / format is determined based on query-type.
+        2. Query expression as a template with placeholder to pass conditional search values
+      properties:
+        namespace:
+          type: string
+          description: Reference to query expression template being used
+          format: uri
+        type:
+          type: string
+          enum:
+            - graph-ql
+            - sql
+            - mongoDB
+            - cassandra
+            - other
+        other_value:
+          type: string
+          description: 'If not defined type, custom value to define other types'
+        expression:
+          type: string
+          format: byte
+          description: Query expression with placeholder to pass conditional search values as base64 bytes
+        expression_values:
+          allOf:
+            - description: 'For templatised query expression type, search criteria values to filter the records'
+            - $ref: '#/components/schemas/AttributeNameValueList'
+      required:
+        - type
+        - expression
+        - expression_values
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -1796,7 +1901,7 @@ components:
         version:
           description: Messaing protocol specification version being used
           type: string
-          example: 0.1.0
+          default: 1.0.0
         message_id:
           description: |
             1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
@@ -1835,17 +1940,10 @@ components:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
           example: registry.example.org
-        encryption_algo:
-          description: |
-            1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
-            2. example: aes, rsa, aes_rsa, ecc, other
-          type: string
-          example:
-            - aes
-            - rsa
-            - aes+rsa
-            - ecc
-            - other
+        is_msg_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: false
       required:
         - message_id
         - message_ts
@@ -1858,7 +1956,7 @@ components:
         version:
           description: Messaing protocol specification version being used
           type: string
-          example: 0.1.0
+          default: 1.0.0
         message_id:
           description: |
             1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
@@ -1893,17 +1991,10 @@ components:
           description: Total no of requests present in the message request
           type: integer
           example: 21800
-        encryption_algo:
-          description: |
-            1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
-            2. example: aes, rsa, aes_rsa, ecc, other
-          type: string
-          example:
-            - aes
-            - rsa
-            - aes+rsa
-            - ecc
-            - other
+        is_msg_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: false
       required:
         - message_id
         - message_ts
@@ -1992,10 +2083,13 @@ components:
       items:
         $ref: '#/components/schemas/SearchSort'
     TransactionId:
-      description: Unique transaction_id set by txn initiating system (i.e sender) to co-relate requests across processing systems/service end points
+      description: |
+        1. transaction_id set by txn initiating system (i.e sender) to co-relate all related requests in the context of a business transaction.
+        2. transaction_id should be samme across processing systems/service end points.
+        2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
       type: string
       maxLength: 99
-      example: 012345678901234567890
+      example: 0123456789
   parameters:
     accept-language:
       in: header
@@ -2073,6 +2167,12 @@ components:
                     $ref: '#/components/schemas/DateTime'
                   error:
                     $ref: '#/components/schemas/Error'
+                  correlation_id:
+                    $ref: '#/components/schemas/LinkResponse/properties/correlation_id'
+                required:
+                  - ack_status
+                  - timestamp
+                  - correlation_id
   securitySchemes:
     x-access-token:
       type: http

@@ -1,0 +1,15 @@
+type: string
+description: Disbursement status reason codes
+enum: 
+  - "rjct.reference_id.invalid"
+  - "rjct.reference_id.duplicate"
+  - "rjct.timestamp.invalid"
+  - "rjct.payer_fa.invalid"
+  - "rjct.payee_fa.invalid"
+  - "rjct.amount.invalid"
+  - "rjct.schedule_ts.invalid"
+  - "rjct.currency_code.invalid"
+
+
+
+  

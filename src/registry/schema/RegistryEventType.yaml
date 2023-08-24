@@ -1,0 +1,17 @@
+type: object
+description: Registry supported event types
+properties:
+  namespace:
+    type: string
+    description: namespace to refer to registry event types; e.g, ns:dci:vital-events:v1
+    example: "ns:dci:vital-events:v1"
+  refUri:
+    type: string
+    description: refUri to reference schema of registry event types.
+    example: "https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory#cd.04-vital_events"
+  value:
+    type: string
+    description: Registry event type value.
+    example: "1"
+required:
+  - value
