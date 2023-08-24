@@ -1,7 +1,10 @@
 openapi: 3.0.3
 info:
-  title: G2P Disbursement APIs
-  description: 'G2P [Disbursement](https://g2pconnect.cdpi.dev/protocol/interfaces/social-program-management/disbursement) APIs'
+  title: Interoperability APIs - G2P Disbursements
+  description: |
+    1. Category: [G2P Disbursements](https://g2pconnect.cdpi.dev/protocol/interfaces/social-program-management/disbursement)
+    2. Feature: Enable G2P Disbursements with reconciliation
+    3. Specification Level: **Draft**
   version: 1.0.0
   contact:
     name: G2P Connect

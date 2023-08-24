@@ -1,7 +1,10 @@
 openapi: 3.0.3
 info:
-  title: Functional Registry Data Access APIs
-  description: 'Functional [Registry](https://g2pconnect.cdpi.dev/protocol/interfaces/registries) Data Access APIs'
+  title: Interoperability APIs - Federated Registry Data Access
+  description: |
+    1. Category: Civil & Other Federated [Registries](https://g2pconnect.cdpi.dev/protocol/interfaces/registries) 
+    2. Feature: Enables Data & Verifiable Credential Access
+    2. Specification Level: **Draft**
   version: 1.0.0
   contact:
     name: G2P Connect

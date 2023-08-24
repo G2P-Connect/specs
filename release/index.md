@@ -1,7 +1,8 @@
-### G2P Connect APIs
+## G2P Connect APIs Specifications
+### Specification Level: Draft
 
  * Identity
- * Federated Registry 
+ * Civil & Federated Registries
     * Data & Verifiable Crendential Access - [html](https://g2p-connect.github.io/specs/release/html/registry_core_api_v1.0.0.html), [yaml](https://g2p-connect.github.io/specs/release/yaml/registry_core_api_v1.0.0.yaml)
 * Beneficiary Management
     * Registration

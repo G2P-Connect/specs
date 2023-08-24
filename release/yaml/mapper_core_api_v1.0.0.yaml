@@ -1,7 +1,10 @@
 openapi: 3.0.0
 info:
   title: Interoperability APIs - Financial Address Mapper Mgmt
-  description: 'Financial [Address Mapper](https://g2pconnect.cdpi.dev/protocol/interfaces/beneficiary-management/mapper-architecture) Mgmt APIs'
+  description: |
+    1. Category: Financial [Address Mapper](https://g2pconnect.cdpi.dev/protocol/interfaces/beneficiary-management/mapper-architecture)
+    2. Feature: Manage financial address mapper registry
+    3. Specification Level: **Draft**
   version: 1.0.0
   contact:
     name: G2P Connect
