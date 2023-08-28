@@ -40,7 +40,7 @@ properties:
                 - $ref: RegistryRecordType.yaml
             reg_records:
               items:
-                - $ref: RegistryRecord.yaml
+                $ref: RegistryRecord.yaml
           required: 
             - reg_record_type
             - reg_records

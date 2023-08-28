@@ -1,5 +1,9 @@
 type: object
 properties:
+  seq_num:
+    description: Sequence number to help define precedence for evaluating a list of expression Predicates
+    type: number
+    example: 1
   expression1:
     $ref: "./ExpPredicate.yaml"
   condition:

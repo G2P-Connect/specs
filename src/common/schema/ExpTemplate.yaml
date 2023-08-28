@@ -1,4 +1,4 @@
-type: string
+type: object
 description: |
   1. Query expression's syntax / format is determined based on query-type.
   2. Query expression as a template with placeholder to pass conditional search values
@@ -19,7 +19,7 @@ properties:
     description: Query expression with placeholder to pass conditional search values as base64 bytes
   expression_values:
     allOf:
-      - description: "For templatised query expression type, search criteria values to filter the records"
+      - description: "List to hold attribute values that are templatised in a query expression"
       - $ref: AttributeNameValueList.yaml
 required:
   - type

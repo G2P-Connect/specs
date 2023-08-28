@@ -950,8 +950,9 @@ components:
         - type: integer
         - type: number
         - type: boolean
-        - format: data-time
-      example: +91 9876543210
+        - type: object
+        - type: 'null'
+      example: +11 1111111111
     CurrencyCode:
       description: <br> 1. Currency code allocated as per ISO 4217 format.<br> 2. Codes for the representation of currencies and funds.
       type: string
@@ -1003,9 +1004,10 @@ components:
         - iv
     Error:
       description: |
-        Describes an error object that is returned to standard post call request. <br>
-        1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br>
-        2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
+        Commumication layer Asyn errors that are returned as part of message acknowledgement.
+        1. Messages that are not parsable or message integrity check fails.
+        2. This object may be used across all transport layer protocols (https, sftp, messaging, etc,) to ack the receipt of a message.
+        3. Business context and related validation is NOT in scope of this error object.
       type: object
       properties:
         code:
@@ -1264,15 +1266,16 @@ components:
             type: object
             description: 'HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx'
             properties:
-              error:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    description: error code
-                  message:
-                    type: string
-                    description: error message
+              errors:
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: error code
+                    message:
+                      type: string
+                      description: error message
     Response:
       description: Acknowledgement of message received after successful validation of message and signature
       content:

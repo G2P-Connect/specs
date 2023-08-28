@@ -3,5 +3,6 @@ oneOf:
   - type: integer
   - type: number
   - type: boolean
-  - format: data-time
-example: '+91 9876543210'
+  - type: object
+  - type: "null"
+example: '+11 1111111111'

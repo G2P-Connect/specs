@@ -30,6 +30,8 @@ properties:
               $ref: RegistryQueries.yaml
             notify_record_type:
               $ref: RegistryRecordType.yaml
+            authorize:
+              $ref: ../../common/schema/Authorize.yaml
           required: 
             - reg_event_type
             - filter

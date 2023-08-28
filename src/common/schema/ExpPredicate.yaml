@@ -1,9 +1,5 @@
 description: Expression
 properties:
-  seq_num:
-    description: expression seq number for correlation 
-    type: number
-    example: 1
   attribute_name:
     type: string
     description: attribute name

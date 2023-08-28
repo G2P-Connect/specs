@@ -1678,8 +1678,9 @@ components:
         - type: integer
         - type: number
         - type: boolean
-        - format: data-time
-      example: +91 9876543210
+        - type: object
+        - type: 'null'
+      example: +11 1111111111
     Consent:
       type: object
       description: Consent artefact. TODO - enrich consent object!
@@ -1748,9 +1749,10 @@ components:
         - iv
     Error:
       description: |
-        Describes an error object that is returned to standard post call request. <br>
-        1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br>
-        2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
+        Commumication layer Asyn errors that are returned as part of message acknowledgement.
+        1. Messages that are not parsable or message integrity check fails.
+        2. This object may be used across all transport layer protocols (https, sftp, messaging, etc,) to ack the receipt of a message.
+        3. Business context and related validation is NOT in scope of this error object.
       type: object
       properties:
         code:
@@ -1797,10 +1799,6 @@ components:
     ExpPredicate:
       description: Expression
       properties:
-        seq_num:
-          description: expression seq number for correlation
-          type: number
-          example: 1
         attribute_name:
           type: string
           description: attribute name
@@ -1820,6 +1818,10 @@ components:
     ExpPredicateWithCondition:
       type: object
       properties:
+        seq_num:
+          description: Sequence number to help define precedence for evaluating a list of expression Predicates
+          type: number
+          example: 1
         expression1:
           $ref: '#/components/schemas/ExpPredicate'
         condition:
@@ -1832,7 +1834,7 @@ components:
       items:
         $ref: '#/components/schemas/ExpPredicateWithCondition'
     ExpTemplate:
-      type: string
+      type: object
       description: |
         1. Query expression's syntax / format is determined based on query-type.
         2. Query expression as a template with placeholder to pass conditional search values
@@ -1858,7 +1860,7 @@ components:
           description: Query expression with placeholder to pass conditional search values as base64 bytes
         expression_values:
           allOf:
-            - description: 'For templatised query expression type, search criteria values to filter the records'
+            - description: List to hold attribute values that are templatised in a query expression
             - $ref: '#/components/schemas/AttributeNameValueList'
       required:
         - type
@@ -2145,15 +2147,16 @@ components:
             type: object
             description: 'HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx'
             properties:
-              error:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    description: error code
-                  message:
-                    type: string
-                    description: error message
+              errors:
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: error code
+                    message:
+                      type: string
+                      description: error message
     Response:
       description: Acknowledgement of message received after successful validation of message and signature
       content:
