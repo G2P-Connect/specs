@@ -690,7 +690,7 @@ paths:
 components:
   schemas:
     cdpi_PersonId:
-      type: string
+      type: object
       description: |
         1. Person id is case insensitve normative represenation as id-type:id@provider <br>
         2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
@@ -1974,8 +1974,8 @@ components:
             txnstatus_response:
               type: object
               oneOf:
-                - $ref: '#/components/schemas/SearchResponse'
-                - $ref: '#/components/schemas/NotifyEventRequest'
+                - $ref: '#/components/schemas/SearchResponse/properties/data'
+                - $ref: '#/components/schemas/NotifyEventRequest/properties/data'
           required:
             - transaction_id
             - txnstatus_response
@@ -2521,7 +2521,7 @@ components:
         $ref: '#/components/schemas/SearchSort'
     TransactionId:
       description: Unique transaction_id set by txn initiating system (i.e sender) to co-relate requests across processing systems/service end points
-      type: object
+      type: string
       maxLength: 99
       example: 012345678901234567890
   parameters:

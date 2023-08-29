@@ -1,4 +1,4 @@
-type: string
+type: object
 description: |
   1. Person id is case insensitve normative represenation as id-type:id@provider <br>
   2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
