@@ -1,3 +1,2 @@
-type: array
 items:
   $ref: "./SearchSort.yaml"

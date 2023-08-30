@@ -1,5 +1,4 @@
 title: Address
-type: object
 description: Address info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim">specs</a>
 properties:
   address_line1:

@@ -1,3 +1,0 @@
-description: "The version format should use semantic versioning, which means dividing each version identifier into three parts: MAJOR, MINOR, and PATCH. These parts are then combined using the format 'MAJOR.MINOR.PATCH' "
-type: object
-example: '1.0.0'

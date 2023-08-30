@@ -1,4 +1,3 @@
-type: string
 description: |
   1. RecordType are pre defined as list of attributes or an object to return upon successful search/subscribe requests
   2. This is equivalent to column list in a typical sql query i.e select col1, col2, col3 from table where condition

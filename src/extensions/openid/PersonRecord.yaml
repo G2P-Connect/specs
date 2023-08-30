@@ -1,4 +1,3 @@
-type: object
 description: | 
   1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
   2. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
