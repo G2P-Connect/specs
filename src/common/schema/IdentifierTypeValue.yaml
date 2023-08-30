@@ -3,6 +3,6 @@ properties:
     $ref: IdentifierType.yaml
   identifier_value:
     allOf:
-      - description: Actual Value of the subject defined in identifier_type
+      - description: Identifier Value of the subject defined in identifier_type
       - $ref: AttributeValue.yaml
     example: "12314567890"
