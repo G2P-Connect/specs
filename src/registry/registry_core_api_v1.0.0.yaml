@@ -47,6 +47,65 @@ tags:
     description: Sync endpoints
   - name: Schemas
     description: Schemas
+  - name: SearchRequest
+    x-displayName: SearchRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchRequest" />    
+  - name: SearchResponse
+    x-displayName: SearchResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchResponse" />    
+  - name: SubscribeRequest
+    x-displayName: SubscribeRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeRequest" />    
+  - name: NotifyEventRequest
+    x-displayName: NotifyEventRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/NotifyEventRequest" />    
+  - name: TxnStatusRequest
+    x-displayName: TxnStatusRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusRequest" />    
+  - name: TxnStatusResponse
+    x-displayName: TxnStatusResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusResponse" />    
+  - name: FetchSubscriptionsRequest
+    x-displayName: FetchSubscriptionsRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/FetchSubscriptionsRequest" />    
+  - name: FetchSubscriptionsResponse
+    x-displayName: FetchSubscriptionsResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/FetchSubscriptionsResponse" />    
+  - name: UnSubscribeRequest
+    x-displayName: UnSubscribeRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeRequest" />    
+  - name: UnSubscribeResponse
+    x-displayName: UnSubscribeResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeResponse" />  
+
+x-tagGroups:
+  - name: API Definitions
+    tags:
+      - Async
+      - Sync
+  - name: Schema Objects
+    tags:
+      - SearchRequest
+      - SearchResponse 
+      - SubscribeRequest
+      - NotifyEventRequest
+      - TxnStatusRequest
+      - TxnStatusResponse
+      - FetchSubscriptionsRequest
+      - FetchSubscriptionsResponse
+      - UnSubscribeRequest
+      - UnSubscribeResponse  
+
 paths:
  /registry/search:
   post: 
@@ -659,7 +718,7 @@ paths:
                 message:
                   type: object
                   description: The search data using which registry search to be performed
-                  anyOf:
+                  oneOf:
                     - $ref: '#/components/schemas/SearchRequest'
                     - $ref: '#/components/schemas/EncryptedMessage'
               required:
@@ -991,7 +1050,6 @@ components:
       $ref: ../extensions/dci/Sex.yaml
     dci_VitalEvents: 
       $ref: ../extensions/dci/VitalEvents.yaml
-
     ###### src/extensions/fhir schema objects
     
     ###### src/extensions/google schema objects
@@ -1063,24 +1121,62 @@ components:
       $ref: schema/core/AllRecordTypes.yaml
     coreReg_EventType: 
       $ref: schema/core/EventType.yaml
-    FetchSubscriptionsRequest: 
-      $ref: schema/core/FetchSubscriptionsRequest.yaml
+    FetchSubscriptionsRequest:
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/FetchSubscriptionsRequest.yaml     
+
     FetchSubscriptionsResponse:
-      $ref: schema/core/FetchSubscriptionsResponse.yaml
-    NotifyEventRequest: 
-      $ref: schema/core/NotifyEventRequest.yaml
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/FetchSubscriptionsResponse.yaml     
+    NotifyEventRequest:
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/NotifyEventRequest.yaml        
     other_RecordType: 
       $ref: schema/core/RegistryRecordType.yaml
     coreReg_Type: 
       $ref: schema/core/RegistryType.yaml
-    SearchRequest: 
-      $ref: schema/core/SearchRequest.yaml
-    SearchResponse: 
-      $ref: schema/core/SearchResponse.yaml
+    SearchRequest:
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/SearchRequest.yaml
+    SearchResponse:
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/SearchResponse.yaml     
     SearchStatusReasonCode: 
       $ref: schema/core/SearchStatusReasonCode.yaml
-    SubscribeRequest: 
-      $ref: schema/core/SubscribeRequest.yaml
+    SubscribeRequest:
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/SubscribeRequest.yaml      
+
     # SubscribeResponse: 
     #   $ref: schema/core/SubscribeResponse.yaml
     SubscribeStatusReasonCode: 
@@ -1092,13 +1188,37 @@ components:
     SubscriptionStatus:
         $ref: schema/core/SubscriptionStatus.yaml
     TxnStatusRequest: 
-      $ref: schema/core/TxnStatusRequest.yaml            
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/TxnStatusRequest.yaml    
     TxnStatusResponse: 
-      $ref: schema/core/TxnStatusResponse.yaml  
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/TxnStatusResponse.yaml     
     UnSubscribeRequest: 
-      $ref: schema/core/UnSubscribeRequest.yaml
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/UnSubscribeRequest.yaml    
     UnSubscribeResponse: 
-      $ref: schema/core/UnSubscribeResponse.yaml
+      type: object
+      properties:
+        version:
+          type: string
+          example: 1.0.0
+        data:
+          $ref: schema/core/UnSubscribeResponse.yaml    
     UnSubscribeStatusReasonCode: 
       $ref: schema/core/UnSubscribeStatusReasonCode.yaml           
   
