@@ -13,9 +13,15 @@ properties:
   phone_number:
     description: Applicant preferred phone number as in [E.164](https://www.itu.int/rec/T-REC-E.164-201011-I/en)
     type: string
+  phone_number_verified:
+    description: True if the End-User's phone number has been verified; otherwise false. 
+    type: string
   email:
     description: Applicant preferred e-mail address as in [RFC 5322](https://datatracker.ietf.org/doc/html/rfc5322) [addr-spec](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1) [specification](https://datatracker.ietf.org/doc/html/rfc5322#section-3.4.1)
     type: string
+  email_verified: 
+    description: Email address was controlled by the End-User at the time the verification was performed. The means by which an e-mail address is verified is context-specific, and dependent upon the trust framework or contractual agreements within which the parties are operating.
+    type: boolean
   sex:
     $ref: Sex.yaml
   birthdate:

@@ -1,4 +1,5 @@
 description: Expression
+type: object
 properties:
   seq_num:
     description: expression seq number for correlation 

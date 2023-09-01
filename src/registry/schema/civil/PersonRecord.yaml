@@ -1,3 +1,4 @@
+type: object
 description: | 
   1. A sample person record to identity an individual or civil regisration event in a typical civil registry
   2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
@@ -17,6 +18,7 @@ allOf:
       type: string
     registration_date:
       description: Registration date
+      type: string
     link_registration_number:
       description: Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,
       type: string

@@ -1,3 +1,4 @@
+type: object
 description: |
   1. Pre defined query objects injected by each country/org/system to query a registry
   2. Implementing systems may create pre-defined query objects based on use cases and inject as custom extensions
