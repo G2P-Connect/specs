@@ -3,7 +3,7 @@
 
  * Identity
  * Civil & Federated Registries
-    * Data & Verifiable Crendential Access - [html](https://spdci.github.io/standards/release/html/registry_core_api_v1_0.0.0.html), [yaml](https://spdci.github.io/standards/release/yaml/registry_core_api_v1.0.0.yaml)
+    * Data & Verifiable Crendential Access - [html](https://spdci.github.io/standards/release/html/registry_core_api_v1.0.0.html), [yaml](https://spdci.github.io/standards/release/yaml/registry_core_api_v1.0.0.yaml)
 * Beneficiary Management
     * Registration
     * Assess
