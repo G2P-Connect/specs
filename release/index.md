@@ -29,4 +29,4 @@
 * Security
     * Authorization - [html](https://g2p-connect.github.io/specs/release/html/authz_core_api_v1.0.0.html), [yaml](https://g2p-connect.github.io/specs/release/yaml/authz_core_api_v1.0.0.yaml)
 * API source code
-    * Github [repository](https://g2p-connect.github.io/specs/src)
+    * Github [repository](https://github.com/G2P-Connect/specs)
