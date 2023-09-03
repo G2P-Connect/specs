@@ -1,0 +1,35 @@
+type: object
+description: |
+  1. Country specific implementations should publish /.well-known files or refUris
+  2. In most scenarios, receiver i.e receipient of search/subsribe request determine which registry to search
+  3. Example: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
+properties:
+  namespace:
+    type: string
+    description: namespace to refer to registry types; e.g, ns:dci:registry-type:v1
+    example: "ns:dci:registry-type:v1"
+  refUri:
+    type: string
+    description: refUri to reference schema of registry types.
+    example: "https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory"
+  value:
+    type: string
+    description: |
+      registry type value. <br>
+      e.g,: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
+    example:
+      - "civil" 
+      - "population"
+      - "national-id"
+      - "family"
+      - "household"
+      - "social"
+      - "beneficiary"
+      - "disability"
+      - "student"
+      - "farmer"
+      - "land"
+      - "utility"
+      - "other"
+required:
+  - value

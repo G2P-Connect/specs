@@ -1,5 +1,5 @@
-description: 'Condition in an expression'
 type: string
+description: 'Condition in an expression'
 enum:
   - "and"
   - "or"

@@ -1,0 +1,44 @@
+type: object
+description: Registry to notify a event to subscrbiers
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  notify_event:
+    type: array
+    items: 
+      type: object
+      properties:
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../common/schema/DateTime.yaml
+        data:
+          type: object
+          description: |
+            Registry data being notified as an outcome of event subscription with registry
+          properties: 
+            version:
+              type: string
+              default: 1.0.0
+            reg_type:
+              $ref: RegistryType.yaml
+            reg_event_type:
+              $ref: RegistryEventType.yaml
+            reg_record_type:
+              $ref: RegistryRecordType.yaml
+            reg_records:
+              items:
+                $ref: RegistryRecord.yaml
+          required: 
+            - reg_event_type
+            - reg_record_type
+            - reg_records
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - data
+required: 
+  - transaction_id
+  - notify_event

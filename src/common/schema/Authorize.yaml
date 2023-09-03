@@ -1,0 +1,21 @@
+type: object
+description: Authorize artefact. TODO - review and update!
+properties:
+  id:
+    type: string
+    format: uri or did
+    description: authorize-id
+  ts:
+    $ref: ./DateTime.yaml
+  purpose:
+    type: object
+    properties:
+      text:
+        type: string
+      code: 
+        type: string
+        description: From a fixed set, documented at refUri
+      refUri:
+          type: string
+          format: uri
+          description: Uri to provide more info on authorize codes

@@ -1,0 +1,15 @@
+type: object
+description: Un-Subscribe to registred subscriptions
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  timesstamp:
+    $ref: ../../common/schema/DateTime.yaml
+  subscription_codes:
+    type: array
+    items:
+      $ref: SubscriptionCode.yaml
+required:
+  - transaction_id
+  - timestamp
+  - sunscription_codes

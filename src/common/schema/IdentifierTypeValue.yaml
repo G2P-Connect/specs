@@ -1,0 +1,9 @@
+type: object
+properties:
+  identifier_type:
+    $ref: IdentifierType.yaml
+  identifier_value:
+    allOf:
+      - description: Identifier Value of the subject defined in identifier_type
+      - $ref: AttributeValue.yaml
+    example: "12314567890"

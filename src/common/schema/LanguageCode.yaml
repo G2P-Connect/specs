@@ -1,4 +1,4 @@
-description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
-type: string   
+type: string
+description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard   
 pattern: '^[a-z]{3,3}$'
 example: "en"

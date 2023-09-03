@@ -1,0 +1,5 @@
+type: string
+description: |
+  Unique code to identify the subscription request by the entity providing subscription service.
+  Helps to check status, unsubscribe etc.,
+maxLength: 99

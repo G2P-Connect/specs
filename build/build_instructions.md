@@ -1,18 +1,18 @@
-# How to build DCI SP standards
+# How to build Open API specs in html, yaml formats
 
 ## IMPORTANT NOTES: 
-1. Please do not direclty edit /standards/release/yaml/*.yaml files directly. 
-2. Request reviewers to edit the respective .yaml files in src folders.
-3. standards/release/yaml/*.yaml files are <b>auto generated</b> using below steps.
+1. Please do not direclty edit ./release/yaml/*.yaml files directly. 
+2. Request contributors/reviewers doing pull requests to edit .yaml files in src folders.
+3. ./release/yaml/*.yaml files are <b>auto generated</b> using below steps.
 do
 ## Folder Structure
-1. DCI SP Standards src folder: standards/src
-2. DCI SP Published API release folder: standards/release
-3. DCI SP Build folder: standards/build
+1. src folder: ./src
+2. Published API release folder: ./release
+3. Build folder: ./build
 
 ## Organization of Open API Specficaition 
-1. All source file are list in folder: standards/src/ <br>
-    Each DCI SP solution blueprint component holds repsective APIs. e.g., <br>
+1. All source file are list in folder: ./src/ <br>
+    Each solution blueprint component holds repsective APIs. e.g., <br>
     a. registry/registry_core_api_v1.0.0.yaml for registry access <br>
     b. etc.,
 2. All open api common components are listed in folder: standards/src/common/

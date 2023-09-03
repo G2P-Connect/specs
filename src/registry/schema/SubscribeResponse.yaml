@@ -1,0 +1,41 @@
+type: object
+description: Response to subscribe request.
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  correlation_id:
+    $ref: ../../common/schema/CorrelationId.yaml
+  subscribe_response:
+    type: array
+    items:
+      type: object
+      properties: 
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../common/schema/DateTime.yaml
+        status:
+          $ref: "../../common/schema/RequestStatus.yaml" 
+        status_reason_code:
+          $ref: "./SubscribeStatusReasonCode.yaml" 
+        status_reason_message:
+          description: "Status reason code message. Helps actionanble messaging for systems/end users"
+          type: string
+          maxLength: 999
+        subscriptions:
+          type: array
+          items: 
+            $ref: SubscriptionInfo.yaml
+        pagination: 
+          $ref: "../../common/schema/Pagination.yaml"
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - status
+required:
+  - transaction_id
+  - correlation_id
+  - subscribe_response
+ 

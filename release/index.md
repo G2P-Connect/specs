@@ -1,17 +1,17 @@
-### DCI APIs
+## DCI APIs Specifications
+### Specification Level: Draft
 
  * Identity
- * Credential
- * [Registries](https://spdci.github.io/standards/release/html/registry_core_api_v1_0.0.0.html)
+ * Civil & Federated Registries
+    * Data & Verifiable Crendential Access - [html](https://spdci.github.io/standards/release/html/registry_core_api_v1_0.0.0.html), [yaml](https://spdci.github.io/standards/release/yaml/registry_core_api_v1.0.0.yaml)
 * Beneficiary Management
     * Registration
     * Assess
     * Enroll
-    * [Financial Address Mapper](https://g2p-connect.github.io/specs/release/html/mapper_core_api_v1.0.0.html)
-* Social Program Management
+    * Financial Address Mapper
+* Program Management
     * Program Management
     * Eligibility Rules
-    * Purpose Codes
     * Dibursement
 * Financial Service Provider (FSP) 
     * Check Fund Availability
@@ -27,6 +27,6 @@
 * Telemetry Events
 * Grievance Mgmt
 * Security
-    * [Authorization](https://spdci.github.io/standards/release/html/auth_core_api_v1_0.0.0.html)
+    * Authorization - [html](https://spdci.github.io/standards/release/html/authz_core_api_v1.0.0.html), [yaml](https://spdci.github.io/standards/release/yaml/authz_core_api_v1.0.0.yaml)
 * API source code
     * Github [repository](https://spdci.github.io/standards/src)

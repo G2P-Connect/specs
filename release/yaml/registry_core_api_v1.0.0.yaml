@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Interoperability APIs - Foundational/Functional registries
+  title: Interoperability APIs - Federated Registry Data & Credential Access
   x-logo:
     url: 'https://spdci.github.io/api-documentation/draft/dci-logo.png'
     backgroundColor: '#FFFFFF'
@@ -44,6 +44,8 @@ tags:
     description: Sync endpoints
   - name: Schemas
     description: Schemas
+  - name: Status Codes
+    description: Status Codes
   - name: SearchRequest
     x-displayName: SearchRequest
     description: |
@@ -51,31 +53,27 @@ tags:
   - name: SearchResponse
     x-displayName: SearchResponse
     description: |
-      <SchemaDefinition schemaRef="#/components/schemas/SearchResponse" />    
+      <SchemaDefinition schemaRef="#/components/schemas/SearchResponse" />  
+  - name: SearchStatusReasonCode
+    x-displayName: SearchStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SearchStatusReasonCode" />        
   - name: SubscribeRequest
     x-displayName: SubscribeRequest
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/SubscribeRequest" />    
+  - name: SubscribeResponse
+    x-displayName: SubscribeResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeResponse" />    
+  - name: SubscribeStatusReasonCode
+    x-displayName: SubscribeStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeStatusReasonCode" />        
   - name: NotifyEventRequest
     x-displayName: NotifyEventRequest
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/NotifyEventRequest" />    
-  - name: TxnStatusRequest
-    x-displayName: TxnStatusRequest
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusRequest" />    
-  - name: TxnStatusResponse
-    x-displayName: TxnStatusResponse
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusResponse" />    
-  - name: FetchSubscriptionsRequest
-    x-displayName: FetchSubscriptionsRequest
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/FetchSubscriptionsRequest" />    
-  - name: FetchSubscriptionsResponse
-    x-displayName: FetchSubscriptionsResponse
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/FetchSubscriptionsResponse" />    
   - name: UnSubscribeRequest
     x-displayName: UnSubscribeRequest
     description: |
@@ -84,6 +82,22 @@ tags:
     x-displayName: UnSubscribeResponse
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeResponse" />  
+  - name: UnSubscribeStatusReasonCode
+    x-displayName: UnSubscribeStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeStatusReasonCode" />        
+  - name: TxnStatusRequest
+    x-displayName: TxnStatusRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusRequest" />    
+  - name: TxnStatusResponse
+    x-displayName: TxnStatusResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/TxnStatusResponse" />    
+  - name: EncryptedMessage
+    x-displayName: EncryptedMessage
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/EncryptedMessage" />    
 x-tagGroups:
   - name: API Definitions
     tags:
@@ -94,13 +108,18 @@ x-tagGroups:
       - SearchRequest
       - SearchResponse
       - SubscribeRequest
+      - SubscribeResponse
       - NotifyEventRequest
-      - TxnStatusRequest
-      - TxnStatusResponse
-      - FetchSubscriptionsRequest
-      - FetchSubscriptionsResponse
       - UnSubscribeRequest
       - UnSubscribeResponse
+      - TxnStatusRequest
+      - TxnStatusResponse
+      - EncryptedMessage
+  - name: Status Codes
+    tags:
+      - SearchStatusReasonCode
+      - SubscribeStatusReasonCode
+      - UnSubscribeStatusReasonCode
 paths:
   /registry/search:
     post:
@@ -259,6 +278,59 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
+  /registry/on-subscribe:
+    post:
+      summary: /registry/on-subscribe
+      description: Subscribe results through callback
+      operationId: post_reg_on-subscribe
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-subscribe
+                message:
+                  type: object
+                  description: Subscription information
+                  oneOf:
+                    - $ref: '#/components/schemas/SubscribeResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-subscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
   /registry/notify:
     post:
       summary: /registry/notify
@@ -310,6 +382,111 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
+  /registry/unsubscribe:
+    post:
+      summary: /registry/unsubscribe
+      description: Unsubscribe existing subscription(s) by subscription_code
+      operationId: post_reg_unsubscribe
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - unsubscribe
+                message:
+                  type: object
+                  description: The unsubscribe request that contain subscription ids which to be removed from subscription list
+                  oneOf:
+                    - $ref: '#/components/schemas/UnSubscribeRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - unsubscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
+  /registry/on-unsubscribe:
+    post:
+      summary: /registry/on-unsubscribe
+      description: Unsubscribe response as a callback
+      operationId: post_reg_on-unsubscribe
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-unsubscribe
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/UnSubscribeResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-unsubscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - x-access-token: []
+      deprecated: false
   /registry/txn/status:
     post:
       summary: /registry/txn/status
@@ -333,9 +510,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - subscribe
-                            - notify
-                            - on-search
+                            - txn-status
                 message:
                   type: object
                   oneOf:
@@ -351,9 +526,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - subscribe
-                        - notify
-                        - on-search
+                        - txn-status
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -389,9 +562,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - subscribe
-                            - notify
-                            - on-search
+                            - txn-on-status
                 message:
                   type: object
                   oneOf:
@@ -406,9 +577,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - subscribe
-                        - notify
-                        - on-search
+                        - txn-on-status
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -487,143 +656,10 @@ paths:
       security:
         - x-access-token: []
       deprecated: false
-  /registry/sync/subscriptions:
-    post:
-      summary: /registry/sync/subscriptions
-      description: To retrive list of subscriptions
-      operationId: post_reg_sync_subscriptions
-      tags:
-        - Sync
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
-                    - properties:
-                        action:
-                          enum:
-                            - fetch_subscriptions
-                message:
-                  type: object
-                  description: To perform search based on registry type or event type
-                  oneOf:
-                    - $ref: '#/components/schemas/FetchSubscriptionsRequest'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-                - message
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          description: Subscription list response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  signature:
-                    $ref: '#/components/schemas/MsgSignature'
-                  header:
-                    allOf:
-                      - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
-                  message:
-                    type: object
-                    oneOf:
-                      - $ref: '#/components/schemas/FetchSubscriptionsResponse'
-                      - $ref: '#/components/schemas/EncryptedMessage'
-                required:
-                  - header
-      security:
-        - x-access-token: []
-      deprecated: false
-  /registry/sync/unsubscribe:
-    post:
-      summary: /registry/sync/unsubscribe
-      description: Unsubscribe to a life event with registry
-      operationId: post_reg_sync_unsubscribe
-      tags:
-        - Sync
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
-                    - properties:
-                        action:
-                          enum:
-                            - unsubscribe
-                message:
-                  type: object
-                  description: The unsubscribe request that contain subscription ids which to be removed from subscription list
-                  oneOf:
-                    - $ref: '#/components/schemas/UnSubscribeRequest'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-                - message
-          multipart/form-data:
-            schema:
-              allOf:
-                - $ref: '#/components/schemas/FileInfo'
-                - properties:
-                    action:
-                      enum:
-                        - unsubscribe
-      responses:
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-        default:
-          description: Unsubscribe response
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  signature:
-                    $ref: '#/components/schemas/MsgSignature'
-                  header:
-                    allOf:
-                      - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
-                  message:
-                    type: object
-                    oneOf:
-                      - $ref: '#/components/schemas/UnSubscribeResponse'
-                      - $ref: '#/components/schemas/EncryptedMessage'
-                required:
-                  - header
-                  - message
-      security:
-        - x-access-token: []
-      deprecated: false
   /registry/sync/txn/status:
     post:
       summary: /registry/sync/txn/status
-      description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
+      description: Sync status check of registry Async APIs
       operationId: post_reg_sync_txnstatus
       tags:
         - Sync
@@ -643,8 +679,7 @@ paths:
                     - properties:
                         action:
                           enum:
-                            - search
-                            - subscribe
+                            - txn-status
                 message:
                   type: object
                   oneOf:
@@ -675,8 +710,7 @@ paths:
                       - properties:
                           action:
                             enum:
-                              - on-search
-                              - notify
+                              - txn-on-status
                   message:
                     type: object
                     oneOf:
@@ -696,12 +730,12 @@ components:
         2. This will enumerate foundational and functioanl id's to easily resolvable addressess <br>
         3. This property is intended to unambiguously refer to an object, such as a person, beneficiary, user, etc., <br>
         4. Few examples: <br>
-            - id@identifier-type.id-provider e.g token:12345@mosip, vid:543215@mosip <br>
-            - id@civil-registry.issuing-agency e.g id:12345@crvs, brn:12345@crvs, mrn:12345@crvs <br>
+            - id@identifier-type.id-provider e.g token:12345@nid, vid:543215@nid <br>
+            - id@civil-registry.issuing-agency e.g id:12345@civil-reg, brn:12345@civil-reg, mrn:12345@civil-reg <br>
             - id@functional-identifier.issuing-agency e.g id:12345@voter-id, id:12345@driving-license, mobile:12345@farmer-reg <br>
         Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-      example: 'vid:54321@mosip'
+      example: 'vid:54321@nid'
     dci_IdentifierType:
       type: string
       description: |
@@ -770,7 +804,6 @@ components:
           type: string
           description: Prefix part of the applicant's name
     dci_PersonRecord:
-      type: object
       description: |
         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
         3. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
@@ -841,7 +874,6 @@ components:
       description: |
         Standardized codes/values representing diverse Sex categories.
         Reference: [ISO/IEC 5218:2022](https://www.iso.org/standard/81682.html)
-
         1 : Male
         2 : Female
         3 : Others
@@ -1428,103 +1460,7 @@ components:
               type: string
       required:
         - type
-    civilReg_EventType:
-      description: |
-        1. Civil registration event list used to record and interact with a typical civil registry
-        2. This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
-        3. Example Civil Registration events: person, birth, death, marriage, divorce, annulment, seperation, adoption, demo_change, unregister, etc.,
-      type: string
-      enum:
-        - person
-        - birth
-        - death
-        - marriage
-        - divorce
-        - annulment
-        - seperation
-        - adoption
-        - demo_change
-        - unregister
-    civilReg_PersonRecord:
-      type: object
-      description: |
-        1. A sample person record to identity an individual or civil regisration event in a typical civil registry
-        2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
-      allOf:
-        - $ref: '#/components/schemas/openid_PersonRecord'
-        - properties:
-            issue_date:
-              type: string
-              format: date-time
-            status:
-              description: Civil registry status
-              type: string
-            registration_type:
-              $ref: '#/components/schemas/civilReg_EventType'
-            registration_number:
-              description: Registration number
-              type: string
-            registration_date:
-              description: Registration date
-              type: string
-            link_registration_number:
-              description: 'Registration number to related record. e.g birth registration no for death, marriage registration no for divorce/annulment, etc.,'
-              type: string
-            related_persons:
-              type: array
-              items:
-                $ref: '#/components/schemas/civilReg_RelatedPerson'
-    civilReg_RecordType:
-      type: string
-      description: |
-        1. A sample record list to identity various records that civil registry can produce
-        2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
-        3. Example Civil Registry records - person_record, birth_cert, death_cert, marriage_cert, etc.,
-      enum:
-        - person_record
-        - brith_cert
-        - death_cert
-        - marriage_cert
-        - other_record
-    civilReg_RelatedPerson:
-      type: object
-      description: |
-        1. A sample related person into captured in civil registry
-        2, This is an indicative list as reference and every country, organisation, system shall customise to local requirements as extensions
-      properties:
-        sub:
-          type: string
-          description: Subject - Identifier for the End-User at the Issuer.
-        name:
-          description: 'End-User''s full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User''s locale and preferences.'
-          type: string
-        relationship:
-          type: string
-          description: |
-            Indicative relationship values - mother, father, gaurdian, bride, groom, wife, husband, spouse, partner, other
-          example:
-            - mother
-            - father
-            - gaurdian
-            - bride
-            - groom
-            - wife
-            - husband
-            - spouse
-            - partner
-            - other
-    coreReg_AllEvents:
-      type: string
-      description: |
-        1. List of all events type defined by respective registries, entities, coutnries and organisation as extensions
-        2. Events can be used for defining custom selection criteria with in the context of registry domain
-      oneOf:
-        - $ref: '#/components/schemas/dci_VitalEvents'
-        - $ref: '#/components/schemas/civilReg_EventType'
-        - $ref: '#/components/schemas/mosip_EventType'
-        - $ref: '#/components/schemas/coreReg_EventType'
-    coreReg_AllQueries:
-      type: object
+    RegistryQueries:
       description: |
         1. Pre defined query objects injected by each country/org/system to query a registry
         2. Implementing systems may create pre-defined query objects based on use cases and inject as custom extensions
@@ -1533,286 +1469,275 @@ components:
           - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
           - search all farmers with land area less than 2 acers in district code 504
       oneOf:
-        - $ref: '#/components/schemas/dci_IdentifierTypeValue'
-        - $ref: '#/components/schemas/cdpi_PersonId'
-        - $ref: '#/components/schemas/ExpressionWithConditionList'
-    coreReg_AllRecords:
-      type: object
-      description: |
-        1. Records retured as response to search/subsribe actions to exchange registry data 
-        2. record_type acts as namespace to define record being retunred for receiving system to unmarshel and use
-        3. Objects are defined in respecitive schemas definition with entity/org namespace as prefix
-        3. Implementing systems shall reference to the requires objects based on the context of these API usage
-      oneOf:
-        - $ref: '#/components/schemas/civilReg_PersonRecord'
-        - $ref: '#/components/schemas/dci_PersonRecord'
-        - $ref: '#/components/schemas/nid_ResidentRecord'
-        - $ref: '#/components/schemas/nid_DeceasedRecord'
-        - $ref: '#/components/schemas/mosip_RegistrationRecord'
-        - $ref: '#/components/schemas/mosip_MOSIPVerifiableCredential'
-    coreReg_AllRecordTypes:
-      type: string
-      description: |
-        1. RecordType are pre defined as list of attributes or an object to return upon successful search/subscribe requests
-        2. This is equivalent to column list in a typical sql query i.e select col1, col2, col3 from table where condition
-        3. Based on record_type, required object definition are added as extension payloads
-      oneOf:
-        - $ref: '#/components/schemas/civilReg_RecordType'
-        - $ref: '#/components/schemas/dci_RecordType'
-        - $ref: '#/components/schemas/nid_RecordType'
-        - $ref: '#/components/schemas/mosip_RecordType'
-        - $ref: '#/components/schemas/other_RecordType'
-    coreReg_EventType:
-      type: string
-      description: |
-        Functional registry event types:
-          1. update - search or subscribe to update events; e.g update to postal_code 12345 between date_range
-          2. link - search or subscribe to linking events; e.g mobile no link with ID, national ID link with civil reg record, etc.,
-          3. unlink - search or subscribe to unlinking events; <br>
-
-        Note: update event can also cover link/unlink events on a registry record.
-      enum:
-        - update
-        - link
-        - unlink
-    FetchSubscriptionsRequest:
-      type: object
-      properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
-          type: object
-          description: 'Fetch list of active subscriptions based on sender id,registry type and event type'
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            fetch_subscriptions_request:
-              type: object
-              properties:
-                timestamp:
-                  $ref: '#/components/schemas/DateTime'
-                registry_type:
-                  $ref: '#/components/schemas/coreReg_Type'
-                event_type:
-                  $ref: '#/components/schemas/coreReg_AllEvents'
-                subscription_code:
-                  $ref: '#/components/schemas/SubscriptionCode'
-                locale:
-                  $ref: '#/components/schemas/LanguageCode'
-              required:
-                - timestamp
-                - event_type
-          required:
-            - transaction_id
-    FetchSubscriptionsResponse:
-      type: object
-      properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
-          type: object
-          description: Subscription list
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            timestamp:
-              $ref: '#/components/schemas/DateTime'
-            subscriptions:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubscriptionInfo'
-          required:
-            - transaction_id
-            - subscriptions
+        - $ref: '#/components/schemas/IdentifierTypeValue'
+        - $ref: '#/components/schemas/ExpTemplate'
+        - $ref: '#/components/schemas/ExpPredicateWithConditionList'
     NotifyEventRequest:
       type: object
+      description: Registry to notify a event to subscrbiers
       properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
-          type: object
-          description: Registry to notify a event to subscrbiers
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            notify_event:
-              type: array
-              items:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        notify_event:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              data:
                 type: object
+                description: |
+                  Registry data being notified as an outcome of event subscription with registry
                 properties:
-                  reference_id:
-                    $ref: '#/components/schemas/ReferenceId'
-                  timestamp:
-                    $ref: '#/components/schemas/DateTime'
-                  registry_type:
-                    $ref: '#/components/schemas/coreReg_Type'
-                  event_type:
-                    $ref: '#/components/schemas/coreReg_AllEvents'
-                  registry_data:
-                    type: object
-                    description: |
-                      Search result record as an outcome of search/subscribe action
-                    properties:
-                      record_type:
-                        $ref: '#/components/schemas/coreReg_AllRecordTypes'
-                      record:
-                        $ref: '#/components/schemas/coreReg_AllRecords'
-                    required:
-                      - record_type
-                      - record
-                  locale:
-                    $ref: '#/components/schemas/LanguageCode'
+                  version:
+                    type: string
+                    default: 1.0.0
+                  reg_type:
+                    $ref: '#/components/schemas/RegistryType'
+                  reg_event_type:
+                    $ref: '#/components/schemas/RegistryEventType'
+                  reg_record_type:
+                    $ref: '#/components/schemas/RegistryRecordType'
+                  reg_records:
+                    items:
+                      $ref: '#/components/schemas/RegistryRecord'
                 required:
-                  - reference_id
-                  - timestamp
-                  - event_type
-                  - registry_data
-          required:
-            - transaction_id
-            - notify_event
-    other_RecordType:
-      type: string
-      description: List of attribute names from a registry to return in respone object
-      enum:
-        - person
-        - brith
-        - death
-        - marriage
-        - other
-    coreReg_Type:
-      type: string
+                  - reg_event_type
+                  - reg_record_type
+                  - reg_records
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - data
+      required:
+        - transaction_id
+        - notify_event
+    RegistryEventType:
+      type: object
+      description: Registry supported event types
+      properties:
+        namespace:
+          type: string
+          description: 'namespace to refer to registry event types; e.g, ns:dci:vital-events:v1'
+          example: 'ns:dci:vital-events:v1'
+        refUri:
+          type: string
+          description: refUri to reference schema of registry event types.
+          example: 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory#cd.04-vital_events'
+        value:
+          type: string
+          description: Registry event type value.
+          example: '1'
+      required:
+        - value
+    RegistryRecord:
+      type: object
+      description: Registy record object based on record_type attribute.
+      example:
+        $ref: '#/components/schemas/dci_PersonRecord'
+    RegistryRecordType:
+      type: object
       description: |
-        1. Country specific implementations should extend and allow other registries.
-        2. In most scenarios, receiver i.e receipient of search/subsribe request determine which registry is being searched
-        3. example: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
-      enum:
-        - civil
-        - population
-        - national-id
-        - family
-        - household
-        - social
-        - beneficiary
-        - disability
-        - student
-        - farmer
-        - land
-        - utility
-        - other
+        Record type to represent in
+        1. Search request to request search result record type to return
+        2. Notify event to represent record type being returned based on subscription to registry event type
+      properties:
+        namespace:
+          type: string
+          description: 'namespace to refer to registry record types; e.g, ns:dci:record-type:PersonRecord:v1'
+          example:
+            - 'ns:dci:record-type:PersonRecord:v1'
+            - 'ns:openid:record-type:PersonRecord:v1'
+        refUri:
+          type: string
+          description: refUri to reference schema of registry record types.
+          example:
+            - 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.1-data-elements#do.01-person'
+            - 'https://openid.net/specs/openid-connect-core-1_0.html#Claims'
+        value:
+          type: string
+          description: |
+            registry record type value. <br>
+            e.g,: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
+          example:
+            - person
+            - vc-person
+            - vc-brith-certificate
+            - vc-marriage-certificate
+            - vc-death-certificate
+            - social
+            - disability
+            - student
+            - farmer
+            - land
+            - utility
+            - other
+      required:
+        - value
+    RegistryType:
+      type: object
+      description: |
+        1. Country specific implementations should publish /.well-known files or refUris
+        2. In most scenarios, receiver i.e receipient of search/subsribe request determine which registry to search
+        3. Example: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
+      properties:
+        namespace:
+          type: string
+          description: 'namespace to refer to registry types; e.g, ns:dci:registry-type:v1'
+          example: 'ns:dci:registry-type:v1'
+        refUri:
+          type: string
+          description: refUri to reference schema of registry types.
+          example: 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory'
+        value:
+          type: string
+          description: |
+            registry type value. <br>
+            e.g,: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
+          example:
+            - civil
+            - population
+            - national-id
+            - family
+            - household
+            - social
+            - beneficiary
+            - disability
+            - student
+            - farmer
+            - land
+            - utility
+            - other
+      required:
+        - value
     SearchRequest:
       type: object
+      description: |
+        1. Functional registry specific extension to search.
+        2. Additional checks using conditioanl expressions is possible.
+        3. Allows Country/Registry specific implementation extensions using key/value pairs.
       properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
-          type: object
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        search_request:
+          type: array
           description: |
-            1. Functional registry specific extension to search.
-            2. Additional checks using conditioanl expressions is possible.
-            3. Allows Country/Registry specific implementation extensions using key/value pairs.
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            search_request:
-              type: array
-              items:
+            1. Batch requests enabel multiple individual requests with respective consent/authorize codes
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              search_criteria:
                 type: object
                 properties:
-                  reference_id:
-                    $ref: '#/components/schemas/ReferenceId'
-                  timestamp:
-                    $ref: '#/components/schemas/DateTime'
-                  registry_type:
-                    $ref: '#/components/schemas/coreReg_Type'
-                  event_type:
-                    $ref: '#/components/schemas/coreReg_AllEvents'
-                  search_criteria:
-                    type: object
-                    properties:
-                      query:
-                        $ref: '#/components/schemas/coreReg_AllQueries'
-                      record_type:
-                        $ref: '#/components/schemas/coreReg_AllRecordTypes'
-                      sort:
-                        $ref: '#/components/schemas/SearchSortList'
-                      pagination:
-                        $ref: '#/components/schemas/PaginationRequest'
-                    required:
-                      - query
-                      - record_type
+                  version:
+                    type: string
+                    default: 1.0.0
+                  reg_type:
+                    $ref: '#/components/schemas/RegistryType'
+                  reg_event_type:
+                    $ref: '#/components/schemas/RegistryEventType'
+                  query_type:
+                    $ref: '#/components/schemas/QueryType'
+                  query:
+                    $ref: '#/components/schemas/RegistryQueries'
+                  result_record_type:
+                    allOf:
+                      - description: Registry record type to return in search response
+                      - $ref: '#/components/schemas/RegistryRecordType'
+                  sort:
+                    $ref: '#/components/schemas/SearchSortList'
+                  pagination:
+                    $ref: '#/components/schemas/PaginationRequest'
                   consent:
                     $ref: '#/components/schemas/Consent'
-                  locale:
-                    $ref: '#/components/schemas/LanguageCode'
+                  authorize:
+                    $ref: '#/components/schemas/Authorize'
                 required:
-                  - reference_id
-                  - timestamp
-                  - event_type
-                  - search_criteria
-          required:
-            - transaction_id
-            - search_request
+                  - query_type
+                  - query
+                  - result_record_type
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - search_criteria
+      required:
+        - transaction_id
+        - search_request
     SearchResponse:
       type: object
+      description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
       properties:
-        version:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          description: |
+            1. correlation_id acknowledged by end txn processing system (i.e receiver) to co-relate all related requests in the context of a business transaction.
+            2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
           type: string
-          example: 1.0.0
-        data:
-          type: object
-          description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            search_response:
-              type: array
-              items:
+          maxLength: 99
+          example: '9876543210'
+        search_response:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/SearchStatusReasonCode'
+              status_reason_message:
+                description: Status reason code message. Helps actionanble messaging for systems/end users
+                type: string
+                maxLength: 999
+              data:
                 type: object
+                description: |
+                  Search result record as an outcome of search/subscribe action
                 properties:
-                  reference_id:
-                    $ref: '#/components/schemas/ReferenceId'
-                  timestamp:
-                    $ref: '#/components/schemas/DateTime'
-                  status:
-                    $ref: '#/components/schemas/RequestStatus'
-                  status_reason_code:
-                    $ref: '#/components/schemas/SearchStatusReasonCode'
-                  status_reason_message:
-                    description: Status reason code message. Helps actionanble messaging for systems/end users
+                  version:
                     type: string
-                    maxLength: 999
-                  registry_type:
-                    $ref: '#/components/schemas/coreReg_Type'
-                  event_type:
-                    $ref: '#/components/schemas/coreReg_AllEvents'
-                  registry_data:
-                    type: object
-                    description: |
-                      Search result record as an outcome of search/subscribe action
-                    properties:
-                      record_type:
-                        $ref: '#/components/schemas/coreReg_AllRecordTypes'
-                      record:
-                        $ref: '#/components/schemas/coreReg_AllRecords'
-                    required:
-                      - record_type
-                      - record
-                  pagination:
-                    $ref: '#/components/schemas/Pagination'
-                  locale:
-                    $ref: '#/components/schemas/LanguageCode'
+                    default: 1.0.0
+                  reg_type:
+                    $ref: '#/components/schemas/RegistryType'
+                  reg_event_type:
+                    $ref: '#/components/schemas/RegistryEventType'
+                  reg_record_type:
+                    allOf:
+                      - description: Registry record type returned
+                      - $ref: '#/components/schemas/RegistryRecordType'
+                  reg_records:
+                    items:
+                      $ref: '#/components/schemas/RegistryRecord'
                 required:
-                  - reference_id
-                  - timestamp
-                  - event_type
-                  - status
-          required:
-            - transaction_id
-            - search_response
+                  - reg_record_type
+                  - reg_records
+              pagination:
+                $ref: '#/components/schemas/Pagination'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - status
+      required:
+        - transaction_id
+        - correlation_id
+        - search_response
     SearchStatusReasonCode:
       type: string
       description: Identity verification request status reason codes
@@ -1827,51 +1752,93 @@ components:
         - rjct.search.too_many_records_found
     SubscribeRequest:
       type: object
+      description: Subscribe to a life event with crvs
       properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
-          type: object
-          description: Subscribe to a life event with crvs
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            subscribe_request:
-              type: array
-              items:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        subscribe_request:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              subscribe_criteria:
                 type: object
                 properties:
-                  reference_id:
-                    $ref: '#/components/schemas/ReferenceId'
-                  timestamp:
-                    $ref: '#/components/schemas/DateTime'
-                  registry_type:
-                    $ref: '#/components/schemas/coreReg_Type'
-                  event_type:
-                    $ref: '#/components/schemas/coreReg_AllEvents'
+                  version:
+                    type: string
+                    default: 1.0.0
+                  reg_type:
+                    $ref: '#/components/schemas/RegistryType'
+                  reg_event_type:
+                    $ref: '#/components/schemas/RegistryEventType'
                   frequency:
                     $ref: '#/components/schemas/EventFrequency'
-                  subscribe_criteria:
-                    type: object
-                    properties:
-                      query:
-                        $ref: '#/components/schemas/coreReg_AllQueries'
-                      record_type:
-                        $ref: '#/components/schemas/coreReg_AllRecordTypes'
-                    required:
-                      - query
-                      - record_type
-                  locale:
-                    $ref: '#/components/schemas/LanguageCode'
+                  filter_type:
+                    $ref: '#/components/schemas/QueryType'
+                  filter:
+                    $ref: '#/components/schemas/RegistryQueries'
+                  notify_record_type:
+                    $ref: '#/components/schemas/RegistryRecordType'
+                  authorize:
+                    $ref: '#/components/schemas/Authorize'
                 required:
-                  - reference_id
-                  - timestamp
-                  - event_type
-                  - subscribe_criteria
-          required:
-            - transaction_id
-            - subscribe_request
+                  - reg_event_type
+                  - filter
+                  - notify_record_type
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - subscribe_criteria
+      required:
+        - transaction_id
+        - subscribe_request
+    SubscribeResponse:
+      type: object
+      description: Response to subscribe request.
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
+        subscribe_response:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/ReferenceId'
+              timestamp:
+                $ref: '#/components/schemas/DateTime'
+              status:
+                $ref: '#/components/schemas/RequestStatus'
+              status_reason_code:
+                $ref: '#/components/schemas/SubscribeStatusReasonCode'
+              status_reason_message:
+                description: Status reason code message. Helps actionanble messaging for systems/end users
+                type: string
+                maxLength: 999
+              subscriptions:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionInfo'
+              pagination:
+                $ref: '#/components/schemas/Pagination'
+              locale:
+                $ref: '#/components/schemas/LanguageCode'
+            required:
+              - reference_id
+              - timestamp
+              - status
+      required:
+        - transaction_id
+        - correlation_id
+        - subscribe_response
     SubscribeStatusReasonCode:
       type: string
       description: Identity verification request status reason codes
@@ -1886,38 +1853,45 @@ components:
     SubscriptionCode:
       type: string
       description: |
-        Unique code to ideintiy the subscription request by the entity providing subscription service.
+        Unique code to identify the subscription request by the entity providing subscription service.
         Helps to check status, unsubscribe etc.,
       maxLength: 99
+    SubscriptionCodeList:
+      items:
+        $ref: '#/components/schemas/SubscriptionCode'
     SubscriptionInfo:
       type: object
       properties:
-        subscription_code:
+        version:
+          type: string
+          default: 1.0.0
+        code:
           $ref: '#/components/schemas/SubscriptionCode'
+        status:
+          $ref: '#/components/schemas/SubscriptionStatus'
         timestamp:
           $ref: '#/components/schemas/DateTime'
-        registry_type:
-          $ref: '#/components/schemas/coreReg_Type'
-        event_type:
-          $ref: '#/components/schemas/coreReg_AllEvents'
+        reg_type:
+          $ref: '#/components/schemas/RegistryType'
+        reg_event_type:
+          $ref: '#/components/schemas/RegistryEventType'
         frequency:
           $ref: '#/components/schemas/EventFrequency'
-        subscribe_criteria:
-          type: object
-          properties:
-            query:
-              $ref: '#/components/schemas/coreReg_AllQueries'
-            record_type:
-              $ref: '#/components/schemas/coreReg_AllRecordTypes'
+        filter_type:
+          $ref: '#/components/schemas/QueryType'
+        filter:
+          $ref: '#/components/schemas/RegistryQueries'
+        notify_record_type:
+          $ref: '#/components/schemas/RegistryRecordType'
           required:
-            - query
+            - reg_event_type
             - filter
+            - notify_record_type
         locale:
           $ref: '#/components/schemas/LanguageCode'
       required:
         - subscription_code
         - timestamp
-        - event_type
         - subscribe_criteria
     SubscriptionStatus:
       type: string
@@ -1927,118 +1901,128 @@ components:
         - unsubscribe
     TxnStatusRequest:
       type: object
+      description: Request to fetch txn status on various service requests
       properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        txnstatus_request:
           type: object
-          description: Request to search identity service requests
           properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            txnstatus_request:
-              type: object
-              properties:
-                reference_id:
-                  $ref: '#/components/schemas/ReferenceId'
-                search_type:
-                  type: string
-                  enum:
-                    - transaction_id
-                    - reference_id_list
-                search_attribute:
-                  oneOf:
-                    - $ref: '#/components/schemas/TransactionId'
-                    - $ref: '#/components/schemas/ReferenceIdList'
-                locale:
-                  $ref: '#/components/schemas/LanguageCode'
-              required:
-                - reference_id
-                - search_type
-                - search_attribute
+            reference_id:
+              $ref: '#/components/schemas/ReferenceId'
+            txn_type:
+              type: string
+              description: txn type to fetch status
+              enum:
+                - search
+                - subscribe
+                - unsubscribe
+            attribute_type:
+              type: string
+              enum:
+                - transaction_id
+                - reference_id_list
+                - correlation_id
+                - subscription_code_list
+            attribute_value:
+              oneOf:
+                - $ref: '#/components/schemas/TransactionId'
+                - $ref: '#/components/schemas/ReferenceIdList'
+                - $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
+                - $ref: '#/components/schemas/SubscriptionCodeList'
+            locale:
+              $ref: '#/components/schemas/LanguageCode'
           required:
-            - transaction_id
-            - txnstatus_request
+            - reference_id
+            - txn_type
+            - attribute_type
+            - attribute_value
+      required:
+        - transaction_id
+        - txnstatus_request
     TxnStatusResponse:
       type: object
+      description: txn status info on various service requests
       properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
+        txnstatus_response:
           type: object
           properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            txnstatus_response:
-              type: object
+            txn_type:
+              type: string
+              description: txn type to fetch status
+              enum:
+                - on-search
+                - on-subscribe
+                - on-unsubscribe
+            txn_status:
               oneOf:
                 - $ref: '#/components/schemas/SearchResponse'
-                - $ref: '#/components/schemas/NotifyEventRequest'
+                - $ref: '#/components/schemas/SubscribeResponse'
+                - $ref: '#/components/schemas/UnSubscribeResponse'
+          example:
+            $ref: '#/components/schemas/SearchResponse'
           required:
-            - transaction_id
-            - txnstatus_response
+            - txn_type
+            - txn_status
+      required:
+        - transaction_id
+        - correlation_id
+        - txnstatus_response
     UnSubscribeRequest:
       type: object
+      description: Un-Subscribe to registred subscriptions
       properties:
-        version:
-          type: string
-          example: 1.0.0
-        data:
-          type: object
-          description: Un-Subscribe to a life event with crvs
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            timesstamp:
-              $ref: '#/components/schemas/DateTime'
-            subscription_codes:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubscriptionCode'
-          required:
-            - transaction_id
-            - timestamp
-            - sunscription_codes
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        timesstamp:
+          $ref: '#/components/schemas/DateTime'
+        subscription_codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionCode'
+      required:
+        - transaction_id
+        - timestamp
+        - sunscription_codes
     UnSubscribeResponse:
       type: object
+      description: Un-Subscribe to a life event with crvs
       properties:
-        version:
+        transaction_id:
+          $ref: '#/components/schemas/TransactionId'
+        correlation_id:
+          $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
+        timesatmp:
+          $ref: '#/components/schemas/DateTime'
+        status:
+          $ref: '#/components/schemas/RequestStatus'
+        status_reason_code:
+          $ref: '#/components/schemas/UnSubscribeStatusReasonCode'
+        status_reason_message:
+          description: Status reason code message. Helps actionanble messaging for systems/end users
           type: string
-          example: 1.0.0
-        data:
-          type: object
-          description: Un-Subscribe to a life event with crvs
-          properties:
-            transaction_id:
-              $ref: '#/components/schemas/TransactionId'
-            timesatmp:
-              $ref: '#/components/schemas/DateTime'
-            status:
-              $ref: '#/components/schemas/RequestStatus'
-            status_reason_code:
-              $ref: '#/components/schemas/UnSubscribeStatusReasonCode'
-            status_reason_message:
-              description: Status reason code message. Helps actionanble messaging for systems/end users
-              type: string
-              maxLength: 999
-            subscription_status:
-              type: array
-              items:
-                type: object
-                properties:
-                  subscription_code:
-                    $ref: '#/components/schemas/SubscriptionCode'
-                  subscription_status:
-                    $ref: '#/components/schemas/SubscriptionStatus'
-                required:
-                  - subscription_code
-                  - subscription_status
-          required:
-            - transaction_id
-            - timestamp
-            - status
+          maxLength: 999
+        subscription_status:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                $ref: '#/components/schemas/SubscriptionCode'
+              status:
+                $ref: '#/components/schemas/SubscriptionStatus'
+            required:
+              - code
+              - status
+      required:
+        - transaction_id
+        - correlation_id
+        - timestamp
+        - status
     UnSubscribeStatusReasonCode:
       type: string
       description: Identity verification request status reason codes
@@ -2086,8 +2070,30 @@ components:
         - type: integer
         - type: number
         - type: boolean
-        - format: data-time
-      example: +91 9876543210
+        - type: object
+      example: +11 1111111111
+    Authorize:
+      type: object
+      description: Authorize artefact. TODO - review and update!
+      properties:
+        id:
+          type: string
+          format: uri or did
+          description: authorize-id
+        ts:
+          $ref: '#/components/schemas/DateTime'
+        purpose:
+          type: object
+          properties:
+            text:
+              type: string
+            code:
+              type: string
+              description: 'From a fixed set, documented at refUri'
+            refUri:
+              type: string
+              format: uri
+              description: Uri to provide more info on authorize codes
     Consent:
       type: object
       description: Consent artefact. TODO - enrich consent object!
@@ -2156,9 +2162,10 @@ components:
         - iv
     Error:
       description: |
-        Describes an error object that is returned to standard post call request. <br>
-        1. This object shall be sent when any request received by a participant is not parsable or message integrity check fails. <br>
-        2. This object may be used across all transport protocols to acknowledge the receipt of a message i.e HTTPS, FTP, Messaging etc., <br>"
+        Commumication layer Asyn errors that are returned as part of message acknowledgement.
+        1. Messages that are not parsable or message integrity check fails.
+        2. This object may be used across all transport layer protocols (https, sftp, messaging, etc,) to ack the receipt of a message.
+        3. Business context and related validation is NOT in scope of this error object.
       type: object
       properties:
         code:
@@ -2204,31 +2211,28 @@ components:
         - end_time
         - frequency
     ExpCondition:
-      description: Condition in an expression
       type: string
+      description: Condition in an expression
       enum:
         - and
         - or
         - not
       example: and
     ExpOperator:
-      description: Operator in an expression
       type: string
+      description: Operator in an expression
       enum:
         - gt
         - lt
         - eq
         - ge
         - le
+        - in
       example: eq
-    Expression:
-      description: Expression
+    ExpPredicate:
       type: object
+      description: Expression
       properties:
-        seq_num:
-          description: expression seq number for correlation
-          type: number
-          example: 1
         attribute_name:
           type: string
           description: attribute name
@@ -2237,51 +2241,66 @@ components:
         attribute_value:
           $ref: '#/components/schemas/AttributeValue'
       required:
-        - seq_num
         - attribute_name
         - operator
         - attribute_value
-    ExpressionList:
-      type: object
+    ExpPredicateList:
+      type: array
       description: list of attributes with matching conditions
       items:
-        $ref: '#/components/schemas/Expression'
-    ExpressionResult:
-      description: Expression result
+        $ref: '#/components/schemas/ExpPredicate'
+    ExpPredicateWithCondition:
       type: object
       properties:
         seq_num:
-          description: expression seq number for correlation
+          description: Sequence number to help define precedence for evaluating a list of expression Predicates
           type: number
           example: 1
-        result:
-          type: string
-          enum:
-            - 'y'
-            - 'n'
-          example: 'y'
-      required:
-        - seq_num
-        - result
-    ExpressionResultList:
-      type: array
-      items:
-        $ref: '#/components/schemas/ExpressionResult'
-    ExpressionWithCondition:
-      type: object
-      properties:
         expression1:
-          $ref: '#/components/schemas/Expression'
+          $ref: '#/components/schemas/ExpPredicate'
         condition:
           $ref: '#/components/schemas/ExpCondition'
         expression2:
-          $ref: '#/components/schemas/Expression'
+          $ref: '#/components/schemas/ExpPredicate'
       required:
         - expression1
-    ExpressionWithConditionList:
+    ExpPredicateWithConditionList:
       type: array
       items:
-        $ref: '#/components/schemas/ExpressionWithCondition'
+        $ref: '#/components/schemas/ExpPredicateWithCondition'
+    ExpTemplate:
+      type: object
+      description: |
+        1. Query expression's syntax / format is determined based on query-type.
+        2. Query expression as a template with placeholder to pass conditional search values
+      properties:
+        namespace:
+          type: string
+          description: Reference to query expression template being used
+          format: uri
+        type:
+          type: string
+          enum:
+            - graph-ql
+            - sql
+            - mongoDB
+            - cassandra
+            - other
+        other_value:
+          type: string
+          description: 'If not defined type, custom value to define other types'
+        expression:
+          type: string
+          format: byte
+          description: Query expression with placeholder to pass conditional search values as base64 bytes
+        expression_values:
+          allOf:
+            - description: List to hold attribute values that are templatised in a query expression
+            - $ref: '#/components/schemas/AttributeNameValueList'
+      required:
+        - type
+        - expression
+        - expression_values
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -2301,9 +2320,37 @@ components:
       required:
         - action
         - fileName
+    IdentifierType:
+      type: object
+      description: Identifier type
+      properties:
+        namespace:
+          type: string
+          description: 'namespace to refer to identifier type; e.g, ns:dci:id-types:v1'
+          example: 'ns:dci:id-types:v1'
+        refUri:
+          type: string
+          description: refUri to reference identifier type schema
+          example: 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory#cd.01-identifier_type'
+        value:
+          type: string
+          description: Identifier type
+          example: UIN
+      required:
+        - value
+    IdentifierTypeValue:
+      type: object
+      properties:
+        identifier_type:
+          $ref: '#/components/schemas/IdentifierType'
+        identifier_value:
+          allOf:
+            - description: Identifier Value of the subject defined in identifier_type
+            - $ref: '#/components/schemas/AttributeValue'
+          example: '12314567890'
     LanguageCode:
-      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
+      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       pattern: '^[a-z]{3,3}$'
       example: en
     LatLong:
@@ -2322,7 +2369,7 @@ components:
         version:
           description: Messaing protocol specification version being used
           type: string
-          example: 0.1.0
+          default: 1.0.0
         message_id:
           description: |
             1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
@@ -2361,17 +2408,10 @@ components:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verfication, etc., functions.'
           type: string
           example: registry.example.org
-        encryption_algo:
-          description: |
-            1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
-            2. example: aes, rsa, aes_rsa, ecc, other
-          type: string
-          example:
-            - aes
-            - rsa
-            - aes+rsa
-            - ecc
-            - other
+        is_msg_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: false
       required:
         - message_id
         - message_ts
@@ -2384,7 +2424,7 @@ components:
         version:
           description: Messaing protocol specification version being used
           type: string
-          example: 0.1.0
+          default: 1.0.0
         message_id:
           description: |
             1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
@@ -2419,17 +2459,10 @@ components:
           description: Total no of requests present in the message request
           type: integer
           example: 21800
-        encryption_algo:
-          description: |
-            1. If message is encrypted, Ecnryption alog used for receiver to decrypt the message payload
-            2. example: aes, rsa, aes_rsa, ecc, other
-          type: string
-          example:
-            - aes
-            - rsa
-            - aes+rsa
-            - ecc
-            - other
+        is_msg_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: false
       required:
         - message_id
         - message_ts
@@ -2487,6 +2520,16 @@ components:
           example: 5
       required:
         - page_size
+    QueryType:
+      type: string
+      description: |
+        1. Query format allow multiple ways to search registry
+        2. Templatized query expressions with placeholder for conditional values
+      enum:
+        - idtype-value
+        - expression
+        - predicate
+      example: idtype-value
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch
@@ -2520,53 +2563,13 @@ components:
       items:
         $ref: '#/components/schemas/SearchSort'
     TransactionId:
-      description: Unique transaction_id set by txn initiating system (i.e sender) to co-relate requests across processing systems/service end points
+      description: |
+        1. transaction_id set by txn initiating system (i.e sender) to co-relate all related requests in the context of a business transaction.
+        2. transaction_id should be samme across processing systems/service end points.
+        2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
       type: string
       maxLength: 99
-      example: 012345678901234567890
-  parameters:
-    accept-language:
-      in: header
-      name: accept-language
-      description: 'Default value: en'
-      required: false
-      schema:
-        type: string
-        example: en
-    timestamp:
-      in: header
-      name: timestamp
-      description: 'request timestamp in HTTP Date format - Tue, 06 Mar 2020 21:00:00 GMT'
-      required: true
-      schema:
-        type: string
-        example: 'Tue, 06 Mar 2020 21:00:00 GMT'
-    transaction_id:
-      in: path
-      name: transaction_id
-      description: 'Unique transaction id set by sender as part of the initiating request to co-relate requests across interface end point, sessions, etc., For e.g transaction_id be used to find status using GET call or correlate the transaction as part of the callback call.'
-      required: true
-      schema:
-        type: string
-        maxLength: 99
-        example: 012345678901234567890
-    summary_only:
-      in: path
-      name: summary_only
-      description: 'Optional. Defualt is false, If summary_only set to true then only the message header with stats / status to be returend as part of implementation'
-      required: true
-      schema:
-        type: boolean
-        default: true
-    beneficiary_id:
-      in: path
-      name: beneficiary_id
-      required: true
-      description: '<br> 1. Beneficiary id is a normative represenation represented as id@id-provider <br> 2. This will enumerate foundational and functioanl id''s to easily resolvable addressess <br> 3. Few examples: <br> - id@id-provider e.g 12345@mosip, 12345@PhilID <br> - id@civil-registry.issuing-agency e.g 12345@crvs.rwanda, 12345@ejanma.karnataka - id@functional-identifier.issuing-agency e.g 12345@voter.Rwanda, 12345@DL.karnataka, 12345@fruits.karnataka <br> Note: id-provider should be made configurable and DPGs operating should adapt to the local jurisdiction and policies. e.g fruits.karnataka represents farmer registry in karnataka state govt.<br>'
-      schema:
-        type: string
-        format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
-        example: 12345@mosip
+      example: 0123456789
   responses:
     HttpErrorResponse:
       description: HTTP layer error details
@@ -2576,15 +2579,16 @@ components:
             type: object
             description: 'HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx'
             properties:
-              error:
-                type: object
-                properties:
-                  code:
-                    type: string
-                    description: error code
-                  message:
-                    type: string
-                    description: error message
+              errors:
+                items:
+                  type: object
+                  properties:
+                    code:
+                      type: string
+                      description: error code
+                    message:
+                      type: string
+                      description: error message
     Response:
       description: Acknowledgement of message received after successful validation of message and signature
       content:
@@ -2601,6 +2605,12 @@ components:
                     $ref: '#/components/schemas/DateTime'
                   error:
                     $ref: '#/components/schemas/Error'
+                  correlation_id:
+                    $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
+                required:
+                  - ack_status
+                  - timestamp
+                  - correlation_id
   securitySchemes:
     x-access-token:
       type: http

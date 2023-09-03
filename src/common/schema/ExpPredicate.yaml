@@ -1,0 +1,14 @@
+type: object
+description: Expression
+properties:
+  attribute_name:
+    type: string
+    description: attribute name
+  operator:
+    $ref: "./ExpOperator.yaml"
+  attribute_value:
+    $ref: AttributeValue.yaml
+required:
+  - attribute_name
+  - operator
+  - attribute_value

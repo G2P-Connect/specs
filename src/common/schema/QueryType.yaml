@@ -1,0 +1,6 @@
+type: string
+description: |
+  1. Query format allow multiple ways to search registry
+  2. Templatized query expressions with placeholder for conditional values
+enum: ["idtype-value", "expression", "predicate" ]
+example: "idtype-value"

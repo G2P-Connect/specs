@@ -1,0 +1,27 @@
+type: object
+description: |
+  1. Query expression's syntax / format is determined based on query-type.
+  2. Query expression as a template with placeholder to pass conditional search values
+properties:
+  namespace:
+    type: string
+    description: Reference to query expression template being used
+    format: uri
+  type:
+    type: string
+    enum: ["graph-ql", "sql", "mongoDB", "cassandra", "other"]
+  other_value:
+    type: string
+    description: If not defined type, custom value to define other types
+  expression:
+    type: string
+    format: byte
+    description: Query expression with placeholder to pass conditional search values as base64 bytes
+  expression_values:
+    allOf:
+      - description: "List to hold attribute values that are templatised in a query expression"
+      - $ref: AttributeNameValueList.yaml
+required:
+  - type
+  - expression
+  - expression_values

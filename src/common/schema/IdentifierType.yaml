@@ -1,0 +1,17 @@
+type: object
+description: Identifier type
+properties:
+  namespace:
+    type: string
+    description: namespace to refer to identifier type; e.g, ns:dci:id-types:v1
+    example: "ns:dci:id-types:v1"
+  refUri:
+    type: string
+    description: refUri to reference identifier type schema
+    example: "https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory#cd.01-identifier_type"
+  value:
+    type: string
+    description: Identifier type
+    example: "UIN"
+required:
+  - value

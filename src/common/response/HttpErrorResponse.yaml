@@ -5,12 +5,13 @@ content:
       type: object
       description: "HTTP transport layer error codes. Used by components like gateways, LB responding with HTTP status codes 1xx, 2xx, 3xx, 4xx and 5xx"
       properties:
-        error:
-          type: object
-          properties:
-            code:
-              type: string
-              description: "error code"
-            message:
-              type: string
-              description: "error message"
+        errors:
+          items:
+            type: object
+            properties:
+              code:
+                type: string
+                description: "error code"
+              message:
+                type: string
+                description: "error message"
