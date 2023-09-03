@@ -1,5 +1,5 @@
 type: object
-description: Resident Nationality Information
+description: Resident Nationality Information,Nationality information of the Resident
 properties:
   nationality:
     description: Nationality information of the Resident

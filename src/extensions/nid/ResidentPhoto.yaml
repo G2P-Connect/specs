@@ -1,5 +1,5 @@
 type: object
-description: Resident Photo
+description: Resident Photo,Image encoded as Base64 string
 properties:
   photo:
     description: Photo encoded as Base64 string

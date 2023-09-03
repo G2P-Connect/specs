@@ -1,14 +1,18 @@
+type: object
 properties:
-  transaction_id: 
-    $ref: ../../../common/schema/TransactionId.yaml
-  txnstatus_response:
-    oneOf:
-      - $ref: SearchResponse.yaml
-      - $ref: NotifyEventRequest.yaml
-    example:
-      txnstatus_response: 
-        reference_id: "test"
-        status: "SUCC"
-required: 
-  - transaction_id
-  - txnstatus_response
+  version:
+    type: string
+    example: 1.0.0
+  data:
+    type: object
+    properties:
+      transaction_id: 
+        $ref: ../../../common/schema/TransactionId.yaml
+      txnstatus_response:
+        type: object
+        oneOf:
+          - $ref: SearchResponse.yaml
+          - $ref: NotifyEventRequest.yaml
+    required: 
+      - transaction_id
+      - txnstatus_response

@@ -26,5 +26,4 @@ properties:
     description: Date in DDMMYYYY format to capture the Demo Check Date
     type: string
   document:
-    description: Reference document collected for registering the deceased information
     $ref: Document.yaml

@@ -1,40 +1,46 @@
 type: object
-description: Registry to notify a event to subscrbiers
 properties:
-  transaction_id: 
-    $ref: ../../../common/schema/TransactionId.yaml
-  notify_event:
-    type: array
-    items: 
-      type: object
-      properties:
-        reference_id:
-          $ref: "../../../common/schema/ReferenceId.yaml"
-        timestamp: 
-          $ref: ../../../common/schema/DateTime.yaml
-        registry_type:
-          $ref: "./RegistryType.yaml"
-        event_type:
-          $ref: AllEvents.yaml
-        registry_data:
+  version:
+    type: string
+    example: 1.0.0
+  data:
+    type: object
+    description: Registry to notify a event to subscrbiers
+    properties:
+      transaction_id: 
+        $ref: ../../../common/schema/TransactionId.yaml
+      notify_event:
+        type: array
+        items: 
           type: object
-          description: |
-            Search result record as an outcome of search/subscribe action
-          properties: 
-            record_type:
-              $ref: AllRecordTypes.yaml
-            record:
-              $ref: AllRecords.yaml
-          required: 
-            - record_type
-            - record
-        locale:
-          $ref: "../../../common/schema/LanguageCode.yaml"
-      required:
-        - reference_id
-        - timestamp
-        - event_type
-        - registry_data
-required: 
-  - transaction_id
-  - notify_event
+          properties:
+            reference_id:
+              $ref: "../../../common/schema/ReferenceId.yaml"
+            timestamp: 
+              $ref: ../../../common/schema/DateTime.yaml
+            registry_type:
+              $ref: "./RegistryType.yaml"
+            event_type:
+              $ref: AllEvents.yaml
+            registry_data:
+              type: object
+              description: |
+                Search result record as an outcome of search/subscribe action
+              properties: 
+                record_type:
+                  $ref: AllRecordTypes.yaml
+                record:
+                  $ref: AllRecords.yaml
+              required: 
+                - record_type
+                - record
+            locale:
+              $ref: "../../../common/schema/LanguageCode.yaml"
+          required:
+            - reference_id
+            - timestamp
+            - event_type
+            - registry_data
+    required: 
+      - transaction_id
+      - notify_event
