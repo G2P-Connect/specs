@@ -1052,8 +1052,8 @@ components:
         - action
         - fileName
     LanguageCode:
-      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
+      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       pattern: '^[a-z]{3,3}$'
       example: en
     MsgCallbackHeader_V1.0.0:
@@ -1224,6 +1224,7 @@ components:
       description: Unique reference_id set by txn initiating system for each request in a batch
       example: '12345678901234567890'
     ReferenceIdList:
+      type: array
       items:
         $ref: '#/components/schemas/ReferenceId'
     RequestStatus:
@@ -1247,6 +1248,7 @@ components:
             - asc
             - desc
     SearchSortList:
+      type: array
       items:
         $ref: '#/components/schemas/SearchSort'
     TransactionId:

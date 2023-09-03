@@ -1012,6 +1012,7 @@ components:
               $ref: '#/components/schemas/LatLong'
     openid_Address:
       title: Address
+      type: object
       description: 'Address info as per OpenID <a href="https://openid.net/specs/openid-connect-core-1_0.html#AddressClaim">specs</a>'
       properties:
         address_line1:
@@ -1048,6 +1049,7 @@ components:
             - $ref: '#/components/schemas/LatLong'
             - $ref: '#/components/schemas/GooglePlusCode'
     openid_PersonRecord:
+      type: object
       description: |
         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
         2. Allowes Country/Registry specific implementation extensions using Attribute Name/Value pairs.
@@ -1778,16 +1780,16 @@ components:
           description: message to describe above error code
           maxLength: 999
     ExpCondition:
-      description: Condition in an expression
       type: string
+      description: Condition in an expression
       enum:
         - and
         - or
         - not
       example: and
     ExpOperator:
-      description: Operator in an expression
       type: string
+      description: Operator in an expression
       enum:
         - gt
         - lt
@@ -1797,6 +1799,7 @@ components:
         - in
       example: eq
     ExpPredicate:
+      type: object
       description: Expression
       properties:
         attribute_name:
@@ -1812,6 +1815,7 @@ components:
         - operator
         - attribute_value
     ExpPredicateList:
+      type: array
       description: list of attributes with matching conditions
       items:
         $ref: '#/components/schemas/ExpPredicate'
@@ -1831,6 +1835,7 @@ components:
       required:
         - expression1
     ExpPredicateWithConditionList:
+      type: array
       items:
         $ref: '#/components/schemas/ExpPredicateWithCondition'
     ExpTemplate:
@@ -1886,8 +1891,8 @@ components:
         - action
         - fileName
     LanguageCode:
-      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       type: string
+      description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       pattern: '^[a-z]{3,3}$'
       example: en
     LatLong:
@@ -2062,6 +2067,7 @@ components:
       description: Unique reference_id set by txn initiating system for each request in a batch
       example: '12345678901234567890'
     ReferenceIdList:
+      type: array
       items:
         $ref: '#/components/schemas/ReferenceId'
     RequestStatus:
@@ -2085,6 +2091,7 @@ components:
             - asc
             - desc
     SearchSortList:
+      type: array
       items:
         $ref: '#/components/schemas/SearchSort'
     TransactionId:
