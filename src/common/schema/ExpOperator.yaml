@@ -1,5 +1,5 @@
-description: 'Operator in an expression'
 type: string
+description: 'Operator in an expression'
 enum:
   - "gt"
   - "lt"

@@ -702,7 +702,7 @@ paths:
                 message:
                   type: object
                   description: The search data using which registry search to be performed
-                  anyOf:
+                  oneOf:
                     - $ref: '#/components/schemas/SearchRequest'
                     - $ref: '#/components/schemas/EncryptedMessage'
               required:

@@ -1,3 +1,4 @@
+type: object
 description: Expression
 properties:
   attribute_name:

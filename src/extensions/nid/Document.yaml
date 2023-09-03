@@ -1,5 +1,5 @@
 type: object
-description: Supporting document of the Resident
+description: Supporting document of the Resident,Reference document collected for registering the deceased information,Document encoded as Base64 string
 properties:
   document_name:
     description: Name of the document
