@@ -35,7 +35,6 @@ properties:
       required:
         - reference_id
         - timestamp
-        - fa
 required: 
   - transaction_id
   - resolve_request
