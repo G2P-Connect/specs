@@ -932,8 +932,15 @@ components:
       properties:
         name:
           type: string
-          maxLength: 99
-          example: phone_number
+          description: |
+            @context: "https://example.org/schema/Attribute" <br>
+            @type: "Attribute" <br>
+
+            **Notes:**
+              1. Attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         value:
           $ref: '#/components/schemas/AttributeValue'
       required:
@@ -951,8 +958,7 @@ components:
         - type: number
         - type: boolean
         - type: object
-        - type: 'null'
-      example: +11 1111111111
+      example: '1980'
     CurrencyCode:
       description: <br> 1. Currency code allocated as per ISO 4217 format.<br> 2. Codes for the representation of currencies and funds.
       type: string
@@ -1241,7 +1247,15 @@ components:
       properties:
         attribute_name:
           type: string
-          description: attribute name
+          description: |
+            @context: "https://example.org/schema/Attribute" <br>
+            @type: "Attribute" <br>
+
+            **Notes:**
+              1. Attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         sort_order:
           type: string
           enum:

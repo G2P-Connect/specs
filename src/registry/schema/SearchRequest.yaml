@@ -31,10 +31,6 @@ properties:
               $ref: ../../common/schema/QueryType.yaml
             query:
               $ref: RegistryQueries.yaml
-            result_record_type:
-              allOf:
-                - description: Registry record type to return in search response
-                - $ref: RegistryRecordType.yaml
             sort:
               $ref: ../../common/schema/SearchSortList.yaml
             pagination:
@@ -46,7 +42,6 @@ properties:
           required:
             - query_type
             - query
-            - result_record_type
         locale:
           $ref: ../../common/schema/LanguageCode.yaml
       required:

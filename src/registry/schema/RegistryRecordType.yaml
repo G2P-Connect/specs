@@ -1,38 +1,11 @@
-type: object
+type: string
 description: |
-  Record type to represent in
-  1. Search request to request search result record type to return
-  2. Notify event to represent record type being returned based on subscription to registry event type
-properties:
-  namespace:
-    type: string
-    description: namespace to refer to registry record types; e.g, ns:dci:record-type:PersonRecord:v1
-    example: 
-      - "ns:dci:record-type:PersonRecord:v1"
-      - "ns:openid:record-type:PersonRecord:v1"
-  refUri:
-    type: string
-    description: refUri to reference schema of registry record types.
-    example: 
-      - "https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.1-data-elements#do.01-person"
-      - "https://openid.net/specs/openid-connect-core-1_0.html#Claims"
-  value:
-    type: string
-    description: |
-      registry record type value. <br>
-      e.g,: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
-    example:
-      - "person" 
-      - "vc-person"
-      - "vc-brith-certificate"
-      - "vc-marriage-certificate"
-      - "vc-death-certificate"
-      - "social"
-      - "disability"
-      - "student"
-      - "farmer"
-      - "land"
-      - "utility"
-      - "other"
-required:
-  - value
+  @context: "https://example.org/schema/RegistryRecordType" <br>
+  @type: "RegistryRecordType" <br>
+  
+  **Notes:**
+    1. Registry record type values defined as per implementation context.
+    2. Usually a list of **enum** values of all possible queryable result sets 
+    3. Referenced in search_request and notify events
+    4. example: "ns:dci:RegistryRecordType:CRVSPerson" 
+example: "ns:dci:RegistryRecordType:CRVSPerson"

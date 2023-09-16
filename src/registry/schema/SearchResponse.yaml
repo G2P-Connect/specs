@@ -35,12 +35,9 @@ properties:
             reg_event_type:
               $ref: RegistryEventType.yaml
             reg_record_type:
-              allOf:
-                - description: Registry record type returned
-                - $ref: RegistryRecordType.yaml
+              $ref: RegistryRecordType.yaml    
             reg_records:
-              items:
-                $ref: RegistryRecord.yaml
+              $ref: RegistryRecord.yaml
           required: 
             - reg_record_type
             - reg_records

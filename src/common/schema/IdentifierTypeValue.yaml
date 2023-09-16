@@ -1,9 +1,19 @@
 type: object
+description: Identifier type and value object
 properties:
-  identifier_type:
-    $ref: IdentifierType.yaml
-  identifier_value:
+  type:
+    type: string
+    description: |
+      @context: "https://example.org/schema/IdType" <br>
+      @type: "IdType" <br>
+      
+      **Notes:**
+        1. Identifier type values defined as per implementation context.
+        2. Usually a list of **enum** values of all possible queryable identifiers.
+        3. e.g: UIN, MOBILE, BRN, MRN, DRN, etc., 
+    example: "UIN"
+  value:
     allOf:
-      - description: Identifier Value of the subject defined in identifier_type
+      - description: Identifier Value of the subject.
       - $ref: AttributeValue.yaml
     example: "12314567890"

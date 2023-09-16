@@ -714,6 +714,79 @@ components:
         Note: id provider should be made configurable and solutions should adapt to the local jurisdiction and policies.
       format: '^[a-zA-Z0-9.-]+@[a-zA-Z0-9.-]+$'
       example: 'vid:54321@nid'
+    dci_CRVSPerson:
+      type: object
+      description: |
+        @context: "https://example.org/schema/CRVSPerson" <br>
+        @type: "Consent"
+      example:
+        '@context': 'https://example.org/schema/CRVSPerson'
+        '@type': CRVSPerson
+        '@vocab': 'https://spdci.org/'
+        schema: 'http://schema.org/'
+        rdfs: 'http://www.w3.org/2000/01/rdf-schema#'
+        xsd: 'http://www.w3.org/2001/XMLSchema#'
+        CRVSPerson:
+          '@id': 'https://spdci.org/CRVSPerson'
+          '@type': 'rdfs:Class'
+          '@context':
+            name:
+              '@id': 'schema:name'
+              '@type': 'xsd:string'
+            givenName:
+              '@id': 'schema:givenName'
+              '@type': 'xsd:string'
+            familyName:
+              '@id': 'schema:familyName'
+              '@type': 'xsd:string'
+            additionalName:
+              '@id': 'schema:additionalName'
+              '@type': 'xsd:string'
+            gender:
+              '@id': 'schema:gender'
+              '@type': 'xsd:string'
+            birthDate:
+              '@id': 'schema:birthDate'
+              '@type': 'xsd:date'
+            birthPlace:
+              '@id': 'schema:birthPlace'
+              '@type': 'schema:GeoCoordinates'
+            deathDate:
+              '@id': 'schema:deathDate'
+              '@type': 'xsd:date'
+            deathPlace:
+              '@id': 'schema:deathPlace'
+              '@type': 'schema:GeoCoordinates'
+            maritalStatus:
+              '@id': 'schema:maritalStatus'
+              '@type': 'xsd:string'
+            honorificPrefix:
+              '@id': 'schema:honorificPrefix'
+              '@type': 'xsd:string'
+            honorificSuffix:
+              '@id': 'schema:honorificSuffix'
+              '@type': 'xsd:string'
+            emails:
+              '@container': '@set'
+              '@id': 'schema:email'
+              '@type': 'xsd:string'
+            telephones:
+              '@container': '@set'
+              '@id': 'schema:telephone'
+              '@type': 'xsd:string'
+            address:
+              '@id': 'schema:address'
+              '@type': 'schema:GeoCoordinates'
+            marriageDate:
+              '@id': 'https://spdci.org/marriageDate'
+              '@type': 'xsd:date'
+            divorceDate:
+              '@id': 'https://spdci.org/divorceDate'
+              '@type': 'xsd:date'
+            parents:
+              '@id': 'schema:parents'
+              '@type': 'https://spdci.org/CRVSPerson'
+        '@id': 'https://spdci.org/CRVSPerson'
     dci_IdentifierType:
       type: string
       description: |
@@ -1440,8 +1513,8 @@ components:
         - type
     RegistryQueries:
       description: |
-        1. Pre defined query objects injected by each country/org/system to query a registry
-        2. Implementing systems may create pre-defined query objects based on use cases and inject as custom extensions
+        1. Implementing systems can define schemas.
+        2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
         3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
           - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
           - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
@@ -1480,10 +1553,8 @@ components:
                   reg_record_type:
                     $ref: '#/components/schemas/RegistryRecordType'
                   reg_records:
-                    items:
-                      $ref: '#/components/schemas/RegistryRecord'
+                    $ref: '#/components/schemas/RegistryRecord'
                 required:
-                  - reg_event_type
                   - reg_record_type
                   - reg_records
               locale:
@@ -1496,103 +1567,51 @@ components:
         - transaction_id
         - notify_event
     RegistryEventType:
-      type: object
-      description: Registry supported event types
-      properties:
-        namespace:
-          type: string
-          description: 'namespace to refer to registry event types; e.g, ns:dci:vital-events:v1'
-          example: 'ns:dci:vital-events:v1'
-        refUri:
-          type: string
-          description: refUri to reference schema of registry event types.
-          example: 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory#cd.04-vital_events'
-        value:
-          type: string
-          description: Registry event type value.
-          example: '1'
-      required:
-        - value
+      type: string
+      description: |
+        @context: "https://example.org/schema/RegistryEventType" <br>
+        @type: "VitalEvent" <br>
+
+        **Notes:**
+          1. Registry event type values defined as per implementation context.
+          2. Usually a list of **enum** values of all possible queryable identifiers.
+          3. example: "ns:org:RegistryEventType:LiveBirth"
+      example: 'ns:org:RegistryEventType:LiveBirth'
     RegistryRecord:
       type: object
-      description: Registy record object based on record_type attribute.
+      description: |
+        @context: "https://example.org/schema/RecordType" <br>
+        @type: "CRVSPerson" <br>
+        @container: "@set" <br>
+
+        **Notes:**
+          1. Record type values defined as per implementation context.
+          2. Usually a list of **enum** values of all possible queryable identifiers.
       example:
-        $ref: '#/components/schemas/dci_PersonRecord'
+        $ref: '#/components/schemas/dci_CRVSPerson'
     RegistryRecordType:
-      type: object
+      type: string
       description: |
-        Record type to represent in
-        1. Search request to request search result record type to return
-        2. Notify event to represent record type being returned based on subscription to registry event type
-      properties:
-        namespace:
-          type: string
-          description: 'namespace to refer to registry record types; e.g, ns:dci:record-type:PersonRecord:v1'
-          example:
-            - 'ns:dci:record-type:PersonRecord:v1'
-            - 'ns:openid:record-type:PersonRecord:v1'
-        refUri:
-          type: string
-          description: refUri to reference schema of registry record types.
-          example:
-            - 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.1-data-elements#do.01-person'
-            - 'https://openid.net/specs/openid-connect-core-1_0.html#Claims'
-        value:
-          type: string
-          description: |
-            registry record type value. <br>
-            e.g,: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
-          example:
-            - person
-            - vc-person
-            - vc-brith-certificate
-            - vc-marriage-certificate
-            - vc-death-certificate
-            - social
-            - disability
-            - student
-            - farmer
-            - land
-            - utility
-            - other
-      required:
-        - value
+        @context: "https://example.org/schema/RegistryRecordType" <br>
+        @type: "RegistryRecordType" <br>
+
+        **Notes:**
+          1. Registry record type values defined as per implementation context.
+          2. Usually a list of **enum** values of all possible queryable result sets 
+          3. Referenced in search_request and notify events
+          4. example: "ns:dci:RegistryRecordType:CRVSPerson" 
+      example: 'ns:dci:RegistryRecordType:CRVSPerson'
     RegistryType:
-      type: object
+      type: string
       description: |
-        1. Country specific implementations should publish /.well-known files or refUris
-        2. In most scenarios, receiver i.e receipient of search/subsribe request determine which registry to search
-        3. Example: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
-      properties:
-        namespace:
-          type: string
-          description: 'namespace to refer to registry types; e.g, ns:dci:registry-type:v1'
-          example: 'ns:dci:registry-type:v1'
-        refUri:
-          type: string
-          description: refUri to reference schema of registry types.
-          example: 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory'
-        value:
-          type: string
-          description: |
-            registry type value. <br>
-            e.g,: civil, population, national-id, family, household, social, beneficiary, disability, student, farmer, land, utiltiy, other
-          example:
-            - civil
-            - population
-            - national-id
-            - family
-            - household
-            - social
-            - beneficiary
-            - disability
-            - student
-            - farmer
-            - land
-            - utility
-            - other
-      required:
-        - value
+        @context: "https://example.org/schema/RegistryType" <br>
+        @type: "RegistryType" <br>
+
+        **Notes:**
+          1. Registry type values defined as per implementation context.
+          2. Usually a list of **enum** values of all possible queryable functional registries 
+          3. example: "ns:org:RegistryType:Civil"
+      example: 'ns:org:RegistryType:Civil'
     SearchRequest:
       type: object
       description: |
@@ -1627,10 +1646,6 @@ components:
                     $ref: '#/components/schemas/QueryType'
                   query:
                     $ref: '#/components/schemas/RegistryQueries'
-                  result_record_type:
-                    allOf:
-                      - description: Registry record type to return in search response
-                      - $ref: '#/components/schemas/RegistryRecordType'
                   sort:
                     $ref: '#/components/schemas/SearchSortList'
                   pagination:
@@ -1642,7 +1657,6 @@ components:
                 required:
                   - query_type
                   - query
-                  - result_record_type
               locale:
                 $ref: '#/components/schemas/LanguageCode'
             required:
@@ -1695,12 +1709,9 @@ components:
                   reg_event_type:
                     $ref: '#/components/schemas/RegistryEventType'
                   reg_record_type:
-                    allOf:
-                      - description: Registry record type returned
-                      - $ref: '#/components/schemas/RegistryRecordType'
+                    $ref: '#/components/schemas/RegistryRecordType'
                   reg_records:
-                    items:
-                      $ref: '#/components/schemas/RegistryRecord'
+                    $ref: '#/components/schemas/RegistryRecord'
                 required:
                   - reg_record_type
                   - reg_records
@@ -2030,8 +2041,15 @@ components:
       properties:
         name:
           type: string
-          maxLength: 99
-          example: phone_number
+          description: |
+            @context: "https://example.org/schema/Attribute" <br>
+            @type: "Attribute" <br>
+
+            **Notes:**
+              1. Attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         value:
           $ref: '#/components/schemas/AttributeValue'
       required:
@@ -2049,52 +2067,47 @@ components:
         - type: number
         - type: boolean
         - type: object
-        - type: 'null'
-      example: +11 1111111111
+      example: '1980'
     Authorize:
       type: object
-      description: Authorize artefact. TODO - review and update!
-      properties:
-        id:
-          type: string
-          format: uri or did
-          description: authorize-id
+      description: |
+        @context: "https://example.org/schema/Authorize" <br>
+        @type: "Authorize"
+      example:
+        '@context': 'https://example.org/schema/Authorize'
+        '@type': Authorize
         ts:
           $ref: '#/components/schemas/DateTime'
         purpose:
-          type: object
-          properties:
-            text:
-              type: string
-            code:
-              type: string
-              description: 'From a fixed set, documented at refUri'
-            refUri:
-              type: string
-              format: uri
-              description: Uri to provide more info on authorize codes
+          text:
+            type: string
+          code:
+            type: string
+            description: 'From a fixed set, documented at refUri'
+          refUri:
+            type: string
+            format: uri
+            description: Uri to provide more info on authorize codes
     Consent:
       type: object
-      description: Consent artefact. TODO - enrich consent object!
-      properties:
-        id:
-          type: string
-          format: uri or did
-          description: consent id
+      description: |
+        @context: "https://example.org/schema/Consent" <br>
+        @type: "Consent"
+      example:
+        '@context': 'https://example.org/schema/Consent'
+        '@type': Consent
         ts:
           $ref: '#/components/schemas/DateTime'
         purpose:
-          type: object
-          properties:
-            text:
-              type: string
-            code:
-              type: string
-              description: 'From a fixed set, documented at refUri'
-            refUri:
-              type: string
-              format: uri
-              description: Uri to provide more info on consent codes
+          text:
+            type: string
+          code:
+            type: string
+            description: 'From a fixed set, documented at refUri'
+          refUri:
+            type: string
+            format: uri
+            description: Uri to provide more info on consent codes
     DateTime:
       description: |
         1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
@@ -2214,13 +2227,20 @@ components:
       properties:
         attribute_name:
           type: string
-          description: attribute name
+          description: |
+            @context: "https://example.org/schema/QueryAttributes" <br>
+            @type: "QueryAttributes" <br>
+
+            **Notes:**
+              1. Query attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         operator:
           $ref: '#/components/schemas/ExpOperator'
         attribute_value:
           $ref: '#/components/schemas/AttributeValue'
       required:
-        - seq_num
         - attribute_name
         - operator
         - attribute_value
@@ -2250,37 +2270,32 @@ components:
         $ref: '#/components/schemas/ExpPredicateWithCondition'
     ExpTemplate:
       type: object
-      description: |
-        1. Query expression's syntax / format is determined based on query-type.
-        2. Query expression as a template with placeholder to pass conditional search values
+      description: Identifier type and value object
       properties:
-        namespace:
-          type: string
-          description: Reference to query expression template being used
-          format: uri
         type:
           type: string
-          enum:
-            - graph-ql
-            - sql
-            - mongoDB
-            - cassandra
-            - other
-        other_value:
-          type: string
-          description: 'If not defined type, custom value to define other types'
-        expression:
-          type: string
-          format: byte
-          description: Query expression with placeholder to pass conditional search values as base64 bytes
-        expression_values:
-          allOf:
-            - description: List to hold attribute values that are templatised in a query expression
-            - $ref: '#/components/schemas/AttributeNameValueList'
-      required:
-        - type
-        - expression
-        - expression_values
+          description: |
+            @context: "https://example.org/schema/QueryType" <br>
+            @type: "Queryype" <br>
+
+            **Notes:**
+              1. Query types that helps decode query expressions
+              2. Sample query type enums: "GraphQl", "Sql", "NoSql"
+          example: GraphQl
+        value:
+          type: object
+          description: |
+            @context: "https://example.org/schema/QueryExpression" <br>
+            @type: "QueryExpression" <br>
+
+            **Notes:**
+              1. Query expression's syntax / format is determined based on query-type.
+              2. Query expression as a template with placeholder to pass conditional search parameters
+          example:
+            expression:
+              test: null
+            parametes:
+              'param1,value1': null
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -2301,31 +2316,34 @@ components:
         - action
         - fileName
     IdentifierType:
-      type: object
-      description: Identifier type
-      properties:
-        namespace:
-          type: string
-          description: 'namespace to refer to identifier type; e.g, ns:dci:id-types:v1'
-          example: 'ns:dci:id-types:v1'
-        refUri:
-          type: string
-          description: refUri to reference identifier type schema
-          example: 'https://digital-convergence-initiative-d.gitbook.io/dci-standards-1/standards/1.-crvs/6.5-data-standards/6.5.2-code-directory#cd.01-identifier_type'
-        value:
-          type: string
-          description: Identifier type
-          example: UIN
-      required:
-        - value
+      type: string
+      description: |
+        @context: "https://example.org/schema/IdType" <br>
+        @type: "IdType" <br>
+
+        **Notes:**
+          1. Identifier type values defined as per implementation context.
+          2. Usually a list of **enum** values of all possible queryable identifiers.
+          3. e.g: UIN, MOBILE, BRN, MRN, DRN, etc., 
+      example: UIN
     IdentifierTypeValue:
       type: object
+      description: Identifier type and value object
       properties:
-        identifier_type:
-          $ref: '#/components/schemas/IdentifierType'
-        identifier_value:
+        type:
+          type: string
+          description: |
+            @context: "https://example.org/schema/IdType" <br>
+            @type: "IdType" <br>
+
+            **Notes:**
+              1. Identifier type values defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable identifiers.
+              3. e.g: UIN, MOBILE, BRN, MRN, DRN, etc., 
+          example: UIN
+        value:
           allOf:
-            - description: Identifier Value of the subject defined in identifier_type
+            - description: Identifier Value of the subject.
             - $ref: '#/components/schemas/AttributeValue'
           example: '12314567890'
     LanguageCode:
@@ -2532,7 +2550,15 @@ components:
       properties:
         attribute_name:
           type: string
-          description: attribute name
+          description: |
+            @context: "https://example.org/schema/Attribute" <br>
+            @type: "Attribute" <br>
+
+            **Notes:**
+              1. Attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         sort_order:
           type: string
           enum:

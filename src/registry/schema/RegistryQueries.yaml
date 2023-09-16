@@ -1,6 +1,6 @@
 description: |
-  1. Pre defined query objects injected by each country/org/system to query a registry
-  2. Implementing systems may create pre-defined query objects based on use cases and inject as custom extensions
+  1. Implementing systems can define schemas.
+  2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
   3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
     - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
     - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023

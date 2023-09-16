@@ -3,13 +3,20 @@ description: Expression
 properties:
   attribute_name:
     type: string
-    description: attribute name
+    description: |
+      @context: "https://example.org/schema/QueryAttributes" <br>
+      @type: "QueryAttributes" <br>
+      
+      **Notes:**
+        1. Query attribute names defined as per implementation context.
+        2. Usually a list of **enum** values of all possible queryable attribute names.
+        3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+    example: "YOB"
   operator:
     $ref: "./ExpOperator.yaml"
   attribute_value:
     $ref: AttributeValue.yaml
 required:
-  - seq_num
   - attribute_name
   - operator
   - attribute_value

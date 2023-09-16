@@ -1,0 +1,72 @@
+type: object
+description: |
+  @context: "https://example.org/schema/CRVSPerson" <br>
+  @type: "Consent"
+example:
+  "@context": "https://example.org/schema/CRVSPerson"
+  "@type": "CRVSPerson"
+  "@vocab": "https://spdci.org/"
+  "schema": "http://schema.org/"
+  "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+  "xsd": "http://www.w3.org/2001/XMLSchema#"
+  "CRVSPerson": 
+    "@id": "https://spdci.org/CRVSPerson"
+    "@type": "rdfs:Class"
+    "@context": 
+      "name":
+        "@id": "schema:name"
+        "@type": "xsd:string"
+      "givenName": 
+        "@id": "schema:givenName"
+        "@type": "xsd:string"
+      "familyName": 
+        "@id": "schema:familyName"
+        "@type": "xsd:string"
+      "additionalName": 
+        "@id": "schema:additionalName"
+        "@type": "xsd:string"
+      "gender": 
+        "@id": "schema:gender"
+        "@type": "xsd:string"
+      "birthDate": 
+        "@id": "schema:birthDate"
+        "@type": "xsd:date" 
+      "birthPlace": 
+        "@id": "schema:birthPlace"
+        "@type": "schema:GeoCoordinates"
+      "deathDate": 
+        "@id": "schema:deathDate"
+        "@type": "xsd:date"
+      "deathPlace": 
+        "@id": "schema:deathPlace"
+        "@type": "schema:GeoCoordinates"
+      "maritalStatus": 
+        "@id": "schema:maritalStatus"
+        "@type": "xsd:string"
+      "honorificPrefix": 
+        "@id": "schema:honorificPrefix"
+        "@type": "xsd:string"
+      "honorificSuffix":
+         "@id": "schema:honorificSuffix"
+         "@type": "xsd:string"
+      "emails": 
+        "@container": "@set"
+        "@id": "schema:email"
+        "@type": "xsd:string"
+      "telephones":
+        "@container": "@set"
+        "@id": "schema:telephone"
+        "@type": "xsd:string" 
+      "address": 
+        "@id": "schema:address"
+        "@type": "schema:GeoCoordinates"
+      "marriageDate": 
+        "@id": "https://spdci.org/marriageDate"
+        "@type": "xsd:date"
+      "divorceDate": 
+        "@id": "https://spdci.org/divorceDate"
+        "@type": "xsd:date"
+      "parents": 
+        "@id": "schema:parents"
+        "@type": "https://spdci.org/CRVSPerson"
+  "@id": "https://spdci.org/CRVSPerson"

@@ -1,21 +1,20 @@
 type: object
-description: Authorize artefact. TODO - review and update!
-properties:
-  id:
-    type: string
-    format: uri or did
-    description: authorize-id
+description: |
+  @context: "https://example.org/schema/Authorize" <br>
+  @type: "Authorize"
+example:
+  "@context": "https://example.org/schema/Authorize"
+  "@type": "Authorize"
   ts:
     $ref: ./DateTime.yaml
   purpose:
-    type: object
-    properties:
-      text:
+    text:
+      type: string
+    code: 
+      type: string
+      description: From a fixed set, documented at refUri
+    refUri:
         type: string
-      code: 
-        type: string
-        description: From a fixed set, documented at refUri
-      refUri:
-          type: string
-          format: uri
-          description: Uri to provide more info on authorize codes
+        format: uri
+        description: Uri to provide more info on authorize codes
+

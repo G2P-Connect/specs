@@ -4,5 +4,4 @@ oneOf:
   - type: number
   - type: boolean
   - type: object
-  - type: "null"
-example: '+11 1111111111'
+example: "1980"

@@ -1016,6 +1016,8 @@ components:
       $ref: ../extensions/cdpi/PersonId.yaml
 
     ###### src/extensions/dci schema objects
+    dci_CRVSPerson: 
+      $ref: ../extensions/dci/CRVSPerson.yaml
     dci_IdentifierType: 
       $ref: ../extensions/dci/IdentifierType.yaml
     dci_IdentifierTypeValue: 

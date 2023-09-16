@@ -1661,8 +1661,15 @@ components:
       properties:
         name:
           type: string
-          maxLength: 99
-          example: phone_number
+          description: |
+            @context: "https://example.org/schema/Attribute" <br>
+            @type: "Attribute" <br>
+
+            **Notes:**
+              1. Attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         value:
           $ref: '#/components/schemas/AttributeValue'
       required:
@@ -1680,30 +1687,27 @@ components:
         - type: number
         - type: boolean
         - type: object
-        - type: 'null'
-      example: +11 1111111111
+      example: '1980'
     Consent:
       type: object
-      description: Consent artefact. TODO - enrich consent object!
-      properties:
-        id:
-          type: string
-          format: uri or did
-          description: consent id
+      description: |
+        @context: "https://example.org/schema/Consent" <br>
+        @type: "Consent"
+      example:
+        '@context': 'https://example.org/schema/Consent'
+        '@type': Consent
         ts:
           $ref: '#/components/schemas/DateTime'
         purpose:
-          type: object
-          properties:
-            text:
-              type: string
-            code:
-              type: string
-              description: 'From a fixed set, documented at refUri'
-            refUri:
-              type: string
-              format: uri
-              description: Uri to provide more info on consent codes
+          text:
+            type: string
+          code:
+            type: string
+            description: 'From a fixed set, documented at refUri'
+          refUri:
+            type: string
+            format: uri
+            description: Uri to provide more info on consent codes
     DateTime:
       description: |
         1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
@@ -1803,13 +1807,20 @@ components:
       properties:
         attribute_name:
           type: string
-          description: attribute name
+          description: |
+            @context: "https://example.org/schema/QueryAttributes" <br>
+            @type: "QueryAttributes" <br>
+
+            **Notes:**
+              1. Query attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         operator:
           $ref: '#/components/schemas/ExpOperator'
         attribute_value:
           $ref: '#/components/schemas/AttributeValue'
       required:
-        - seq_num
         - attribute_name
         - operator
         - attribute_value
@@ -1839,37 +1850,32 @@ components:
         $ref: '#/components/schemas/ExpPredicateWithCondition'
     ExpTemplate:
       type: object
-      description: |
-        1. Query expression's syntax / format is determined based on query-type.
-        2. Query expression as a template with placeholder to pass conditional search values
+      description: Identifier type and value object
       properties:
-        namespace:
-          type: string
-          description: Reference to query expression template being used
-          format: uri
         type:
           type: string
-          enum:
-            - graph-ql
-            - sql
-            - mongoDB
-            - cassandra
-            - other
-        other_value:
-          type: string
-          description: 'If not defined type, custom value to define other types'
-        expression:
-          type: string
-          format: byte
-          description: Query expression with placeholder to pass conditional search values as base64 bytes
-        expression_values:
-          allOf:
-            - description: List to hold attribute values that are templatised in a query expression
-            - $ref: '#/components/schemas/AttributeNameValueList'
-      required:
-        - type
-        - expression
-        - expression_values
+          description: |
+            @context: "https://example.org/schema/QueryType" <br>
+            @type: "Queryype" <br>
+
+            **Notes:**
+              1. Query types that helps decode query expressions
+              2. Sample query type enums: "GraphQl", "Sql", "NoSql"
+          example: GraphQl
+        value:
+          type: object
+          description: |
+            @context: "https://example.org/schema/QueryExpression" <br>
+            @type: "QueryExpression" <br>
+
+            **Notes:**
+              1. Query expression's syntax / format is determined based on query-type.
+              2. Query expression as a template with placeholder to pass conditional search parameters
+          example:
+            expression:
+              test: null
+            parametes:
+              'param1,value1': null
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -2083,7 +2089,15 @@ components:
       properties:
         attribute_name:
           type: string
-          description: attribute name
+          description: |
+            @context: "https://example.org/schema/Attribute" <br>
+            @type: "Attribute" <br>
+
+            **Notes:**
+              1. Attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
         sort_order:
           type: string
           enum:

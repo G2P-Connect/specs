@@ -1,21 +1,19 @@
 type: object
-description: Consent artefact. TODO - enrich consent object!
-properties:
-  id:
-    type: string
-    format: uri or did
-    description: consent id
+description: |
+  @context: "https://example.org/schema/Consent" <br>
+  @type: "Consent"
+example:
+  "@context": "https://example.org/schema/Consent"
+  "@type": "Consent"
   ts:
     $ref: ./DateTime.yaml
   purpose:
-    type: object
-    properties:
-      text:
+    text:
+      type: string
+    code: 
+      type: string
+      description: From a fixed set, documented at refUri
+    refUri:
         type: string
-      code: 
-        type: string
-        description: From a fixed set, documented at refUri
-      refUri:
-          type: string
-          format: uri
-          description: Uri to provide more info on consent codes
+        format: uri
+        description: Uri to provide more info on consent codes

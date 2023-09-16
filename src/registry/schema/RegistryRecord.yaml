@@ -1,4 +1,11 @@
 type: object
-description: Registy record object based on record_type attribute.
-example:
-  $ref: ../../extensions/dci/PersonRecord.yaml
+description: |
+  @context: "https://example.org/schema/RecordType" <br>
+  @type: "CRVSPerson" <br>
+  @container: "@set" <br>
+
+  **Notes:**
+    1. Record type values defined as per implementation context.
+    2. Usually a list of **enum** values of all possible queryable identifiers.
+example: 
+  $ref: "../../extensions/dci/CRVSPerson.yaml"
