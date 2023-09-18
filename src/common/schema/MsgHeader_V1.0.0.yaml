@@ -43,6 +43,8 @@ properties:
     description: Is message encrypted?
     type: boolean
     default: false
+  meta:
+    $ref: Meta.yaml
 required:
   - message_id
   - message_ts

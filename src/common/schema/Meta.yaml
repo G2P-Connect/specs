@@ -1,0 +1,9 @@
+type: object
+description: |
+  @context: "https://example.org/schema/Meta" <br>
+  @type: "@context" <br>
+    
+  **Notes:**
+    1. Additional meta info defined as per implementation context.
+    2. Usually unencrypted list of name/value, tags, etc., to provide additional info to intermediary entities.
+    3. The information SHOULD be privacy preserving

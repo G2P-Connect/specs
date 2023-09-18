@@ -6,6 +6,6 @@ description: |
     - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
     - search all farmers with land area less than 2 acers in district code 504
 oneOf:
-  - $ref: ../../common/schema/IdentifierTypeValue.yaml
   - $ref: ../../common/schema/ExpTemplate.yaml
+  - $ref: ../../common/schema/IdentifierTypeValue.yaml
   - $ref: ../../common/schema/ExpPredicateWithConditionList.yaml

@@ -1180,6 +1180,8 @@ components:
       $ref: ../common/schema/LanguageCode.yaml
     LatLong: 
       $ref: ../common/schema/LatLong.yaml
+    Meta:
+      $ref: ../common/schema/Meta.yaml
     MsgCallbackHeader_V1.0.0: 
       $ref: ../common/schema/MsgCallbackHeader_V1.0.0.yaml
     MsgHeader_V1.0.0: 

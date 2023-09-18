@@ -1861,7 +1861,7 @@ components:
             **Notes:**
               1. Query types that helps decode query expressions
               2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-          example: GraphQl
+          example: 'ns:org:QueryType:GraphQl'
         value:
           type: object
           description: |
@@ -1872,10 +1872,7 @@ components:
               1. Query expression's syntax / format is determined based on query-type.
               2. Query expression as a template with placeholder to pass conditional search parameters
           example:
-            expression:
-              test: null
-            parametes:
-              'param1,value1': null
+            expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } }'
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -1909,6 +1906,16 @@ components:
         longitude:
           type: string
           example: 88°50'26.5"E
+    Meta:
+      type: object
+      description: |
+        @context: "https://example.org/schema/Meta" <br>
+        @type: "@context" <br>
+          
+        **Notes:**
+          1. Additional meta info defined as per implementation context.
+          2. Usually unencrypted list of name/value, tags, etc., to provide additional info to intermediary entities.
+          3. The information SHOULD be privacy preserving
     MsgCallbackHeader_V1.0.0:
       type: object
       description: Message header
@@ -1959,6 +1966,8 @@ components:
           description: Is message encrypted?
           type: boolean
           default: false
+        meta:
+          $ref: '#/components/schemas/Meta'
       required:
         - message_id
         - message_ts
@@ -2010,6 +2019,8 @@ components:
           description: Is message encrypted?
           type: boolean
           default: false
+        meta:
+          $ref: '#/components/schemas/Meta'
       required:
         - message_id
         - message_ts

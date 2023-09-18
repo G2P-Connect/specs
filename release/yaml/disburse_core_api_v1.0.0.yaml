@@ -1062,6 +1062,16 @@ components:
       description: indicates language code. G2P Connect supports country codes as per ISO 639.3 standard
       pattern: '^[a-z]{3,3}$'
       example: en
+    Meta:
+      type: object
+      description: |
+        @context: "https://example.org/schema/Meta" <br>
+        @type: "@context" <br>
+          
+        **Notes:**
+          1. Additional meta info defined as per implementation context.
+          2. Usually unencrypted list of name/value, tags, etc., to provide additional info to intermediary entities.
+          3. The information SHOULD be privacy preserving
     MsgCallbackHeader_V1.0.0:
       type: object
       description: Message header
@@ -1112,6 +1122,8 @@ components:
           description: Is message encrypted?
           type: boolean
           default: false
+        meta:
+          $ref: '#/components/schemas/Meta'
       required:
         - message_id
         - message_ts
@@ -1163,6 +1175,8 @@ components:
           description: Is message encrypted?
           type: boolean
           default: false
+        meta:
+          $ref: '#/components/schemas/Meta'
       required:
         - message_id
         - message_ts

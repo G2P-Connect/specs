@@ -10,7 +10,7 @@ properties:
       **Notes:**
         1. Query types that helps decode query expressions
         2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-    example: "GraphQl"
+    example: "ns:org:QueryType:GraphQl"
   value:
     type: object
     description: |
@@ -21,5 +21,14 @@ properties:
         1. Query expression's syntax / format is determined based on query-type.
         2. Query expression as a template with placeholder to pass conditional search parameters
     example: 
-      expression: {"test"}
-      parametes: { ["param1", "value1"]}
+      expression: "
+          query GeBirthRecordById: {
+            person: (UIN: \"1\") {
+              BRN,
+              name,
+              gender,
+              birthDate,
+              birthPlace,
+              parents
+            }
+          }"
