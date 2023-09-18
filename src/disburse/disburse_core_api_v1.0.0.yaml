@@ -129,7 +129,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /on-disburse:
@@ -180,7 +180,7 @@ paths:
       '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /disburse/search:
@@ -232,7 +232,7 @@ paths:
       '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
      # - Signature: [ ]
     deprecated: false
  /disburse/on-search:
@@ -283,7 +283,7 @@ paths:
       '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /disburse/txn/status:
@@ -338,7 +338,7 @@ paths:
       '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
      # - Signature: [ ]
     deprecated: false
  /disburse/txn/on-status:
@@ -391,7 +391,7 @@ paths:
       '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /disburse/sync/disburse:
@@ -458,7 +458,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /disburse/sync/search:
    post: 
@@ -526,7 +526,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /disburse/sync/txn/status:
   post: 
@@ -593,7 +593,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
 
 components:
@@ -690,5 +690,5 @@ components:
     Response:
       $ref: ../common/response/Response.yaml    
   securitySchemes:
-    x-access-token:
-      $ref: ../common/security/x-access-token.yaml
+    Authorization:
+      $ref: ../common/security/Authorization.yaml

@@ -150,7 +150,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/on-search:
     post:
@@ -201,7 +201,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/subscribe:
     post:
@@ -254,7 +254,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/on-subscribe:
     post:
@@ -307,7 +307,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/notify:
     post:
@@ -358,7 +358,7 @@ paths:
         default:
           $ref: '#/components/responses/HttpErrorResponse'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/unsubscribe:
     post:
@@ -411,7 +411,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/on-unsubscribe:
     post:
@@ -463,7 +463,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/txn/status:
     post:
@@ -515,7 +515,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/txn/on-status:
     post:
@@ -566,7 +566,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/sync/search:
     post:
@@ -632,7 +632,7 @@ paths:
                 required:
                   - header
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/sync/txn/status:
     post:
@@ -697,7 +697,7 @@ paths:
                 required:
                   - header
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
 components:
   schemas:
@@ -2629,8 +2629,8 @@ components:
                   - timestamp
                   - correlation_id
   securitySchemes:
-    x-access-token:
+    Authorization:
       type: http
       scheme: bearer
       bearerFormat: jwt
-      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
+      description: User/System authenticated access token; (jwt bearer) token returned from implementing system's authentication/token api end points. All systems must implement token api.

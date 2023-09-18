@@ -159,7 +159,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/on-link:
@@ -211,7 +211,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/update:
@@ -266,7 +266,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/on-update:
@@ -318,7 +318,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/unlink:
@@ -371,7 +371,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/on-unlink:
@@ -423,7 +423,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/resolve:
@@ -476,7 +476,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/on-resolve:
@@ -528,7 +528,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/txn/status:
@@ -582,7 +582,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/txn/on-status:
@@ -634,7 +634,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
       # - Signature: [ ]
     deprecated: false
  /mapper/sync/link:
@@ -701,7 +701,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /mapper/sync/update:
   post: 
@@ -767,7 +767,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /mapper/sync/unlink:
   post: 
@@ -833,7 +833,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /mapper/sync/resolve:
   post: 
@@ -899,7 +899,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/sync/txn/status:
   post: 
@@ -964,7 +964,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
 components:
   schemas:
@@ -1110,5 +1110,5 @@ components:
     Response:
       $ref: ../common/response/Response.yaml       
   securitySchemes:
-    x-access-token:
-      $ref: ../common/security/x-access-token.yaml
+    Authorization:
+      $ref: ../common/security/Authorization.yaml

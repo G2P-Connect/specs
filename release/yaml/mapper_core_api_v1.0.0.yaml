@@ -159,7 +159,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/on-link:
     post:
@@ -210,7 +210,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/update:
     post:
@@ -263,7 +263,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/on-update:
     post:
@@ -314,7 +314,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/unlink:
     post:
@@ -366,7 +366,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/on-unlink:
     post:
@@ -417,7 +417,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/resolve:
     post:
@@ -469,7 +469,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/on-resolve:
     post:
@@ -520,7 +520,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/txn/status:
     post:
@@ -573,7 +573,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/txn/on-status:
     post:
@@ -624,7 +624,7 @@ paths:
         default:
           $ref: '#/components/responses/Response'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/sync/link:
     post:
@@ -690,7 +690,7 @@ paths:
                 required:
                   - header
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/sync/update:
     post:
@@ -756,7 +756,7 @@ paths:
                 required:
                   - header
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/sync/unlink:
     post:
@@ -822,7 +822,7 @@ paths:
                 required:
                   - header
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /mapper/sync/resolve:
     post:
@@ -888,7 +888,7 @@ paths:
                 required:
                   - header
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
   /registry/sync/txn/status:
     post:
@@ -953,7 +953,7 @@ paths:
                 required:
                   - header
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
 components:
   schemas:
@@ -2211,8 +2211,8 @@ components:
                   - timestamp
                   - correlation_id
   securitySchemes:
-    x-access-token:
+    Authorization:
       type: http
       scheme: bearer
       bearerFormat: jwt
-      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
+      description: User/System authenticated access token; (jwt bearer) token returned from implementing system's authentication/token api end points. All systems must implement token api.

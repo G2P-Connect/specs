@@ -150,7 +150,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/on-search:
   post: 
@@ -201,7 +201,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
    
  /registry/subscribe:
@@ -255,7 +255,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/on-subscribe:
   post: 
@@ -308,7 +308,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/notify:
   post: 
@@ -359,7 +359,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/unsubscribe:
   post: 
@@ -412,7 +412,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/on-unsubscribe:
   post: 
@@ -464,7 +464,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
 #  /registry/subscriptions:
 #   post: 
@@ -517,7 +517,7 @@ paths:
 #         '500':
 #           $ref: "#/components/responses/HttpErrorResponse"
 #     security:
-#       - x-access-token: [ ]
+#       - Authorization: [ ]
 #     deprecated: false
 #  /registry/on-subscriptions:
 #   post: 
@@ -570,7 +570,7 @@ paths:
 #         '500':
 #           $ref: "#/components/responses/HttpErrorResponse"
 #     security:
-#       - x-access-token: [ ]
+#       - Authorization: [ ]
 #     deprecated: false
  /registry/txn/status:
   post: 
@@ -622,7 +622,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/txn/on-status:
   post: 
@@ -673,7 +673,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
  /registry/sync/search:
   post: 
@@ -739,7 +739,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
 #  /registry/sync/subscribe:
 #   post: 
@@ -809,7 +809,7 @@ paths:
 #         '500':
 #           $ref: "#/components/responses/HttpErrorResponse"
 #     security:
-#       - x-access-token: [ ]
+#       - Authorization: [ ]
 #     deprecated: false
 #  /registry/sync/subscriptions:
 #   post: 
@@ -871,7 +871,7 @@ paths:
 #         '500':
 #           $ref: "#/components/responses/HttpErrorResponse"
 #     security:
-#       - x-access-token: [ ]
+#       - Authorization: [ ]
 #     deprecated: false
 #  /registry/sync/unsubscribe:
 #   post: 
@@ -942,7 +942,7 @@ paths:
 #         '500':
 #           $ref: "#/components/responses/HttpErrorResponse"
 #     security:
-#       - x-access-token: [ ]
+#       - Authorization: [ ]
 #     deprecated: false
  /registry/sync/txn/status:
   post: 
@@ -1007,7 +1007,7 @@ paths:
         '500':
           $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
 components:
   schemas:
@@ -1215,5 +1215,5 @@ components:
     Response:
       $ref: ../common/response/Response.yaml    
   securitySchemes:
-    x-access-token:
-      $ref: ../common/security/x-access-token.yaml
+    Authorization:
+      $ref: ../common/security/Authorization.yaml

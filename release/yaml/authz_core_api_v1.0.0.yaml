@@ -19,7 +19,7 @@ paths:
   /oauth2/client/token:
     post:
       summary: 'AUTHZ-TOKN : /oauth2/client/token'
-      description: '<br> <b>Client integration notes: </b><br> 1. This end point is in compliance with OAuth2 RFC 6749 to authenticate registered confidential clients with grant_type=client_credentials over HTTPS channel. <br> 2. Clients MUST obtain client_id, client_secret as part of client registration. <br> 2. Clients MUST ensure to secure sensitive information e.g, client_secret,  access_token, etc., <br> 3. RFC 6749 section 4.4.3 recommends NO support for refresh access_token. <br> 4. Successfully authenticated clients SHALL receive bearer type access_token. <br> 5. Clients MUST set access_token to x-access-token in HTTP header to access any g2p compliant api end points.<br> 6. Rest end points SHALL return <b>http status 401</b> when access_token is invalid or expired.<br>'
+      description: '<br> <b>Client integration notes: </b><br> 1. This end point is in compliance with OAuth2 RFC 6749 to authenticate registered confidential clients with grant_type=client_credentials over HTTPS channel. <br> 2. Clients MUST obtain client_id, client_secret as part of client registration. <br> 2. Clients MUST ensure to secure sensitive information e.g, client_secret,  access_token, etc., <br> 3. RFC 6749 section 4.4.3 recommends NO support for refresh access_token. <br> 4. Successfully authenticated clients SHALL receive bearer type access_token. <br> 5. Clients MUST set HTTP "Authorization: Bearer <access_token>" in HTTP header to access any g2p compliant api end points.<br> 6. Rest end points SHALL return <b>http status 401</b> when access_token is invalid or expired.<br>'
       operationId: post_oauth2_client_token
       parameters:
         - $ref: '#/components/parameters/accept-language'
@@ -106,16 +106,19 @@ components:
           - mapper.on-resolve
           - mapper.status
           - mapper.on-status
-          - credential.issue
-          - credential.on-issue
-          - credential.search
-          - credential.on-search
+          - registry.search
+          - registry.on-search
+          - registry.subscribe
+          - registry.on-subscribe
+          - registry.notify
           - <etc>
       example:
-        - disburse
+        - disburse/disburse
+        - disburse/on-disburse
         - mapper/link
-        - disburse/status
-        - credentail/search
+        - mapper/on-link
+        - registry/search
+        - registry/on-search
   parameters:
     accept-language:
       in: header
