@@ -44,7 +44,7 @@ paths:
         '500':
           $ref: '#/components/responses/HttpErrorResponse'
       security:
-        - x-access-token: []
+        - Authorization: []
       deprecated: false
 components:
   schemas:
@@ -163,8 +163,8 @@ components:
                       type: string
                       description: error message
   securitySchemes:
-    x-access-token:
+    Authorization:
       type: http
       scheme: bearer
       bearerFormat: jwt
-      description: Authenticating using sessiong token issued by platfrom/system api gateway or auth services issuing session token apis using client id & secret
+      description: User/System authenticated access token; (jwt bearer) token returned from implementing system's authentication/token api end points. All systems must implement token api.

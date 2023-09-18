@@ -52,7 +52,7 @@ paths:
       '500':
         $ref: "#/components/responses/HttpErrorResponse"
     security:
-      - x-access-token: [ ]
+      - Authorization: [ ]
     deprecated: false
 components:
   schemas:
@@ -73,6 +73,6 @@ components:
     HttpErrorResponse:
       $ref: "../common/response/HttpErrorResponse.yaml"
   securitySchemes:
-    x-access-token:
-      $ref: "../common/security/x-access-token.yaml"
+    Authorization:
+      $ref: "../common/security/Authorization.yaml"
   
