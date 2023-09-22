@@ -57,7 +57,7 @@ sudo npm install -g @redocly/cli
 5. To create redoc html pages for easy readability 
 
 ```
-redocly build-docs ./src/registry_core_api_v1.0.0.yaml -o ./release/html/registry_core_api_v1.0.0.html
+redocly build-docs ./release/yaml/registry_core_api_v1.0.0.yaml -o ./release/html/registry_core_api_v1.0.0.html
 ```
 
 If the command runs successfully, you should see an output like this for each api index file
