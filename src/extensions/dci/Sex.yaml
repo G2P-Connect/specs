@@ -1,13 +1,13 @@
 type: string
 description: |
   Standardized codes/values representing diverse Sex categories.
-  Reference: [ISO/IEC 5218:2022](https://www.iso.org/standard/81682.html)
+  Reference: [FHIR Administrative Gender](https://build.fhir.org/valueset-administrative-gender.html)
   1 : Male
   2 : Female
   3 : Others
   4 : Unknown
 enum:
-  - "1"
-  - "2"
-  - "3"
-  - "4"
+  - "male"
+  - "female"
+  - "other"
+  - "unknown"

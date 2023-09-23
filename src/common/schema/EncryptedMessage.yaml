@@ -12,18 +12,18 @@ properties:
         description: The encryption algorithm used for encrypting the plaintext
       kid:
         type: string
-        description: The key identifier for the encryption key       
+        description: The key identifier for the encryption key
     required:
-      - alg     
+      - alg
       - enc
       - kid
-  data:
+  ciphertext:
     type: string
     description: This is the result of encrypting the plaintext using the CEK and the IV. It's Base64Url-encoded.
   encrypted_key:
     type: string
     description: The base64-url encoded encrypted key
-  auth_tag:
+  tag:
     type: string
     description: This is a Base64Url-encoded value that provides evidence of the integrity and authenticity of the ciphertext, Initialization Vector, and Additional Authenticated Data
   iv:
@@ -31,7 +31,7 @@ properties:
     description:  This is a Base64Url-encoded random bit string to be used as the Initialization Vector (IV) when encrypting the plaintext to produce the ciphertext. The size of the IV depends on the encryption algorithm used.
 required:
   - header
-  - data
+  - ciphertext
   - encrypted_key
-  - auth_tag
+  - tag
   - iv

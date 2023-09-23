@@ -29,12 +29,12 @@ do
 
 ## Building Open API consolidated yaml file
 1. Make sure all the yaml file have relative path references are resolved and core_xxx_api_vx.x.x.yaml files have reference to all the required files.
-1. Install the swagger command line tool using npm (Note: you may need to use root privileges if installing it globally).
+2. Install the swagger command line tool using npm (Note: you may need to use root privileges if installing it globally).
 
 ```
 sudo npm install -g swagger-cli
 ```
-2. Generate the resolved OpenAPI definition file <br>
+3. Generate the resolved OpenAPI definition file <br>
     a. Go to the root directory of this repository i.e standards/ <br>
     b. Run the build_apis.cmd from standards/ folder  <br>
     b. Alternatively, Run the following command for each index file in ./standards/ folder. for e.g., <br>
@@ -48,11 +48,16 @@ If the command runs successfully, you should see an output like this for each ap
 ```
 Created registry_core_api_v1.0.0.html from release/yaml/registry_core_api_v1.0.0.yaml
 ```
-
-3. To create redoc html pages for easy readability 
+4. Install the redocly command line tool using npm (Note: you may need to use root privileges if installing it globally).
 
 ```
-redoc build-docs ./src/registry_core_api_v1.0.0.yaml -o ./release/html/registry_core_api_v1.0.0.html
+sudo npm install -g @redocly/cli
+```
+
+5. To create redoc html pages for easy readability 
+
+```
+redocly build-docs ./release/yaml/registry_core_api_v1.0.0.yaml -o ./release/html/registry_core_api_v1.0.0.html
 ```
 
 If the command runs successfully, you should see an output like this for each api index file
@@ -60,4 +65,4 @@ If the command runs successfully, you should see an output like this for each ap
 bundled successfully in: ./release/html/registry_core_api_v1.0.0.html
 ```
 
-5. Commit the changes and push the updated code to git repo. Create pull requests for teams to collaborate and merge to main branch!
+6. Commit the changes and push the updated code to git repo. Create pull requests for teams to collaborate and merge to main branch!
