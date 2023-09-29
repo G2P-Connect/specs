@@ -1,0 +1,22 @@
+type: object
+description: Identifier type and value object
+properties:
+  query_name:
+    type: string
+    description: |
+      1. Predefined NamedQuery that assumes all conditions as a template
+      2. The required parameters defined in the template are passed in queryParams
+      3. List of named queries are documented and made available by data providers to all authorised data consumers
+      4. Named Queries can also be uniquely identfied by data providers to implement RBAC policies
+      5. Return result record set is defined as part of Named Queries by data providers
+    example: "DCI:NamedQuery:getBirthByBRNandAreaCode"
+  query_params:
+    type: object
+    description: |
+      @context: "https://example.org/schema/QueryParam" <br>
+      @type: "QueryParam" <br>
+    example: 
+      {
+        "BRN": "1111",
+        "area_code": "123"
+     }

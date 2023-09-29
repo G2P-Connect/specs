@@ -11,8 +11,8 @@ properties:
     $ref: ../../common/schema/DateTime.yaml    
   reg_type:
     $ref: RegistryType.yaml
-  reg_event_type:
-    $ref: RegistryEventType.yaml
+  reg_sub_type:
+    $ref: RegistrySubType.yaml
   frequency:
     $ref: ../../common/schema/EventFrequency.yaml
   filter_type:
@@ -22,7 +22,7 @@ properties:
   notify_record_type:
     $ref: RegistryRecordType.yaml
     required: 
-      - reg_event_type
+      - reg_type
       - filter
       - notify_record_type
   locale:

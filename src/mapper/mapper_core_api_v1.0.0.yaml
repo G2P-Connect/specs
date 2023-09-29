@@ -1050,16 +1050,6 @@ components:
       $ref: ../common/schema/ExpCondition.yaml
     ExpOperator: 
       $ref: ../common/schema/ExpOperator.yaml
-    ExpPredicate: 
-      $ref: ../common/schema/ExpPredicate.yaml
-    ExpPredicateList: 
-      $ref: ../common/schema/ExpPredicateList.yaml
-    ExpPredicateWithCondition: 
-      $ref: ../common/schema/ExpPredicateWithCondition.yaml
-    ExpPredicateWithConditionList: 
-      $ref: ../common/schema/ExpPredicateWithConditionList.yaml
-    ExpTemplate:
-      $ref: ../common/schema/ExpTemplate.yaml
     FileInfo: 
       $ref: ../common/schema/FileInfo.yaml
     LanguageCode: 
@@ -1076,10 +1066,20 @@ components:
       $ref: ../common/schema/MsgHeaderStatusReasonCode.yaml
     MsgSignature: 
       $ref:  ../common/schema/MsgSignature.yaml
+    NamedQuery:
+      $ref: ../common/schema/NamedQuery.yaml
     Pagination: 
       $ref: ../common/schema/Pagination.yaml
     PaginationRequest: 
       $ref: ../common/schema/PaginationRequest.yaml
+    Predicate: 
+      $ref: ../common/schema/Predicate.yaml
+    PredicateList: 
+      $ref: ../common/schema/PredicateList.yaml
+    PredicateWithCondition: 
+      $ref: ../common/schema/PredicateWithCondition.yaml
+    PredicateQuery:
+      $ref: ../common/schema/PredicateQuery.yaml
     ReferenceId: 
       $ref: ../common/schema/ReferenceId.yaml
     ReferenceIdList: 

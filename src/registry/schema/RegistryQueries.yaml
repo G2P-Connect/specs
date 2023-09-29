@@ -1,11 +1,13 @@
 description: |
-  1. Implementing systems can define schemas.
-  2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
-  3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
+  1. Implementing systems can define schemas for each query types
+  2. IdType Query is simple direct ID based lookup
+  2. Pre Defined Named Query helps data provider to allow data access in a control manner and additional enforce RBAC policies
+  3. PredicateQuery helps data consumer to access using defined context. 
+  4. Below are few examples that are possbile both in NamedQuery and PredicateQuery types: <br>
     - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
     - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
     - search all farmers with land area less than 2 acers in district code 504
 oneOf:
-  - $ref: ../../common/schema/ExpTemplate.yaml
-  - $ref: ../../common/schema/IdentifierTypeValue.yaml
-  - $ref: ../../common/schema/ExpPredicateWithConditionList.yaml
+  - $ref: ../../common/schema/NamedQuery.yaml
+  - $ref: ../../common/schema/IdTypeQuery.yaml
+  - $ref: ../../common/schema/PredicateQuery.yaml

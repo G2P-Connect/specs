@@ -25,8 +25,8 @@ properties:
               default: 1.0.0
             reg_type:
               $ref: RegistryType.yaml
-            reg_event_type:
-              $ref: RegistryEventType.yaml
+            reg_sub_type:
+              $ref: RegistrySubType.yaml
             query_type:
               $ref: ../../common/schema/QueryType.yaml
             query:
@@ -40,6 +40,7 @@ properties:
             authorize:
               $ref: ../../common/schema/Authorize.yaml
           required:
+            - reg_type
             - query_type
             - query
         locale:

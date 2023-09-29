@@ -1,10 +1,10 @@
 type: string
 description: |
-  @context: "https://example.org/schema/RegistryEventType" <br>
+  @context: "https://example.org/schema/RegistrySubType" <br>
   @type: "VitalEvent" <br>
   
   **Notes:**
     1. Registry event type values defined as per implementation context.
     2. Usually a list of **enum** values of all possible queryable identifiers.
-    3. example: "ns:org:RegistryEventType:LiveBirth"
-example: "ns:org:RegistryEventType:LiveBirth"
+    3. example: "DCI:RegistrySubType:LiveBirth"
+example: "DCI:RegistrySubType:LiveBirth"

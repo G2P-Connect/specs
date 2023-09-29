@@ -1086,20 +1086,20 @@ components:
       $ref: ../extensions/openid/PersonDocDetails.yaml
 
     ###### src/registry/schema objects
-    RegistryQueries: 
-      $ref: schema/RegistryQueries.yaml
     # FetchSubscriptionsRequest: 
     #   $ref: schema/FetchSubscriptionsRequest.yaml
     # FetchSubscriptionsResponse:
     #   $ref: schema/FetchSubscriptionsResponse.yaml
     NotifyEventRequest: 
       $ref: schema/NotifyEventRequest.yaml
-    RegistryEventType:
-      $ref: schema/RegistryEventType.yaml
+    RegistryQueries:
+      $ref: schema/RegistryQueries.yaml
     RegistryRecord:
       $ref: schema/RegistryRecord.yaml
     RegistryRecordType: 
       $ref: schema/RegistryRecordType.yaml
+    RegistrySubType:
+      $ref: schema/RegistrySubType.yaml
     RegistryType: 
       $ref: schema/RegistryType.yaml
     SearchRequest: 
@@ -1160,22 +1160,12 @@ components:
       $ref: ../common/schema/ExpCondition.yaml
     ExpOperator: 
       $ref: ../common/schema/ExpOperator.yaml
-    ExpPredicate: 
-      $ref: ../common/schema/ExpPredicate.yaml
-    ExpPredicateList: 
-      $ref: ../common/schema/ExpPredicateList.yaml
-    ExpPredicateWithCondition: 
-      $ref: ../common/schema/ExpPredicateWithCondition.yaml
-    ExpPredicateWithConditionList: 
-      $ref: ../common/schema/ExpPredicateWithConditionList.yaml
-    ExpTemplate:
-      $ref: ../common/schema/ExpTemplate.yaml
     FileInfo: 
       $ref: ../common/schema/FileInfo.yaml
     IdentifierType: 
       $ref: ../common/schema/IdentifierType.yaml
-    IdentifierTypeValue: 
-      $ref: ../common/schema/IdentifierTypeValue.yaml
+    IdTypeQuery: 
+      $ref: ../common/schema/IdTypeQuery.yaml
     LanguageCode: 
       $ref: ../common/schema/LanguageCode.yaml
     LatLong: 
@@ -1190,10 +1180,20 @@ components:
       $ref: ../common/schema/MsgHeaderStatusReasonCode.yaml
     MsgSignature: 
       $ref:  ../common/schema/MsgSignature.yaml
+    NamedQuery:
+      $ref: ../common/schema/NamedQuery.yaml
     Pagination: 
       $ref: ../common/schema/Pagination.yaml
     PaginationRequest: 
       $ref: ../common/schema/PaginationRequest.yaml
+    Predicate: 
+      $ref: ../common/schema/Predicate.yaml
+    PredicateList: 
+      $ref: ../common/schema/PredicateList.yaml
+    PredicateWithCondition: 
+      $ref: ../common/schema/PredicateWithCondition.yaml
+    PredicateQuery:
+      $ref: ../common/schema/PredicateQuery.yaml
     QueryType:
       $ref: ../common/schema/QueryType.yaml
     ReferenceId: 

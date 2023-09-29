@@ -32,13 +32,14 @@ properties:
               default: 1.0.0
             reg_type:
               $ref: RegistryType.yaml
-            reg_event_type:
-              $ref: RegistryEventType.yaml
+            reg_sub_type:
+              $ref: RegistrySubType.yaml
             reg_record_type:
               $ref: RegistryRecordType.yaml    
             reg_records:
               $ref: RegistryRecord.yaml
           required: 
+            - reg_type
             - reg_record_type
             - reg_records
         pagination: 

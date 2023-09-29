@@ -1801,78 +1801,6 @@ components:
         - le
         - in
       example: eq
-    ExpPredicate:
-      type: object
-      description: Expression
-      properties:
-        attribute_name:
-          type: string
-          description: |
-            @context: "https://example.org/schema/QueryAttributes" <br>
-            @type: "QueryAttributes" <br>
-
-            **Notes:**
-              1. Query attribute names defined as per implementation context.
-              2. Usually a list of **enum** values of all possible queryable attribute names.
-              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
-          example: YOB
-        operator:
-          $ref: '#/components/schemas/ExpOperator'
-        attribute_value:
-          $ref: '#/components/schemas/AttributeValue'
-      required:
-        - attribute_name
-        - operator
-        - attribute_value
-    ExpPredicateList:
-      type: array
-      description: list of attributes with matching conditions
-      items:
-        $ref: '#/components/schemas/ExpPredicate'
-    ExpPredicateWithCondition:
-      type: object
-      properties:
-        seq_num:
-          description: Sequence number to help define precedence for evaluating a list of expression Predicates
-          type: number
-          example: 1
-        expression1:
-          $ref: '#/components/schemas/ExpPredicate'
-        condition:
-          $ref: '#/components/schemas/ExpCondition'
-        expression2:
-          $ref: '#/components/schemas/ExpPredicate'
-      required:
-        - expression1
-    ExpPredicateWithConditionList:
-      type: array
-      items:
-        $ref: '#/components/schemas/ExpPredicateWithCondition'
-    ExpTemplate:
-      type: object
-      description: Identifier type and value object
-      properties:
-        type:
-          type: string
-          description: |
-            @context: "https://example.org/schema/QueryType" <br>
-            @type: "Queryype" <br>
-
-            **Notes:**
-              1. Query types that helps decode query expressions
-              2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-          example: 'ns:org:QueryType:GraphQl'
-        value:
-          type: object
-          description: |
-            @context: "https://example.org/schema/QueryExpression" <br>
-            @type: "QueryExpression" <br>
-
-            **Notes:**
-              1. Query expression's syntax / format is determined based on query-type.
-              2. Query expression as a template with placeholder to pass conditional search parameters
-          example:
-            expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } }'
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -2043,6 +1971,27 @@ components:
       type: string
       description: 'Signature of {header}+{message} body verified using sender''s signing public key'
       example: 'Signature:  namespace="g2p", kidId="{sender_id}|{unique_key_id}|{algorithm}", algorithm="ed25519", created="1606970629", expires="1607030629", headers="(created) (expires) digest", signature="Base64(signing content)'
+    NamedQuery:
+      type: object
+      description: Identifier type and value object
+      properties:
+        query_name:
+          type: string
+          description: |
+            1. Predefined NamedQuery that assumes all conditions as a template
+            2. The required parameters defined in the template are passed in queryParams
+            3. List of named queries are documented and made available by data providers to all authorised data consumers
+            4. Named Queries can also be uniquely identfied by data providers to implement RBAC policies
+            5. Return result record set is defined as part of Named Queries by data providers
+          example: 'DCI:NamedQuery:getBirthByBRNandAreaCode'
+        query_params:
+          type: object
+          description: |
+            @context: "https://example.org/schema/QueryParam" <br>
+            @type: "QueryParam" <br>
+          example:
+            BRN: '1111'
+            area_code: '123'
     Pagination:
       description: 'Pagination definition, count starts with 1'
       type: object
@@ -2078,6 +2027,53 @@ components:
           example: 5
       required:
         - page_size
+    Predicate:
+      type: object
+      description: Expression
+      properties:
+        attribute_name:
+          type: string
+          description: |
+            @context: "https://example.org/schema/QueryAttributes" <br>
+            @type: "QueryAttributes" <br>
+
+            **Notes:**
+              1. Query attribute names defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable attribute names.
+              3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+          example: YOB
+        operator:
+          $ref: '#/components/schemas/ExpOperator'
+        attribute_value:
+          $ref: '#/components/schemas/AttributeValue'
+      required:
+        - attribute_name
+        - operator
+        - attribute_value
+    PredicateList:
+      type: array
+      description: list of attributes with matching conditions
+      items:
+        $ref: '#/components/schemas/Predicate'
+    PredicateWithCondition:
+      type: object
+      properties:
+        seq_num:
+          description: Sequence number to help define precedence for evaluating a list of expression Predicates
+          type: number
+          example: 1
+        expression1:
+          $ref: '#/components/schemas/Predicate'
+        condition:
+          $ref: '#/components/schemas/Predicate'
+        expression2:
+          $ref: '#/components/schemas/Predicate'
+      required:
+        - expression1
+    PredicateQuery:
+      type: array
+      items:
+        $ref: '#/components/schemas/PredicateWithCondition'
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch

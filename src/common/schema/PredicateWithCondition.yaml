@@ -5,10 +5,10 @@ properties:
     type: number
     example: 1
   expression1:
-    $ref: "./ExpPredicate.yaml"
+    $ref: "./Predicate.yaml"
   condition:
-    $ref: "./ExpCondition.yaml"
+    $ref: "./Predicate.yaml"
   expression2:
-    $ref: "./ExpPredicate.yaml"
+    $ref: "./Predicate.yaml"
 required: 
   - expression1

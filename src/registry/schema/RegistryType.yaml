@@ -1,10 +1,6 @@
 type: string
 description: |
-  @context: "https://example.org/schema/RegistryType" <br>
-  @type: "RegistryType" <br>
-  
-  **Notes:**
-    1. Registry type values defined as per implementation context.
-    2. Usually a list of **enum** values of all possible queryable functional registries 
-    3. example: "ns:org:RegistryType:Civil"
-example: "ns:org:RegistryType:Civil"
+  1. Registry type defined as enum values by data provider
+  2. This can also be a fully qualified namespace enum values
+  3. example: "DCI:RegistryType:brith"
+example: "DCI:RegistryType:brith"
