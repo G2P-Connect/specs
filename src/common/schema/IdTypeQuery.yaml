@@ -17,3 +17,6 @@ properties:
       - description: Identifier Value of the subject.
       - $ref: AttributeValue.yaml
     example: "12314567890"
+required:
+  - type
+  - value
