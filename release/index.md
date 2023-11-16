@@ -5,7 +5,7 @@
  * Civil & Federated Registries
     * Data access - [html](https://g2p-connect.github.io/specs/release/html/registry_core_api_v1.0.0.html), [yaml](https://g2p-connect.github.io/specs/release/yaml/registry_core_api_v1.0.0.yaml)
 * Verifiable Credentials
-    * Formats - [W3C VC Data Model](https://www.w3.org/TR/vc-data-model-2.0/), [W3C VC JSON](https://www.w3.org/TR/vc-json-schema/), ISO mDL, Anonymous Credentials
+    * Formats - [W3C VC Data Model](https://www.w3.org/TR/vc-data-model-2.0/) ([JSON])(https://www.w3.org/TR/vc-json-schema/), ISO mDL, Anonymous Credentials
     * Issuance - [OIDC](https://openid.net/specs/openid-4-verifiable-credential-issuance-1_0.html), [W3C VC-API](https://w3c-ccg.github.io/vc-api/)
     * Wallets  - [W3C Universal Wallet](https://w3c-ccg.github.io/universal-wallet-interop-spec/), [Open Wallet Foundation](https://openwallet.foundation)
 * Beneficiary Management
