@@ -5,5 +5,5 @@ description: |
     
   **Notes:**
     1. Additional meta info defined as per implementation context.
-    2. Usually unencrypted list of name/value, tags, etc., to provide additional info to intermediary entities.
-    3. The information SHOULD be privacy preserving
+    2. Usually list of name/value, tags, etc., to provide additional info.
+    3. The information SHOULD be privacy preserving attributes/values when passed in the protocol header.

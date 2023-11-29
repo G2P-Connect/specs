@@ -1842,8 +1842,8 @@ components:
           
         **Notes:**
           1. Additional meta info defined as per implementation context.
-          2. Usually unencrypted list of name/value, tags, etc., to provide additional info to intermediary entities.
-          3. The information SHOULD be privacy preserving
+          2. Usually list of name/value, tags, etc., to provide additional info.
+          3. The information SHOULD be privacy preserving attributes/values when passed in the protocol header.
     MsgCallbackHeader_V1.0.0:
       type: object
       description: Message header
@@ -1992,6 +1992,9 @@ components:
           example:
             BRN: '1111'
             area_code: '123'
+      required:
+        - query_name
+        - query_params
     Pagination:
       description: 'Pagination definition, count starts with 1'
       type: object

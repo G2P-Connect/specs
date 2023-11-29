@@ -42,6 +42,8 @@ properties:
           description: "Additional systems instruction for interfacing systems/platforms to integrate, reconcile"
           type: string
           maxLength: 999
+        meta:
+          $ref: "../../common/schema/Meta.yaml"
         currency_code:
           $ref: "../../common/schema/CurrencyCode.yaml"
         locale:
