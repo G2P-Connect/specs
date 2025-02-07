@@ -10,7 +10,7 @@
       "status_reason_message": "Subscription request acknowledged successfully",
       "total_count": "1",
       "completed_count": "1",
-      "sender_id": "DR",
+      "sender_id": "FR",
       "receiver_id": "SP-System",
       "is_msg_encrypted": false,
       "meta": {}

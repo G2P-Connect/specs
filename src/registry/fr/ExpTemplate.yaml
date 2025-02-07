@@ -25,7 +25,10 @@ properties:
         query: 
           $and: [
             {
-              land_details.address.region_code: { $eq: "A205" }
+              farm_info.location.geo.latitude: { $eq: 9.560 }
+            },
+            {
+              farm_info.location.geo.longitude: { $eq: 100.0245 }
             },
           ]
     
