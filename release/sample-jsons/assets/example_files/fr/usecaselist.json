@@ -1,7 +1,7 @@
 [
     {
         "processflow_id" : "processflow1",        
-        "processflow_name": "Process Flow 1 :  SP-System queries the FR to request farmer with a specific criteria"
+        "processflow_name": "Process Flow 1 :  SP-System queries the FR to request farmer with a member id"
     }
     
 ] 

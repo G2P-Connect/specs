@@ -7,7 +7,7 @@
       "action": "verify",
       "sender_id": "SP-System",
       "sender_uri": "",
-      "receiver_id": "DR",
+      "receiver_id": "FR",
       "total_count": "1",
       "is_msg_encrypted": false,
       "meta": ""
@@ -29,10 +29,10 @@
                   "query": {
                     "$and": [
                         {
-                        "disability_status": {"$eq": "Approved"}
+                        "farm_type": {"$eq": "Small subsistence-oriented farms"}
                         },
                         {
-                          "disability_details.impairment_type" : {"$eq":"Mobility"}
+                          "farm_details.size" : {"$gt":300}
                         }
                       ]
                     }

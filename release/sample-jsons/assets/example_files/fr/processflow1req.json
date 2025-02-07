@@ -7,7 +7,7 @@
       "action": "verify",
       "sender_id": "SP-System",
       "sender_uri": "",
-      "receiver_id": "DR",
+      "receiver_id": "FR",
       "total_count": "1",
       "is_msg_encrypted": false,
       "meta": ""
@@ -20,7 +20,7 @@
               "search_criteria": {
               "version": "1.0.0",
               "reg_type": "ns:org:RegistryType:DR",
-              "reg_event_type": "spdci-common:RegistryEventType:DisabledPerson",
+              "reg_event_type": "spdci-common:RegistryEventType:Farmer",
               "query_type": "expression",
               "query": {
                 "type": "ns:org:QueryType:NoSql",
@@ -29,10 +29,7 @@
                   "query": {
                     "$and": [
                         {
-                        "disability_status": {"$eq": "Approved"}
-                        },
-                        {
-                          "disability_details.impairment_type" : {"$eq":"Mobility"}
+                        "famer_personal_details.member_identifier.identifier_value": {"$eq": "M123456"}
                         }
                       ]
                     }

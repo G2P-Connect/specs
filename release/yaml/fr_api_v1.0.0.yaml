@@ -808,7 +808,6 @@ components:
         3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
           - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
           - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
-          - search all farmers with land area less than 2 acers in district code 504
       oneOf:
         - $ref: '#/components/schemas/ExpTemplate'
         - $ref: '#/components/schemas/IdentifierTypeValue'
@@ -838,19 +837,12 @@ components:
                     default: 1.0.0
                   reg_type:
                     $ref: '#/components/schemas/RegistryType'
-                  reg_event_type:
-                    $ref: '#/components/schemas/RegistryEventType'
-                  response_entity:
-                    type: string
-                    description: |
-                      Define the type of response to have when executing the search
-                    enum:
-                      - Group
-                      - Member
+                  reg_record_type:
+                    $ref: '#/components/schemas/RegistryRecordType'
                   reg_records:
                     $ref: '#/components/schemas/RegistryRecord'
                 required:
-                  - response_entity
+                  - reg_record_type
                   - reg_records
               locale:
                 $ref: '#/components/schemas/LanguageCode'
@@ -870,201 +862,17 @@ components:
         **Notes:**
           1. Registry event type values defined as per implementation context.
           2. Usually a list of **enum** values of all possible queryable identifiers.
-          3. example: "spdci-common:RegistryEventType:NewHouseHoldMember"
-      example: 'spdci-common:RegistryEventType:NewHouseHoldMember'
+          3. example: "spdci-common:RegistryEventType:LiveBirth"
+      example: 'spdci-common:RegistryEventType:LiveBirth'
     RegistryRecord:
       type: object
       description: |
-        The "group" object contains fields expected in response of search
+        The "person" object contains fields expected in response of search
         @context: https://schema.spdci.org/extensions/dci/v1/Person.jsonld <br>
-        @type: "Group" <br>
+        @type: "Person" <br>
         @container: "@set" <br> 
       example:
-        type: object
-        description: |
-          1. Attributes of a group to create fetch records, create verifiable credentials or use in search criteria.
-          3. Allows Country/Registry specific implementation extensions using Attribute Name/Value pairs.
-
-          @context: https://schema.spdci.org/extensions/social/v1/Group.jsonld <br>
-          @type: "@context" <br>
-        example:
-          '@context':
-            spdci: 'https://schema.spdci.org/extensions/social/v1/'
-            rdfs: 'http://www.w3.org/2000/01/rdf-schema#'
-            xsd: 'http://www.w3.org/2001/XMLSchema#'
-            owl: 'http://www.w3.org/2002/07/owl#'
-            common: 'https://schema.spdci.org/common/v1/'
-          '@id': 'https://example.org/group/001'
-          '@type': 'spdci:Group'
-          group_identifier:
-            - '@type': Identifier
-              identifier_type: NationalID
-              identifier_value: G9876543210
-          group_type: family
-          place:
-            '@type': Place
-            geo:
-              '@type': GeoCoordinates
-              latitude: '40.712776'
-              longitude: '-74.005974'
-            address: '123 Main St, Anytown, CountryName'
-          place_address: 1
-          poverty_score: 45.2
-          poverty_score_type: income-based
-          group_head_info:
-            '@type': 'spdci:Member'
-            '@id': 'https://example.org/member/987654321'
-            member_identifier:
-              - '@type': Identifier
-                identifier_type: NationalID
-                identifier_value: M9876543210
-            demographic_info:
-              '@type': SRPerson
-              identifier:
-                - '@type': Identifier
-                  identifier_type: NationalID
-                  identifier_value: '9876543210'
-              name:
-                '@type': Name
-                surname: Smith
-                given_name: Alice
-                prefix: Ms.
-                suffix: ''
-              sex: female
-              address:
-                '@type': Address
-                street_address: 123 Main St
-                city: Anytown
-                postal_code: '12345'
-                country: CountryName
-              birth_date: '1985-05-20T00:00:00Z'
-              registration_date: '2022-01-10T08:00:00Z'
-            is_disabled: false
-            marital_status: married
-            registration_date: '2022-01-10T08:00:00Z'
-          group_size: 4
-          member_list:
-            - '@type': Member
-              '@id': 'https://example.org/member/987654321'
-              member_identifier:
-                - '@type': Identifier
-                  identifier_type: NationalID
-                  identifier_value: M9876543210
-              demographic_info:
-                '@type': SRPerson
-                identifier:
-                  - '@type': Identifier
-                    identifier_type: NationalID
-                    identifier_value: '9876543210'
-                name:
-                  '@type': Name
-                  surname: Smith
-                  given_name: Alice
-                  prefix: Ms.
-                  suffix: ''
-                sex: female
-                address:
-                  '@type': Address
-                  street_address: 123 Main St
-                  city: Anytown
-                  postal_code: '12345'
-                  country: CountryName
-                birth_date: '1985-05-20T00:00:00Z'
-                registration_date: '2022-01-10T08:00:00Z'
-              is_disabled: false
-              marital_status: married
-              registration_date: '2022-01-10T08:00:00Z'
-            - '@type': Member
-              '@id': 'https://example.org/member/123456789'
-              member_identifier:
-                - '@type': Identifier
-                  identifier_type: NationalID
-                  identifier_value: M9876543210
-              demographic_info:
-                '@type': SRPerson
-                'spdci:identifier':
-                  - '@type': Identifier
-                    identifier_type: NationalID
-                    identifier_value: '1234567890'
-                name:
-                  '@type': Name
-                  surname: Smith
-                  given_name: Bob
-                  prefix: Mr.
-                  suffix: ''
-                sex: male
-                address:
-                  '@type': Address
-                  street_address: 123 Main St
-                  city: Anytown
-                  postal_code: '12345'
-                  country: CountryName
-                birth_date: '1982-03-15T00:00:00Z'
-                registration_date: '2022-01-10T08:00:00Z'
-              is_disabled: false
-              marital_status: married
-              registration_date: '2022-01-10T08:00:00Z'
-            - '@type': Member
-              '@id': 'https://example.org/member/987654322'
-              member_identifier:
-                - '@type': Identifier
-                  identifier_type: NationalID
-                  identifier_value: '9876543210'
-              demographic_info:
-                '@type': SRPerson
-                ':identifier':
-                  - '@type': Identifier
-                    identifier_type: NationalID
-                    identifier_value: '9876543221'
-                name:
-                  '@type': cName
-                  surname: Smith
-                  given_name: Charlie
-                  prefix: ''
-                  suffix: ''
-                sex: male
-                address:
-                  '@type': Address
-                  street_address: 123 Main St
-                  city: Anytown
-                  postal_code: '12345'
-                  country: CountryName
-                birth_date: '2010-07-05T00:00:00Z'
-                registration_date: '2022-01-10T08:00:00Z'
-              is_disabled: false
-              marital_status: single
-              registration_date: '2022-01-10T08:00:00Z'
-            - '@type': Member
-              '@id': 'https://example.org/member/987654323'
-              member_identifier: M987654323
-              demographic_info:
-                '@type': SRPerson
-                identifier:
-                  - '@type': Identifier
-                    identifier_type: NationalID
-                    identifier_value: '9876543232'
-                name:
-                  '@type': Name
-                  surname: Smith
-                  given_name: Daisy
-                  prefix: ''
-                  suffix: ''
-                sex: female
-                address:
-                  '@type': Address
-                  street_address: 123 Main St
-                  city: Anytown
-                  postal_code: '12345'
-                  country: CountryName
-                birth_date: '2012-09-22T00:00:00Z'
-                sregistration_date: '2022-01-10T08:00:00Z'
-              is_disabled: false
-              marital_status: single
-              'spdci:registration_date': '2022-01-10T08:00:00Z'
-          registration_date: '2022-01-10T08:00:00Z'
-          last_updated: '2023-06-15T10:00:00Z'
-          additional_attributes:
-            - services: receives_subsidy
+        $ref: '#/components/schemas/dci_Person'
     RegistryRecordType:
       type: string
       description: |
@@ -1086,8 +894,8 @@ components:
         **Notes:**
           1. Registry type values defined as per implementation context.
           2. Usually a list of **enum** values of all possible queryable functional registries 
-          3. example: "ns:org:RegistryType:Social"
-      example: 'ns:org:RegistryType:Social'
+          3. example: "ns:org:RegistryType:Civil"
+      example: 'ns:org:RegistryType:Civil'
     SearchRequest:
       type: object
       description: |
@@ -1151,8 +959,10 @@ components:
                               expression:
                                 query:
                                   $and:
-                                    - land_details.address.region_code:
-                                        $eq: A205
+                                    - farm_info.location.geo.latitude:
+                                        $eq: 9.56
+                                    - farm_info.location.geo.longitude:
+                                        $eq: 100.0245
                       - $ref: '#/components/schemas/IdentifierTypeValue'
                       - $ref: '#/components/schemas/ExpPredicateWithConditionList'
                   sort:
@@ -1324,45 +1134,47 @@ components:
                               registration_date: '2022-01-10T08:00:00Z'
                           registration_date: '2022-01-10T08:00:00Z'
                           last_updated: '2023-06-15T10:00:00Z'
-                        land_details:
-                          - land_type: Land under temporary crops
-                            land_ownership: Legal ownership or owner-like possession
-                            land_size: 3000
-                            measurement: Acre
-                            address:
-                              address_line1: Bophut Koh Samui
-                              address_line2: 'Surat, Near Big Buddha Beach'
-                              locality: Thani
-                              sub_region_code: SH
-                              region_code: A205
-                              postal_code: '84320'
-                              country_code: TH
-                              geo_location:
-                                '@id': 'spdci:GeoLocation_1'
-                                '@type': 'spdci:GeoLocation'
-                                latitude: 33.3128
-                                longitude: 44.3615
-                                altitude: 1000.0123
-                                plus_code: ' '
-                            farming_activities:
-                              - crop_details:
-                                  - crop_type: Cereals
-                                    variety: local
-                                    season: wet
-                                animal_details:
-                                  - type: Sheep and goats
-                                    count: 10
-                                    registration_date: '2023-01-10T00:00:00Z'
-                                    last_updated: '2023-09-20T00:00:00Z'
-                                aqua_farming: Marine aquafarming
-                                registration_date: '2023-06-15T08:00:00Z'
-                                last_updated: '2023-06-15T10:00:00Z'
-                            registration_date: '2022-01-10T08:00:00Z'
-                            last_updated: '2023-06-15T10:00:00Z'
-                        farmer_type: Medium
+                        farm_type: Small subsistence-oriented farms
+                        farm_details:
+                          place:
+                            name: Koh Samui
+                            geo:
+                              '@type': 'spdci:GeoLocation'
+                              latitude: 9.5604
+                              longitude: 100.0245
+                          farming_activities:
+                            - crop_production:
+                                - activity_group: perennial crops
+                                  crop_type: Fruit and nuts
+                                  variety: local
+                                  season: winter
+                                  end_use:
+                                    - Food for human consumption
+                                  irrigation: true
+                                  irrigation_water:
+                                    - Mixed surface water and groundwater
+                                  fertilizer_type:
+                                    - Organic fertilizers
+                                  registration_date: '2023-01-10T00:00:00Z'
+                                  last_updated: '2023-09-20T00:00:00Z'
+                              animal_production:
+                                - type: Sheep and goats
+                                  count: 10
+                                  livestock_system: Mixed system
+                                  registration_date: '2023-01-10T00:00:00Z'
+                                  last_updated: '2023-09-20T00:00:00Z'
+                              mixed_farming: true
+                              agri_support_activities:
+                                - Support activities for crop production
+                              aqua_support_activities: Support activities for fishing and aquaculture
+                              aqua_culture:
+                                - Marine aquafarming
+                              registration_date: '2023-01-10T00:00:00Z'
+                              last_updated: '2023-09-20T00:00:00Z'
                         machineries_details:
                           - type: Machine powered equipment
                             count: 2
+                            equipement_source: Provided by a cooperative
                             registration_date: '2022-01-10T08:00:00Z'
                             last_updated: '2023-06-15T10:00:00Z'
                         registration_date: '2023-01-10T00:00:00Z'
@@ -1464,7 +1276,7 @@ components:
               status_reason_code:
                 $ref: '#/components/schemas/SubscribeStatusReasonCode'
               status_reason_message:
-                description: Status reason code message. Helps actionanble messaging for systems/end users
+                description: Status reason code message. Helps actionable messaging for systems/end users
                 type: string
                 maxLength: 999
               subscriptions:
@@ -1863,7 +1675,7 @@ components:
             **Notes:**
               1. Query types that helps decode query expressions
               2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-          example: 'ns:org:QueryType:NoSql'
+          example: 'ns:org:QueryType:GraphQl'
         value:
           type: object
           description: |
@@ -1874,16 +1686,7 @@ components:
               1. Query expression's syntax / format is determined based on query-type.
               2. Query expression as a template with placeholder to pass conditional search parameters
           example:
-            expression:
-              collection: Group
-              query:
-                $and:
-                  - poverty_score:
-                      $lt: 5
-                  - location:
-                      $eq: central_region
-                  - group_size:
-                      $lt: 5
+            expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } } '
     FileInfo:
       type: object
       description: File info. Used in file upload feature using HTTPS
@@ -2129,7 +1932,7 @@ components:
         - idtype-value
         - expression
         - predicate
-      example: expression
+      example: idtype-value
     ReferenceId:
       type: string
       description: Unique reference_id set by txn initiating system for each request in a batch

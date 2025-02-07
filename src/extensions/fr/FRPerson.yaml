@@ -25,126 +25,121 @@ example:
                     "gender": "Male"
                   }
                 },
-                "family_details": {
-                  "group_identifier": [
-                    {
-                      "identifier_type": "NationalID",
-                      "identifier_value": "G9876543210"
-                    }
-                  ],
-                  "group_type": "family",
-                  "poverty_score": 45.2,
-                  "poverty_score_type": "income-based",
-                  "group_head_info": {
-                    "member_identifier": [
-                      {
-                        "identifier_type": "NationalID",
-                        "identifier_value": "M123456"
-                      }
-                    ],
-                    "demographic_info": {
-                      "identifier": {
-                        "identifier_type": "NationalID",
-                        "identifier_value": "M123456"
-                      },
-                      "name": {
-                        "first_name": "John",
-                        "last_name": "Doe"
-                      },
-                      "date_of_birth": "1990-05-15T00:00:00Z",
-                      "gender": "Male"
-                    },
-                    "is_disabled": false,
-                    "marital_status": "married",
-                    "registration_date": "1990-06-10T08:00:00Z"
-                  },
-                  "group_size": 2,
-                  "member_list": [
-                    {
-                      "member_identifier": [
-                        {
-                          "@type": "Identifier",
-                          "identifier_type": "NationalID",
-                          "identifier_value": "M9876543210"
-                        }
-                      ],
-                      "demographic_info": {
-                        "spdci:identifier": [
-                          {
-                            "@type": "Identifier",
-                            "identifier_type": "NationalID",
-                            "identifier_value": "1234567890"
-                          }
-                        ],
-                        "name": {
-                          "@type": "Name",
-                          "surname": "Doe",
-                          "given_name": "Jane",
-                          "prefix": "Mr.",
-                          "suffix": ""
-                        },
-                        "sex": "female",
-                        "birth_date": "1982-03-15T00:00:00Z",
-                        "registration_date": "2022-01-10T08:00:00Z"
-                      },
-                      "is_disabled": false,
-                      "marital_status": "married",
-                      "registration_date": "2022-01-10T08:00:00Z"
-                    }
-                  ],
-                  "registration_date": "2022-01-10T08:00:00Z",
-                  "last_updated": "2023-06-15T10:00:00Z"
-                },
-                "land_details": [{
-                        "land_type":"Land under temporary crops",
-                        "land_ownership":"Legal ownership or owner-like possession",
-                        "land_size": 3000,
-                        "measurement": "Acre",
-                        "address":{
-                          "address_line1": "Bophut Koh Samui",
-                          "address_line2": "Surat, Near Big Buddha Beach",
-                          "locality": "Thani",
-                          "sub_region_code": "SH",
-                          "region_code": "A205",
-                          "postal_code": "84320",
-                          "country_code": "TH",
-                          "geo_location": {
-                            "@id": "spdci:GeoLocation_1",
-                            "@type": "spdci:GeoLocation",
-                            "latitude": 33.3128,
-                            "longitude": 44.3615,
-                            "altitude": 1000.0123,
-                            "plus_code": " "
-                          }
-                        },
-                        "farming_activities":[{
-                          "crop_details":[ {
-                              "crop_type":"Cereals",
-                              "variety":"local",
-                              "season":"wet"
-                          }],
-                          "animal_details":[{
-                              "type":"Sheep and goats",
-                              "count":10,
-                              "registration_date": "2023-01-10T00:00:00Z",
-                              "last_updated": "2023-09-20T00:00:00Z"   
-                          }],
-                          "aqua_farming":"Marine aquafarming",
-                          "registration_date": "2023-06-15T08:00:00Z",
-                         "last_updated": "2023-06-15T10:00:00Z"
-                      }],
-                  "registration_date": "2022-01-10T08:00:00Z",
-                  "last_updated": "2023-06-15T10:00:00Z"
-                  }],
-                "farmer_type": "Medium",
-                "machineries_details": [
-                  {
-                    "type": "Machine powered equipment",
-                    "count": 2,
-                    "registration_date": "2022-01-10T08:00:00Z",
-                        "last_updated": "2023-06-15T10:00:00Z"
-                  }
-                ],
-                "registration_date": "2023-01-10T00:00:00Z",
-                "last_updated": "2023-09-20T00:00:00Z"
-  }
+    "family_details": {
+      "group_identifier": [
+        {
+          "identifier_type": "NationalID",
+          "identifier_value": "G9876543210"
+        }
+      ],
+      "group_type": "family",
+      "poverty_score": 45.2,
+      "poverty_score_type": "income-based",
+      "group_head_info": {
+        "member_identifier": [
+          {
+            "identifier_type": "NationalID",
+            "identifier_value": "M123456"
+          }
+        ],
+        "demographic_info": {
+          "identifier": {
+            "identifier_type": "NationalID",
+            "identifier_value": "M123456"
+          },
+          "name": {
+            "first_name": "John",
+            "last_name": "Doe"
+          },
+          "date_of_birth": "1990-05-15T00:00:00Z",
+          "gender": "Male"
+        },
+        "is_disabled": false,
+        "marital_status": "married",
+        "registration_date": "1990-06-10T08:00:00Z"
+      },
+      "group_size": 2,
+      "member_list": [
+        {
+          "member_identifier": [
+            {
+              "@type": "Identifier",
+              "identifier_type": "NationalID",
+              "identifier_value": "M9876543210"
+            }
+          ],
+          "demographic_info": {
+            "spdci:identifier": [
+              {
+                "@type": "Identifier",
+                "identifier_type": "NationalID",
+                "identifier_value": "1234567890"
+              }
+            ],
+            "name": {
+              "@type": "Name",
+              "surname": "Doe",
+              "given_name": "Jane",
+              "prefix": "Mr.",
+              "suffix": ""
+            },
+            "sex": "female",
+            "birth_date": "1982-03-15T00:00:00Z",
+            "registration_date": "2022-01-10T08:00:00Z"
+          },
+          "is_disabled": false,
+          "marital_status": "married",
+          "registration_date": "2022-01-10T08:00:00Z"
+        }
+      ],
+      "registration_date": "2022-01-10T08:00:00Z",
+      "last_updated": "2023-06-15T10:00:00Z"
+    },
+    "farm_type":"Small subsistence-oriented farms",
+    "farm_details":[{
+      "place":{
+        "name": "Koh Samui",
+        "geo": {
+            "@type": "spdci:GeoLocation",
+            "latitude": 9.5604,
+            "longitude": 100.0245
+              }
+          },
+      "farming_activities":[{
+        "crop_production": [{
+          "activity_group":"perennial crops",
+          "crop_type":"Fruit and nuts",
+          "variety":"local",
+          "season":"winter",
+          "end_use":["Food for human consumption"],
+          "irrigation":true,
+          "irrigation_water":["Mixed surface water and groundwater"],
+          "fertilizer_type":["Organic fertilizers"],
+          "registration_date": "2023-01-10T00:00:00Z",
+          "last_updated": "2023-09-20T00:00:00Z"
+        }],
+        "animal_production":[{
+          "type":"Sheep and goats",
+          "count":10,
+          "livestock_system":"Mixed system",
+          "registration_date": "2023-01-10T00:00:00Z",
+          "last_updated": "2023-09-20T00:00:00Z"
+        }],
+        "mixed_farming":true,
+        "agri_support_activities":["Support activities for crop production"],
+        "aqua_support_activities":"Support activities for fishing and aquaculture",
+        "aqua_culture":["Marine aquafarming"],
+        "registration_date": "2023-01-10T00:00:00Z",
+        "last_updated": "2023-09-20T00:00:00Z"
+        }]
+      }],
+    "machineries_details": [{
+        "type": "Machine powered equipment",
+        "count": 2,
+        "equipement_source": "Provided by a cooperative",
+        "registration_date": "2022-01-10T08:00:00Z",
+            "last_updated": "2023-06-15T10:00:00Z"
+      }],
+      "registration_date": "2023-01-10T00:00:00Z",
+      "last_updated": "2023-09-20T00:00:00Z"
+    }
