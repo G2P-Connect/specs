@@ -124,7 +124,6 @@
                   "registration_date": "2022-01-10T08:00:00Z",
                   "last_updated": "2023-06-15T10:00:00Z"
                 },
-                "farm_type":"Small subsistence-oriented farms",
                 "farm_details":[ {
                         "place":{
                             "name": "Koh Samui",
@@ -137,6 +136,7 @@
                         "land_tenure":"Leased (Rented from someone else)",
                         "land_size": 3000,
                         "measurement": "Acre",
+                        "farm_type":"Small subsistence-oriented farms",
                         "farming_activities":[{
                           "crop_production": [{ 
                                "activity_group":"perennial crops",
