@@ -2,6 +2,14 @@
     {
         "processflow_id" : "processflow1",        
         "processflow_name": "Process Flow 1 :  SP-System queries the FR to request farmer with a member id"
+    },
+    {
+        "processflow_id" : "processflow2",        
+        "processflow_name": "Process Flow 2 :  SP-System queries the FR to request farmers that have Small subsistence-oriented farms greater than 3000 acres"
+    },
+    {
+        "processflow_id" : "processflow3",        
+        "processflow_name": "Process Flow 3 : Register for new farmers"
     }
     
 ] 
