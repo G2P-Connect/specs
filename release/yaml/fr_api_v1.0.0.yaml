@@ -1134,43 +1134,43 @@ components:
                               registration_date: '2022-01-10T08:00:00Z'
                           registration_date: '2022-01-10T08:00:00Z'
                           last_updated: '2023-06-15T10:00:00Z'
-                        farm_type: Small subsistence-oriented farms
                         farm_details:
-                          place:
-                            name: Koh Samui
-                            geo:
-                              '@type': 'spdci:GeoLocation'
-                              latitude: 9.5604
-                              longitude: 100.0245
-                          farming_activities:
-                            - crop_production:
-                                - activity_group: perennial crops
-                                  crop_type: Fruit and nuts
-                                  variety: local
-                                  season: winter
-                                  end_use:
-                                    - Food for human consumption
-                                  irrigation: true
-                                  irrigation_water:
-                                    - Mixed surface water and groundwater
-                                  fertilizer_type:
-                                    - Organic fertilizers
-                                  registration_date: '2023-01-10T00:00:00Z'
-                                  last_updated: '2023-09-20T00:00:00Z'
-                              animal_production:
-                                - type: Sheep and goats
-                                  count: 10
-                                  livestock_system: Mixed system
-                                  registration_date: '2023-01-10T00:00:00Z'
-                                  last_updated: '2023-09-20T00:00:00Z'
-                              mixed_farming: true
-                              agri_support_activities:
-                                - Support activities for crop production
-                              aqua_support_activities: Support activities for fishing and aquaculture
-                              aqua_culture:
-                                - Marine aquafarming
-                              registration_date: '2023-01-10T00:00:00Z'
-                              last_updated: '2023-09-20T00:00:00Z'
+                          - place:
+                              name: Koh Samui
+                              geo:
+                                '@type': 'spdci:GeoLocation'
+                                latitude: 9.5604
+                                longitude: 100.0245
+                            farm_type: Small subsistence-oriented farms
+                            farming_activities:
+                              - crop_production:
+                                  - activity_group: perennial crops
+                                    crop_type: Fruit and nuts
+                                    variety: local
+                                    season: winter
+                                    end_use:
+                                      - Food for human consumption
+                                    irrigation: true
+                                    irrigation_water:
+                                      - Mixed surface water and groundwater
+                                    fertilizer_type:
+                                      - Organic fertilizers
+                                    registration_date: '2023-01-10T00:00:00Z'
+                                    last_updated: '2023-09-20T00:00:00Z'
+                                animal_production:
+                                  - type: Sheep and goats
+                                    count: 10
+                                    livestock_system: Mixed system
+                                    registration_date: '2023-01-10T00:00:00Z'
+                                    last_updated: '2023-09-20T00:00:00Z'
+                                mixed_farming: true
+                                agri_support_activities:
+                                  - Support activities for crop production
+                                aqua_support_activities: Support activities for fishing and aquaculture
+                                aqua_culture:
+                                  - Marine aquafarming
+                                registration_date: '2023-01-10T00:00:00Z'
+                                last_updated: '2023-09-20T00:00:00Z'
                         machineries_details:
                           - type: Machine powered equipment
                             count: 2
