@@ -86,7 +86,31 @@ tags:
   - name: SearchStatusReasonCode
     x-displayName: SearchStatusReasonCode
     description: |
-      <SchemaDefinition schemaRef="#/components/schemas/SearchStatusReasonCode" />               
+      <SchemaDefinition schemaRef="#/components/schemas/SearchStatusReasonCode" /> 
+  - name: SubscribeRequest
+    x-displayName: SubscribeRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeRequest" />    
+  - name: SubscribeResponse
+    x-displayName: SubscribeResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeResponse" />    
+  - name: SubscribeStatusReasonCode
+    x-displayName: SubscribeStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeStatusReasonCode" />        
+  - name: UnSubscribeRequest
+    x-displayName: UnSubscribeRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeRequest" />    
+  - name: UnSubscribeResponse
+    x-displayName: UnSubscribeResponse
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeResponse" />  
+  - name: UnSubscribeStatusReasonCode
+    x-displayName: UnSubscribeStatusReasonCode
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeStatusReasonCode" />                          
   - name: TxnStatusRequest
     x-displayName: TxnStatusRequest
     description: |
@@ -216,6 +240,217 @@ paths:
                     action:
                       enum:
                         - on-search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - Authorization: []
+      deprecated: false
+  /registry/subscribe:
+    post:
+      summary: /registry/subscribe
+      description: Subscribe to a life event with registry
+      operationId: post_reg_subscribe
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - subscribe
+                message:
+                  type: object
+                  description: Subscription request which contaion query with frequency and other info on which notification to be sent by registry to subscriber
+                  oneOf:
+                    - $ref: '#/components/schemas/SubscribeRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - subscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - Authorization: []
+      deprecated: false
+  /registry/on-subscribe:
+    post:
+      summary: /registry/on-subscribe
+      description: Subscribe results through callback
+      operationId: post_reg_on-subscribe
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-subscribe
+                message:
+                  type: object
+                  description: Subscription information
+                  oneOf:
+                    - $ref: '#/components/schemas/SubscribeResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-subscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - Authorization: []
+      deprecated: false
+  /registry/unsubscribe:
+    post:
+      summary: /registry/unsubscribe
+      description: Unsubscribe existing subscription(s) by subscription_code
+      operationId: post_reg_unsubscribe
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - unsubscribe
+                message:
+                  type: object
+                  description: The unsubscribe request that contain subscription ids which to be removed from subscription list
+                  oneOf:
+                    - $ref: '#/components/schemas/UnSubscribeRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - unsubscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - Authorization: []
+      deprecated: false
+  /registry/on-unsubscribe:
+    post:
+      summary: /registry/on-unsubscribe
+      description: Unsubscribe response as a callback
+      operationId: post_reg_on-unsubscribe
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - on-unsubscribe
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/UnSubscribeResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - on-unsubscribe
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -495,7 +730,7 @@ components:
               reference_id:
                 $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
               search_criteria:
                 type: object
                 properties:
@@ -693,7 +928,7 @@ components:
                       '@context': 'https://standards.spdci.org/schemas//Consent'
                       '@type': Consent
                       ts:
-                        $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                        $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
                       purpose:
                         text:
                           type: string
@@ -713,7 +948,7 @@ components:
                       '@context': 'https://standards.spdci.org/schemas/Authorize'
                       '@type': Authorize
                       ts:
-                        $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                        $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
                       purpose:
                         text:
                           type: string
@@ -728,7 +963,7 @@ components:
                   - query_type
                   - query
               locale:
-                $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/locale'
+                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -757,9 +992,9 @@ components:
               reference_id:
                 $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
               status:
-                $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0/properties/status'
+                $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
               status_reason_code:
                 $ref: '#/components/schemas/SearchStatusReasonCode'
               status_reason_message:
@@ -990,7 +1225,7 @@ components:
                   - page_number
                   - total_count
               locale:
-                $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/locale'
+                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -1011,6 +1246,315 @@ components:
         - rjct.sort.invalid
         - rjct.pagination.invalid
         - rjct.search.too_many_records_found
+    SubscribeRequest:
+      type: object
+      description: Subscribe to a life event with crvs
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
+        subscribe_request:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/reference_id'
+              timestamp:
+                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+              subscribe_criteria:
+                type: object
+                properties:
+                  version:
+                    type: string
+                    default: 1.0.0
+                  reg_type:
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
+                  reg_event_type:
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/reg_event_type'
+                  frequency:
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/frequency'
+                  filter_type:
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
+                  filter:
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/filter'
+                  notify_record_type:
+                    type: string
+                    description: |
+                      @context: https://schema.spdci.org/common/v1/RegistryRecordType.jsonld <br>
+                      @type: "RegistryRecordType" <br>
+
+                      **Notes:**
+                        1. Registry record type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable result sets 
+                        3. Referenced in search_request and notify events
+                        4. example: "spdci-extensions-dci:Person" 
+                    example: 'spdci-extensions-dci:Person'
+                  authorize:
+                    $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/authorize'
+                required:
+                  - reg_event_type
+                  - filter
+                  - notify_record_type
+              locale:
+                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+            required:
+              - reference_id
+              - timestamp
+              - subscribe_criteria
+      required:
+        - transaction_id
+        - subscribe_request
+    SubscribeResponse:
+      type: object
+      description: Response to subscribe request.
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
+        correlation_id:
+          $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
+        subscribe_response:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/reference_id'
+              timestamp:
+                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+              status:
+                $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
+              status_reason_code:
+                $ref: '#/components/schemas/SubscribeStatusReasonCode'
+              status_reason_message:
+                description: Status reason code message. Helps actionable messaging for systems/end users
+                type: string
+                maxLength: 999
+              subscriptions:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SubscriptionInfo'
+              pagination:
+                $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/pagination'
+              locale:
+                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+            required:
+              - reference_id
+              - timestamp
+              - status
+      required:
+        - transaction_id
+        - correlation_id
+        - subscribe_response
+    SubscribeStatusReasonCode:
+      type: string
+      description: Identity verification request status reason codes
+      enum:
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.notify_types.invalid
+        - rjct.notify_details.invalid
+        - rjct.person_id.invalid
+        - rjct.event.already_subscribed
+    SubscriptionCode:
+      type: string
+      description: |
+        Unique code to identify the subscription request by the entity providing subscription service.
+        Helps to check status, unsubscribe etc.,
+      maxLength: 99
+    SubscriptionCodeList:
+      items:
+        $ref: '#/components/schemas/SubscriptionCode'
+    SubscriptionInfo:
+      type: object
+      properties:
+        version:
+          type: string
+          default: 1.0.0
+        code:
+          $ref: '#/components/schemas/SubscriptionCode'
+        status:
+          $ref: '#/components/schemas/SubscriptionStatus'
+        timestamp:
+          description: |
+            1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
+          type: string
+          format: date-time
+          example: ''
+        reg_type:
+          type: string
+          description: |
+            @context: https://schema.spdci.org/common/v1/RegistryType.jsonld <br>
+            @type: "@context" <br>
+
+            **Notes:**
+              1. Registry type values defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable functional registries 
+              3. example: "ns:org:RegistryType:Civil"
+          example: 'ns:org:RegistryType:Civil'
+        reg_event_type:
+          type: string
+          description: |
+            @context: https://schema.spdci.org/common/v1/RegistryEventTypeEnum.jsonld <br>
+            @type: "VitalEvent" <br>
+
+            **Notes:**
+              1. Registry event type values defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable identifiers.
+              3. example: "spdci-common:RegistryEventType:LiveBirth"
+          example: 'spdci-common:RegistryEventType:LiveBirth'
+        frequency:
+          type: object
+          description: |
+            1. Frequency at which subscribed services should be notified. 
+            2. start_time, end_time represent data range where the notification frequency is applicable 
+          properties:
+            start_time:
+              $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+            end_time:
+              $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+            frequency:
+              type: string
+              description: |
+                Frequency at which notification is required. This will be in the form of cron expression. 
+                Example - "0 0 0 5,15 * ? *" 
+                which says At 00:00:00am, on the 5th and 15th day, every month
+          required:
+            - start_time
+            - end_time
+            - frequency
+        filter_type:
+          type: string
+          description: |
+            1. Query format allow multiple ways to search registry
+            2. Templatized query expressions with placeholder for conditional values
+          enum:
+            - idtype-value
+            - expression
+            - predicate
+          example: idtype-value
+        filter:
+          description: |
+            1. Implementing systems can define schemas.
+            2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
+            3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
+              - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
+              - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
+          oneOf:
+            - type: object
+              description: Identifier type and value object
+              properties:
+                type:
+                  type: string
+                  description: |
+                    @context: https://schema.spdci.org/common/v1/QueryTypeEnum.jsonld <br>
+                    @type: "QueryType" <br>
+
+                    **Notes:**
+                      1. Query types that helps decode query expressions
+                      2. Sample query type enums: "GraphQl", "Sql", "NoSql"
+                  example: 'ns:org:QueryType:GraphQl'
+                value:
+                  type: object
+                  description: |
+                    @context: https://schema.spdci.org/common/v1/QueryExpression.jsonld <br>
+                    @type: "QueryExpression" <br>
+
+                    **Notes:**
+                      1. Query expression's syntax / format is determined based on query-type.
+                      2. Query expression as a template with placeholder to pass conditional search parameters
+                  example:
+                    expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } } '
+            - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1'
+            - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2'
+        notify_record_type:
+          $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/notify_record_type'
+          required:
+            - reg_event_type
+            - filter
+            - notify_record_type
+        locale:
+          type: string
+          description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard
+          pattern: '^[a-z]{3,3}$'
+          example: en
+      required:
+        - subscription_code
+        - timestamp
+        - subscribe_criteria
+    SubscriptionStatus:
+      type: string
+      description: subscription status
+      enum:
+        - subscribe
+        - unsubscribe
+    UnSubscribeRequest:
+      type: object
+      description: Un-Subscribe to registred subscriptions
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
+        timesstamp:
+          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+        subscription_codes:
+          type: array
+          items:
+            $ref: '#/components/schemas/SubscriptionCode'
+      required:
+        - transaction_id
+        - timestamp
+        - sunscription_codes
+    UnSubscribeResponse:
+      type: object
+      description: Un-Subscribe to a life event with crvs
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
+        correlation_id:
+          $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
+        timesatmp:
+          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+        status:
+          type: string
+          description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. rcvd: Received; Request received <br> 2. pdng: Pending; Request initiated <br> 3. succ: Success; Request successful <br> 4. rjct: Rejected; Request rejected'
+          enum:
+            - rcvd
+            - pdng
+            - succ
+            - rjct
+        status_reason_code:
+          $ref: '#/components/schemas/UnSubscribeStatusReasonCode'
+        status_reason_message:
+          description: Status reason code message. Helps actionanble messaging for systems/end users
+          type: string
+          maxLength: 999
+        subscription_status:
+          type: array
+          items:
+            type: object
+            properties:
+              code:
+                $ref: '#/components/schemas/SubscriptionCode'
+              status:
+                $ref: '#/components/schemas/SubscriptionStatus'
+            required:
+              - code
+              - status
+      required:
+        - transaction_id
+        - correlation_id
+        - timestamp
+        - status
+    UnSubscribeStatusReasonCode:
+      type: string
+      description: Identity verification request status reason codes
+      enum:
+        - rjct.reference_id.invalid
+        - rjct.reference_id.duplicate
+        - rjct.timestamp.invalid
+        - rjct.subscription_code.invalid
+        - rjct.requester.invalid
+        - rjct.event.already_unsubscribed
     TxnStatusRequest:
       type: object
       description: Request to fetch txn status on various service requests
@@ -1045,10 +1589,7 @@ components:
                     $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/reference_id'
                 - $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
             locale:
-              type: string
-              description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard
-              pattern: '^[a-z]{3,3}$'
-              example: en
+              $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
           required:
             - reference_id
             - txn_type
@@ -1118,9 +1659,9 @@ components:
                     reference_id:
                       $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/reference_id'
                     timestamp:
-                      $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                      $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
                     status:
-                      $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0/properties/status'
+                      $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
                     status_reason_code:
                       $ref: '#/components/schemas/SearchStatusReasonCode'
                     status_reason_message:
@@ -1206,7 +1747,7 @@ components:
                     pagination:
                       $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/pagination'
                     locale:
-                      $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/locale'
+                      $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
                   required:
                     - reference_id
                     - timestamp
@@ -1325,18 +1866,12 @@ components:
           type: string
           example: '789'
         message_ts:
-          $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
         action:
           description: SPDCI Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
           type: string
         status:
-          type: string
-          description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. rcvd: Received; Request received <br> 2. pdng: Pending; Request initiated <br> 3. succ: Success; Request successful <br> 4. rjct: Rejected; Request rejected'
-          enum:
-            - rcvd
-            - pdng
-            - succ
-            - rjct
+          $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
         status_reason_code:
           $ref: '#/components/schemas/MsgHeaderStatusReasonCode'
         status_reason_message:
@@ -1388,11 +1923,7 @@ components:
           type: string
           example: '123'
         message_ts:
-          description: |
-            1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
-          type: string
-          format: date-time
-          example: ''
+          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
         action:
           description: 'spdci Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps to identify payload type in message property.'
           type: string
@@ -1494,7 +2025,7 @@ components:
                       - NACK
                       - ERR
                   timestamp:
-                    $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
                   error:
                     $ref: '#/components/schemas/Error'
                   correlation_id:
