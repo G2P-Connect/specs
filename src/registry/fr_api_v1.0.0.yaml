@@ -292,7 +292,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
                     - properties:
                         action:
                           enum:
@@ -450,7 +450,7 @@ paths:
                   $ref: "#/components/schemas/MsgSignature"
                 header:
                   allOf:
-                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
                     - properties:
                         action:
                           enum:
