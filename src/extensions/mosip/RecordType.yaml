@@ -1,6 +1,0 @@
-type: string
-description: |
-  Predefined registry record to return in respone as object
-enum:
-  - "RegistrationRecord"
-  - "MOSIPVerifiableCredential"
