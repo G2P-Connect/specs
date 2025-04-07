@@ -765,6 +765,8 @@ components:
       $ref:  ../common/schema/MsgSignature.yaml
 
   responses: 
+    Response:
+      $ref: ../common/response/Response.yaml  
     HttpErrorResponse:
       $ref: ../common/response/HttpErrorResponse.yaml        
 #  securitySchemes:
