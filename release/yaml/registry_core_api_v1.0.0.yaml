@@ -1093,73 +1093,100 @@ components:
                         @context: https://schema.spdci.org/CRVSPerson" <br>
                         @type: "Consent"
                       example:
-                        '@context': 'https://standards.spdci.org/schemas/extensions/dci/v1/Person'
-                        '@type': CRVSPerson
-                        '@vocab': 'https://spdci.org/'
-                        schema: 'http://schema.org/'
-                        rdfs: 'http://www.w3.org/2000/01/rdf-schema#'
-                        xsd: 'http://www.w3.org/2001/XMLSchema#'
-                        CRVSPerson:
-                          '@id': 'https://spdci.org/schemas/extensions/dci/v1/Person'
-                          '@type': 'rdfs:Class'
-                          '@context':
-                            name:
-                              '@id': 'schema:name'
-                              '@type': 'xsd:string'
-                            givenName:
-                              '@id': 'schema:givenName'
-                              '@type': 'xsd:string'
-                            familyName:
-                              '@id': 'schema:familyName'
-                              '@type': 'xsd:string'
-                            additionalName:
-                              '@id': 'schema:additionalName'
-                              '@type': 'xsd:string'
-                            gender:
-                              '@id': 'schema:gender'
-                              '@type': 'xsd:string'
-                            birthDate:
-                              '@id': 'schema:birthDate'
-                              '@type': 'xsd:date'
-                            birthPlace:
-                              '@id': 'schema:birthPlace'
-                              '@type': 'schema:GeoCoordinates'
-                            deathDate:
-                              '@id': 'schema:deathDate'
-                              '@type': 'xsd:date'
-                            deathPlace:
-                              '@id': 'schema:deathPlace'
-                              '@type': 'schema:GeoCoordinates'
-                            maritalStatus:
-                              '@id': 'schema:maritalStatus'
-                              '@type': 'xsd:string'
-                            honorificPrefix:
-                              '@id': 'schema:honorificPrefix'
-                              '@type': 'xsd:string'
-                            honorificSuffix:
-                              '@id': 'schema:honorificSuffix'
-                              '@type': 'xsd:string'
-                            emails:
-                              '@container': '@set'
-                              '@id': 'schema:email'
-                              '@type': 'xsd:string'
-                            telephones:
-                              '@container': '@set'
-                              '@id': 'schema:telephone'
-                              '@type': 'xsd:string'
-                            address:
-                              '@id': 'schema:address'
-                              '@type': 'schema:GeoCoordinates'
-                            marriageDate:
-                              '@id': 'https://spdci.org/marriageDate'
-                              '@type': 'xsd:date'
-                            divorceDate:
-                              '@id': 'https://spdci.org/divorceDate'
-                              '@type': 'xsd:date'
-                            parents:
-                              '@id': 'schema:parents'
-                              '@type': 'https://spdci.org/CRVSPerson'
-                        '@id': 'https://spdci.org/CRVSPerson'
+                        '@context':
+                          '@vocab': 'https://schema.spdci.org/common/v1'
+                          xsd: 'http://www.w3.org/2001/XMLSchema#'
+                          schema: 'http://schema.org/'
+                          rdfs: 'http://www.w3.org/2000/01/rdf-schema#'
+                          owl: 'http://www.w3.org/2002/07/owl#'
+                        '@id': CRVS_Person_3
+                        '@type': CRVS_Person
+                        identifier:
+                          '@id': Identifier
+                          '@type': Identifier
+                          identifier_type: UIN
+                          identifier_value: '197382465'
+                        name:
+                          '@type': Name
+                          surname: Martinez
+                          given_name: Elena
+                          second_name: ''
+                          prefix: Dr.
+                          suffix: PhD
+                        phone_number:
+                          - '+34612345678'
+                        email:
+                          - elena.martinez@example.com
+                        sex: female
+                        birth_date: '1980-03-23T10:20:15'
+                        birth_place:
+                          name: hospital/Madrid_Central
+                          geo:
+                            '@type': GeoCoordinates
+                            latitude: 9.5604
+                            longitude: 100.0245
+                          address_line: ''
+                          contained_in_place: ''
+                          contains_place:
+                            - '@id': Place_3
+                              '@type': Place
+                              name: Pattaya Floating Market
+                              address: Bophut Koh Samui Surat Thani 84320 Thailand
+                              geo:
+                                '@type': GeoCoordinates
+                                latitude: 9.5617
+                                longitude: 100.0259
+                        death_date: ''
+                        death_place: ''
+                        address:
+                          '@id': Address_1
+                          '@type': Address
+                          address_line1: Bophut Koh Samui
+                          address_line2: 'Surat, Near Big Buddha Beach'
+                          locality: Thani
+                          sub_region_code: SH
+                          region_code: A205
+                          postal_code: '84320'
+                          country_code: TH
+                          geo_location:
+                            '@id': GeoLocation_1
+                            '@type': GeoLocation
+                            plus_code:
+                              global_code: 8FW4V900+
+                              geometry:
+                                '@id': geometry
+                                '@type': GeoLocation
+                                bounds:
+                                  '@id': bounds
+                                  '@type': geometry
+                                  northeast:
+                                    '@id': northeast
+                                    '@type': GeoCoordinates
+                                    latitude: 48.900000000000006
+                                    longitude: 2.4000000000000057
+                                  southwest:
+                                    '@id': southwest
+                                    '@type': GeoCoordinates
+                                    latitude: 48.849999999999994
+                                    longitude: 2.3499999999999943
+                                location:
+                                  '@id': location
+                                  '@type': GeoCoordinates
+                                  latitude: 48.875
+                                  longitude: 2.375
+                        marital_status: S
+                        marriage_date: ''
+                        divorce_date: ''
+                        parent1_identifier:
+                          '@id': Identifier
+                          '@type': Identifier
+                          identifier_type: UIN
+                          identifier_value: '537564821'
+                        parent2_identifier:
+                          '@id': Identifier
+                          '@type': Identifier
+                          identifier_type: UIN
+                          identifier_value: '564582793'
                 required:
                   - reg_record_type
                   - reg_records
