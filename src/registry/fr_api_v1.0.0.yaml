@@ -499,43 +499,8 @@ paths:
     deprecated: false
 components:
   schemas:
-    ###### src/extensions/cdpi schema objects
-    cdpi_PersonId: 
-      $ref: ../extensions/cdpi/PersonId.yaml
-
-    ###### src/extensions/dci schema objects
-    dci_Person: 
-      $ref: ../extensions/dci/Person.yaml
-    dci_IdentifierType: 
-      $ref: ../extensions/dci/IdentifierType.yaml
-    dci_IdentifierTypeValue: 
-      $ref: ../extensions/dci/IdentifierTypeValue.yaml
-    dci_MaritalStatus: 
-      $ref: ../extensions/dci/MaritalStatus.yaml
-    dci_Name: 
-      $ref: ../extensions/dci/Name.yaml
-    dci_PersonRecord: 
-      $ref: ../extensions/dci/PersonRecord.yaml
-    dci_RecordType: 
-      $ref: ../extensions/dci/RecordType.yaml
-    dci_Sex: 
-      $ref: ../extensions/dci/Sex.yaml
-    dci_VitalEvents: 
-      $ref: ../extensions/dci/VitalEvents.yaml
-
-    ###### src/registry/schema objects
-    RegistryQueries: 
-      $ref: schema/RegistryQueries.yaml
     NotifyEventRequest: 
       $ref: schema/NotifyEventRequest.yaml
-    RegistryEventType:
-      $ref: schema/RegistryEventType.yaml
-    RegistryRecord:
-      $ref: schema/RegistryRecord.yaml
-    RegistryRecordType: 
-      $ref: schema/RegistryRecordType.yaml
-    RegistryType: 
-      $ref: schema/RegistryType.yaml
     SearchRequest: 
       $ref: fr/SearchRequest.yaml
     SearchResponse: 
@@ -564,81 +529,20 @@ components:
       $ref: schema/UnSubscribeStatusReasonCode.yaml           
   
     ###### Common schema objects
-    Ack: 
-      $ref: ../common/schema/Ack.yaml
-    AdditionalInfo:
-      $ref: ../common/schema/AdditionalInfo.yaml
-    AttributeNameValue: 
-      $ref: ../common/schema/AttributeNameValue.yaml
-    AttributeNameValueList: 
-      $ref: ../common/schema/AttributeNameValueList.yaml
-    AttributeValue: 
-      $ref: ../common/schema/AttributeValue.yaml
-    Authorize: 
-      $ref: ../common/schema/Authorize.yaml      
-    Consent: 
-      $ref: ../common/schema/Consent.yaml
-    DateTime: 
-      $ref: ../common/schema/DateTime.yaml
+    
+
     EncryptedMessage: 
       $ref: ../common/schema/EncryptedMessage.yaml
     Error: 
       $ref: ../common/schema/Error.yaml
-    EventFrequency:
-      $ref: ../common/schema/EventFrequency.yaml
-    ExpCondition: 
-      $ref: ../common/schema/ExpCondition.yaml
-    ExpOperator: 
-      $ref: ../common/schema/ExpOperator.yaml
-    ExpPredicate: 
-      $ref: ../common/schema/ExpPredicate.yaml
-    ExpPredicateList: 
-      $ref: ../common/schema/ExpPredicateList.yaml
-    ExpPredicateWithCondition: 
-      $ref: ../common/schema/ExpPredicateWithCondition.yaml
-    ExpPredicateWithConditionList: 
-      $ref: ../common/schema/ExpPredicateWithConditionList.yaml
-    ExpTemplate:
-      $ref: ../common/schema/ExpTemplate.yaml
     FileInfo: 
       $ref: ../common/schema/FileInfo.yaml
-    IdentifierType: 
-      $ref: ../common/schema/IdentifierType.yaml
-    IdentifierTypeValue: 
-      $ref: ../common/schema/IdentifierTypeValue.yaml
-    LanguageCode: 
-      $ref: ../common/schema/LanguageCode.yaml
-    LatLong: 
-      $ref: ../common/schema/LatLong.yaml
-    Meta:
-      $ref: ../common/schema/Meta.yaml
     MsgCallbackHeader_V1.0.0: 
       $ref: fr/MsgCallbackHeader_V1.0.0.yaml
     MsgHeader_V1.0.0: 
       $ref: fr/MsgHeader_V1.0.0.yaml
-    MsgHeaderStatusReasonCode: 
-      $ref: ../common/schema/MsgHeaderStatusReasonCode.yaml
     MsgSignature: 
       $ref:  ../common/schema/MsgSignature.yaml
-    Pagination: 
-      $ref: ../common/schema/Pagination.yaml
-    PaginationRequest: 
-      $ref: ../common/schema/PaginationRequest.yaml
-    QueryType:
-      $ref: ../common/schema/QueryType.yaml
-    ReferenceId: 
-      $ref: ../common/schema/ReferenceId.yaml
-    ReferenceIdList: 
-      $ref: ../common/schema/ReferenceIdList.yaml
-    RequestStatus: 
-      $ref: ../common/schema/RequestStatus.yaml
-    SearchSort: 
-      $ref: ../common/schema/SearchSort.yaml
-    SearchSortList: 
-      $ref: ../common/schema/SearchSortList.yaml
-    TransactionId:  
-      $ref: ../common/schema/TransactionId.yaml
-
   responses: 
     HttpErrorResponse:
       $ref: ../common/response/HttpErrorResponse.yaml       
