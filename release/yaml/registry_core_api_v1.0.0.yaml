@@ -809,7 +809,8 @@ components:
                       - idtype-value
                       - expression
                       - predicate
-                    example: idtype-value
+                      - graphql
+                    example: expression
                   query:
                     description: |
                       1. Implementing systems can define schemas.
@@ -829,8 +830,8 @@ components:
 
                               **Notes:**
                                 1. Query types that helps decode query expressions
-                                2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-                            example: 'ns:org:QueryType:GraphQl'
+                                2. Sample query type enums: "graphql", "expression", "idtype-value"
+                            example: 'ns:org:QueryType:graphql'
                           value:
                             type: object
                             description: |
@@ -882,7 +883,7 @@ components:
                                 attribute_name:
                                   type: string
                                   description: |
-                                    @context: https://schema.spdci.org/QueryAttributes" <br>
+                                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryAttributes.jsonld <br>
                                     @type: "QueryAttributes" <br>
 
                                     **Notes:**
@@ -959,10 +960,10 @@ components:
                   consent:
                     type: object
                     description: |
-                      @context: https://schema.spdci.org/Consent" <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/Consent.jsonld" <br>
                       @type: "Consent"
                     example:
-                      '@context': 'https://standards.spdci.org/schemas//Consent'
+                      '@context': 'https://schema.spdci.org/common/v1/api-schemas/Consent.jsonld'
                       '@type': Consent
                       ts:
                         $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
@@ -979,10 +980,10 @@ components:
                   authorize:
                     type: object
                     description: |
-                      @context: https://schema.spdci.org/Authorize <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld <br>
                       @type: "Authorize"
                     example:
-                      '@context': 'https://standards.spdci.org/schemas/Authorize'
+                      '@context': 'https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld'
                       '@type': Authorize
                       ts:
                         $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
@@ -1049,7 +1050,7 @@ components:
                   reg_type:
                     type: string
                     description: |
-                      @context: https://schema.spdci.org/common/v1/RegistryType.jsonld <br>
+                      @context:https://schema.spdci.org/common/v1/api-schemas/RegistryType.jsonld <br>
                       @type: "@context" <br>
 
                       **Notes:**
@@ -1060,7 +1061,7 @@ components:
                   reg_event_type:
                     type: string
                     description: |
-                      @context: https://schema.spdci.org/common/v1/RegistryEventTypeEnum.jsonld <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
                       @type: "VitalEvent" <br>
 
                       **Notes:**
@@ -1071,7 +1072,7 @@ components:
                   reg_record_type:
                     type: string
                     description: |
-                      @context: https://schema.spdci.org/common/v1/RegistryRecordType.jsonld <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
                       @type: "RegistryRecordType" <br>
 
                       **Notes:**
@@ -1084,13 +1085,13 @@ components:
                     type: object
                     description: |
                       The "person" object contains fields expected in response of search
-                      @context: https://schema.spdci.org/extensions/dci/v1/Person.jsonld <br>
+                      @context: https://schema.spdci.org/extensions/dci/v1/CRVSPerson.jsonld <br>
                       @type: "Person" <br>
                       @container: "@set" <br> 
                     example:
                       type: object
                       description: |
-                        @context: https://schema.spdci.org/CRVSPerson" <br>
+                        @context: "https://schema.spdci.org/extensions/crvs/v1/CRVSPerson.jsonld" <br>
                         @type: "Consent"
                       example:
                         '@context':

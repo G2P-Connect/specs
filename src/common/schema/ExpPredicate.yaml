@@ -4,7 +4,7 @@ properties:
   attribute_name:
     type: string
     description: |
-      @context: https://schema.spdci.org/QueryAttributes.jsonld <br>
+      @context: https://schema.spdci.org/common/v1/api-schemas/QueryAttributes.jsonld <br>
       @type: "QueryAttributes" <br>
       
       **Notes:**
