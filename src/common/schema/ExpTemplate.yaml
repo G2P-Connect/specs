@@ -9,8 +9,8 @@ properties:
       
       **Notes:**
         1. Query types that helps decode query expressions
-        2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-    example: "ns:org:QueryType:GraphQl"
+        2. Sample query type enums: "graphql", "expression", "idtype-value"
+    example: "ns:org:QueryType:graphql"
   value:
     type: object
     description: |

@@ -3,7 +3,7 @@ description: |
   @context: https://schema.spdci.org/Consent" <br>
   @type: "Consent"
 example:
-  "@context": "https://standards.spdci.org/schemas//Consent"
+  "@context": "https://standards.spdci.org/schemas/Consent"
   "@type": "Consent"
   ts:
     $ref: ./DateTime.yaml

@@ -1,7 +1,7 @@
 type: object
 description: |
   The "group" object contains fields expected in response of search
-  @context: https://schema.spdci.org/extensions/dr/v1/DisabledPerson.jsonld <br>
+  @context: https://schema.spdci.org/extensions/dr/v1/DRPerson.jsonld <br>
   @type: "DisabledPerson" <br>
   @container: "@set" <br> 
 example: 

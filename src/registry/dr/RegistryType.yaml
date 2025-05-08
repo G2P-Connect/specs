@@ -1,6 +1,6 @@
 type: string
 description: |
-  @context: https://schema.spdci.org/common/v1/RegistryType.jsonld <br>
+  @context: https://schema.spdci.org/common/v1/api-schemas/RegistryType.jsonld <br>
   @type: "@context" <br>
   
   **Notes:**

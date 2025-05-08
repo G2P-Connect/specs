@@ -15,9 +15,36 @@ info:
     3. Request status check: The request status checking APIs implement to check status of request sent in any above APIs
     
     Gitbook reference link:
-    - [FR - V1.0 ]()
+    - [FR - V1.0 ](https://standards.spdci.org/standards/wip-farmers-registry)
 
     Code directory links:
+    - [CropTypeEnum](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.01-croptypeenum)
+    - [CropEndUse](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.02-cropsenduse)
+    - [LandTenureEnum](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.03-landtenureenum)
+    - [MeasurementUnitEnum](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.04-measurementunitenum)
+    - [FarmTypeEnum](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.05-farmtypeenum)
+    - [MachineriesEnum](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.06-machineriesenum)
+    - [AnimalsEnum](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.07-animalsenum)
+    - [AquaCulture](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.08-aquaculture)
+    - [AgriSupportActivities](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.09-agrisupportactivities)
+    - [AquaSupportActivities](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.10-aquasupportactivities)
+    - [FertiliserType](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.11-fertilisertype)
+    - [livestockSystem](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.12-livestocksystem)
+    - [EquipmentSource](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.13-equipmentsource)
+    - [IrrigationWater](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.14-irrigationwater)
+    - [CropActivities](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.15-cropactivities)
+    - [ForestActivities](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/code-directory/cd.fr.16-forestactivities)
+
+    Data Objects:
+    - [Farmer](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/data-objects/do.fr.01-farmer)
+    - [FarmInfo](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/data-objects/do.fr.02-farminfo)
+    - [FarmingActivities](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/data-objects/do.fr.03-farmingactivities)
+    - [CropDetails](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/data-objects/do.fr.04-cropdetails)
+    - [LiveStockDetails](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/data-objects/do.fr.05-livestockdetails)
+    - [Machinery](https://standards.spdci.org/standards/wip-farmers-registry/farmers-registry-and-sp-system-interface/1.-crvs/data/data-objects/do.fr.06-machinery)
+    - [Group](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.02-group) 
+    - [Member](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.03-member)
+   
     
     Each request is build up of three parts
     - signature 

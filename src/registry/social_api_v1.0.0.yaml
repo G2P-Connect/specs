@@ -15,7 +15,7 @@ info:
     3. Request status check: The request status checking APIs implement to check status of request sent in any above APIs
 
     Gitbook reference link :
-    - [Social Registry - V1.0 ](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0)
+    - [Social Registry - V1.0 ](https://standards.spdci.org/standards/wip-social-registry-v1.0.0)
 
     Code directory links:
     - [Identifiers](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.01-identifier_type)
@@ -26,16 +26,16 @@ info:
     - [Functional Limitation Type](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.11-functional_limitation_type)
     - [Functional Severity](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.12-functional_severity)
     - [Education Level](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.17-education_level)
-    - [Employment Status](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/code-directory/cd.sr.02-employment_status)
-    - [Income Level](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/code-directory/cd.sr.03-income_level)
-    - [Occupation](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/code-directory/cd.sr.04-occupation)
+    - [Employment Status](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/code-directory/cd.sr.02-employment_status)
+    - [Income Level](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/code-directory/cd.sr.03-income_level)
+    - [Occupation](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/code-directory/cd.sr.04-occupation)
     
     Data Objects:
-    - [Person](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.01-person)
-    - [Group](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.02-group) 
-    - [Member](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.03-member)
-    - [RelatedPerson](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.04-relatedperson)
-    - [DisabilityInfo](https://standards.spdci.org/standards/v/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.05-disabilityinfo)
+    - [Person](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.01-person)
+    - [Group](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.02-group) 
+    - [Member](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.03-member)
+    - [RelatedPerson](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.04-relatedperson)
+    - [DisabilityInfo](https://standards.spdci.org/standards/wip-social-registry-v1.0.0/social-registry/1.-crvs/data/data-objects/do.sr.05-disabilityinfo)
 
     Each request is build up of three parts 
     - signature 

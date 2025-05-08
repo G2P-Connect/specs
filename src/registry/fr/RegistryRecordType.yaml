@@ -1,6 +1,6 @@
 type: string
 description: |
-  @context: https://schema.spdci.org/common/v1/RegistryRecordType.jsonld <br>
+  @context: https://schema.spdci.org/common/v1/api-schemas/RegistryType.jsonld <br>
   @type: "RegistryRecordType" <br>
   
   **Notes:**
