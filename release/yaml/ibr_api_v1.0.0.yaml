@@ -954,17 +954,17 @@ components:
                           type:
                             type: string
                             description: |
-                              @context: https://schema.spdci.org/common/v1/QueryTypeEnum.jsonld <br>
+                              @context: https://schema.spdci.org/common/v1/api-schemas/QueryTypeEnum.jsonld <br>
                               @type: "QueryType" <br>
 
                               **Notes:**
                                 1. Query types that helps decode query expressions
-                                2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-                            example: 'ns:org:QueryType:NoSql'
+                                2. Sample query type enums: "graphql", "idtype-value", "expression"
+                            example: 'ns:org:QueryType:expression'
                           value:
                             type: object
                             description: |
-                              @context: https://schema.spdci.org/common/v1/QueryExpression.jsonld <br>
+                              @context: https://schema.spdci.org/common/v1/api-schemas/QueryExpression.jsonld <br>
                               @type: "QueryExpression" <br>
 
                               **Notes:**
@@ -1329,7 +1329,7 @@ components:
                   notify_record_type:
                     type: string
                     description: |
-                      @context: https://schema.spdci.org/common/v1/RegistryRecordType.jsonld <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
                       @type: "RegistryRecordType" <br>
 
                       **Notes:**
@@ -1433,7 +1433,7 @@ components:
         reg_type:
           type: string
           description: |
-            @context: https://schema.spdci.org/common/v1/RegistryType.jsonld <br>
+            @context:https://schema.spdci.org/common/v1/api-schemas/RegistryType.jsonld <br>
             @type: "@context" <br>
 
             **Notes:**
@@ -1444,7 +1444,7 @@ components:
         reg_event_type:
           type: string
           description: |
-            @context: https://schema.spdci.org/common/v1/RegistryEventTypeEnum.jsonld <br>
+            @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
             @type: "VitalEvent" <br>
 
             **Notes:**

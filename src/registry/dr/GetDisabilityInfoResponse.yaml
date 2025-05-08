@@ -33,7 +33,7 @@ properties:
             reg_records:
               description: |
                 The "Disabled" object contains fields expected in response of search
-                @context: https://schema.spdci.org/extensions/dr/v1/DisabledPerson.jsonld <br>
+                @context: https://schema.spdci.org/extensions/dr/v1/DRPerson.jsonld <br>
                 @type: "@context" <br>
                 @container: "@set" <br>
               type: array

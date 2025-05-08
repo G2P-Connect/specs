@@ -25,7 +25,7 @@
                     "reg_records": [
                         {
                             "@context": {
-                            "@vocab": "https://schema.spdci.org/extensions/social/v1",
+                            "@vocab": "https://github.com/spdci/schemas/tree/main/extensions/social/v1",
                             "xsd": "http://www.w3.org/2001/XMLSchema#",
                             "schema": "http://schema.org/",
                             "rdfs": "http://www.w3.org/2000/01/rdf-schema#",

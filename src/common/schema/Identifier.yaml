@@ -4,7 +4,7 @@ properties:
   type:
     type: string
     description: |
-      @context: https://schema.spdci.org/common/v1/identifier_type.jsonld <br>
+      @context: https://schema.spdci.org/common/v1/identifiertypevalue.jsonld <br>
       @type: "IdType" <br>
       
       **Notes:**

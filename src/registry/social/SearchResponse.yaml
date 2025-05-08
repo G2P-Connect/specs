@@ -33,7 +33,7 @@ properties:
             reg_records:
               description: |
                 The "Entity" object contains fields expected in response of search
-                @context: https://spdci.github.io/schemas/extensions/social/v1/Group.jsonld <br>
+                @context: https://schema.spdci.org/extensions/social/v1/Group.jsonld <br>
                 @type: "Group" <br>
                 @container: "@set" <br>
               type: array

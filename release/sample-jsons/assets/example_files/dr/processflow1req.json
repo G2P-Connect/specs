@@ -23,7 +23,7 @@
               "reg_event_type": "spdci-common:RegistryEventType:DisabledPerson",
               "query_type": "expression",
               "query": {
-                "type": "ns:org:QueryType:NoSql",
+                "type": "ns:org:QueryType:expression",
                 "value": {
                 "expression": {
                   "query": {

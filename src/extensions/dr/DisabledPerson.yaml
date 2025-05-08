@@ -3,7 +3,7 @@ description: |
   1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
 
 
-  @context: https://schema.spdci.org/extensions/dr/v1/DisabledPerson.jsonld <br>
+  @context: https://schema.spdci.org/extensions/dr/v1/DRPerson.jsonld <br>
   @type: "@context" <br>
 example:
    {
