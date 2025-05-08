@@ -1,9 +1,9 @@
 type: object
 description: |
-  @context: https://schema.spdci.org/Authorize <br>
+  @context: https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld <br>
   @type: "Authorize"
 example:
-  "@context": "https://standards.spdci.org/schemas/Authorize"
+  "@context": "https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld"
   "@type": "Authorize"
   ts:
     $ref: ./DateTime.yaml

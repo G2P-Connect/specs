@@ -1021,7 +1021,7 @@ components:
                                 attribute_name:
                                   type: string
                                   description: |
-                                    @context: https://schema.spdci.org/QueryAttributes" <br>
+                                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryAttributes.jsonld <br>
                                     @type: "QueryAttributes" <br>
 
                                     **Notes:**
@@ -1098,10 +1098,10 @@ components:
                   consent:
                     type: object
                     description: |
-                      @context: https://schema.spdci.org/Consent" <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/Consent.jsonld" <br>
                       @type: "Consent"
                     example:
-                      '@context': 'https://standards.spdci.org/schemas//Consent'
+                      '@context': 'https://schema.spdci.org/common/v1/api-schemas/Consent.jsonld'
                       '@type': Consent
                       ts:
                         $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
@@ -1118,10 +1118,10 @@ components:
                   authorize:
                     type: object
                     description: |
-                      @context: https://schema.spdci.org/Authorize <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld <br>
                       @type: "Authorize"
                     example:
-                      '@context': 'https://standards.spdci.org/schemas/Authorize'
+                      '@context': 'https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld'
                       '@type': Authorize
                       ts:
                         $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
@@ -1198,7 +1198,7 @@ components:
                         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
                         3. Allows Country/Registry specific implementation extensions using Attribute Name/Value pairs.
 
-                        @context: https://schema.spdci.org/extensions/ibr/v1/Beneficairy.jsonld <br>
+                        @context: https://schema.spdci.org/extensions/ibr/v1/Beneficiary.jsonld <br>
                         @type: "@context" <br>
                       example:
                         '@context':
@@ -1481,7 +1481,8 @@ components:
             - idtype-value
             - expression
             - predicate
-          example: idtype-value
+            - graphql
+          example: expression
         filter:
           description: |
             1. Implementing systems can define schemas.
@@ -1501,8 +1502,8 @@ components:
 
                     **Notes:**
                       1. Query types that helps decode query expressions
-                      2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-                  example: 'ns:org:QueryType:GraphQl'
+                      2. Sample query type enums: "graphql", "expression", "idtype-value"
+                  example: 'ns:org:QueryType:graphql'
                 value:
                   type: object
                   description: |

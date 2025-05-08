@@ -1,6 +1,6 @@
 type: string
 description: |
-  @context: https://schema.spdci.org/IdType.jsonld" <br>
+  @context: https://schema.spdci.org/common/v1/api-schemas/IdType.jsonld" <br>
   @type: "IdType" <br>
   
   **Notes:**
