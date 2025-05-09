@@ -1,7 +1,7 @@
 type: object
 description: |
   The "person" object contains fields expected in response of search
-  @context: https://schema.spdci.org/extensions/dci/v1/CRVSPerson.jsonld <br>
+  @context: https://schema.spdci.org/extensions/crvs/v1/CRVSPerson.jsonld <br>
   @type: "Person" <br>
   @container: "@set" <br> 
 example: 
