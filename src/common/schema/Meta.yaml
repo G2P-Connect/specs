@@ -1,6 +1,6 @@
 type: object
 description: |
-  @context: https://schema.spdci.org/common/v1/Meta.jsonld <br>
+  @context: https://schema.spdci.org/common/v1/api-schemas/Meta.jsonld <br>
   @type: "@context" <br>
     
   **Notes:**
