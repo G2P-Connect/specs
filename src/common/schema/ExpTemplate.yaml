@@ -4,7 +4,7 @@ properties:
   type:
     type: string
     description: |
-      @context: https://schema.spdci.org/common/v1/QueryTypeEnum.jsonld <br>
+      @context: https://schema.spdci.org/common/v1/api-schemas/QueryTypeEnum.jsonld <br>
       @type: "QueryType" <br>
       
       **Notes:**
@@ -14,7 +14,7 @@ properties:
   value:
     type: object
     description: |
-      @context: https://schema.spdci.org/common/v1/QueryExpression.jsonld <br>
+      @context: https://schema.spdci.org/common/v1/api-schemas/QueryExpression.jsonld <br>
       @type: "QueryExpression" <br>
 
       **Notes:**

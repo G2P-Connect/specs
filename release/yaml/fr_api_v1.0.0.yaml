@@ -933,7 +933,6 @@ components:
                           type:
                             type: string
                             description: |
-                              @context: https://schema.spdci.org/common/v1/IdentifierTypeEnum.jsonld <br>
                               @type: "IdType" <br>
 
                               **Notes:**
@@ -1013,7 +1012,6 @@ components:
                         attribute_name:
                           type: string
                           description: |
-                            @context: https://schema.spdci.org/common/v1/Attribute.jsonld <br>
                             @type: "Attribute" <br>
 
                             **Notes:**
@@ -1524,7 +1522,7 @@ components:
                 type:
                   type: string
                   description: |
-                    @context: https://schema.spdci.org/common/v1/QueryTypeEnum.jsonld <br>
+                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryTypeEnum.jsonld <br>
                     @type: "QueryType" <br>
 
                     **Notes:**
@@ -1534,7 +1532,7 @@ components:
                 value:
                   type: object
                   description: |
-                    @context: https://schema.spdci.org/common/v1/QueryExpression.jsonld <br>
+                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryExpression.jsonld <br>
                     @type: "QueryExpression" <br>
 
                     **Notes:**
@@ -1966,7 +1964,7 @@ components:
         meta:
           type: object
           description: |
-            @context: https://schema.spdci.org/common/v1/Meta.jsonld <br>
+            @context: https://schema.spdci.org/common/v1/api-schemas/Meta.jsonld <br>
             @type: "@context" <br>
               
             **Notes:**
