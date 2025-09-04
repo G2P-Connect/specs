@@ -1,0 +1,36 @@
+profileName: "Template Profile"
+description: "This is a template for creating localized profiles of the DCI standards."
+version: "1.0.0"
+baseSchemaVersion: "v1.0.0"
+
+country:
+  name: "Country Name"
+  isoCode: "XXX"
+language: "en"
+
+maintainer:
+  organization: "Your Organization Name"
+  contactEmail: "contact@example.org"
+  website: "https://example.org"
+
+applicableModules:
+  - Core Standard
+  - Farmer Registry
+  - Disability Registry
+  - Social Registry
+  - CRVS
+  - Employment System
+  - ID System
+  - Early Warning System
+
+apisIndex: "apis.yaml"
+
+changeLog:
+  - date: "YYYY-MM-DD"
+    author: "Your Name"
+    description: "Initial creation from template."
+
+notes:
+  - "Explain any deviations from the base APIs here."
+  - "List additional code lists or reference documents."
+
