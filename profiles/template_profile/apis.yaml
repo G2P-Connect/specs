@@ -1,0 +1,17 @@
+includes:
+  # Core APIs
+  - build/release/yaml/registry_core_api_v1.0.0.yaml
+  - build/release/yaml/social_api_v1.0.0.yaml
+  - build/release/yaml/ibr_api_v1.0.0.yaml
+  - build/release/yaml/dr_api_v1.0.0.yaml
+  - build/release/yaml/fr_api_v1.0.0.yaml
+  - build/release/html/registry_core_api_v1.0.0.html
+  - build/release/html/social_api_v1.0.0.html
+  - build/release/html/ibr_api_v1.0.0.html
+  - build/release/html/dr_api_v1.0.0.html
+  - build/release/html/fr_api_v1.0.0.html
+
+  # Example override for implementer-specific API
+  # - profiles/<country>/release/yaml/fr_api_v1.0.0.yaml  # override
+
+

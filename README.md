@@ -35,29 +35,27 @@ To initiate any discussion please visit [discussion page](https://github.com/org
             ├── security
         ├── extensions
             ├── dci
-            ├── openId
-            ├── fhir
-            ├── cdpi
+            ├── dr
+            ├── fr
+            ├── ibr
+            ├── social
         ├── registry
             ├── schema
-                ├── core
-                ├── civil
-                ├── farmer
-                ├── disability
+                ├── dr
+                ├── fr
+                ├── ibr
+                ├── schema
+                ├── social
             ├── registry_core_api_v1.0.0.yaml
-            ├── registry_civil_api_v1.0.0.yaml
-            ├── registry_nid_api_v1.0.0.yaml
-            ├── registry_farmer_api_v1.0.0.yaml
-            ├── registry_disability_api_v1.0.0.yaml  
+            ├── social_api_v1.0.0.yaml
+            ├── dr_api_v1.0.0.yaml
+            ├── fr_api_v1.0.0.yaml
+            ├── ibr_api_v1.0.0.yaml  
         ├── mapper
             ├── schema
                 ├── core
                 ├── fa
-            ├── mapper_core_api_v1.0.0.yaml
-        ├── disbure
-            ├── schema
-                ├── core
-            ├── disburse_core_api_v1.0.0.yaml
+
                 
 ## Change request 
 
