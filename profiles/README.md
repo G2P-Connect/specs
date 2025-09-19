@@ -1,3 +1,8 @@
+## Profile Submission Policy  
+
+All local profiles must be submitted via Pull Request and follow the DCI review workflow.  
+See the full policy and workflow [here](./CONTRIBUTING.md).  
+
 # Template Profile for SPD-CI APIs
 
 This folder provides a **template profile** for SPD-CI APIs. A **profile** is a localized or implementation-specific adaptation of the base API specifications, ensuring compliance with **DCI standards**.

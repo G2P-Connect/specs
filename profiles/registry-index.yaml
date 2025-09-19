@@ -1,0 +1,76 @@
+registries:
+  - name: core
+    slug: common
+    description: Profiles for Core DCI API.
+    countries:
+      - code: 
+        name: 
+        path: 
+        version: 1.0.0
+        last_updated: 
+        maintainer: 
+  - name: CRVS
+    slug: crvs
+    description: Profiles for Civil registry API.
+    countries:
+      - code: 
+        name: 
+        path: 
+        version: 1.0.0
+        last_updated: 2025-08-12
+        maintainer: 
+  - name: Social Registry
+    slug: sr
+    description: Profiles for social registry API.
+    countries:
+      - code: 
+        name: 
+        path: 
+        version: 1.0.0
+        last_updated: 2025-08-12
+        maintainer: 
+
+  - name: Integrated Beneficiary Registry
+    slug: IBR
+    description: Profiles for IBR API.
+    countries:
+      - code: 
+        name: 
+        path: 
+        version: 
+        last_updated: 
+        maintainer: 
+
+  - name: Disability Registry
+    slug: DR
+    description: Profiles for Disability Registry API.
+    countries:
+      - code: 
+        name: 
+        path: 
+        version: 
+        last_updated: 
+        maintainer: 
+
+  - name: Farmer Registry
+    slug: fr
+    description: Profiles for farmer registry API.
+    countries:
+      - code: 
+        name: 
+        path: 
+        version: 1.0.0
+        last_updated: 
+        maintainer:
+
+  - name: Employment Registry
+    slug: Er
+    description: Profiles for Employment registry API.
+    countries:
+      - code: 
+        name: 
+        path: 
+        version: 1.0.0
+        last_updated: 
+        maintainer: 
+
