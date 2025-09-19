@@ -1,56 +1,53 @@
-Policy on Local Profile Submission for DCI Standards
+# Policy on Local Profile Submission for DCI Standards
 
-To ensure consistency, transparency, and quality, all local profiles within the DCI Standards must be submitted, reviewed, and approved according to the following workflow.
+To ensure **consistency, transparency, and quality**, all local profiles within the DCI Standards must be submitted, reviewed, and approved according to the following workflow.
 
-1. Submission
+---
 
-    Profiles (schemas and associated metadata) must be submitted as a GitHub Pull Request (PR) to the DCI standards repository.
+## 📥 Submission
 
-    Submissions must follow the prescribed schema guidelines, metadata format, and naming conventions.
+- Profiles (**apis and associated metadata**) must be submitted as a **GitHub Pull Request (PR)** to the DCI standards repository.  
+- Submissions must follow:
+  - Prescribed api guidelines
+  - Metadata format
+  - Naming conventions
 
-    Each PR must include:
+**Each PR must include:**
+1. API definition  
+2. Metadata description (version, authorship, intended use case)  
+3. Changelog entry (for updates)  
 
-    The schema definition.
+---
 
-    Metadata description (version, authorship, and intended use case).
+## 📂 Repository Management Team Review
 
-    A changelog entry (for updates).
+**Responsibilities:**
+- ✅ Triage new PRs for completeness and adherence to contribution guidelines  
+- ✅ Check formatting, metadata, and file placement  
+- ✅ Assign PRs to the **Standards Development Team** for technical review  
+- ✅ Ensure process transparency by tagging and labeling PRs appropriately  
 
-2. Repository Management Team Review
+---
 
-    Responsibilities:
+## 🛠 Standards Development Team Review
 
-    Triage new PRs for completeness and adherence to contribution guidelines.
+**Responsibilities:**
+- 🔍 Conduct a technical evaluation of the submitted profile, verifying:  
+  - Alignment with **DCI interoperability principles**  
+  - Consistency with existing profiles  
+  - Backward compatibility (where relevant)  
 
-    Check formatting, metadata, and file placement.
+- 🔄 Request changes and provide technical feedback directly on the PR  
+- 👍 Approve or 👎 reject submissions based on technical merit and compliance  
 
-    Assign PRs to the standards development team for technical review.
+---
 
-    Ensure process transparency by tagging and labeling PRs appropriately.
+## ✅ Approval & Registry Update
 
-3. Standards Development Team Review
+Once **approved** by the Standards Development Team:  
 
-    Responsibilities:
+- The profile is **marked as approved** in `registry-index.yaml`  
+- The PR is **merged** into the main branch of the repository  
+- The profile becomes an **official DCI-compliant profile**  
 
-    Conduct a technical evaluation of the submitted profile, verifying:
-
-    Alignment with DCI interoperability principles.
-
-    Consistency with existing profiles.
-
-    Backward compatibility, where relevant.
-
-    Request changes and provide technical feedback directly on the PR.
-
-    Approve or reject submissions based on technical merit and compliance.
-
-
-4. Approval & Registry Update
-
-    Once approved by the standards development team, the profile will be:
-
-    Marked as approved in registry-index.yaml.
-
-    Merged into the main branch of the repository.
-
-    The profile then becomes an official DCI-compliant profile.
+---
