@@ -1,0 +1,57 @@
+type: object
+description: Response to search request. Multiple repsonses for each page can be pushed to the caller as an implementation!
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  correlation_id:
+    $ref: ../../common/schema/CorrelationId.yaml
+  search_response:
+    type: array
+    items:
+      type: object
+      properties: 
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../common/schema/DateTime.yaml
+        status:
+          $ref: "../../common/schema/RequestStatus.yaml" 
+        status_reason_code:
+          $ref: "../schema/SearchStatusReasonCode.yaml" 
+        status_reason_message:
+          description: "Status reason code message. Helps actionanble messaging for systems/end users"
+          type: string
+          maxLength: 999
+        data:
+          type: object
+          description: |
+            Search result record as an outcome of search/subscribe action
+          properties: 
+            version:
+              type: string
+              default: 1.0.0
+            reg_records:
+              description: |
+                The "Entity" object contains fields expected in response of search
+                @context: https://schema.spdci.org/extensions/crvs/v1/data/CRVSPerson.jsonld <br>
+                @type: "Person" <br>
+                @container: "@set" <br>
+              type: array
+              items:
+                $ref: "../../extensions/crvs/Person.yaml"                
+
+          required: 
+            - reg_records
+        pagination: 
+          $ref: "../../common/schema/Pagination.yaml"
+        locale:
+          $ref: "../../common/schema/LanguageCode.yaml"
+      required:
+        - reference_id
+        - timestamp
+        - status
+required:
+  - transaction_id
+  - correlation_id
+  - search_response
+ 
