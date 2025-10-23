@@ -1,40 +1,69 @@
 openapi: 3.0.3
 info:
-  title: Interoperability APIs - Foundational/Functional registries
+  title: Interoperability APIs - CORE
   x-logo:
     url: './dci-logo.png'
     backgroundColor: '#FFFFFF'
     altText: 'Digital Convergence Initiative'  
   description: |-
-    The CRVS interoperability APIs describes different APIs some of them are usecase specific and other are generalized APIs to perform interoperable operations between CRVS registry and SP system.
+    The DCI Core interoperability APIs describes different APIs. They are generalized APIs to perform interoperable operations between a registry and SP System.
     You can now help us improve the API whether it's by making changes to the definition itself or to the code.
     That way, with time, we can improve the API in general, and expose some of the new features in upcoming version.
 
     1. Search: The Search API provides functionality to search based on demographic, identifiers and custom query
-    2. Event subscription: The Event subscription APIs describe APIs useful to subscribe / unsubscribe events. When any event happens in crvs registry it sends event details on notify end point
+    2. Event subscription: The Event subscription APIs describe APIs useful to subscribe / unsubscribe events. When any event happens in the registry it sends event details on notify end point
     3. Request status check: The request status checking APIs implement to check status of request sent in any above APIs
-    
-    Gitbook reference link:
-    - [CRVS - V1.0 ](https://standards.spdci.org/standards/v/crvs-v1.0-1/)
+
+    Gitbook reference link :
+    - [Core DCI- V1.0.0 ](https://standards.spdci.org/standards)
 
     Code directory links:
-    - [Identifiers](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.01-identifier_type)
-    - [Marital Status](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.02-marital_status)
-    - [Sex](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.03-sex)
-    - [Vital event types](https://standards.spdci.org/standards/standards-for-interoperability-interfaces/common-standards-for-interoperability-interfaces/data/code-directory/cd.com.04-vital_event)   
+    - [Identifiers](https://schema.spdci.org/core/v1/code/IdentifierTypeEnum.jsonld)
+    - [Marital Status](https://schema.spdci.org/core/v1/code/MaritalStatusEnum.jsonld)
+    - [Sex](https://schema.spdci.org/core/v1/code/SexCategoryEnum.jsonld)
+    - [Relationship Type](https://schema.spdci.org/v1/code/RelationshipTypeEnum.jsonld)   
+    - [Disability Type](https://schema.spdci.org/v1/code/DisabilityTypeEnum.jsonld)
+    - [Functional Limitation Type](https://schema.spdci.org/core/v1/code/FunctionalLimitationType.jsonld)
+    - [Functional Severity](https://schema.spdci.org/core/v1/code/FunctionalSeverityEnum.jsonld)
+    - [Education Level](https://schema.spdci.org/core/v1/code/EducationCode.jsonld)
+    - [Employment Status](https://schema.spdci.org/core/v1/code/EmploymentStatusEnum.jsonld)
+    - [Income Level](https://schema.spdci.org/core/v1/code/IncomeLevelEnum.jsonld)
+    - [Occupation](https://schema.spdci.org/core/v1/code/OccupationEnum.jsonld)
     
-    Each request is build up of three parts
+    Data Objects:
+    - [Person](https://schema.spdci.org/core/v1/data/Person.jsonld)
+    - [Group](https://schema.spdci.org/core/v1/data/Group.jsonld) 
+    - [Member](https://schema.spdci.org/core/v1/data/Member.jsonld)
+    - [RelatedPerson](https://schema.spdci.org/core/v1/data/RelatedPerson.jsonld)
+    - [DisabilityInfo](https://schema.spdci.org/core/v1/data/DisabilityInfo.jsonld)
+
+    Each request is build up of three parts 
     - signature 
     - header 
     - message
-  version: 1.0.0
+
+    Information about each part is given below
+
+    **Signature:**
+    - The signature is used to verify the integrity of the message.
+    - The signature is a hash of the message and is encrypted using the private key of the sender.
+    - The receiver can verify the signature using the public key of the sender.
+
+    **Header:**
+    - The header contains information about various message header, refer to the header schema for more details.
+
+    **Message:**
+
+    - The message contains the actual payload of the message.
+    - Refere example section to get sample data and also read Gitbook for details data objects
+    - The receiver can decrypt the message using the private key of the "err.receiver_id.invalid"  version: 1.0.0
   contact:
     name: DCI Social Protection
     email: info@spdci.org
   license:
    name: DCI Social Protection License
    url: https://api.spdci.org/LICENSE.md
- 
+
 servers:
   - url: "https://sandbox.spdci.org/namespace/v1.0.0"
     description: Sandbox Server
@@ -58,7 +87,7 @@ tags:
   - name: SearchStatusReasonCode
     x-displayName: SearchStatusReasonCode
     description: |
-      <SchemaDefinition schemaRef="#/components/schemas/SearchStatusReasonCode" />        
+      <SchemaDefinition schemaRef="#/components/schemas/SearchStatusReasonCode" /> 
   - name: SubscribeRequest
     x-displayName: SubscribeRequest
     description: |
@@ -71,10 +100,6 @@ tags:
     x-displayName: SubscribeStatusReasonCode
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/SubscribeStatusReasonCode" />        
-  - name: NotifyEventRequest
-    x-displayName: NotifyEventRequest
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/NotifyEventRequest" />    
   - name: UnSubscribeRequest
     x-displayName: UnSubscribeRequest
     description: |
@@ -86,7 +111,7 @@ tags:
   - name: UnSubscribeStatusReasonCode
     x-displayName: UnSubscribeStatusReasonCode
     description: |
-      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeStatusReasonCode" />        
+      <SchemaDefinition schemaRef="#/components/schemas/UnSubscribeStatusReasonCode" />                          
   - name: TxnStatusRequest
     x-displayName: TxnStatusRequest
     description: |
@@ -99,6 +124,7 @@ tags:
     x-displayName: EncryptedMessage
     description: |
       <SchemaDefinition schemaRef="#/components/schemas/EncryptedMessage" />    
+
 x-tagGroups:
   - name: API Definitions
     tags:
@@ -107,25 +133,25 @@ x-tagGroups:
   - name: Schema Objects
     tags:
       - SearchRequest
-      - SearchResponse 
-      - SubscribeRequest
-      - SubscribeResponse
-      - NotifyEventRequest
-      - UnSubscribeRequest
-      - UnSubscribeResponse 
+      - SearchResponse
       - TxnStatusRequest
       - TxnStatusResponse
       - EncryptedMessage
   - name: Status Codes
     tags: 
       - SearchStatusReasonCode
-      - SubscribeStatusReasonCode
-      - UnSubscribeStatusReasonCode
 paths:
  /registry/search:
   post: 
     summary: "/registry/search"
-    description: Search person(s) in registry using identifier or custome attributes
+    description: |-
+      The async search api will accept request and will send response to on-search endpoint. The SR will implement /registry/search endpoint and the SPMIS shall implement /registry/on-search to receive data from SR.
+      The search request message consist of reg_event_type, query_type, query, sort, pagination, consent, authorize, locale. The SR will validate the request and will send response to on-search endpoint. 
+      Information for each field is given below.
+        - reg_event_type: The event type for which search to be performed, this can be any of event type explained in RegistryEventType.yaml
+        - query_type: The query type on which registry to determene type of search process, this can be any of query type explained in QueryType.yaml
+        - query: The query will indicate payload of data which to be seached in registry, this can be any of explained in RegistryQueries.yaml
+
     operationId: post_reg_search
     tags: 
       -  Async
@@ -178,8 +204,10 @@ paths:
  /registry/on-search:
   post: 
     summary: "/registry/on-search"
-    description: Search results through callback
-    operationId: post_reg_on-search
+    description: |-
+      The /registry/on-search end point to be implemented by SPMIS to receive search results from registry. 
+      The registry will send data in format explained in SearchResponse.yaml. The reg_records will contains data 
+      that in explained in [Person](https://schema.spdci.org/core/v1/data/Person.jsonld), [Member](https://schema.spdci.org/core/v1/data/Member.jsonld) , [Group](https://schema.spdci.org/core/v1/data/Group.jsonld).
     tags: 
       -  Async
     requestBody:
@@ -280,6 +308,7 @@ paths:
     security:
       - Authorization: [ ]
     deprecated: false
+ 
  /registry/on-subscribe:
   post: 
     summary: "/registry/on-subscribe"
@@ -333,57 +362,7 @@ paths:
     security:
       - Authorization: [ ]
     deprecated: false
- /registry/notify:
-  post: 
-    summary: "/registry/notify"
-    description: Registry to notify a life event to subscrbiers
-    operationId: post_reg_notify
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - notify
-                message:
-                  type: object
-                  oneOf:
-                    - $ref: '#/components/schemas/NotifyEventRequest'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - notify
-    responses:
-        default:
-          $ref: "#/components/responses/HttpErrorResponse"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - Authorization: [ ]
-    deprecated: false
+ 
  /registry/unsubscribe:
   post: 
     summary: "/registry/unsubscribe"
@@ -489,10 +468,13 @@ paths:
     security:
       - Authorization: [ ]
     deprecated: false
+
+
  /registry/txn/status:
   post: 
     summary: "/registry/txn/status"
-    description: Perform async status check of previous civil registry transanctions using transaction_id and/or reference_id(s)
+    description: |-
+      The /registry/txn/status will be implemented by SR. This will check status of reach request using transaction_id and/or reference_id(s).
     operationId: post_reg_txnstatus
     tags: 
       -  Async
@@ -544,7 +526,8 @@ paths:
  /registry/txn/on-status:
   post: 
     summary: "/registry/txn/on-status"
-    description: Response to async status check of previous civil registrt transanctions using callback
+    description: |-
+      The /registry/txn/on-status will be implemented by SPMIS. The response with information about request and in some case it may contain data as well.
     operationId: post_reg_on-txnstatus
     tags: 
       -  Async
@@ -592,10 +575,19 @@ paths:
     security:
       - Authorization: [ ]
     deprecated: false
+
  /registry/sync/search:
   post: 
     summary: "/registry/sync/search"
-    description: Search person(s) in registry using identifier or custome attributes
+    description: |-
+      The sync search api will accept request and will send response immediately
+      The search request message consist of reg_event_type, query_type, query, sort, pagination, consent, authorize, locale. The SR will validate the request and will send response to on-search endpoint. 
+      Information for each field is given below.
+        - reg_event_type: The event type for which search to be performed, this can be any of event type explained in RegistryEventType.yaml
+        - query_type: The query type on which registry to determene type of search process, this can be any of query type explained in QueryType.yaml
+        - query: The query will indicate payload of data which to be seached in registry, this can be any of explained in RegistryQueries.yaml
+
+
     operationId: post_reg_sync_search
     tags: 
       -  Sync
@@ -661,7 +653,8 @@ paths:
  /registry/sync/txn/status:
   post: 
     summary: "/registry/sync/txn/status"
-    description: Sync status check of registry Async APIs
+    description: |-
+      The /registry/sync/txn/status will be implemented by SR. This will check status of reach request using transaction_id and/or reference_id(s).
     operationId: post_reg_sync_txnstatus
     tags: 
       -  Sync
@@ -723,10 +716,9 @@ paths:
     security:
       - Authorization: [ ]
     deprecated: false
+
 components:
-  schemas:
-    NotifyEventRequest: 
-      $ref: schema/NotifyEventRequest.yaml
+  schemas: 
     SearchRequest: 
       $ref: schema/SearchRequest.yaml
     SearchResponse: 
@@ -739,18 +731,24 @@ components:
       $ref: schema/SubscribeResponse.yaml
     SubscribeStatusReasonCode: 
       $ref: schema/SubscribeStatusReasonCode.yaml
-    TxnStatusRequest: 
-      $ref: schema/TxnStatusRequest.yaml            
-    TxnStatusResponse: 
-      $ref: schema/TxnStatusResponse.yaml  
+    SubscriptionCode: 
+      $ref: schema/SubscriptionCode.yaml
+    SubscriptionCodeList: 
+      $ref: schema/SubscriptionCodeList.yaml
+    SubscriptionInfo:
+      $ref: schema/SubscriptionInfo.yaml
+    SubscriptionStatus:
+        $ref: schema/SubscriptionStatus.yaml
     UnSubscribeRequest: 
       $ref: schema/UnSubscribeRequest.yaml
     UnSubscribeResponse: 
       $ref: schema/UnSubscribeResponse.yaml
     UnSubscribeStatusReasonCode: 
-      $ref: schema/UnSubscribeStatusReasonCode.yaml           
-  
-    ###### Common schema objects
+      $ref: schema/UnSubscribeStatusReasonCode.yaml  
+    TxnStatusRequest: 
+      $ref: schema/TxnStatusRequest.yaml            
+    TxnStatusResponse: 
+      $ref: schema/TxnStatusResponse.yaml  
     EncryptedMessage: 
       $ref: ../common/schema/EncryptedMessage.yaml
     Error: 
@@ -758,17 +756,19 @@ components:
     FileInfo: 
       $ref: ../common/schema/FileInfo.yaml
     MsgCallbackHeader_V1.0.0: 
-      $ref: ../common/schema/MsgCallbackHeader_V1.0.0.yaml
+      $ref: schema/MsgCallbackHeader_V1.0.0.yaml
     MsgHeader_V1.0.0: 
-      $ref: ../common/schema/MsgHeader_V1.0.0.yaml
+      $ref: schema/MsgHeader_V1.0.0.yaml
+    MsgHeaderStatusReasonCode: 
+      $ref: ../common/schema/MsgHeaderStatusReasonCode.yaml
     MsgSignature: 
       $ref:  ../common/schema/MsgSignature.yaml
 
   responses: 
-    Response:
-      $ref: ../common/response/Response.yaml  
     HttpErrorResponse:
-      $ref: ../common/response/HttpErrorResponse.yaml        
-#  securitySchemes:
- #   Authorization:
- #     $ref: ../common/security/Authorization.yaml
+      $ref: ../common/response/HttpErrorResponse.yaml       
+    Response:
+      $ref: ../common/response/Response.yaml    
+  securitySchemes:
+    Authorization:
+      $ref: ../common/security/Authorization.yaml
