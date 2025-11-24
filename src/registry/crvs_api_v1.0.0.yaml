@@ -374,7 +374,7 @@ paths:
                       - notify
     responses:
         default:
-          $ref: "#/components/responses/HttpErrorResponse"
+          $ref: "#/components/responses/Response"
         '401':
           $ref: "#/components/responses/HttpErrorResponse"
         '403':
@@ -726,7 +726,7 @@ paths:
 components:
   schemas:
     NotifyEventRequest: 
-      $ref: schema/NotifyEventRequest.yaml
+      $ref: crvs/NotifyEventRequest.yaml
     SearchRequest: 
       $ref: schema/SearchRequest.yaml
     SearchResponse: 

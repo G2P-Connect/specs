@@ -38,7 +38,7 @@ properties:
                 @container: "@set" <br>
               type: array
               items:
-                $ref: "../../extensions/crvs/Person.yaml"                
+                $ref: "../../extensions/dci/Person.yaml"               
 
           required: 
             - reg_records

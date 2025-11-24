@@ -132,6 +132,7 @@ x-tagGroups:
       - SearchResponse
       - SubscribeRequest
       - SubscribeResponse
+      - NotifyEventRequest
       - UnSubscribeRequest
       - UnSubscribeResponse
       - TxnStatusRequest
@@ -235,6 +236,57 @@ paths:
                     action:
                       enum:
                         - on-search
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - Authorization: []
+      deprecated: false
+  /registry/notify:
+    post:
+      summary: /registry/notify
+      description: Registry to notify an event to subscribers
+      operationId: post_reg_notify
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/NotifyEventRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - notify
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -722,87 +774,11 @@ components:
                     type: string
                     default: 1.0.0
                   reg_type:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
                   reg_record_type:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
-                      @type: "RegistryRecordType" <br>
-
-                      **Notes:**
-                        1. Registry record type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable result sets 
-                        3. Referenced in search_request and notify events
-                        4. example: "spdci-extensions-dci:Person" 
-                    example: 'spdci-extensions-dci:Person'
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
-                    type: object
-                    description: |
-                      The "person" object contains fields expected in response of search
-                      @context: https://schema.spdci.org/core/v1/data/Member.jsonld <br>
-                      @type: "Person" <br>
-                      @container: "@set" <br> 
-                    example:
-                      type: object
-                      description: |
-                        1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
-                        3. Allows Country/Registry specific implementation extensions using Attribute Name/Value pairs.
-
-                        @context: https://schema.spdci.org/core/v1/data/Member.jsonld <br>
-                        @type: "@context" <br>
-                      example:
-                        '@context':
-                          spdci: 'https://schema.spdci.org/core/v1/data'
-                          rdfs: 'http://www.w3.org/2000/01/rdf-schema#'
-                          xsd: 'http://www.w3.org/2001/XMLSchema#'
-                          owl: 'http://www.w3.org/2002/07/owl#'
-                          common: 'https://schema.spdci.org/common/v1/'
-                        '@id': 'https://example.org/sr_person/847951632'
-                        '@type': 'spdci:member'
-                        member_identifier:
-                          - '@type': Identifier
-                            identifier_type: UIN
-                            identifier_value: '42343545654'
-                        demographic_info:
-                          '@type': SRPerson
-                          identifier:
-                            - '@type': Identifier
-                              identifier_type: NationalID
-                              identifier_value: '9876543210'
-                          name:
-                            '@type': Name
-                            surname: Smith
-                            given_name: Alice
-                            prefix: Ms.
-                            suffix: ''
-                          sex: female
-                          birth_date: '1985-05-20'
-                        related_person:
-                          - '@type': RelatedPerson
-                            relationship_type: spouse
-                            related_member:
-                              '@type': Member
-                              '@id': 'https://example.org/member/123456789'
-                              member_identifier: M123456789
-                          - '@type': RelatedPerson
-                            relationship_type: child
-                            related_member:
-                              '@type': Member
-                              '@id': 'https://example.org/member/987654322'
-                              'spdci:member_identifier': M987654322
-                        is_disabled: false
-                        marital_status: married
-                        employment_status: employed
-                        occupation: teacher
-                        income_level: middle
-                        language_code:
-                          - en
-                          - es
-                        education_level: bachelor
-                        additional_attributes:
-                          - extra_work: volunteer
-                        registration_date: '2022-01-10T08:00:00Z'
-                        last_updated: '2023-06-15T10:00:00Z'
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_records'
                 required:
                   - reg_record_type
                   - reg_records
@@ -1323,7 +1299,17 @@ components:
                   filter:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/filter'
                   notify_record_type:
-                    $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_record_type'
+                    type: string
+                    description: |
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
+                      @type: "RegistryRecordType" <br>
+
+                      **Notes:**
+                        1. Registry record type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable result sets 
+                        3. Referenced in search_request and notify events
+                        4. example: "spdci-extensions-dci:Person" 
+                    example: 'spdci-extensions-dci:Person'
                   authorize:
                     $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/authorize'
                 required:
@@ -1504,7 +1490,7 @@ components:
             - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1'
             - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2'
         notify_record_type:
-          $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_record_type'
+          $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/notify_record_type'
           required:
             - reg_event_type
             - filter
@@ -1697,9 +1683,75 @@ components:
                         reg_event_type:
                           $ref: '#/components/schemas/SubscriptionInfo/properties/reg_event_type'
                         reg_record_type:
-                          $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_record_type'
+                          $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/notify_record_type'
                         reg_records:
-                          $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_records'
+                          type: object
+                          description: |
+                            The "person" object contains fields expected in response of search
+                            @context: https://schema.spdci.org/core/v1/data/Member.jsonld <br>
+                            @type: "Person" <br>
+                            @container: "@set" <br> 
+                          example:
+                            type: object
+                            description: |
+                              1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
+                              3. Allows Country/Registry specific implementation extensions using Attribute Name/Value pairs.
+
+                              @context: https://schema.spdci.org/core/v1/data/Member.jsonld <br>
+                              @type: "@context" <br>
+                            example:
+                              '@context':
+                                spdci: 'https://schema.spdci.org/core/v1/data'
+                                rdfs: 'http://www.w3.org/2000/01/rdf-schema#'
+                                xsd: 'http://www.w3.org/2001/XMLSchema#'
+                                owl: 'http://www.w3.org/2002/07/owl#'
+                                common: 'https://schema.spdci.org/common/v1/'
+                              '@id': 'https://example.org/sr_person/847951632'
+                              '@type': 'spdci:member'
+                              member_identifier:
+                                - '@type': Identifier
+                                  identifier_type: UIN
+                                  identifier_value: '42343545654'
+                              demographic_info:
+                                '@type': SRPerson
+                                identifier:
+                                  - '@type': Identifier
+                                    identifier_type: NationalID
+                                    identifier_value: '9876543210'
+                                name:
+                                  '@type': Name
+                                  surname: Smith
+                                  given_name: Alice
+                                  prefix: Ms.
+                                  suffix: ''
+                                sex: female
+                                birth_date: '1985-05-20'
+                              related_person:
+                                - '@type': RelatedPerson
+                                  relationship_type: spouse
+                                  related_member:
+                                    '@type': Member
+                                    '@id': 'https://example.org/member/123456789'
+                                    member_identifier: M123456789
+                                - '@type': RelatedPerson
+                                  relationship_type: child
+                                  related_member:
+                                    '@type': Member
+                                    '@id': 'https://example.org/member/987654322'
+                                    'spdci:member_identifier': M987654322
+                              is_disabled: false
+                              marital_status: married
+                              employment_status: employed
+                              occupation: teacher
+                              income_level: middle
+                              language_code:
+                                - en
+                                - es
+                              education_level: bachelor
+                              additional_attributes:
+                                - extra_work: volunteer
+                              registration_date: '2022-01-10T08:00:00Z'
+                              last_updated: '2023-06-15T10:00:00Z'
                       required:
                         - reg_record_type
                         - reg_records

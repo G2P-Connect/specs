@@ -99,7 +99,11 @@ tags:
   - name: SubscribeStatusReasonCode
     x-displayName: SubscribeStatusReasonCode
     description: |
-      <SchemaDefinition schemaRef="#/components/schemas/SubscribeStatusReasonCode" />        
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeStatusReasonCode" />     
+  - name: NotifyEventRequest
+    x-displayName: NotifyEventRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/NotifyEventRequest" />      
   - name: UnSubscribeRequest
     x-displayName: UnSubscribeRequest
     description: |
@@ -133,7 +137,12 @@ x-tagGroups:
   - name: Schema Objects
     tags:
       - SearchRequest
-      - SearchResponse
+      - SearchResponse 
+      - SubscribeRequest
+      - SubscribeResponse
+      - NotifyEventRequest
+      - UnSubscribeRequest
+      - UnSubscribeResponse 
       - TxnStatusRequest
       - TxnStatusResponse
       - EncryptedMessage
@@ -350,6 +359,57 @@ paths:
                   action:
                     enum:
                       - on-subscribe
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - Authorization: [ ]
+    deprecated: false
+ /registry/notify:
+  post: 
+    summary: "/registry/notify"
+    description: Registry to notify a life event to subscrbiers
+    operationId: post_reg_notify
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/NotifyEventRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - notify
     responses:
         default:
           $ref: "#/components/responses/Response"
@@ -719,6 +779,8 @@ paths:
 
 components:
   schemas: 
+    NotifyEventRequest: 
+      $ref: schema/NotifyEventRequest.yaml
     SearchRequest: 
       $ref: schema/SearchRequest.yaml
     SearchResponse: 
