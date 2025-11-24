@@ -1,0 +1,8 @@
+type: object
+description: |
+  The "person" object contains fields expected in response of search
+  @context: https://schema.spdci.org/extensions/crvs/v1/data/CRVSPerson.jsonld <br>
+  @type: "Person" <br>
+  @container: "@set" <br> 
+example: 
+   $ref: "../../extensions/crvs/Person.yaml"

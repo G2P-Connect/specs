@@ -98,7 +98,11 @@ tags:
   - name: SubscribeStatusReasonCode
     x-displayName: SubscribeStatusReasonCode
     description: |
-      <SchemaDefinition schemaRef="#/components/schemas/SubscribeStatusReasonCode" />        
+      <SchemaDefinition schemaRef="#/components/schemas/SubscribeStatusReasonCode" />     
+  - name: NotifyEventRequest
+    x-displayName: NotifyEventRequest
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/NotifyEventRequest" />      
   - name: UnSubscribeRequest
     x-displayName: UnSubscribeRequest
     description: |
@@ -132,6 +136,11 @@ x-tagGroups:
     tags:
       - SearchRequest
       - SearchResponse
+      - SubscribeRequest
+      - SubscribeResponse
+      - NotifyEventRequest
+      - UnSubscribeRequest
+      - UnSubscribeResponse
       - TxnStatusRequest
       - TxnStatusResponse
       - EncryptedMessage
@@ -345,6 +354,57 @@ paths:
                     action:
                       enum:
                         - on-subscribe
+      responses:
+        '401':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '403':
+          $ref: '#/components/responses/HttpErrorResponse'
+        '500':
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          $ref: '#/components/responses/Response'
+      security:
+        - Authorization: []
+      deprecated: false
+  /registry/notify:
+    post:
+      summary: /registry/notify
+      description: Registry to notify a life event to subscrbiers
+      operationId: post_reg_notify
+      tags:
+        - Async
+      requestBody:
+        description: ''
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                signature:
+                  $ref: '#/components/schemas/MsgSignature'
+                header:
+                  allOf:
+                    - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/NotifyEventRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: '#/components/schemas/FileInfo'
+                - properties:
+                    action:
+                      enum:
+                        - notify
       responses:
         '401':
           $ref: '#/components/responses/HttpErrorResponse'
@@ -704,6 +764,47 @@ paths:
       deprecated: false
 components:
   schemas:
+    NotifyEventRequest:
+      type: object
+      description: Registry to notify a event to subscrbiers
+      properties:
+        transaction_id:
+          $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
+        notify_event:
+          type: array
+          items:
+            type: object
+            properties:
+              reference_id:
+                $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/reference_id'
+              timestamp:
+                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+              data:
+                type: object
+                description: |
+                  Registry data being notified as an outcome of event subscription with registry
+                properties:
+                  version:
+                    type: string
+                    default: 1.0.0
+                  reg_type:
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
+                  reg_record_type:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
+                  reg_records:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_records'
+                required:
+                  - reg_record_type
+                  - reg_records
+              locale:
+                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+            required:
+              - reference_id
+              - timestamp
+              - data
+      required:
+        - transaction_id
+        - notify_event
     SearchRequest:
       type: object
       description: |

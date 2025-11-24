@@ -133,6 +133,7 @@ x-tagGroups:
       - SearchResponse 
       - SubscribeRequest
       - SubscribeResponse
+      - NotifyEventRequest
       - UnSubscribeRequest
       - UnSubscribeResponse 
       - TxnStatusRequest
@@ -248,7 +249,58 @@ paths:
     security:
       - Authorization: [ ]
     deprecated: false
-   
+ /registry/notify:
+  post: 
+    summary: "/registry/notify"
+    description: Registry to notify an event to subscribers
+    operationId: post_reg_notify
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - notify
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/NotifyEventRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - notify
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - Authorization: [ ]
+    deprecated: false
+ 
  /registry/subscribe:
   post: 
     summary: "/registry/subscribe"
@@ -355,6 +407,7 @@ paths:
     security:
       - Authorization: [ ]
     deprecated: false
+ 
  /registry/unsubscribe:
   post: 
     summary: "/registry/unsubscribe"
@@ -710,7 +763,7 @@ paths:
 components:
   schemas:
     NotifyEventRequest: 
-      $ref: schema/NotifyEventRequest.yaml
+      $ref: fr/NotifyEventRequest.yaml
     SearchRequest: 
       $ref: fr/SearchRequest.yaml
     SearchResponse: 
