@@ -30,6 +30,10 @@ properties:
             version:
               type: string
               default: 1.0.0
+            reg_type:
+              $ref: RegistryType.yaml
+            reg_record_type:
+              $ref: RegistryRecordType.yaml 
             reg_records:
               description: |
                 The "Beneficiary" object contains fields expected in response of search

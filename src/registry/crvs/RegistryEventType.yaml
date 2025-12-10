@@ -1,0 +1,10 @@
+type: string
+description: |
+  @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
+  @type: "VitalEvent" <br>
+  
+  **Notes:**
+    1. Registry event type values defined as per implementation context.
+    2. Usually a list of **enum** values of all possible queryable identifiers.
+    3. example: "spdci-common:RegistryEventType:DisabledPerson"
+example: "spdci-common:RegistryEventType:DisabledPerson"

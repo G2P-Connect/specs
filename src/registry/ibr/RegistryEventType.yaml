@@ -8,3 +8,4 @@ description: |
 enum:
   - "enrollement"
   - "enrollement_status_change"
+example: "spdci-common:RegistryEventType:enrollement"

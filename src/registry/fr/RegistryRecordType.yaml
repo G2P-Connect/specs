@@ -7,5 +7,5 @@ description: |
     1. Registry record type values defined as per implementation context.
     2. Usually a list of **enum** values of all possible queryable result sets 
     3. Referenced in search_request and notify events
-    4. example: "spdci-extensions-dci:FRPerson" 
-example: "spdci-extensions-dci:FRPerson"
+    4. example: "spdci-extensions-dci:Farmer" 
+example: "spdci-extensions-dci:Farmer"

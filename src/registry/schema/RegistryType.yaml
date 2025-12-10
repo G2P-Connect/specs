@@ -6,5 +6,5 @@ description: |
   **Notes:**
     1. Registry type values defined as per implementation context.
     2. Usually a list of **enum** values of all possible queryable functional registries 
-    3. example: "ns:org:RegistryType:Civil"
-example: "ns:org:RegistryType:Civil"
+    3. example: "ns:org:RegistryType:Social"
+example: "ns:org:RegistryType:Social"
