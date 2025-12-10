@@ -789,6 +789,8 @@ components:
                     default: 1.0.0
                   reg_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
+                  reg_event_type:
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/reg_event_type'
                   reg_record_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
@@ -839,8 +841,8 @@ components:
                     default: 1.0.0
                   reg_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
-                  reg_event_type:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/reg_event_type'
+                  reg_record_type:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   query_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
                   query:
@@ -973,8 +975,6 @@ components:
                     default: 1.0.0
                   reg_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
-                  reg_event_type:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/reg_event_type'
                   reg_record_type:
                     type: string
                     description: |
@@ -985,8 +985,8 @@ components:
                         1. Registry record type values defined as per implementation context.
                         2. Usually a list of **enum** values of all possible queryable result sets 
                         3. Referenced in search_request and notify events
-                        4. example: "spdci-extensions-dci:Person" 
-                    example: 'spdci-extensions-dci:Person'
+                        4. example: "spdci-extensions-dci:Member" 
+                    example: 'spdci-extensions-dci:Member'
                   reg_records:
                     type: object
                     description: |
@@ -1234,8 +1234,8 @@ components:
             **Notes:**
               1. Registry type values defined as per implementation context.
               2. Usually a list of **enum** values of all possible queryable functional registries 
-              3. example: "ns:org:RegistryType:Civil"
-          example: 'ns:org:RegistryType:Civil'
+              3. example: "ns:org:RegistryType:Social"
+          example: 'ns:org:RegistryType:Social'
         reg_event_type:
           type: string
           description: |
@@ -1309,7 +1309,25 @@ components:
                       1. Query expression's syntax / format is determined based on query-type.
                       2. Query expression as a template with placeholder to pass conditional search parameters
                   example:
-                    expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } } '
+                    expression: |
+                      query GetMemberByIdentifier {
+                        member(
+                          identifier: {
+                            value: "1",
+                            type: "uin"
+                          }
+                        ) {
+                          member_identifier {
+                            value
+                            type
+                          }
+                          demographic_info {
+                            name
+                            gender
+                            age
+                          }
+                        }
+                      }
             - type: object
               description: Identifier type and value object
               properties:

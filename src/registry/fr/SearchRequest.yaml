@@ -25,8 +25,8 @@ properties:
               default: 1.0.0
             reg_type:
               $ref: RegistryType.yaml
-            reg_event_type:
-              $ref: RegistryEventType.yaml
+            reg_record_type:
+              $ref: RegistryRecordType.yaml  
             query_type:
               $ref: ../../common/schema/QueryType.yaml
             query:

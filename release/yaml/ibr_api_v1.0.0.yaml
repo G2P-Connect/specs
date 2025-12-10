@@ -915,28 +915,21 @@ components:
                     type: string
                     default: 1.0.0
                   reg_type:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
+                  reg_event_type:
                     type: string
                     description: |
-                      @context: https://schema.spdci.org/common/v1/RegistryType.jsonld <br>
-                      @type: "RegistryType" <br>
+                      The IBR receive data from SP system , it has to differenciate of details based on event type, Usually SP system sends enrollement and enrollement status change events to IBR
 
-                      **Notes:**
-                        1. Registry type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable functional registries 
-                        3. example: "ns:org:RegistryType:IBR"
-                    example: 'ns:org:RegistryType:IBR'
+                      1 : enrollement <br>
+                      2 : enrollement_status_change <br>
+                      3 : Deregister <br>  
+                    enum:
+                      - enrollement
+                      - enrollement_status_change
+                    example: 'spdci-common:RegistryEventType:enrollement'
                   reg_record_type:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/extensions/ibr/v1/Member.jsonld <br>
-                      @type: "RegistryRecordType" <br>
-
-                      **Notes:**
-                        1. Registry record type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable result sets 
-                        3. Referenced in search_request and notify events
-                        4. example: "Member" 
-                    example: Member
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
                     type: object
                     description: |
@@ -1105,17 +1098,10 @@ components:
                   version:
                     type: string
                     default: 1.0.0
-                  reg_event_type:
-                    type: string
-                    description: |
-                      The IBR receive data from SP system , it has to differenciate of details based on event type, Usually SP system sends enrollement and enrollement status change events to IBR
-
-                      1 : enrollement <br>
-                      2 : enrollement_status_change <br>
-                      3 : Deregister <br>  
-                    enum:
-                      - enrollement
-                      - enrollement_status_change
+                  reg_type:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
+                  reg_record_type:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   query_type:
                     type: string
                     description: |
@@ -1369,6 +1355,29 @@ components:
                   version:
                     type: string
                     default: 1.0.0
+                  reg_type:
+                    type: string
+                    description: |
+                      @context: https://schema.spdci.org/common/v1/RegistryType.jsonld <br>
+                      @type: "RegistryType" <br>
+
+                      **Notes:**
+                        1. Registry type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable functional registries 
+                        3. example: "ns:org:RegistryType:IBR"
+                    example: 'ns:org:RegistryType:IBR'
+                  reg_record_type:
+                    type: string
+                    description: |
+                      @context: https://schema.spdci.org/extensions/ibr/v1/Member.jsonld <br>
+                      @type: "RegistryRecordType" <br>
+
+                      **Notes:**
+                        1. Registry record type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable result sets 
+                        3. Referenced in search_request and notify events
+                        4. example: "Member" 
+                    example: Member
                   reg_records:
                     description: |
                       The "Beneficiary" object contains fields expected in response of search
@@ -1520,8 +1529,8 @@ components:
                         1. Registry record type values defined as per implementation context.
                         2. Usually a list of **enum** values of all possible queryable result sets 
                         3. Referenced in search_request and notify events
-                        4. example: "spdci-extensions-dci:Person" 
-                    example: 'spdci-extensions-dci:Person'
+                        4. example: "spdci-extensions-dci:Member" 
+                    example: 'spdci-extensions-dci:Member'
                   authorize:
                     $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/authorize'
                 required:
@@ -1623,8 +1632,8 @@ components:
             **Notes:**
               1. Registry type values defined as per implementation context.
               2. Usually a list of **enum** values of all possible queryable functional registries 
-              3. example: "ns:org:RegistryType:Civil"
-          example: 'ns:org:RegistryType:Civil'
+              3. example: "ns:org:RegistryType:Social"
+          example: 'ns:org:RegistryType:Social'
         reg_event_type:
           type: string
           description: |
@@ -1698,7 +1707,25 @@ components:
                       1. Query expression's syntax / format is determined based on query-type.
                       2. Query expression as a template with placeholder to pass conditional search parameters
                   example:
-                    expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } } '
+                    expression: |
+                      query GetMemberByIdentifier {
+                        member(
+                          identifier: {
+                            value: "1",
+                            type: "uin"
+                          }
+                        ) {
+                          member_identifier {
+                            value
+                            type
+                          }
+                          demographic_info {
+                            name
+                            gender
+                            age
+                          }
+                        }
+                      }
             - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1'
             - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2'
         notify_record_type:

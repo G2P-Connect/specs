@@ -23,8 +23,10 @@ properties:
             version:
               type: string
               default: 1.0.0
-            reg_event_type:
-              $ref: ./RegistryEventType.yaml
+            reg_type:
+              $ref: RegistryType.yaml
+            reg_record_type:
+              $ref: RegistryRecordType.yaml 
             query_type:
               $ref: ./QueryType.yaml
             response_entity:

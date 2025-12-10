@@ -895,6 +895,15 @@ components:
                     default: 1.0.0
                   reg_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
+                  reg_event_type:
+                    type: string
+                    description: |
+                      The SP-System receives data from Disability registry, usually the DR sends registration and updates events to SP-System
+
+                      1 : Register 
+                    enum:
+                      - REGISTER
+                    example: 'spdci-common:RegistryEventType:REGISTER'
                   reg_record_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
@@ -947,8 +956,8 @@ components:
                     default: 1.0.0
                   reg_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
-                  reg_event_type:
-                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_event_type'
+                  reg_record_type:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   query_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
                   query:
@@ -1090,17 +1099,6 @@ components:
                         2. Usually a list of **enum** values of all possible queryable functional registries 
                         3. example: "ns:org:RegistryType:DR"
                     example: 'ns:org:RegistryType:DR'
-                  reg_event_type:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
-                      @type: "VitalEvent" <br>
-
-                      **Notes:**
-                        1. Registry event type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable identifiers.
-                        3. example: "spdci-common:RegistryEventType:DisabledPerson"
-                    example: 'spdci-common:RegistryEventType:DisabledPerson'
                   reg_record_type:
                     type: string
                     description: |
@@ -1224,7 +1222,7 @@ components:
                   reg_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
                   reg_event_type:
-                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_event_type'
+                    $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_event_type'
                   frequency:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/frequency'
                   filter_type:
@@ -1290,7 +1288,7 @@ components:
                     reg_type:
                       $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
                     reg_event_type:
-                      $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_event_type'
+                      $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_event_type'
                     frequency:
                       $ref: '#/components/schemas/SubscriptionInfo/properties/frequency'
                     filter_type:
@@ -1366,8 +1364,8 @@ components:
             **Notes:**
               1. Registry type values defined as per implementation context.
               2. Usually a list of **enum** values of all possible queryable functional registries 
-              3. example: "ns:org:RegistryType:Civil"
-          example: 'ns:org:RegistryType:Civil'
+              3. example: "ns:org:RegistryType:Social"
+          example: 'ns:org:RegistryType:Social'
         reg_event_type:
           type: string
           description: |
@@ -1441,7 +1439,25 @@ components:
                       1. Query expression's syntax / format is determined based on query-type.
                       2. Query expression as a template with placeholder to pass conditional search parameters
                   example:
-                    expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } } '
+                    expression: |
+                      query GetMemberByIdentifier {
+                        member(
+                          identifier: {
+                            value: "1",
+                            type: "uin"
+                          }
+                        ) {
+                          member_identifier {
+                            value
+                            type
+                          }
+                          demographic_info {
+                            name
+                            gender
+                            age
+                          }
+                        }
+                      }
             - $ref: '#/components/schemas/RegistryQueries/oneOf/1'
             - $ref: '#/components/schemas/RegistryQueries/oneOf/2'
         notify_record_type:
@@ -1458,8 +1474,8 @@ components:
               1. Registry record type values defined as per implementation context.
               2. Usually a list of **enum** values of all possible queryable result sets 
               3. Referenced in search_request and notify events
-              4. example: "spdci-extensions-dci:Person" 
-          example: 'spdci-extensions-dci:Person'
+              4. example: "spdci-extensions-dci:Member" 
+          example: 'spdci-extensions-dci:Member'
         locale:
           type: string
           description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard

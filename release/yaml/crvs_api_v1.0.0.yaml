@@ -747,28 +747,20 @@ components:
                     type: string
                     default: 1.0.0
                   reg_type:
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
+                  reg_event_type:
                     type: string
                     description: |
-                      @context:https://schema.spdci.org/common/v1/api-schemas/RegistryType.jsonld <br>
-                      @type: "@context" <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
+                      @type: "VitalEvent" <br>
 
                       **Notes:**
-                        1. Registry type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable functional registries 
-                        3. example: "ns:org:RegistryType:Civil"
-                    example: 'ns:org:RegistryType:Civil'
+                        1. Registry event type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable identifiers.
+                        3. example: "spdci-common:RegistryEventType:DisabledPerson"
+                    example: 'spdci-common:RegistryEventType:DisabledPerson'
                   reg_record_type:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
-                      @type: "RegistryRecordType" <br>
-
-                      **Notes:**
-                        1. Registry record type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable result sets 
-                        3. Referenced in search_request and notify events
-                        4. example: "spdci-extensions-dci:Person" 
-                    example: 'spdci-extensions-dci:Person'
+                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
                     type: object
                     description: |
@@ -933,19 +925,20 @@ components:
                       **Notes:**
                         1. Registry type values defined as per implementation context.
                         2. Usually a list of **enum** values of all possible queryable functional registries 
-                        3. example: "ns:org:RegistryType:Civil"
-                    example: 'ns:org:RegistryType:Civil'
-                  reg_event_type:
+                        3. example: "ns:org:RegistryType:Social"
+                    example: 'ns:org:RegistryType:Social'
+                  reg_record_type:
                     type: string
                     description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
-                      @type: "VitalEvent" <br>
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
+                      @type: "RegistryRecordType" <br>
 
                       **Notes:**
-                        1. Registry event type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable identifiers.
-                        3. example: "spdci-common:RegistryEventType:LiveBirth"
-                    example: 'spdci-common:RegistryEventType:LiveBirth'
+                        1. Registry record type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable result sets 
+                        3. Referenced in search_request and notify events
+                        4. example: "spdci-extensions-dci:Member" 
+                    example: 'spdci-extensions-dci:Member'
                   query_type:
                     type: string
                     description: |
@@ -988,7 +981,25 @@ components:
                                 1. Query expression's syntax / format is determined based on query-type.
                                 2. Query expression as a template with placeholder to pass conditional search parameters
                             example:
-                              expression: ' query GeBirthRecordById: { person: (UIN: "1") { BRN, name, gender, birthDate, birthPlace, parents } } '
+                              expression: |
+                                query GetMemberByIdentifier {
+                                  member(
+                                    identifier: {
+                                      value: "1",
+                                      type: "uin"
+                                    }
+                                  ) {
+                                    member_identifier {
+                                      value
+                                      type
+                                    }
+                                    demographic_info {
+                                      name
+                                      gender
+                                      age
+                                    }
+                                  }
+                                }
                       - type: object
                         description: Identifier type and value object
                         properties:
@@ -1191,6 +1202,29 @@ components:
                   version:
                     type: string
                     default: 1.0.0
+                  reg_type:
+                    type: string
+                    description: |
+                      @context:https://schema.spdci.org/common/v1/api-schemas/RegistryType.jsonld <br>
+                      @type: "@context" <br>
+
+                      **Notes:**
+                        1. Registry type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable functional registries 
+                        3. example: "ns:org:RegistryType:Civil"
+                    example: 'ns:org:RegistryType:Civil'
+                  reg_record_type:
+                    type: string
+                    description: |
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
+                      @type: "RegistryRecordType" <br>
+
+                      **Notes:**
+                        1. Registry record type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable result sets 
+                        3. Referenced in search_request and notify events
+                        4. example: "spdci-extensions-dci:Person" 
+                    example: 'spdci-extensions-dci:Person'
                   reg_records:
                     description: |
                       The "Entity" object contains fields expected in response of search
@@ -1366,7 +1400,16 @@ components:
                   reg_type:
                     $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_type'
                   reg_event_type:
-                    $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_event_type'
+                    type: string
+                    description: |
+                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
+                      @type: "VitalEvent" <br>
+
+                      **Notes:**
+                        1. Registry event type values defined as per implementation context.
+                        2. Usually a list of **enum** values of all possible queryable identifiers.
+                        3. example: "spdci-common:RegistryEventType:LiveBirth"
+                    example: 'spdci-common:RegistryEventType:LiveBirth'
                   frequency:
                     type: object
                     description: |
@@ -1392,17 +1435,7 @@ components:
                   filter:
                     $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query'
                   notify_record_type:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
-                      @type: "RegistryRecordType" <br>
-
-                      **Notes:**
-                        1. Registry record type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable result sets 
-                        3. Referenced in search_request and notify events
-                        4. example: "spdci-extensions-dci:Person" 
-                    example: 'spdci-extensions-dci:Person'
+                    $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_record_type'
                   authorize:
                     $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/authorize'
                 required:
@@ -1460,7 +1493,7 @@ components:
                     reg_type:
                       $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_type'
                     reg_event_type:
-                      $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_event_type'
+                      $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/reg_event_type'
                     frequency:
                       $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/frequency'
                     filter_type:
@@ -1468,7 +1501,7 @@ components:
                     filter:
                       $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query'
                     notify_record_type:
-                      $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/notify_record_type'
+                      $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_record_type'
                       required:
                         - reg_event_type
                         - filter
@@ -1609,10 +1642,8 @@ components:
                           default: 1.0.0
                         reg_type:
                           $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_type'
-                        reg_event_type:
-                          $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_event_type'
                         reg_record_type:
-                          $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/notify_record_type'
+                          $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/reg_record_type'
                         reg_records:
                           type: object
                           description: |
