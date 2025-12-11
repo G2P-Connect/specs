@@ -728,7 +728,7 @@ components:
     NotifyEventRequest: 
       $ref: crvs/NotifyEventRequest.yaml
     SearchRequest: 
-      $ref: schema/SearchRequest.yaml
+      $ref: crvs/SearchRequest.yaml
     SearchResponse: 
       $ref: crvs/SearchResponse.yaml
     SearchStatusReasonCode: 
