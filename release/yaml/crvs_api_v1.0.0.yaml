@@ -757,8 +757,8 @@ components:
                       **Notes:**
                         1. Registry event type values defined as per implementation context.
                         2. Usually a list of **enum** values of all possible queryable identifiers.
-                        3. example: "spdci-common:RegistryEventType:DisabledPerson"
-                    example: 'spdci-common:RegistryEventType:DisabledPerson'
+                        3. example: "spdci-common:RegistryEventType:LiveBirth"
+                    example: 'spdci-common:RegistryEventType:LiveBirth'
                   reg_record_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
