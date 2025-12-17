@@ -28,7 +28,6 @@ info:
     - signature 
     - header 
     - message
-  version: 1.0.0
   contact:
     name: DCI Social Protection
     email: info@spdci.org
@@ -770,6 +769,6 @@ components:
       $ref: ../common/response/Response.yaml  
     HttpErrorResponse:
       $ref: ../common/response/HttpErrorResponse.yaml        
-#  securitySchemes:
- #   Authorization:
- #     $ref: ../common/security/Authorization.yaml
+  securitySchemes:
+    Authorization:
+      $ref: ../common/security/Authorization.yaml

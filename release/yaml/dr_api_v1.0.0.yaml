@@ -1985,7 +1985,7 @@ components:
             3. For SFTP based communications, this shall be set to server/folder details.
           type: string
           format: uri
-          example: 'https://spmis.example.org/{namespace}/callback/on-search'
+          example: 'https://spmis.example.org/consumer-namespace/callback/on-search'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verification, etc., functions.'
           type: string

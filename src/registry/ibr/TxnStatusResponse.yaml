@@ -13,7 +13,7 @@ properties:
         description: txn type to fetch status 
         enum: ["search","subscribe","receipt"]
       txn_status:
-        oneOf:
+        anyOf:
           - $ref: SearchResponse.yaml
           - $ref: ReceiptRequest.yaml
     required: 
