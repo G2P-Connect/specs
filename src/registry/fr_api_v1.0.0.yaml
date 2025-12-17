@@ -356,57 +356,57 @@ paths:
     deprecated: false
  /registry/on-subscribe:
     post: 
-    summary: "/registry/on-subscribe"
-    description: Subscribe results through callback
-    operationId: post_reg_on-subscribe
-    tags: 
-      -  Async
-    requestBody:
-      description: ""
-      required: true
-      content:
-        application/json:
-          schema:
-              type: object
-              properties:
-                signature:  
-                  $ref: "#/components/schemas/MsgSignature"
-                header:
-                  allOf:
-                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
-                    - properties:
-                        action:
-                          enum:
-                            - on-subscribe
-                message:
-                  type: object
-                  description: Subscription information 
-                  oneOf:
-                    - $ref: "#/components/schemas/SubscribeResponse"
-                    - $ref: "#/components/schemas/EncryptedMessage"
-              required:
-                - header
-                - message
-        multipart/form-data:
-          schema:
-            allOf:
-              - $ref: "#/components/schemas/FileInfo"
-              - properties:
-                  action:
-                    enum:
-                      - on-subscribe
-    responses:
-        default:
-          $ref: "#/components/responses/Response"
-        '401':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '403':
-          $ref: "#/components/responses/HttpErrorResponse"
-        '500':
-          $ref: "#/components/responses/HttpErrorResponse"
-    security:
-      - Authorization: [ ]
-    deprecated: false
+      summary: "/registry/on-subscribe"
+      description: Subscribe results through callback
+      operationId: post_reg_on-subscribe
+      tags: 
+        -  Async
+      requestBody:
+        description: ""
+        required: true
+        content:
+          application/json:
+            schema:
+                type: object
+                properties:
+                  signature:  
+                    $ref: "#/components/schemas/MsgSignature"
+                  header:
+                    allOf:
+                      - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                      - properties:
+                          action:
+                            enum:
+                              - on-subscribe
+                  message:
+                    type: object
+                    description: Subscription information 
+                    oneOf:
+                      - $ref: "#/components/schemas/SubscribeResponse"
+                      - $ref: "#/components/schemas/EncryptedMessage"
+                required:
+                  - header
+                  - message
+          multipart/form-data:
+            schema:
+              allOf:
+                - $ref: "#/components/schemas/FileInfo"
+                - properties:
+                    action:
+                      enum:
+                        - on-subscribe
+      responses:
+          default:
+            $ref: "#/components/responses/Response"
+          '401':
+            $ref: "#/components/responses/HttpErrorResponse"
+          '403':
+            $ref: "#/components/responses/HttpErrorResponse"
+          '500':
+            $ref: "#/components/responses/HttpErrorResponse"
+      security:
+        - Authorization: [ ]
+      deprecated: false
  
  /registry/unsubscribe:
   post: 
@@ -776,12 +776,6 @@ components:
       $ref: schema/SubscribeResponse.yaml
     SubscribeStatusReasonCode: 
       $ref: schema/SubscribeStatusReasonCode.yaml
-    SubscriptionCode: 
-      $ref: schema/SubscriptionCode.yaml
-    SubscriptionCodeList: 
-      $ref: schema/SubscriptionCodeList.yaml
-    SubscriptionInfo:
-      $ref: schema/SubscriptionInfo.yaml
     SubscriptionStatus:
         $ref: schema/SubscriptionStatus.yaml
     UnSubscribeRequest: 

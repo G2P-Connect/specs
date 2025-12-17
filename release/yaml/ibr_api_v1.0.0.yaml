@@ -1080,7 +1080,7 @@ components:
             2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
           type: string
           maxLength: 99
-          example: 0123456789
+          example: XZFHYTY
         search_request:
           type: array
           description: |
@@ -1329,7 +1329,8 @@ components:
             2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
           type: string
           maxLength: 99
-          example: '9876543210'
+          pattern: '^[a-zA-Z0-9-]+$'
+          example: ABC9876543210
         search_response:
           type: array
           items:
@@ -1520,17 +1521,7 @@ components:
                   filter:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/filter'
                   notify_record_type:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
-                      @type: "RegistryRecordType" <br>
-
-                      **Notes:**
-                        1. Registry record type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable result sets 
-                        3. Referenced in search_request and notify events
-                        4. example: "spdci-extensions-dci:Member" 
-                    example: 'spdci-extensions-dci:Member'
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/notify_record_type'
                   authorize:
                     $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/authorize'
                 required:
@@ -1622,7 +1613,7 @@ components:
             1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
           type: string
           format: date-time
-          example: ''
+          example: '2022-12-04T17:20:07-04:00'
         reg_type:
           type: string
           description: |
@@ -1729,20 +1720,28 @@ components:
             - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1'
             - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2'
         notify_record_type:
-          $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/notify_record_type'
-          required:
-            - reg_event_type
-            - filter
-            - notify_record_type
+          type: string
+          description: |
+            @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
+            @type: "RegistryRecordType" <br>
+
+            **Notes:**
+              1. Registry record type values defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable result sets 
+              3. Referenced in search_request and notify events
+              4. example: "spdci-extensions-dci:Member" 
+          example: 'spdci-extensions-dci:Member'
         locale:
           type: string
           description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard
           pattern: '^[a-z]{3,3}$'
-          example: en
+          example: eng
       required:
-        - subscription_code
+        - code
         - timestamp
-        - subscribe_criteria
+        - reg_event_type
+        - filter
+        - notify_record_type
     SubscriptionStatus:
       type: string
       description: subscription status
@@ -1755,7 +1754,7 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
-        timesstamp:
+        timestamp:
           $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
         subscription_codes:
           type: array
@@ -1764,7 +1763,7 @@ components:
       required:
         - transaction_id
         - timestamp
-        - sunscription_codes
+        - subscription_codes
     UnSubscribeResponse:
       type: object
       description: Un-Subscribe to a life event with crvs
@@ -1773,7 +1772,7 @@ components:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
         correlation_id:
           $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
-        timesatmp:
+        timestamp:
           $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
         status:
           type: string
@@ -1828,13 +1827,13 @@ components:
             reference_id:
               type: string
               description: Unique reference_id set by txn initiating system for each request in a batch
-              example: '12345678901234567890'
+              example: SDFRTYUX
             txn_type:
               type: string
               description: txn type to fetch status
               enum:
                 - search
-                - subscibe
+                - subscribe
                 - receipt
             attribute_type:
               type: string
@@ -1875,10 +1874,10 @@ components:
               description: txn type to fetch status
               enum:
                 - search
-                - subscibe
+                - subscribe
                 - receipt
             txn_status:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/SearchResponse'
                 - type: object
                   description: Registry to notify a event to subscrbiers
@@ -1890,8 +1889,6 @@ components:
                   required:
                     - transaction_id
                     - receipt_information
-          example:
-            $ref: '#/components/schemas/SearchResponse'
           required:
             - txn_type
             - txn_status
