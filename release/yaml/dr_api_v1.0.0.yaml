@@ -52,7 +52,6 @@ info:
     - signature 
     - header 
     - message
-  version: 1.0.0
   contact:
     name: DCI Social Protection
     email: info@spdci.org
@@ -789,91 +788,9 @@ paths:
       deprecated: false
 components:
   schemas:
-    RegistryQueries:
-      description: |
-        1. Implementing systems can define schemas.
-        2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
-      oneOf:
-        - $ref: '#/components/schemas/ExpTemplate'
-        - type: object
-          description: Identifier type and value object
-          properties:
-            type:
-              type: string
-              description: |
-                @type: "IdType" <br>
-
-                **Notes:**
-                  1. Identifier type values defined as per implementation context.
-                  2. Usually a list of **enum** values of all possible queryable identifiers.
-                  3. e.g: UIN, MOBILE, BRN, MRN, DRN, etc., 
-              example: UIN
-            value:
-              allOf:
-                - description: Identifier Value of the subject.
-                - oneOf:
-                    - type: string
-                    - type: integer
-                    - type: number
-                    - type: boolean
-                    - type: object
-                  example: '1980'
-              example: '12314567890'
-        - type: array
-          items:
-            type: object
-            properties:
-              seq_num:
-                description: Sequence number to help define precedence for evaluating a list of expression Predicates
-                type: number
-                example: 1
-              expression1:
-                type: object
-                description: Expression
-                properties:
-                  attribute_name:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/QueryAttributes.jsonld <br>
-                      @type: "QueryAttributes" <br>
-
-                      **Notes:**
-                        1. Query attribute names defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable attribute names.
-                        3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
-                    example: YOB
-                  operator:
-                    type: string
-                    description: Operator in an expression
-                    enum:
-                      - gt
-                      - lt
-                      - eq
-                      - ge
-                      - le
-                      - in
-                    example: eq
-                  attribute_value:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/filter/oneOf/1/properties/value/allOf/1'
-                required:
-                  - attribute_name
-                  - operator
-                  - attribute_value
-              condition:
-                type: string
-                description: Condition in an expression
-                enum:
-                  - and
-                  - or
-                  - not
-                example: and
-              expression2:
-                $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2/items/properties/expression1'
-            required:
-              - expression1
     NotifyEventRequest:
       type: object
-      description: Registry to notify a event to subscrbiers
+      description: Registry to notify a event to subscribers
       properties:
         transaction_id:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
@@ -885,7 +802,7 @@ components:
               reference_id:
                 $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               data:
                 type: object
                 description: |
@@ -903,8 +820,8 @@ components:
 
                       1 : Register 
                     enum:
-                      - REGISTER
-                    example: 'spdci-common:RegistryEventType:REGISTER'
+                      - register
+                    example: register
                   reg_record_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
@@ -913,7 +830,7 @@ components:
                   - reg_record_type
                   - reg_records
               locale:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -935,7 +852,7 @@ components:
             2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
           type: string
           maxLength: 99
-          example: 0123456789
+          example: XZFHYTY
         search_request:
           type: array
           description: |
@@ -946,9 +863,9 @@ components:
               reference_id:
                 type: string
                 description: Unique reference_id set by txn initiating system for each request in a batch
-                example: '12345678901234567890'
+                example: SDFRTYUX
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               search_criteria:
                 type: object
                 properties:
@@ -960,9 +877,98 @@ components:
                   reg_record_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   query_type:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
+                    type: string
+                    description: |
+                      1. Query format allow multiple ways to search registry
+                      2. Templatized query expressions with placeholder for conditional values
+                    enum:
+                      - idtype-value
+                      - expression
+                      - predicate
+                      - graphql
+                    example: expression
                   query:
-                    $ref: '#/components/schemas/RegistryQueries'
+                    description: |
+                      1. Implementing systems can define schemas.
+                      2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
+                    oneOf:
+                      - $ref: '#/components/schemas/ExpTemplate'
+                      - type: object
+                        description: Identifier type and value object
+                        properties:
+                          type:
+                            type: string
+                            description: |
+                              @type: "IdType" <br>
+
+                              **Notes:**
+                                1. Identifier type values defined as per implementation context.
+                                2. Usually a list of **enum** values of all possible queryable identifiers.
+                                3. e.g: UIN, MOBILE, BRN, MRN, DRN, etc., 
+                            example: UIN
+                          value:
+                            allOf:
+                              - description: Identifier Value of the subject.
+                              - oneOf:
+                                  - type: string
+                                  - type: integer
+                                  - type: number
+                                  - type: boolean
+                                  - type: object
+                                example: '1980'
+                            example: '12314567890'
+                      - type: array
+                        items:
+                          type: object
+                          properties:
+                            seq_num:
+                              description: Sequence number to help define precedence for evaluating a list of expression Predicates
+                              type: number
+                              example: 1
+                            expression1:
+                              type: object
+                              description: Expression
+                              properties:
+                                attribute_name:
+                                  type: string
+                                  description: |
+                                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryAttributes.jsonld <br>
+                                    @type: "QueryAttributes" <br>
+
+                                    **Notes:**
+                                      1. Query attribute names defined as per implementation context.
+                                      2. Usually a list of **enum** values of all possible queryable attribute names.
+                                      3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+                                  example: YOB
+                                operator:
+                                  type: string
+                                  description: Operator in an expression
+                                  enum:
+                                    - gt
+                                    - lt
+                                    - eq
+                                    - ge
+                                    - le
+                                    - in
+                                  example: eq
+                                attribute_value:
+                                  $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1/properties/value/allOf/1'
+                              required:
+                                - attribute_name
+                                - operator
+                                - attribute_value
+                            condition:
+                              type: string
+                              description: Condition in an expression
+                              enum:
+                                - and
+                                - or
+                                - not
+                              example: and
+                            expression2:
+                              $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2/items/properties/expression1'
+                          required:
+                            - expression1
                   sort:
                     type: array
                     items:
@@ -1008,7 +1014,7 @@ components:
                       '@context': 'https://schema.spdci.org/common/v1/api-schemas/Consent.jsonld'
                       '@type': Consent
                       ts:
-                        $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                        $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
                       purpose:
                         text:
                           type: string
@@ -1028,7 +1034,7 @@ components:
                       '@context': 'https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld'
                       '@type': Authorize
                       ts:
-                        $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                        $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
                       purpose:
                         text:
                           type: string
@@ -1043,7 +1049,10 @@ components:
                   - query_type
                   - query
               locale:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                type: string
+                description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard
+                pattern: '^[a-z]{3,3}$'
+                example: eng
             required:
               - reference_id
               - timestamp
@@ -1063,7 +1072,8 @@ components:
             2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
           type: string
           maxLength: 99
-          example: '9876543210'
+          pattern: '^[a-zA-Z0-9-]+$'
+          example: ABC9876543210
         search_response:
           type: array
           items:
@@ -1072,7 +1082,7 @@ components:
               reference_id:
                 $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               status:
                 $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
               status_reason_code:
@@ -1178,7 +1188,7 @@ components:
                   - page_number
                   - total_count
               locale:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -1201,7 +1211,7 @@ components:
         - rjct.search.too_many_records_found
     SubscribeRequest:
       type: object
-      description: Subscribe to a life event with crvs
+      description: Subscribe to a life event with CRVS
       properties:
         transaction_id:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
@@ -1213,9 +1223,10 @@ components:
               reference_id:
                 $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               subscribe_criteria:
                 type: object
+                description: Criteria defining the subscription
                 properties:
                   version:
                     type: string
@@ -1225,11 +1236,29 @@ components:
                   reg_event_type:
                     $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_event_type'
                   frequency:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/frequency'
+                    type: object
+                    description: |
+                      1. Frequency at which subscribed services should be notified. 
+                      2. start_time, end_time represent data range where the notification frequency is applicable 
+                    properties:
+                      start_time:
+                        $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                      end_time:
+                        $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
+                      frequency:
+                        type: string
+                        description: |
+                          Frequency at which notification is required. This will be in the form of cron expression. 
+                          Example - "0 0 0 5,15 * ? *" 
+                          which says At 00:00:00am, on the 5th and 15th day, every month
+                    required:
+                      - start_time
+                      - end_time
+                      - frequency
                   filter_type:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
+                    $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query_type'
                   filter:
-                    $ref: '#/components/schemas/RegistryQueries'
+                    $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query'
                   notify_record_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   authorize:
@@ -1239,7 +1268,7 @@ components:
                   - filter
                   - notify_record_type
               locale:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -1263,7 +1292,7 @@ components:
               reference_id:
                 $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               status:
                 $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
               status_reason_code:
@@ -1281,37 +1310,36 @@ components:
                       type: string
                       default: 1.0.0
                     code:
-                      $ref: '#/components/schemas/SubscriptionCode'
+                      $ref: '#/components/schemas/UnSubscribeRequest/properties/subscription_codes/items'
                     status:
                       $ref: '#/components/schemas/SubscriptionStatus'
                     timestamp:
-                      $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                      $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
                     reg_type:
                       $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_type'
                     reg_event_type:
                       $ref: '#/components/schemas/NotifyEventRequest/properties/notify_event/items/properties/data/properties/reg_event_type'
                     frequency:
-                      $ref: '#/components/schemas/SubscriptionInfo/properties/frequency'
+                      $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/frequency'
                     filter_type:
-                      $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
+                      $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query_type'
                     filter:
-                      $ref: '#/components/schemas/RegistryQueries'
+                      $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query'
                     notify_record_type:
                       $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
-                      required:
-                        - reg_event_type
-                        - filter
-                        - notify_record_type
                     locale:
-                      $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                      $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/locale'
                   required:
                     - subscription_code
                     - timestamp
                     - subscribe_criteria
+                    - reg_event_type
+                    - filter
+                    - notify_record_type
               pagination:
                 $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/pagination'
               locale:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -1331,161 +1359,6 @@ components:
         - rjct.notify_details.invalid
         - rjct.person_id.invalid
         - rjct.event.already_subscribed
-    SubscriptionCode:
-      type: string
-      description: |
-        Unique code to identify the subscription request by the entity providing subscription service.
-        Helps to check status, unsubscribe etc.,
-      maxLength: 99
-    SubscriptionCodeList:
-      items:
-        $ref: '#/components/schemas/SubscriptionCode'
-    SubscriptionInfo:
-      type: object
-      properties:
-        version:
-          type: string
-          default: 1.0.0
-        code:
-          $ref: '#/components/schemas/SubscriptionCode'
-        status:
-          $ref: '#/components/schemas/SubscriptionStatus'
-        timestamp:
-          description: |
-            1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
-          type: string
-          format: date-time
-          example: ''
-        reg_type:
-          type: string
-          description: |
-            @context:https://schema.spdci.org/common/v1/api-schemas/RegistryType.jsonld <br>
-            @type: "@context" <br>
-
-            **Notes:**
-              1. Registry type values defined as per implementation context.
-              2. Usually a list of **enum** values of all possible queryable functional registries 
-              3. example: "ns:org:RegistryType:Social"
-          example: 'ns:org:RegistryType:Social'
-        reg_event_type:
-          type: string
-          description: |
-            @context: https://schema.spdci.org/common/v1/api-schemas/RegistryEventTypeEnum.jsonld <br>
-            @type: "VitalEvent" <br>
-
-            **Notes:**
-              1. Registry event type values defined as per implementation context.
-              2. Usually a list of **enum** values of all possible queryable identifiers.
-              3. example: "spdci-common:RegistryEventType:LiveBirth"
-          example: 'spdci-common:RegistryEventType:LiveBirth'
-        frequency:
-          type: object
-          description: |
-            1. Frequency at which subscribed services should be notified. 
-            2. start_time, end_time represent data range where the notification frequency is applicable 
-          properties:
-            start_time:
-              $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
-            end_time:
-              $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
-            frequency:
-              type: string
-              description: |
-                Frequency at which notification is required. This will be in the form of cron expression. 
-                Example - "0 0 0 5,15 * ? *" 
-                which says At 00:00:00am, on the 5th and 15th day, every month
-          required:
-            - start_time
-            - end_time
-            - frequency
-        filter_type:
-          type: string
-          description: |
-            1. Query format allow multiple ways to search registry
-            2. Templatized query expressions with placeholder for conditional values
-          enum:
-            - idtype-value
-            - expression
-            - predicate
-            - graphql
-          example: expression
-        filter:
-          description: |
-            1. Implementing systems can define schemas.
-            2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
-            3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
-              - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
-              - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
-          oneOf:
-            - type: object
-              description: Identifier type and value object
-              properties:
-                type:
-                  type: string
-                  description: |
-                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryTypeEnum.jsonld <br>
-                    @type: "QueryType" <br>
-
-                    **Notes:**
-                      1. Query types that helps decode query expressions
-                      2. Sample query type enums: "graphql", "expression", "idtype-value"
-                  example: 'ns:org:QueryType:graphql'
-                value:
-                  type: object
-                  description: |
-                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryExpression.jsonld <br>
-                    @type: "QueryExpression" <br>
-
-                    **Notes:**
-                      1. Query expression's syntax / format is determined based on query-type.
-                      2. Query expression as a template with placeholder to pass conditional search parameters
-                  example:
-                    expression: |
-                      query GetMemberByIdentifier {
-                        member(
-                          identifier: {
-                            value: "1",
-                            type: "uin"
-                          }
-                        ) {
-                          member_identifier {
-                            value
-                            type
-                          }
-                          demographic_info {
-                            name
-                            gender
-                            age
-                          }
-                        }
-                      }
-            - $ref: '#/components/schemas/RegistryQueries/oneOf/1'
-            - $ref: '#/components/schemas/RegistryQueries/oneOf/2'
-        notify_record_type:
-          required:
-            - reg_event_type
-            - filter
-            - notify_record_type
-          type: string
-          description: |
-            @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
-            @type: "RegistryRecordType" <br>
-
-            **Notes:**
-              1. Registry record type values defined as per implementation context.
-              2. Usually a list of **enum** values of all possible queryable result sets 
-              3. Referenced in search_request and notify events
-              4. example: "spdci-extensions-dci:Member" 
-          example: 'spdci-extensions-dci:Member'
-        locale:
-          type: string
-          description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard
-          pattern: '^[a-z]{3,3}$'
-          example: en
-      required:
-        - subscription_code
-        - timestamp
-        - subscribe_criteria
     SubscriptionStatus:
       type: string
       description: subscription status
@@ -1498,16 +1371,20 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
-        timesstamp:
-          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+        timestamp:
+          $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
         subscription_codes:
           type: array
           items:
-            $ref: '#/components/schemas/SubscriptionCode'
+            type: string
+            description: |
+              Unique code to identify the subscription request by the entity providing subscription service.
+              Helps to check status, unsubscribe etc.,
+            maxLength: 99
       required:
         - transaction_id
         - timestamp
-        - sunscription_codes
+        - subscription_codes
     UnSubscribeResponse:
       type: object
       description: Un-Subscribe to a life event with crvs
@@ -1516,8 +1393,8 @@ components:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
         correlation_id:
           $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
-        timesatmp:
-          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+        timestamp:
+          $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
         status:
           type: string
           description: 'Request (e.g disburse, link, unlink, resolve, issue, search, verify, etc.,) status: <br> 1. rcvd: Received; Request received <br> 2. pdng: Pending; Request initiated <br> 3. succ: Success; Request successful <br> 4. rjct: Rejected; Request rejected'
@@ -1538,7 +1415,7 @@ components:
             type: object
             properties:
               code:
-                $ref: '#/components/schemas/SubscriptionCode'
+                $ref: '#/components/schemas/UnSubscribeRequest/properties/subscription_codes/items'
               status:
                 $ref: '#/components/schemas/SubscriptionStatus'
             required:
@@ -1586,7 +1463,7 @@ components:
               reference_id:
                 $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               status:
                 $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
               status_reason_code:
@@ -1611,35 +1488,87 @@ components:
                       @container: "@set" <br>
                     type: array
                     items:
-                      type: array
+                      type: object
                       description: |
-                        1. List of a member disability info related to the person we are searching for.
-                        @context: https://schema.spdci.org/extensions/dr/v1/DRPerson.jsonld <br>
-                        @type: "@context" <br>
-                      example:
-                        - human_assistance:
-                            type: mobility
-                            frequency: Daily
-                            support_status: Needed
-                            caregiver:
-                              id: Person_001
-                              name: John Doe
-                              identifier: '12345'
-                            relationship: Parent
-                            registration_date: '2024-01-15T10:00:00Z'
-                            last_updated: '2024-09-20T12:30:00Z'
-                          assistive_technology: []
-                          housing_support: []
-                          medical_care: []
-                          animal_assistance: []
-                          registration_date: '2023-05-20T09:00:00Z'
-                          last_updated: '2024-10-01T11:15:00Z'
+                        Disability support info for a member.
+                      properties:
+                        disabilities:
+                          type: array
+                          description: |
+                            List of a member disability info related to the person we are searching for.
+                            @context: https://schema.spdci.org/extensions/dr/v1/DRPerson.jsonld <br>
+                            @type: "@context" <br>
+                          items:
+                            type: object
+                            properties:
+                              human_assistance:
+                                type: object
+                                properties:
+                                  type:
+                                    type: string
+                                  frequency:
+                                    type: string
+                                  support_status:
+                                    type: string
+                                  caregiver:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: string
+                                      name:
+                                        type: string
+                                      identifier:
+                                        type: string
+                                  relationship:
+                                    type: string
+                                  registration_date:
+                                    type: string
+                                    format: date-time
+                                  last_updated:
+                                    type: string
+                                    format: date-time
+                              assistive_technology:
+                                type: array
+                                items: {}
+                              housing_support:
+                                type: array
+                                items: {}
+                              medical_care:
+                                type: array
+                                items: {}
+                              animal_assistance:
+                                type: array
+                                items: {}
+                              registration_date:
+                                type: string
+                                format: date-time
+                              last_updated:
+                                type: string
+                                format: date-time
+                          example:
+                            - human_assistance:
+                                type: mobility
+                                frequency: Daily
+                                support_status: Needed
+                                caregiver:
+                                  id: Person_001
+                                  name: John Doe
+                                  identifier: '12345'
+                                relationship: Parent
+                                registration_date: 2024-01-15T10:00:00.000Z
+                                last_updated: 2024-09-20T12:30:00.000Z
+                              assistive_technology: []
+                              housing_support: []
+                              medical_care: []
+                              animal_assistance: []
+                              registration_date: 2023-05-20T09:00:00.000Z
+                              last_updated: 2024-10-01T11:15:00.000Z
                 required:
                   - reg_records
               pagination:
                 $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/pagination'
               locale:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -1664,7 +1593,7 @@ components:
               reference_id:
                 $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               status:
                 $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
               status_reason_code:
@@ -1707,7 +1636,7 @@ components:
               pagination:
                 $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/pagination'
               locale:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/locale'
+                $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/locale'
             required:
               - reference_id
               - timestamp
@@ -1724,12 +1653,12 @@ components:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
         disabled_criteria:
           type: object
-          description: |
-            Disabled query
+          description: Disabled query
           properties:
             query_type:
-              $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
-              description: ''
+              allOf:
+                - $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query_type'
+                - description: Type of query
             query:
               type: object
               description: Query expression for the disabled query
@@ -1755,7 +1684,7 @@ components:
               reference_id:
                 $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/reference_id'
               timestamp:
-                $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
               status:
                 $ref: '#/components/schemas/UnSubscribeResponse/properties/status'
               status_reason_message:
@@ -1857,12 +1786,12 @@ components:
 
             **Notes:**
               1. Query types that helps decode query expressions
-              2. Sample query type enums: "GraphQl", "Sql", "NoSql"
-          example: 'ns:org:QueryType:NoSql'
+              2. Sample query type enums: "graphql", "idtype-value", "expression"
+          example: 'ns:org:QueryType:expression'
         value:
           type: object
           description: |
-            @context: https://schema.spdci.org/v1/api-schemas/QueryExpression.jsonld <br>
+            @context: https://schema.spdci.org/common/v1/api-schemas/QueryExpression.jsonld <br>
             @type: "QueryExpression" <br>
 
             **Notes:**
@@ -1870,6 +1799,7 @@ components:
               2. Query expression as a template with placeholder to pass conditional search parameters
           example:
             expression:
+              collection: DPRerson
               query:
                 $and:
                   - disability_status:
@@ -1911,7 +1841,7 @@ components:
           type: string
           example: '789'
         message_ts:
-          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+          $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
         action:
           description: SPDCI Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
           type: string
@@ -1968,7 +1898,11 @@ components:
           type: string
           example: '123'
         message_ts:
-          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+          description: |
+            1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
+          type: string
+          format: date-time
+          example: '2022-12-04T17:20:07-04:00'
         action:
           description: 'spdci Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps to identify payload type in message property.'
           type: string
@@ -2070,7 +2004,7 @@ components:
                       - NACK
                       - ERR
                   timestamp:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+                    $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
                   error:
                     $ref: '#/components/schemas/Error'
                   correlation_id:

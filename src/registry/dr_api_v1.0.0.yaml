@@ -52,7 +52,6 @@ info:
     - signature 
     - header 
     - message
-  version: 1.0.0
   contact:
     name: DCI Social Protection
     email: info@spdci.org
@@ -804,8 +803,6 @@ components:
   schemas:
 
     ###### src/registry/schema objects
-    RegistryQueries: 
-      $ref: dr/RegistryQueries.yaml
     NotifyEventRequest: 
       $ref: dr/NotifyEventRequest.yaml
     SearchRequest: 
@@ -820,12 +817,6 @@ components:
       $ref: dr/SubscribeResponse.yaml
     SubscribeStatusReasonCode: 
       $ref: schema/SubscribeStatusReasonCode.yaml
-    SubscriptionCode: 
-      $ref: schema/SubscriptionCode.yaml
-    SubscriptionCodeList: 
-      $ref: schema/SubscriptionCodeList.yaml
-    SubscriptionInfo:
-      $ref: schema/SubscriptionInfo.yaml
     SubscriptionStatus:
         $ref: schema/SubscriptionStatus.yaml
     UnSubscribeRequest: 

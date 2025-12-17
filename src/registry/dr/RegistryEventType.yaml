@@ -4,5 +4,5 @@ description: |
 
   1 : Register 
 enum:
-  - "REGISTER"
-example: "spdci-common:RegistryEventType:REGISTER"
+  - "register"
+example: "register"

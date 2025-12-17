@@ -51,7 +51,6 @@ info:
     - signature 
     - header 
     - message
-  version: 1.0.0
   contact:
     name: DCI Social Protection
     email: info@spdci.org

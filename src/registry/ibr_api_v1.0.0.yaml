@@ -58,7 +58,6 @@ info:
     - Refer example section to get sample data and also read Gitbook for details data objects
     - The receiver can decrypt the message using the private key of the "err.receiver_id.invalid"
 
-  version: 1.0.0
   contact:
     name: DCI Social Protection
     email: info@spdci.org

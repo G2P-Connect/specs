@@ -1,31 +1,71 @@
-type: array
+type: object
 description: | 
-  1. List of a member disability info related to the person we are searching for.
-  @context: https://schema.spdci.org/extensions/dr/v1/DRPerson.jsonld <br>
-  @type: "@context" <br>
-example:
-   [
-      {
-        "human_assistance": 
-          {
-            "type": "mobility",
-            "frequency": "Daily",
-            "support_status": "Needed",
-            "caregiver": {
-              "id": "Person_001",
-              "name": "John Doe",
-              "identifier": "12345"
-            },
-            "relationship": "Parent",
-            "registration_date": "2024-01-15T10:00:00Z",
-            "last_updated": "2024-09-20T12:30:00Z"
-          }
-        ,
-        "assistive_technology": [],
-        "housing_support": [],
-        "medical_care": [],
-        "animal_assistance": [],
-        "registration_date": "2023-05-20T09:00:00Z",
-        "last_updated": "2024-10-01T11:15:00Z"
-      }
-    ]
+  Disability support info for a member.
+properties:
+  disabilities:
+    type: array
+    description: | 
+      List of a member disability info related to the person we are searching for.
+      @context: https://schema.spdci.org/extensions/dr/v1/DRPerson.jsonld <br>
+      @type: "@context" <br>
+    items:
+      type: object
+      properties:
+        human_assistance:
+          type: object
+          properties:
+            type:
+              type: string
+            frequency:
+              type: string
+            support_status:
+              type: string
+            caregiver:
+              type: object
+              properties:
+                id: { type: string }
+                name: { type: string }
+                identifier: { type: string }
+            relationship: { type: string }
+            registration_date:
+              type: string
+              format: date-time
+            last_updated:
+              type: string
+              format: date-time
+        assistive_technology:
+          type: array
+          items: {}
+        housing_support:
+          type: array
+          items: {}
+        medical_care:
+          type: array
+          items: {}
+        animal_assistance:
+          type: array
+          items: {}
+        registration_date:
+          type: string
+          format: date-time
+        last_updated:
+          type: string
+          format: date-time
+    example:
+      - human_assistance:
+          type: mobility
+          frequency: Daily
+          support_status: Needed
+          caregiver:
+            id: Person_001
+            name: John Doe
+            identifier: "12345"
+          relationship: Parent
+          registration_date: 2024-01-15T10:00:00Z
+          last_updated: 2024-09-20T12:30:00Z
+        assistive_technology: []
+        housing_support: []
+        medical_care: []
+        animal_assistance: []
+        registration_date: 2023-05-20T09:00:00Z
+        last_updated: 2024-10-01T11:15:00Z

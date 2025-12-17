@@ -1,15 +1,13 @@
 type: object
-description: | 
-  Disabled query
+description: Disabled query
 properties:
   query_type:
-    $ref: ../../common/schema/QueryType.yaml
-    description: ""
+    allOf:
+      - $ref: ../../common/schema/QueryType.yaml
+      - description: "Type of query"
   query:
     type: object
     description: "Query expression for the disabled query"
-    example: 
-      {
-         "member.member_identifier": { "eq": "ABC451123" }
-          
-      }
+    example:
+      member.member_identifier:
+        eq: "ABC451123"
