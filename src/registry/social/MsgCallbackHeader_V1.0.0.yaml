@@ -30,7 +30,7 @@ properties:
     type: integer
     example: 21800
   completed_count:
-    description: "No of requests in complteed state. Complete includes success and error requests due to funcational errors"
+    description: "No of requests in completed state. Complete includes success and error requests due to functional errors"
     type: integer
     example: 50
   sender_id:

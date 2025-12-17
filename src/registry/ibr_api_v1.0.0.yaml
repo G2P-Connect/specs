@@ -1,6 +1,7 @@
 openapi: 3.0.3
 info:
   title: Interoperability APIs - Integrated Beneficiary Registry
+  version: 1.0.0
   x-logo:
     url: './dci-logo.png'
     backgroundColor: '#FFFFFF'

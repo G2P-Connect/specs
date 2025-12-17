@@ -1,0 +1,175 @@
+{
+  "totals": {
+    "errors": 11,
+    "warnings": 0,
+    "ignored": 0
+  },
+  "version": "1.16.0",
+  "problems": [
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1search/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1on-search/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1subscribe/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1on-subscribe/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1notify/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1unsubscribe/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1on-unsubscribe/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1txn~1status/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1txn~1on-status/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1sync~1search/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    },
+    {
+      "ruleId": "security-defined",
+      "severity": "error",
+      "message": "There is no `Authorization` security scheme defined.",
+      "location": [
+        {
+          "source": {
+            "ref": "src/registry/crvs_api_v1.0.0.yaml"
+          },
+          "pointer": "#/paths/~1registry~1sync~1txn~1status/post/security/0/Authorization",
+          "reportOnKey": true
+        }
+      ],
+      "suggest": []
+    }
+  ]
+}

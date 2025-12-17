@@ -1,7 +1,7 @@
 type: object
 description: | 
   1. Functional registry specific extension to search.
-  2. Additional checks using conditioanl expressions is possible.
+  2. Additional checks using conditional expressions is possible.
   3. Allows Country/Registry specific implementation extensions using key/value pairs.
 properties:
   transaction_id: 
@@ -9,7 +9,7 @@ properties:
   search_request:
     type: array
     description: |
-      1. Batch requests enabel multiple individual requests with respective consent/authorize codes
+      1. Batch requests enable multiple individual requests with respective consent/authorize codes
     items: 
       type: object
       properties:

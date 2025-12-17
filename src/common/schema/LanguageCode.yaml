@@ -1,4 +1,4 @@
 type: string
 description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard   
 pattern: '^[a-z]{3,3}$'
-example: "en"
+example: "eng"

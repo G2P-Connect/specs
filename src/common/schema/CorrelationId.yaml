@@ -3,4 +3,5 @@ description: |
   2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
 type: string
 maxLength: 99
-example: "9876543210"
+pattern: '^[a-zA-Z0-9-]+$'
+example: "ABC9876543210"

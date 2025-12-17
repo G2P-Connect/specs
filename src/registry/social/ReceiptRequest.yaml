@@ -4,7 +4,7 @@ properties:
   transaction_id: 
     $ref: ../../common/schema/TransactionId.yaml
   receipt_information:
-    $ref: ../../extensions/ibr/ReceiptInformation.yaml 
+    $ref: ../../extensions/social/ReceiptInformation.yaml 
 required: 
   - transaction_id
   - receipt_information

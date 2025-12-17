@@ -1,6 +1,7 @@
 openapi: 3.0.3
 info:
   title: Interoperability APIs - CORE
+  version: 1.0.0
   x-logo:
     url: ./dci-logo.png
     backgroundColor: '#FFFFFF'
@@ -250,12 +251,16 @@ paths:
                         - on-search
       responses:
         '401':
+          description: Unauthorized access
           $ref: '#/components/responses/HttpErrorResponse'
         '403':
+          description: Forbidden access
           $ref: '#/components/responses/HttpErrorResponse'
         '500':
+          description: Internal server error
           $ref: '#/components/responses/HttpErrorResponse'
         default:
+          description: Successful response
           $ref: '#/components/responses/Response'
       security:
         - Authorization: []
@@ -303,12 +308,16 @@ paths:
                         - subscribe
       responses:
         '401':
+          description: Unauthorized access
           $ref: '#/components/responses/HttpErrorResponse'
         '403':
+          description: Forbidden access
           $ref: '#/components/responses/HttpErrorResponse'
         '500':
+          description: Internal server error
           $ref: '#/components/responses/HttpErrorResponse'
         default:
+          description: Successful response
           $ref: '#/components/responses/Response'
       security:
         - Authorization: []
@@ -356,12 +365,16 @@ paths:
                         - on-subscribe
       responses:
         '401':
+          description: Unauthorized access
           $ref: '#/components/responses/HttpErrorResponse'
         '403':
+          description: Forbidden access
           $ref: '#/components/responses/HttpErrorResponse'
         '500':
+          description: Internal server error
           $ref: '#/components/responses/HttpErrorResponse'
         default:
+          description: Successful response
           $ref: '#/components/responses/Response'
       security:
         - Authorization: []
@@ -460,12 +473,16 @@ paths:
                         - unsubscribe
       responses:
         '401':
+          description: Unauthorized access
           $ref: '#/components/responses/HttpErrorResponse'
         '403':
+          description: Forbidden access
           $ref: '#/components/responses/HttpErrorResponse'
         '500':
+          description: Internal server error
           $ref: '#/components/responses/HttpErrorResponse'
         default:
+          description: Successful response
           $ref: '#/components/responses/Response'
       security:
         - Authorization: []
@@ -615,12 +632,16 @@ paths:
                         - txn-on-status
       responses:
         '401':
+          description: Unauthorized access
           $ref: '#/components/responses/HttpErrorResponse'
         '403':
+          description: Forbidden access
           $ref: '#/components/responses/HttpErrorResponse'
         '500':
+          description: Internal server error
           $ref: '#/components/responses/HttpErrorResponse'
         default:
+          description: Successful response
           $ref: '#/components/responses/Response'
       security:
         - Authorization: []

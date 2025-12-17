@@ -37,7 +37,6 @@ properties:
           required: 
             - reg_event_type
             - filter
-            - notify_record_type
         locale:
           $ref: "../../common/schema/LanguageCode.yaml"
       required:
