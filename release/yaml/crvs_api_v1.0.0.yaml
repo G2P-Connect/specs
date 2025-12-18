@@ -938,7 +938,7 @@ components:
                       3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
                         - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
                         - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
-                    oneOf:
+                    anyOf:
                       - type: object
                         description: Identifier type and value object
                         properties:
@@ -1032,7 +1032,7 @@ components:
                                     - in
                                   example: eq
                                 attribute_value:
-                                  $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1/properties/value/allOf/1'
+                                  $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query/anyOf/1/properties/value/allOf/1'
                               required:
                                 - attribute_name
                                 - operator
@@ -1046,7 +1046,7 @@ components:
                                 - not
                               example: and
                             expression2:
-                              $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2/items/properties/expression1'
+                              $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query/anyOf/2/items/properties/expression1'
                           required:
                             - expression1
                   sort:
@@ -1421,7 +1421,7 @@ components:
                       3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
                         - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
                         - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
-                    oneOf:
+                    anyOf:
                       - type: object
                         description: Identifier type and value object
                         properties:
@@ -1464,8 +1464,8 @@ components:
                                     }
                                   }
                                 }
-                      - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1'
-                      - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2'
+                      - $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query/anyOf/1'
+                      - $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/query/anyOf/2'
                   notify_record_type:
                     type: string
                     description: |
@@ -1544,16 +1544,12 @@ components:
                       $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/filter'
                     notify_record_type:
                       $ref: '#/components/schemas/SubscribeRequest/properties/subscribe_request/items/properties/subscribe_criteria/properties/notify_record_type'
-                      required:
-                        - reg_event_type
-                        - filter
-                        - notify_record_type
                     locale:
                       $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/locale'
                   required:
-                    - subscription_code
+                    - code
+                    - status
                     - timestamp
-                    - subscribe_criteria
               pagination:
                 $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/pagination'
               locale:
@@ -1605,7 +1601,7 @@ components:
                 - correlation_id
                 - subscription_code_list
             attribute_value:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
                 - type: array
                   items:
@@ -1782,7 +1778,7 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
-        timesstamp:
+        timestamp:
           $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
         subscription_codes:
           type: array
@@ -1795,7 +1791,7 @@ components:
       required:
         - transaction_id
         - timestamp
-        - sunscription_codes
+        - subscription_codes
     UnSubscribeResponse:
       type: object
       description: Un-Subscribe to a life event with crvs
@@ -1804,7 +1800,7 @@ components:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
         correlation_id:
           $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
-        timesatmp:
+        timestamp:
           $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/message_ts'
         status:
           type: string
