@@ -3,7 +3,7 @@ description: Un-Subscribe to registred subscriptions
 properties:
   transaction_id: 
     $ref: ../../common/schema/TransactionId.yaml
-  timesstamp:
+  timestamp:
     $ref: ../../common/schema/DateTime.yaml
   subscription_codes:
     type: array
@@ -12,4 +12,4 @@ properties:
 required:
   - transaction_id
   - timestamp
-  - sunscription_codes
+  - subscription_codes

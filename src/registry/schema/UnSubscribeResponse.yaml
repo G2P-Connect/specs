@@ -5,7 +5,7 @@ properties:
     $ref: ../../common/schema/TransactionId.yaml
   correlation_id:
     $ref: ../../common/schema/CorrelationId.yaml
-  timesatmp:
+  timestamp:
     $ref: ../../common/schema/DateTime.yaml
   status:
     $ref: "../../common/schema/RequestStatus.yaml" 
