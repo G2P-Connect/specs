@@ -28,6 +28,8 @@ properties:
               $ref: ../../common/schema/QueryType.yaml
             filter:
               $ref: ../schema/RegistryQueries.yaml
+            notify_record_type:
+              $ref: RegistryRecordType.yaml
             response_entity:
               $ref: ../../common/schema/ResponseEntity.yaml
             response_fields: 

@@ -1,5 +1,5 @@
 type: object
-description: Subscribe to a life event with crvs
+description: Subscribe to a life event with CRVS
 properties:
   transaction_id: 
     $ref: ../../common/schema/TransactionId.yaml
@@ -14,6 +14,7 @@ properties:
           $ref: ../../common/schema/DateTime.yaml
         subscribe_criteria:
           type: object
+          description: Criteria defining the subscription
           properties:
             version:
               type: string

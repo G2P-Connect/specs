@@ -1,6 +1,7 @@
 openapi: 3.0.3
 info:
   title: Interoperability APIs - CORE
+  version: 1.0.0
   x-logo:
     url: ./dci-logo.png
     backgroundColor: '#FFFFFF'
@@ -792,7 +793,7 @@ components:
                   reg_event_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/reg_event_type'
                   reg_record_type:
-                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/notify_record_type'
                   reg_records:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_records'
                 required:
@@ -821,7 +822,7 @@ components:
             2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
           type: string
           maxLength: 99
-          example: 0123456789
+          example: XZFHYTY
         search_request:
           type: array
           description: |
@@ -842,7 +843,7 @@ components:
                   reg_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
                   reg_record_type:
-                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/notify_record_type'
                   query_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/filter_type'
                   query:
@@ -947,7 +948,8 @@ components:
             2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
           type: string
           maxLength: 99
-          example: '9876543210'
+          pattern: '^[a-zA-Z0-9-]+$'
+          example: ABC9876543210
         search_response:
           type: array
           items:
@@ -976,17 +978,7 @@ components:
                   reg_type:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/reg_type'
                   reg_record_type:
-                    type: string
-                    description: |
-                      @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
-                      @type: "RegistryRecordType" <br>
-
-                      **Notes:**
-                        1. Registry record type values defined as per implementation context.
-                        2. Usually a list of **enum** values of all possible queryable result sets 
-                        3. Referenced in search_request and notify events
-                        4. example: "spdci-extensions-dci:Member" 
-                    example: 'spdci-extensions-dci:Member'
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/notify_record_type'
                   reg_records:
                     type: object
                     description: |
@@ -1132,7 +1124,7 @@ components:
                   filter:
                     $ref: '#/components/schemas/SubscriptionInfo/properties/filter'
                   notify_record_type:
-                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
+                    $ref: '#/components/schemas/SubscriptionInfo/properties/notify_record_type'
                   authorize:
                     $ref: '#/components/schemas/SearchRequest/properties/search_request/items/properties/search_criteria/properties/authorize'
                 required:
@@ -1224,7 +1216,7 @@ components:
             1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
           type: string
           format: date-time
-          example: ''
+          example: '2022-12-04T17:20:07-04:00'
         reg_type:
           type: string
           description: |
@@ -1285,7 +1277,7 @@ components:
             3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
               - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
               - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
-          oneOf:
+          anyOf:
             - type: object
               description: Identifier type and value object
               properties:
@@ -1387,7 +1379,7 @@ components:
                           - in
                         example: eq
                       attribute_value:
-                        $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1/properties/value/allOf/1'
+                        $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/1/properties/value/allOf/1'
                     required:
                       - attribute_name
                       - operator
@@ -1401,24 +1393,30 @@ components:
                       - not
                     example: and
                   expression2:
-                    $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2/items/properties/expression1'
+                    $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/2/items/properties/expression1'
                 required:
                   - expression1
         notify_record_type:
-          $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
-          required:
-            - reg_event_type
-            - filter
-            - notify_record_type
+          type: string
+          description: |
+            @context: https://schema.spdci.org/common/v1/api-schemas/RegistryRecordType.jsonld <br>
+            @type: "RegistryRecordType" <br>
+
+            **Notes:**
+              1. Registry record type values defined as per implementation context.
+              2. Usually a list of **enum** values of all possible queryable result sets 
+              3. Referenced in search_request and notify events
+              4. example: "spdci-extensions-dci:Member" 
+          example: 'spdci-extensions-dci:Member'
         locale:
           type: string
           description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard
           pattern: '^[a-z]{3,3}$'
-          example: en
+          example: eng
       required:
-        - subscription_code
+        - code
+        - status
         - timestamp
-        - subscribe_criteria
     SubscriptionStatus:
       type: string
       description: subscription status
@@ -1431,7 +1429,7 @@ components:
       properties:
         transaction_id:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
-        timesstamp:
+        timestamp:
           $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
         subscription_codes:
           type: array
@@ -1440,7 +1438,7 @@ components:
       required:
         - transaction_id
         - timestamp
-        - sunscription_codes
+        - subscription_codes
     UnSubscribeResponse:
       type: object
       description: Un-Subscribe to a life event with crvs
@@ -1449,7 +1447,7 @@ components:
           $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
         correlation_id:
           $ref: '#/components/schemas/SearchResponse/properties/correlation_id'
-        timesatmp:
+        timestamp:
           $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
         status:
           type: string
@@ -1504,7 +1502,7 @@ components:
             reference_id:
               type: string
               description: Unique reference_id set by txn initiating system for each request in a batch
-              example: '12345678901234567890'
+              example: SDFRTYUX
             txn_type:
               type: string
               description: txn type to fetch status
@@ -1520,7 +1518,7 @@ components:
                 - correlation_id
                 - subscription_code_list
             attribute_value:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
                 - type: array
                   items:
@@ -1552,19 +1550,14 @@ components:
               type: string
               description: txn type to fetch status
               enum:
-                - on-search
-                - on-subscribe
-                - on-unsubscribe
+                - search
+                - subscribe
+                - unsubscribe
             txn_status:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/SearchResponse'
                 - $ref: '#/components/schemas/SubscribeResponse'
                 - $ref: '#/components/schemas/UnSubscribeResponse'
-          example:
-            $ref: '#/components/schemas/SearchResponse'
-          required:
-            - txn_type
-            - txn_status
       required:
         - transaction_id
         - correlation_id
@@ -1746,7 +1739,7 @@ components:
             3. For SFTP based communications, this shall be set to server/folder details.
           type: string
           format: uri
-          example: 'https://spmis.example.org/{namespace}/callback/on-search'
+          example: 'https://spmis.example.org/consumer-namespace/callback/on-search'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verification, etc., functions.'
           type: string

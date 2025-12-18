@@ -30,7 +30,7 @@ properties:
             query_type:
               $ref: ../../common/schema/QueryType.yaml
             query:
-              $ref: RegistryQueries.yaml
+              $ref: ../dr/RegistryQueries.yaml
             sort:
               $ref: ../../common/schema/SearchSortList.yaml
             pagination:

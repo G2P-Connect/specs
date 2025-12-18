@@ -1,6 +1,7 @@
 openapi: 3.0.3
 info:
   title: Interoperability APIs - Integrated Beneficiary Registry
+  version: 1.0.0
   x-logo:
     url: ./dci-logo.png
     backgroundColor: '#FFFFFF'
@@ -56,7 +57,6 @@ info:
     - The message contains the actual payload of the message.
     - Refer example section to get sample data and also read Gitbook for details data objects
     - The receiver can decrypt the message using the private key of the "err.receiver_id.invalid"
-  version: 1.0.0
   contact:
     name: DCI Social Protection
     email: info@spdci.org
@@ -1080,7 +1080,7 @@ components:
             2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
           type: string
           maxLength: 99
-          example: 0123456789
+          example: XZFHYTY
         search_request:
           type: array
           description: |
@@ -1153,8 +1153,82 @@ components:
                                         $eq: central_region
                                     - group_size:
                                         $lt: 5
-                      - $ref: '#/components/schemas/SubscriptionInfo/properties/filter/anyOf/1'
-                      - $ref: '#/components/schemas/SubscriptionInfo/properties/filter/anyOf/2'
+                      - type: object
+                        description: Identifier type and value object
+                        properties:
+                          type:
+                            type: string
+                            description: |
+                              @type: "IdType" <br>
+
+                              **Notes:**
+                                1. Identifier type values defined as per implementation context.
+                                2. Usually a list of **enum** values of all possible queryable identifiers.
+                                3. e.g: UIN, MOBILE, BRN, MRN, DRN, etc., 
+                            example: UIN
+                          value:
+                            allOf:
+                              - description: Identifier Value of the subject.
+                              - oneOf:
+                                  - type: string
+                                  - type: integer
+                                  - type: number
+                                  - type: boolean
+                                  - type: object
+                                example: '1980'
+                            example: '12314567890'
+                      - type: array
+                        items:
+                          type: object
+                          properties:
+                            seq_num:
+                              description: Sequence number to help define precedence for evaluating a list of expression Predicates
+                              type: number
+                              example: 1
+                            expression1:
+                              type: object
+                              description: Expression
+                              properties:
+                                attribute_name:
+                                  type: string
+                                  description: |
+                                    @context: https://schema.spdci.org/common/v1/api-schemas/QueryAttributes.jsonld <br>
+                                    @type: "QueryAttributes" <br>
+
+                                    **Notes:**
+                                      1. Query attribute names defined as per implementation context.
+                                      2. Usually a list of **enum** values of all possible queryable attribute names.
+                                      3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
+                                  example: YOB
+                                operator:
+                                  type: string
+                                  description: Operator in an expression
+                                  enum:
+                                    - gt
+                                    - lt
+                                    - eq
+                                    - ge
+                                    - le
+                                    - in
+                                  example: eq
+                                attribute_value:
+                                  $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/1/properties/value/allOf/1'
+                              required:
+                                - attribute_name
+                                - operator
+                                - attribute_value
+                            condition:
+                              type: string
+                              description: Condition in an expression
+                              enum:
+                                - and
+                                - or
+                                - not
+                              example: and
+                            expression2:
+                              $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/2/items/properties/expression1'
+                          required:
+                            - expression1
                   sort:
                     type: array
                     items:
@@ -1255,7 +1329,8 @@ components:
             2. correlation_id uniqueness is ensured by txn processing system (i.e receiver)
           type: string
           maxLength: 99
-          example: '9876543210'
+          pattern: '^[a-zA-Z0-9-]+$'
+          example: ABC9876543210
         search_response:
           type: array
           items:
@@ -1538,7 +1613,7 @@ components:
             1. All dates and timestamps are represented in [ISO 8601](https://www.iso.org/standard/40874.html) format including timezone - e.g 2022-12-04T17:20:07-04:00.
           type: string
           format: date-time
-          example: ''
+          example: '2022-12-04T17:20:07-04:00'
         reg_type:
           type: string
           description: |
@@ -1642,82 +1717,8 @@ components:
                           }
                         }
                       }
-            - type: object
-              description: Identifier type and value object
-              properties:
-                type:
-                  type: string
-                  description: |
-                    @type: "IdType" <br>
-
-                    **Notes:**
-                      1. Identifier type values defined as per implementation context.
-                      2. Usually a list of **enum** values of all possible queryable identifiers.
-                      3. e.g: UIN, MOBILE, BRN, MRN, DRN, etc., 
-                  example: UIN
-                value:
-                  allOf:
-                    - description: Identifier Value of the subject.
-                    - oneOf:
-                        - type: string
-                        - type: integer
-                        - type: number
-                        - type: boolean
-                        - type: object
-                      example: '1980'
-                  example: '12314567890'
-            - type: array
-              items:
-                type: object
-                properties:
-                  seq_num:
-                    description: Sequence number to help define precedence for evaluating a list of expression Predicates
-                    type: number
-                    example: 1
-                  expression1:
-                    type: object
-                    description: Expression
-                    properties:
-                      attribute_name:
-                        type: string
-                        description: |
-                          @context: https://schema.spdci.org/common/v1/api-schemas/QueryAttributes.jsonld <br>
-                          @type: "QueryAttributes" <br>
-
-                          **Notes:**
-                            1. Query attribute names defined as per implementation context.
-                            2. Usually a list of **enum** values of all possible queryable attribute names.
-                            3. e.g: UIN, YOB, DOB, age, mobile, area-code, pin-code, etc.,
-                        example: YOB
-                      operator:
-                        type: string
-                        description: Operator in an expression
-                        enum:
-                          - gt
-                          - lt
-                          - eq
-                          - ge
-                          - le
-                          - in
-                        example: eq
-                      attribute_value:
-                        $ref: '#/components/schemas/SubscriptionInfo/properties/filter/anyOf/1/properties/value/allOf/1'
-                    required:
-                      - attribute_name
-                      - operator
-                      - attribute_value
-                  condition:
-                    type: string
-                    description: Condition in an expression
-                    enum:
-                      - and
-                      - or
-                      - not
-                    example: and
-                  expression2:
-                    $ref: '#/components/schemas/SubscriptionInfo/properties/filter/anyOf/2/items/properties/expression1'
-                required:
-                  - expression1
+            - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/1'
+            - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/2'
         notify_record_type:
           type: string
           description: |
@@ -1734,7 +1735,7 @@ components:
           type: string
           description: indicates language code. SPDCI Connect supports country codes as per ISO 639.3 standard
           pattern: '^[a-z]{3,3}$'
-          example: en
+          example: eng
       required:
         - code
         - status
@@ -1824,7 +1825,7 @@ components:
             reference_id:
               type: string
               description: Unique reference_id set by txn initiating system for each request in a batch
-              example: '12345678901234567890'
+              example: SDFRTYUX
             txn_type:
               type: string
               description: txn type to fetch status
@@ -1874,7 +1875,7 @@ components:
                 - subscribe
                 - receipt
             txn_status:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/SearchResponse'
                 - type: object
                   description: Registry to notify a event to subscrbiers
@@ -1886,8 +1887,6 @@ components:
                   required:
                     - transaction_id
                     - receipt_information
-          example:
-            $ref: '#/components/schemas/SearchResponse'
           required:
             - txn_type
             - txn_status
@@ -2143,7 +2142,7 @@ components:
             3. For SFTP based communications, this shall be set to server/folder details.
           type: string
           format: uri
-          example: 'https://spmis.example.org/{namespace}/callback/on-search'
+          example: 'https://spmis.example.org/consumer-namespace/callback/on-search'
         receiver_id:
           description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verification, etc., functions.'
           type: string

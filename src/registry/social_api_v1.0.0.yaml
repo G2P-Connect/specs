@@ -1,6 +1,7 @@
 openapi: 3.0.3
 info:
   title: Interoperability APIs - Social Registry
+  version: 1.0.0
   x-logo:
     url: './dci-logo.png'
     backgroundColor: '#FFFFFF'
@@ -199,14 +200,18 @@ paths:
                     enum:
                       - search
     responses:
-        default:
-          $ref: "#/components/responses/Response"
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Successful response
+          $ref: "#/components/responses/Response"
     security:
       - Authorization: [ ]
     deprecated: false
@@ -253,14 +258,18 @@ paths:
                     enum:
                       - on-search
     responses:
-        default:
-          $ref: "#/components/responses/Response"
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Successful response
+          $ref: "#/components/responses/Response"
     security:
       - Authorization: [ ]
     deprecated: false
@@ -307,14 +316,18 @@ paths:
                     enum:
                       - subscribe
     responses:
-        default:
-          $ref: "#/components/responses/Response"
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Successful response
+          $ref: "#/components/responses/Response"
     security:
       - Authorization: [ ]
     deprecated: false
@@ -361,14 +374,18 @@ paths:
                     enum:
                       - on-subscribe
     responses:
-        default:
-          $ref: "#/components/responses/Response"
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Successful response
+          $ref: "#/components/responses/Response"
     security:
       - Authorization: [ ]
     deprecated: false
@@ -412,14 +429,18 @@ paths:
                     enum:
                       - notify
     responses:
-        default:
-          $ref: "#/components/responses/Response"
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Successful response
+          $ref: "#/components/responses/Response"
     security:
       - Authorization: [ ]
     deprecated: false
@@ -573,14 +594,17 @@ paths:
                     enum:
                       - txn-status
     responses:
-        default:
-          $ref: "#/components/responses/Response"
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Successful response
     security:
       - Authorization: [ ]
     deprecated: false
@@ -625,14 +649,18 @@ paths:
                     enum:
                       - txn-on-status
     responses:
-        default:
-          $ref: "#/components/responses/Response"
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'
+        default:
+          description: Successful response
+          $ref: "#/components/responses/Response"
     security:
       - Authorization: [ ]
     deprecated: false
@@ -703,11 +731,14 @@ paths:
                 required:
                   - header
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse'         
     security:
       - Authorization: [ ]
     deprecated: false
@@ -769,11 +800,14 @@ paths:
                   required:
                     - header
         '401':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Unauthorized access
+          $ref: '#/components/responses/HttpErrorResponse'
         '403':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Forbidden access
+          $ref: '#/components/responses/HttpErrorResponse'
         '500':
-          $ref: "#/components/responses/HttpErrorResponse"
+          description: Internal server error
+          $ref: '#/components/responses/HttpErrorResponse' 
     security:
       - Authorization: [ ]
     deprecated: false
@@ -794,14 +828,6 @@ components:
       $ref: schema/SubscribeResponse.yaml
     SubscribeStatusReasonCode: 
       $ref: schema/SubscribeStatusReasonCode.yaml
-    SubscriptionCode: 
-      $ref: schema/SubscriptionCode.yaml
-    SubscriptionCodeList: 
-      $ref: schema/SubscriptionCodeList.yaml
-    SubscriptionInfo:
-      $ref: schema/SubscriptionInfo.yaml
-    SubscriptionStatus:
-        $ref: schema/SubscriptionStatus.yaml
     UnSubscribeRequest: 
       $ref: schema/UnSubscribeRequest.yaml
     UnSubscribeResponse: 

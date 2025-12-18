@@ -3,26 +3,37 @@ properties:
   version:
     type: string
     default: 1.0.0
+
   code:
     $ref: SubscriptionCode.yaml
+
   status:
     $ref: SubscriptionStatus.yaml
-  timestamp:  
+
+  timestamp:
     $ref: ../../common/schema/DateTime.yaml    
+
   reg_type:
     $ref: RegistryType.yaml
+
   reg_event_type:
     $ref: RegistryEventType.yaml
+
   frequency:
     $ref: ../../common/schema/EventFrequency.yaml
+
   filter_type:
     $ref: ../../common/schema/QueryType.yaml
+
   filter:
     $ref: RegistryQueries.yaml
+
   notify_record_type:
     $ref: RegistryRecordType.yaml
+
   locale:
-    $ref: "../../common/schema/LanguageCode.yaml"
+    $ref: ../../common/schema/LanguageCode.yaml
+
 required:
   - code
   - status

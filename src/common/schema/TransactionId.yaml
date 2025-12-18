@@ -4,4 +4,4 @@ description: |
   2. transaction_id uniqueness is ensured by txn initiating system (i.e sender)
 type: string
 maxLength: 99
-example: "0123456789"
+example: "XZFHYTY"

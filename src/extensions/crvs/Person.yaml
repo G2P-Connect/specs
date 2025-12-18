@@ -6,7 +6,6 @@ description: |
   @context: https://schema.spdci.org/extensions/crvs/v1/data/CRVSPerson.jsonld <br>
   @type: "@context" <br>
 example:
-xample: 
   {
     "@context": {
       "@vocab": "https://schema.spdci.org/core/v1",
