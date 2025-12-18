@@ -11,7 +11,7 @@ properties:
       txn_type:
         type: string
         description: txn type to fetch status 
-        enum: ["on-search", "on-subscribe", "on-unsubscribe"]
+        enum: ["search", "subscribe", "unsubscribe"]
       txn_status:
         anyOf:
           - $ref: SearchResponse.yaml

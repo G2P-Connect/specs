@@ -1,7 +1,7 @@
 description: |
   1. Implementing systems can define schemas.
   2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
-oneOf:
+anyOf:
   - $ref: ../dr/ExpTemplate.yaml
   - $ref: ../../common/schema/IdentifierTypeValue.yaml
   - $ref: ../../common/schema/ExpPredicateWithConditionList.yaml

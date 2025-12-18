@@ -35,7 +35,14 @@ properties:
             reg_record_type:
               $ref: RegistryRecordType.yaml    
             reg_records:
-              $ref: RegistryRecord.yaml
+              type: array
+              description: |
+                The "Entity" object contains fields expected in response of search
+                @context: https://schema.spdci.org/extensions/fr/v1/FRPerson.jsonld <br>
+                @type: "FRPerson" <br>
+                @container: "@set" <br>
+              items:
+                $ref: "../../extensions/fr/FRPerson.yaml"
           required: 
             - reg_record_type
             - reg_records

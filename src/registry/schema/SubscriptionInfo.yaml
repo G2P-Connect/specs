@@ -36,6 +36,8 @@ properties:
 
 required:
   - code
+  - code
+  - status
   - timestamp
   - reg_event_type
   - filter

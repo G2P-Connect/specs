@@ -787,7 +787,14 @@ components:
                   reg_record_type:
                     $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_record_type'
                   reg_records:
-                    $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_records'
+                    type: object
+                    description: |
+                      The "group" object contains fields expected in response of search
+                      @context: https://schema.spdci.org/extensions/fr/v1/FRPerson.jsonld <br>
+                      @type: "FRPerson" <br>
+                      @container: "@set" <br> 
+                    example:
+                      $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/data/properties/reg_records/items'
                 required:
                   - reg_record_type
                   - reg_records
@@ -851,7 +858,7 @@ components:
                     description: |
                       1. Implementing systems can define schemas.
                       2. Based on context, pre defined named queries can also help as part of ExpTemplate construct.
-                    oneOf:
+                    anyOf:
                       - type: object
                         description: Identifier type and value object
                         properties:
@@ -941,7 +948,7 @@ components:
                                     - in
                                   example: eq
                                 attribute_value:
-                                  $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1/properties/value/allOf/1'
+                                  $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/1/properties/value/allOf/1'
                               required:
                                 - attribute_name
                                 - operator
@@ -955,7 +962,7 @@ components:
                                 - not
                               example: and
                             expression2:
-                              $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2/items/properties/expression1'
+                              $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/2/items/properties/expression1'
                           required:
                             - expression1
                   sort:
@@ -1109,13 +1116,13 @@ components:
                         4. example: "spdci-extensions-dci:Farmer" 
                     example: 'spdci-extensions-dci:Farmer'
                   reg_records:
-                    type: object
+                    type: array
                     description: |
-                      The "group" object contains fields expected in response of search
+                      The "Entity" object contains fields expected in response of search
                       @context: https://schema.spdci.org/extensions/fr/v1/FRPerson.jsonld <br>
                       @type: "FRPerson" <br>
-                      @container: "@set" <br> 
-                    example:
+                      @container: "@set" <br>
+                    items:
                       type: object
                       description: |
                         1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.
@@ -1347,7 +1354,7 @@ components:
                       3. ExpressionWithConditionList is simple generic search query construct to solve for majority of search conditons. few examples: <br>
                         - search or subscribe to update events; e.g any updates in postal_code 12345 between 1/jan/2020 and 31/dec/2020
                         - search or subscribe to birth, death events; e.g any new birth in postal_code 12345 after 1/jan/2023
-                    oneOf:
+                    anyOf:
                       - type: object
                         description: Identifier type and value object
                         properties:
@@ -1390,8 +1397,8 @@ components:
                                     }
                                   }
                                 }
-                      - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/1'
-                      - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/oneOf/2'
+                      - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/1'
+                      - $ref: '#/paths/~1registry~1search/post/requestBody/content/application~1json/schema/properties/message/oneOf/0/properties/search_request/items/properties/search_criteria/properties/query/anyOf/2'
                   notify_record_type:
                     type: string
                     description: |
@@ -1474,10 +1481,8 @@ components:
                       $ref: '#/components/schemas/TxnStatusRequest/properties/txnstatus_request/properties/locale'
                   required:
                     - code
+                    - status
                     - timestamp
-                    - reg_event_type
-                    - filter
-                    - notify_record_type
               pagination:
                 $ref: '#/components/schemas/SearchResponse/properties/search_response/items/properties/pagination'
               locale:
@@ -1606,7 +1611,7 @@ components:
                 - correlation_id
                 - subscription_code_list
             attribute_value:
-              oneOf:
+              anyOf:
                 - $ref: '#/components/schemas/SearchRequest/properties/transaction_id'
                 - type: array
                   items:
@@ -1642,9 +1647,9 @@ components:
               type: string
               description: txn type to fetch status
               enum:
-                - on-search
-                - on-subscribe
-                - on-unsubscribe
+                - search
+                - subscribe
+                - unsubscribe
             txn_status:
               anyOf:
                 - type: object
@@ -1768,9 +1773,6 @@ components:
                     - search_response
                 - $ref: '#/components/schemas/SubscribeResponse'
                 - $ref: '#/components/schemas/UnSubscribeResponse'
-          required:
-            - txn_type
-            - txn_status
       required:
         - transaction_id
         - correlation_id

@@ -20,13 +20,10 @@ properties:
   filter:
     $ref: RegistryQueries.yaml
   notify_record_type:
-    $ref: RegistryRecordType.yaml   
+    $ref: RegistryRecordType.yaml
   locale:
     $ref: "../../common/schema/LanguageCode.yaml"
 required:
-  - subscription_code
+  - code
+  - status
   - timestamp
-  - subscribe_criteria
-  - reg_event_type
-  - filter
-  - notify_record_type
