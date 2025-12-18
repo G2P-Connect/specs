@@ -1656,9 +1656,9 @@ components:
               type: string
               description: txn type to fetch status
               enum:
-                - on-search
-                - on-subscribe
-                - on-unsubscribe
+                - search
+                - subscribe
+                - unsubscribe
             txn_status:
               oneOf:
                 - $ref: '#/components/schemas/TxnStatusResponse/properties/txnstatus_response/example'
