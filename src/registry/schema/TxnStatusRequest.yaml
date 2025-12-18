@@ -20,7 +20,7 @@ properties:
           - "correlation_id"
           - "subscription_code_list"
       attribute_value:
-        oneOf:
+        anyOf:
           - $ref: ../../common/schema/TransactionId.yaml
           - $ref: ../../common/schema/ReferenceIdList.yaml
           - $ref: ../../common/schema/CorrelationId.yaml

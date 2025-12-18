@@ -19,7 +19,7 @@ properties:
           - "reference_id_list"
           - "correlation_id"
       attribute_value:
-        oneOf:
+        anyOf:
           - $ref: ../../common/schema/TransactionId.yaml
           - $ref: ../../common/schema/ReferenceIdList.yaml
           - $ref: ../../common/schema/CorrelationId.yaml
