@@ -17,9 +17,6 @@ properties:
           - $ref: SearchResponse.yaml
           - $ref: SubscribeResponse.yaml
           - $ref: UnSubscribeResponse.yaml
-    required: 
-      - txn_type
-      - txn_status
 required: 
   - transaction_id
   - correlation_id

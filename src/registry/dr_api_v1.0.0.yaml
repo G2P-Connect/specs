@@ -510,6 +510,113 @@ paths:
       - Authorization: [ ]
     deprecated: false
 
+
+ /registry/txn/status:
+  post: 
+    summary: "/registry/txn/status"
+    description: |-
+      The /registry/txn/status will be implemented by IBR. This will check status of reach request using transaction_id and/or reference_id(s).
+    operationId: post_reg_txnstatus
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - txn-status
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/TxnStatusRequest'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+                - message
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - txn-status
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - Authorization: [ ]
+    deprecated: false
+ /registry/txn/on-status:
+  post: 
+    summary: "/registry/txn/on-status"
+    description: |-
+      The /registry/txn/on-status will be implemented by SP-System. The response with information about request and in some case it may contain data as well.
+    operationId: post_reg_on-txnstatus
+    tags: 
+      -  Async
+    requestBody:
+      description: ""
+      required: true
+      content:
+        application/json:
+          schema:
+              type: object
+              properties:
+                signature:  
+                  $ref: "#/components/schemas/MsgSignature"
+                header:
+                  allOf:
+                    - $ref: "#/components/schemas/MsgCallbackHeader_V1.0.0"
+                    - properties:
+                        action:
+                          enum:
+                            - txn-on-status
+                message:
+                  type: object
+                  oneOf:
+                    - $ref: '#/components/schemas/TxnStatusResponse'
+                    - $ref: '#/components/schemas/EncryptedMessage'
+              required:
+                - header
+        multipart/form-data:
+          schema:
+            allOf:
+              - $ref: "#/components/schemas/FileInfo"
+              - properties:
+                  action:
+                    enum:
+                      - txn-on-status
+    responses:
+        default:
+          $ref: "#/components/responses/Response"
+        '401':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '403':
+          $ref: "#/components/responses/HttpErrorResponse"
+        '500':
+          $ref: "#/components/responses/HttpErrorResponse"
+    security:
+      - Authorization: [ ]
+    deprecated: false
+
  /registry/sync/search:
   post: 
     summary: "/registry/sync/search"
@@ -835,6 +942,10 @@ components:
       $ref: dr/DisabledRequest.yaml
     DisabledResponse:
       $ref: dr/DisabledResponse.yaml
+    TxnStatusRequest: 
+      $ref: schema/TxnStatusRequest.yaml            
+    TxnStatusResponse: 
+      $ref: schema/TxnStatusResponse.yaml    
             
   
     ###### Common schema objects
