@@ -11,7 +11,7 @@ properties:
       txn_type:
         type: string
         description: txn type to fetch status 
-        enum: ["search","subscibe","receipt"]
+        enum: ["search","subscribe","receipt"]
       txn_status:
         oneOf:
           - $ref: SearchResponse.yaml

@@ -11,7 +11,7 @@ properties:
       txn_type:
         type: string
         description: txn type to fetch status 
-        enum: ["search","subscibe","receipt"]
+        enum: ["search","subscribe","receipt"]
       attribute_type:
         type: string
         enum:
@@ -19,7 +19,7 @@ properties:
           - "reference_id_list"
           - "correlation_id"
       attribute_value:
-        oneOf:
+        anyOf:
           - $ref: ../../common/schema/TransactionId.yaml
           - $ref: ../../common/schema/ReferenceIdList.yaml
           - $ref: ../../common/schema/CorrelationId.yaml
