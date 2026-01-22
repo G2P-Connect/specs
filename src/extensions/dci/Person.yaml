@@ -13,12 +13,12 @@ example:
     },
     "@id": "CRVS_Person_3",
     "@type": "CRVS_Person",
-    "identifier": {
+    "identifier": [{
       "@id": "Identifier",
       "@type": "Identifier",
       "identifier_type": "UIN",
       "identifier_value": "197382465"
-    },
+    }],
     "name": {
       "@type": "Name",
       "surname": "Martinez",
