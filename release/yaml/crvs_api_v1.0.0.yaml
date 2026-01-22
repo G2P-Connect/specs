@@ -786,10 +786,10 @@ components:
                         '@id': CRVS_Person_3
                         '@type': CRVS_Person
                         identifier:
-                          '@id': Identifier
-                          '@type': Identifier
-                          identifier_type: UIN
-                          identifier_value: '197382465'
+                          - '@id': Identifier
+                            '@type': Identifier
+                            identifier_type: UIN
+                            identifier_value: '197382465'
                         name:
                           '@type': Name
                           surname: Martinez
@@ -1220,10 +1220,10 @@ components:
                         '@id': CRVS_Person_3
                         '@type': CRVS_Person
                         identifier:
-                          '@id': Identifier
-                          '@type': Identifier
-                          identifier_type: UIN
-                          identifier_value: '197382465'
+                          - '@id': Identifier
+                            '@type': Identifier
+                            identifier_type: UIN
+                            identifier_value: '197382465'
                         name:
                           '@type': Name
                           surname: Martinez
