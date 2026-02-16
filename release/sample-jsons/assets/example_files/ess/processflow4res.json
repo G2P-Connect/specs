@@ -1,0 +1,13 @@
+{
+  "transaction_id": "TXN-SEARCH-001",
+  "correlation_id": "SR-ABC9876543210",
+  "enrolled_response": [
+    {
+      "reference_id": "SDFRTYUX",
+      "timestamp": "2026-02-16T15:00:10Z",
+      "status": "rcvd",
+      "status_reason_message": "Member enrolment verified successfully",
+      "enrolled_status": "Active"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+[
+    {
+        "processflow_id" : "processflow1",        
+        "processflow_name": "Process Flow 1 :  SP-System refer a beneficiary to ESS"
+    },
+    {
+        "processflow_id":"processflow2",
+        "processflow_name": "Process Flow 2 : ESS refer a potential beneficiary to SP-System"
+    },
+    {
+        "processflow_id":"processflow3",
+        "processflow_name": "Process Flow 3 :  ESS proactively search households"
+    },
+    {
+        "processflow_id": "processflow4",
+        "processflow_name": "Process Flow 4 :  SP-System checks status of Job Search Activity Compliance Status from ESS"
+    }
+
+] 

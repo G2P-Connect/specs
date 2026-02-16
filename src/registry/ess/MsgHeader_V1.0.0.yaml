@@ -1,0 +1,53 @@
+type: object
+description: 'Message header'
+properties:
+  version:  
+    description: "Messaging protocol specification version being used"
+    type: string
+    default: 1.0.0
+  message_id: 
+    description: |
+      1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+      2. The scope of message_id end with successful ack of the message by the receiver.
+      3. To relay the message between hops, underlying relying parties may consider to store and forward the message with integirty, ie Signature intact.
+    type: string
+    example: "123"
+  message_ts:
+    $ref: ../../common/schema/DateTime.yaml
+  action:
+    description: spdci Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps to identify payload type in message property.
+    type: string
+  sender_id:
+    description: | 
+      1. sender_id registered with the receiving system or gateway. 
+      2. Used for authorization, encryption, digital sign verification, etc.,
+    type: string
+    example: 'spmis.example.org'
+  sender_uri:
+    description: |
+      1. sender url to accept callbacks. Applicable only for async communications and if response ack_status is ACK.
+      2. Default uri is assumed to be configured on the gateway as part of sender/receiver onboarding. 
+      3. For SFTP based communications, this shall be set to server/folder details.
+    type: string
+    format: uri
+    example: "https://spmis.example.org/consumer-namespace/callback/on-search"
+  receiver_id:
+    description: receiver id registered with the calling system. Used for authorization, encryption, digital sign verification, etc., functions.
+    type: string
+    example: 'ess.example.org'
+  total_count:
+    description: Total no of requests present in the message request
+    type: integer
+    example: 21800
+  is_msg_encrypted:
+    description: Is message encrypted?
+    type: boolean
+    default: false
+  meta:
+    $ref: ../../common/schema/Meta.yaml
+required:
+  - message_id
+  - message_ts
+  - action
+  - sender_id
+  - total_count

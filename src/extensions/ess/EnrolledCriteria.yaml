@@ -1,0 +1,16 @@
+type: object
+description: | 
+  Enrolled query
+properties:
+  query_type:
+    $ref: ../../common/schema/QueryType.yaml
+  response_entity:
+    $ref: ../../common/schema/ResponseEntity.yaml
+    example: "Member"
+  query:
+    type: object
+    description: "Query expression for the enrolled query"
+    example: 
+      {
+         "person_identifier": { "eq": "ABC451123" }         
+      }

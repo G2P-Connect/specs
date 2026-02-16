@@ -1,0 +1,42 @@
+type: object
+
+description: Response to verify enrollment status request.
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  correlation_id:
+    $ref: ../../common/schema/CorrelationId.yaml
+  enrolled_response:
+    type: array
+    items:
+      type: object
+      properties: 
+        reference_id:
+          $ref: "../../common/schema/ReferenceId.yaml"
+        timestamp: 
+          $ref: ../../common/schema/DateTime.yaml
+        status:
+          $ref: "../../common/schema/RequestStatus.yaml" 
+        status_reason_message:
+          description: "Status reason code message. Helps actionable messaging for systems/end users"
+          type: string
+          maxLength: 999
+        enrolled_status:
+          description: "Indicates the status of the beneficiary registered in a program."
+          type: string
+          enum:
+            - Active
+            - Deceased
+            - Suspended
+            - Inactive
+            - Reinstated
+            - Awaiting Renewal
+      required:
+        - reference_id
+        - timestamp
+        - status
+        - enrolled_status
+required:
+  - transaction_id
+  - correlation_id
+  - enrolled_response

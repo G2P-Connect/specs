@@ -1,0 +1,11 @@
+type: string
+description: |
+  @context: https://schema.spdci.org/extensions/ess/v1/Member.jsonld <br>
+  @type: "RegistryRecordType" <br>
+  
+  **Notes:**
+    1. Registry record type values defined as per implementation context.
+    2. Usually a list of **enum** values of all possible queryable result sets 
+    3. Referenced in search_request and notify events
+    4. example: "Member" 
+example: "Member"

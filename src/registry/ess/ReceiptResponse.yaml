@@ -1,0 +1,10 @@
+type: object
+description: Event notification information
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  receipt_information:
+    $ref: ../../extensions/ess/ReceiptInformation.yaml 
+required: 
+  - transaction_id
+  - receipt_information

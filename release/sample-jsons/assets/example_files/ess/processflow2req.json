@@ -1,0 +1,54 @@
+{
+"signature": "Signature:  namespace=\"spdci\", kidId=\"{sender_id}|{unique_key_id}|{algorithm}\", algorithm=\"ed25519\", created=\"1606970629\", expires=\"1607030629\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)",
+"header": {
+"version": "1.0.0",
+"message_id": "123",
+"message_ts": "2022-12-04T17:20:07-04:00",
+"action": "subscribe",
+"sender_id": "ess.example.org",
+"sender_uri": "https://ess.example.com",
+"receiver_id": "spmis.example.org",
+"total_count": 21800,
+"is_msg_encrypted": false,
+"meta": { }
+},
+"message": 
+    {
+    "transaction_id": "TXN-REF-ESS-002",
+    "subscribe_request": [
+        {
+        "reference_id": "REF-ESS-LONGTERM-001",
+        "timestamp": "2026-02-16T10:30:00Z",
+        "subscribe_criteria": {
+            "version": "1.0.0",
+            "reg_type": "ns:org:RegistryType:ESS",
+            "reg_event_type": "enrolment",
+            "frequency": {
+            "start_time": "2026-02-16T10:30:00Z",
+            "end_time": "2027-02-16T10:30:00Z",
+            "frequency": "real-time"
+            },
+            "filter_type": "expression",
+            "filter": {
+            "type": "ns:org:QueryType:graphql",
+            "value": {
+            "expression": "subscription LongTermUnemployedEnrolment {\n  enrolment(\n    employment_status: \"not employed\",\n    employment_info: { end_date_lt: \"2025-02-16\" }\n  ) {\n    id\n    demographic_info {\n      name { given_name surname }\n      phone_number\n      email\n    }\n  }\n}\n"
+                }
+            },
+            "notify_record_type": "Member",
+            "authorize": {
+            "@context": "https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld",
+            "@type": "Authorize",
+            "ts": "2026-02-16T10:30:00Z",
+            "purpose": {
+                "text": "Identify long-term unemployed members eligible for support referral",
+                "code": "LONG_TERM_UNEMPLOYED_REFERRAL",
+                "ref_uri": "https://example.org/purpose-codes"
+            }
+            }
+        },
+        "locale": "eng"
+        }
+    ]
+    }
+}
