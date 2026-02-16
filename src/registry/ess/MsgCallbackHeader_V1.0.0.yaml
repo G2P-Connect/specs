@@ -1,0 +1,56 @@
+type: object
+description: 'Message header'
+properties:
+  version:  
+    description: "Messaging protocol specification version being used"
+    type: string
+    default: 1.0.0
+  message_id: 
+    description: |
+      1. Unique message id to communicate between sender and receiver systems to reliable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+      2. The scope of message_id end with successful ack of the message by the receiver.
+      3. To relay the message between hops, underlying relying parties may consider to store and forward the message with integrity, ie Signature intact.
+    type: string
+    example: "789"
+  message_ts:
+    $ref: ../../common/schema/DateTime.yaml
+  action:
+    description: SPDCI Connect specific action. Usually verb from the URI should go here to help store and fwd kind of processing requirements.
+    type: string
+  status:
+    $ref: "../../common/schema/RequestStatus.yaml"
+  status_reason_code:
+    $ref: "../../common/schema/MsgHeaderStatusReasonCode.yaml"
+  status_reason_message:
+    description: "Status reason code message, if any, Helps actionable messaging for system/end users"
+    type: string
+    maxLength: 999
+  total_count:
+    description: "Total no of requests present in the message request"
+    type: integer
+    example: 21800
+  completed_count:
+    description: "No of requests in completed state. Complete includes success and error requests due to functional errors"
+    type: integer
+    example: 50
+  sender_id:
+    description: | 
+      1. sender_id registered with the receiving system or gateway. 
+      2. Used for authorization, encryption, digital sign verification, etc., 
+    type: string
+    example: 'ess.example.org'
+  receiver_id:
+    description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verification, etc., functions.'
+    type: string
+    example: 'spmis.example.org'
+  is_msg_encrypted:
+    description: Is message encrypted?
+    type: boolean
+    default: false
+  meta:
+    $ref: ../../common/schema/Meta.yaml
+required:
+  - message_id
+  - message_ts
+  - action
+  - status

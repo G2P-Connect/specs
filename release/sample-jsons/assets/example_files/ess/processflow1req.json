@@ -1,0 +1,55 @@
+{
+"signature": "Signature:  namespace=\"spdci\", kidId=\"{sender_id}|{unique_key_id}|{algorithm}\", algorithm=\"ed25519\", created=\"1606970629\", expires=\"1607030629\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)",
+"header": {
+"version": "1.0.0",
+"message_id": "123",
+"message_ts": "2022-12-04T17:20:07-04:00",
+"action": "subscribe",
+"sender_id": "spmis.example.org",
+"sender_uri": "https://spmis.example.org/",
+"receiver_id": "ess.example.org",
+"total_count": 21800,
+"is_msg_encrypted": false,
+"meta": { }
+},
+"message": {
+      "transaction_id": "XZFHYTY",
+      "subscribe_request": [
+        {
+          "reference_id": "SDFRTYUX",
+          "timestamp": "2022-12-04T17:20:07-04:00",
+          "subscribe_criteria": {
+            "version": "1.0.0",
+            "reg_type": "ns:org:RegistryType:ESS",
+            "reg_event_type": "enrolment",
+            "frequency": {
+              "start_time": "2022-12-04T17:20:07-04:00",
+              "end_time": "2022-12-04T17:20:07-04:00",
+              "frequency": "real-time"
+            },
+            "filter_type": "expression",
+            "filter": {
+              "type": "ns:org:QueryType:graphql",
+              "value": {
+                "expression": "subscription NewEligibleEnrolments {\n  enrolment(\n    employment_status: \"not employed\",\n    age_gt: 18,\n    age_lt: 64\n  ) {\n    id\n    demographic_info {\n      name {\n        given_name\n        surname\n      }\n      email\n      phone_number\n    }\n  }\n}\n"
+              }
+            },
+            "notify_record_type": "Member",
+            "authorize": {
+              "@context": "https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld",
+              "@type": "Authorize",
+              "ts": {
+                "$ref": "#/components/schemas/SubscriptionInfo/properties/timestamp"
+              },
+              "purpose": {
+                "text": "Identify working-age unemployed members for employment services",
+                "code": "ESS_WORKING_AGE_UNEMPLOYED",
+                "ref_uri": "https://example.org/purpose-codes"
+              }
+            }
+          },
+          "locale": "eng"
+        }
+      ]
+  }
+}

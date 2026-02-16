@@ -1,0 +1,38 @@
+type: object
+description: Identifier type and value object
+properties:
+  type:
+    type: string
+    description: |
+      @context: https://schema.spdci.org/common/v1/api-schemas/QueryTypeEnum.jsonld <br>
+      @type: "QueryType" <br>
+      
+      **Notes:**
+        1. Query types that helps decode query expressions
+        2. Sample query type enums: "graphql", "idtype-value", "expression"
+    example: "ns:org:QueryType:expression"
+  value:
+    type: object
+    description: |
+      @context: https://schema.spdci.org/common/v1/api-schemas/QueryExpression.jsonld <br>
+      @type: "QueryExpression" <br>
+
+      **Notes:**
+        1. Query expression's syntax / format is determined based on query-type.
+        2. Query expression as a template with placeholder to pass conditional search parameters
+    example:
+      expression: 
+        collection: "Group"
+        query: 
+          $and: [
+            {
+              poverty_score: { $lt: 5 }
+            },
+            {
+              location: { $eq: "central_region" }
+            },
+            {
+              group_size: { $lt: 5 }
+            }
+          ]
+    

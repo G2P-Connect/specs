@@ -1,0 +1,10 @@
+type: object
+description: Registry to notify a event to subscribers
+properties:
+  transaction_id: 
+    $ref: ../../common/schema/TransactionId.yaml
+  enrolled_criteria:
+    $ref: ../../extensions/ess/EnrolledCriteria.yaml 
+required: 
+  - transaction_id
+  - enrolled_criteria

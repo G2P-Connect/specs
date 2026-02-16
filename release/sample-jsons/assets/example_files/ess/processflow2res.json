@@ -1,0 +1,74 @@
+{
+  "signature": "Signature: namespace=\"spdci\", kidId=\"ess.example.org|unique_key_id|ed25519\", algorithm=\"ed25519\", created=\"1708070400\", expires=\"1708156800\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)\"",
+  "header": {
+    "version": "1.0.0",
+    "message_id": "MSG-001234",
+    "message_ts": "2026-02-16T10:40:00Z",
+    "action": "notify",
+    "status": "rcvd",
+    "status_reason_code": "success",
+    "status_reason_message": "Notification delivered",
+    "total_count": 1,
+    "completed_count": 1,
+    "sender_id": "ess.example.org",
+    "receiver_id": "spmis.example.org",
+    "is_msg_encrypted": false,
+    "meta": {}
+  },
+  "message": {
+    "transaction_id": "TXN-SP-ESS-002",
+    "notify_event": [
+      {
+        "reference_id": "SP-LTU-001",
+        "timestamp": "2026-02-16T10:40:00Z",
+        "data": {
+          "version": "1.0.0",
+          "reg_type": "ns:org:RegistryType:ESS",
+          "reg_event_type": "enrolment",
+          "reg_record_type": "Member",
+          "reg_records": {
+            "@context": {
+              "spdci": "https://schema.spdci.org/extensions/PES/v1/",
+              "common": "https://schema.spdci.org/common/v1/"
+            },
+            "@id": "https://example.org/member/987654321",
+            "@type": "spdci:Member",
+            "member_identifier": [
+              {
+                "@type": "Identifier",
+                "identifier_type": "UIN",
+                "identifier_value": "42343545654"
+              }
+            ],
+            "demographic_info": {
+              "@type": "PES_Person",
+              "name": {
+                "@type": "Name",
+                "surname": "Smith",
+                "given_name": "Alice",
+                "prefix": "Ms.",
+                "suffix": ""
+              },
+              "birth_date": "1985-05-20",
+              "sex": "female",
+              "email": ["alice.smith@example.com"],
+              "phone_number": ["+66891234567"]
+            },
+            "employment_status": "not employed",
+
+            "employment_info": {
+              "employer": "Previous Employer Ltd",
+              "start_date": "2019-01-01",
+              "end_date": "2024-01-15",
+              "employment_type":"Seasonal",
+              "job_title":"farmer"
+            },
+            "registration_date": "2022-01-10T08:00:00Z",
+            "last_updated": "2026-02-15T10:00:00Z"
+          }
+        },
+        "locale": "eng"
+      }
+    ]
+  }
+}

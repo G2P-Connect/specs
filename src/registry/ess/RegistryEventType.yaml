@@ -1,0 +1,11 @@
+type: string
+description: |
+  The ESS receive data from SP system and vice versa, it has to differenciate of details based on event type, Usually SP system sends referrals and enrollment status change events to ESS
+
+  1 : enrolment <br>
+  2 : enrolment_status_change <br>
+
+enum:
+  - "enrolment"
+  - "enrolment_status_change"
+example: "enrolment"

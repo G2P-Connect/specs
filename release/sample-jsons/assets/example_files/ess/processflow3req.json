@@ -1,0 +1,95 @@
+{
+  "signature": "Signature: namespace=\"spdci\", kidId=\"spmis.example.org|unique_key_id|ed25519\", algorithm=\"ed25519\", created=\"1708070400\", expires=\"1708156800\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)\"",
+  "header": {
+    "version": "1.0.0",
+    "message_id": "MSG-SEARCH-GROUP-002",
+    "message_ts": "2026-02-16T12:30:00Z",
+    "action": "search",
+    "sender_id": "spmis.example.org",
+    "sender_uri": "https://spmis.example.org/consumer-namespace/callback/on-search",
+    "receiver_id": "ess.example.org",
+    "total_count": 0,
+    "is_msg_encrypted": false,
+    "meta": {}
+  },
+  "message": {
+    "transaction_id": "TXN-SP-GROUP-002",
+    "search_request": [
+      {
+        "reference_id": "SR-GROUP-BIRTHDATE-001",
+        "timestamp": "2026-02-16T12:30:00Z",
+        "search_criteria": {
+          "version": "1.0.0",
+          "reg_type": "ns:org:RegistryType:SP",
+          "reg_record_type": "Group",
+          "query_type": "expression",
+          "query": {
+            "type": "ns:org:QueryType:expression",
+            "value": {
+              "expression": {
+                "collection": "Group",
+                "query": {
+                  "$and": [
+                    {
+                      "group_size": { "$gte": 3, "$lte": 10 }
+                    },
+                    {
+                      "members": {
+                        "$elemMatch": {
+                          "employment_status": { "$eq": "not employed" },
+                          "demographic_info.birth_date": { 
+                            "$gte": "1962-02-16", 
+                            "$lte": "2008-02-16" 
+                          },
+                          "related_person": {
+                            "$elemMatch": {
+                              "demographic_info.birth_date": {
+                                "$gte": "2009-02-16",
+                                "$lte": "2020-02-16"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "sort": [
+            {
+              "attribute_name": "group_size",
+              "sort_order": "asc"
+            }
+          ],
+          "pagination": {
+            "page_size": 100,
+            "page_number": 1
+          },
+          "consent": {
+            "@context": "https://schema.spdci.org/common/v1/api-schemas/Consent.jsonld",
+            "@type": "Consent",
+            "ts": "2026-02-16T12:30:00Z",
+            "purpose": {
+              "text": "Fetch groups with working-age unemployed members with school-age children for SP interventions",
+              "code": "SP_GROUP_SEARCH",
+              "ref_uri": "https://sp.example.org/consent-codes"
+            }
+          },
+          "authorize": {
+            "@context": "https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld",
+            "@type": "Authorize",
+            "ts": "2026-02-16T12:30:00Z",
+            "purpose": {
+              "text": "Authorized group search for SP social protection programs",
+              "code": "SP_GROUP_SEARCH_AUTH",
+              "ref_uri": "https://sp.example.org/authorize-codes"
+            }
+          }
+        },
+        "locale": "eng"
+      }
+    ]
+  }
+}

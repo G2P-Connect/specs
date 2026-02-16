@@ -1,0 +1,66 @@
+{
+  "signature": "Signature: namespace=\"spdci\", kidId=\"spmis.example.org|unique_key_id|ed25519\", algorithm=\"ed25519\", created=\"1708070400\", expires=\"1708156800\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)\"",
+  "header": {
+    "version": "1.0.0",
+    "message_id": "MSG-000789",
+    "message_ts": "2026-02-16T10:30:00Z",
+    "action": "notify",
+    "status": "rcvd",
+    "status_reason_code": "success",
+    "status_reason_message": "Notification delivered",
+    "total_count": 1,
+    "completed_count": 1,
+    "sender_id": "spmis.example.org",
+    "receiver_id": "ess.example.org",
+    "is_msg_encrypted": false,
+    "meta": {}
+  },
+  "message": {
+    "transaction_id": "TXN-ESS-SP-001",
+    "notify_event": [
+      {
+        "reference_id": "ESS-AGE-ELIGIBLE-001",
+        "timestamp": "2026-02-16T10:30:00Z",
+        "data": {
+          "version": "1.0.0",
+          "reg_type": "ns:org:RegistryType:SP",
+          "reg_event_type": "enrolment",
+          "reg_record_type": "Member",
+          "reg_records": {
+            "@context": {
+              "spdci": "https://schema.spdci.org/extensions/PES/v1/",
+              "common": "https://schema.spdci.org/common/v1/"
+            },
+            "@id": "https://example.org/member/123456789",
+            "@type": "spdci:Member",
+            "member_identifier": [
+              {
+                "@type": "Identifier",
+                "identifier_type": "UIN",
+                "identifier_value": "9876543210"
+              }
+            ],
+            "demographic_info": {
+              "@type": "PES_Person",
+              "name": {
+                "@type": "Name",
+                "surname": "Johnson",
+                "given_name": "Bob",
+                "prefix": "",
+                "suffix": ""
+              },
+              "birth_date": "1992-03-15",
+              "sex": "male",
+              "email": ["bob.johnson@example.com"],
+              "phone_number": ["+66892345678"]
+            },
+            "employment_status": "not employed",
+            "registration_date": "2026-01-15T08:00:00Z",
+            "last_updated": "2026-02-15T10:00:00Z"
+          }
+        },
+        "locale": "eng"
+      }
+    ]
+  }
+}
