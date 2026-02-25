@@ -1,19 +1,19 @@
 [
     {
         "processflow_id" : "processflow1",        
-        "processflow_name": "Process Flow 1 :  SP-System refer a beneficiary to ESS"
+        "processflow_name": "Process Flow 1 :  Referral of Social Protection Program Beneficiaries to Employment Support Programs"
     },
     {
         "processflow_id":"processflow2",
-        "processflow_name": "Process Flow 2 : ESS refer a potential beneficiary to SP-System"
+        "processflow_name": "Process Flow 2 : Referral of Employment Support Programs Applicants to Social Assistance Programs"
     },
     {
         "processflow_id":"processflow3",
-        "processflow_name": "Process Flow 3 :  ESS proactively search households"
+        "processflow_name": "Process Flow 3 :  Proactive Enrolment of SP Registered Households in Employment Support Programs"
     },
     {
         "processflow_id": "processflow4",
-        "processflow_name": "Process Flow 4 :  SP-System checks status of Job Search Activity Compliance Status from ESS"
+        "processflow_name": "Process Flow 4 :  Status Verification for Compliance Monitoring"
     }
 
 ] 
