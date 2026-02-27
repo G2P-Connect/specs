@@ -153,12 +153,12 @@ paths:
     post:
       summary: /registry/search
       description: |-
-        The async search api will accept request and will send response to on-search endpoint. The IBR will implement /registry/search endpoint and the SP-System shall implement /registry/on-search to receive data from IBR.
-        The search request message consist of reg_event_type, query_type, query, sort, pagination, consent, authorize, locale. The IBR will validate the request and will send response to on-search endpoint. 
+        The async search api will accept request and will send response to on-search endpoint. The ESS or SP-System will implement /registry/search endpoint and the SP-System or ESS shall implement /registry/on-search to receive data from the sender.
+        The search request message consist of reg_event_type, query_type, query, sort, pagination, consent, authorize, locale. The ESS or SP-System will validate the request and will send response to on-search endpoint. 
         Information for each field is given below.
           - reg_event_type: The event type for which search to be performed, this can be any of event type explained in RegistryEventType.yaml
           - query_type: The query type on which registry to determene type of search process, this can be any of query type explained in QueryType.yaml
-          - query: The query will indicate payload of data which to be seached in registry, this can be any of explained in RegistryQueries.yaml
+          - query: The query will indicate payload of data which to be searched in registry, this can be any of explained in RegistryQueries.yaml
       operationId: post_reg_search
       tags:
         - Async
@@ -212,9 +212,8 @@ paths:
     post:
       summary: /registry/on-search
       description: |-
-        The /registry/on-search end point tobe implemented by SP-System to receive search results from IBR. 
-        The IBR will send data in format explained in SearchResponse.yaml. The reg_records will containe data that in explained in ibr/v1/Person.jsonld. 
-        Refer example json at github [link](https://app.gitbook.com/o/0iSqNDBWH70sLmGExne0/s/bUVnrLEoih8bOGfpNjnB/1.-crvs/data/data-objects/person#example)
+        The /registry/on-search end point to be implemented by SP-System to receive search results from ESS or the ESS to receive search results from SP-System. 
+        The Sender system will send data in format explained in SearchResponse.yaml. The reg_records will contains data that can be either a Person, Member or Group depending the collection type.
       operationId: post_reg_on-search
       tags:
         - Async
@@ -265,7 +264,7 @@ paths:
   /registry/subscribe:
     post:
       summary: /registry/subscribe
-      description: Subscribe to a life event with registry
+      description: Subscribe to a change event with registry
       operationId: post_reg_subscribe
       tags:
         - Async
@@ -288,7 +287,7 @@ paths:
                             - subscribe
                 message:
                   type: object
-                  description: Subscription request which contaion query with frequency and other info on which notification to be sent by registry to subscriber
+                  description: Subscription request which contain query with frequency and other info on which notification to be sent by registry to subscriber
                   oneOf:
                     - $ref: '#/components/schemas/SubscribeRequest'
                     - $ref: '#/components/schemas/EncryptedMessage'
@@ -527,7 +526,7 @@ paths:
   /registry/txn/status:
     post:
       summary: /registry/txn/status
-      description: The /registry/txn/status will be implemented by IBR. This will check status of reach request using transaction_id and/or reference_id(s).
+      description: The /registry/txn/status will be implemented by ESS or SP-System. This will check status of reach request using transaction_id and/or reference_id(s).
       operationId: post_reg_txnstatus
       tags:
         - Async
@@ -579,7 +578,7 @@ paths:
   /registry/txn/on-status:
     post:
       summary: /registry/txn/on-status
-      description: The /registry/txn/on-status will be implemented by SP-System. The response with information about request and in some case it may contain data as well.
+      description: The /registry/txn/on-status will be implemented by receiver system. The response with information about request and in some case it may contain data as well.
       operationId: post_reg_on-txnstatus
       tags:
         - Async
@@ -632,7 +631,7 @@ paths:
       summary: /registry/sync/search
       description: |-
         The sync search api will accept request and will send response immediately
-        The search request message consist of reg_event_type, query_type, query, sort, pagination, consent, authorize, locale. The IBR will validate the request and will send response to on-search endpoint. 
+        The search request message consist of reg_event_type, query_type, query, sort, pagination, consent, authorize, locale. The ESS or SP-System will validate the request and will send response directly. 
         Information for each field is given below.
           - reg_event_type: The event type for which search to be performed, this can be any of event type explained in RegistryEventType.yaml
           - query_type: The query type on which registry to determene type of search process, this can be any of query type explained in QueryType.yaml
@@ -652,7 +651,7 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - $ref: '#/components/schemas/MsgSyncHeader_V1.0.0'
                     - properties:
                         action:
                           enum:
@@ -702,7 +701,7 @@ paths:
   /registry/sync/check-enrollment:
     post:
       summary: /registry/sync/check-enrollment
-      description: search programmes person is enrolled in
+      description: 'check status of a person if remain enrolled '
       operationId: post_reg_check_enrollment
       tags:
         - Sync
@@ -718,11 +717,11 @@ paths:
                   $ref: '#/components/schemas/MsgSignature'
                 header:
                   allOf:
-                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                    - $ref: '#/components/schemas/MsgSyncHeader_V1.0.0'
                     - properties:
                         action:
                           enum:
-                            - search
+                            - enrollementstatus
                 message:
                   type: object
                   description: The search data using which registry search to be performed
@@ -739,49 +738,7 @@ paths:
                 - properties:
                     action:
                       enum:
-                        - search
-      responses:
-        '200':
-          $ref: '#/components/schemas/EnrolledResponse'
-        '401':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '403':
-          $ref: '#/components/responses/HttpErrorResponse'
-        '500':
-          $ref: '#/components/responses/HttpErrorResponse'
-      deprecated: false
-  /registry/sync/txn/status:
-    post:
-      summary: /registry/sync/txn/status
-      description: The /registry/sync/txn/status will be implemented by IBR. This will check status of reach request using transaction_id and/or reference_id(s).
-      operationId: post_reg_sync_txnstatus
-      tags:
-        - Sync
-      requestBody:
-        description: ''
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                signature:
-                  $ref: '#/components/schemas/MsgSignature'
-                header:
-                  allOf:
-                    - $ref: '#/components/schemas/MsgHeader_V1.0.0'
-                    - properties:
-                        action:
-                          enum:
-                            - txn-status
-                message:
-                  type: object
-                  oneOf:
-                    - $ref: '#/components/schemas/TxnStatusRequest'
-                    - $ref: '#/components/schemas/EncryptedMessage'
-              required:
-                - header
-                - message
+                        - enrollementstatus
       responses:
         '200':
           description: Transaction status check response
@@ -802,7 +759,7 @@ paths:
                   message:
                     type: object
                     oneOf:
-                      - $ref: '#/components/schemas/TxnStatusResponse'
+                      - $ref: '#/components/schemas/EnrolledResponse'
                       - $ref: '#/components/schemas/EncryptedMessage'
                 required:
                   - header
@@ -813,6 +770,69 @@ paths:
         '500':
           $ref: '#/components/responses/HttpErrorResponse'
       deprecated: false
+    /registry/sync/txn/status:
+      post:
+        summary: /registry/sync/txn/status
+        description: The /registry/sync/txn/status will be implemented by IBR. This will check status of reach request using transaction_id and/or reference_id(s).
+        operationId: post_reg_sync_txnstatus
+        tags:
+          - Sync
+        requestBody:
+          description: ''
+          required: true
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  signature:
+                    $ref: '#/components/schemas/MsgSignature'
+                  header:
+                    allOf:
+                      - $ref: '#/components/schemas/MsgHeader_V1.0.0'
+                      - properties:
+                          action:
+                            enum:
+                              - txn-status
+                  message:
+                    type: object
+                    oneOf:
+                      - $ref: '#/components/schemas/TxnStatusRequest'
+                      - $ref: '#/components/schemas/EncryptedMessage'
+                required:
+                  - header
+                  - message
+        responses:
+          '200':
+            description: Transaction status check response
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    signature:
+                      $ref: '#/components/schemas/MsgSignature'
+                    header:
+                      allOf:
+                        - $ref: '#/components/schemas/MsgCallbackHeader_V1.0.0'
+                        - properties:
+                            action:
+                              enum:
+                                - txn-on-status
+                    message:
+                      type: object
+                      oneOf:
+                        - $ref: '#/components/schemas/TxnStatusResponse'
+                        - $ref: '#/components/schemas/EncryptedMessage'
+                  required:
+                    - header
+          '401':
+            $ref: '#/components/responses/HttpErrorResponse'
+          '403':
+            $ref: '#/components/responses/HttpErrorResponse'
+          '500':
+            $ref: '#/components/responses/HttpErrorResponse'
+        deprecated: false
 components:
   schemas:
     NotifyEventRequest:
@@ -2017,6 +2037,52 @@ components:
               1. Additional meta info defined as per implementation context.
               2. Usually unencrypted list of name/value, tags, etc., to provide additional info to intermediary entities.
               3. The information SHOULD be privacy preserving
+      required:
+        - message_id
+        - message_ts
+        - action
+        - sender_id
+        - total_count
+    MsgSyncHeader_V1.0.0:
+      type: object
+      description: Message header
+      properties:
+        version:
+          description: Messaging protocol specification version being used
+          type: string
+          default: 1.0.0
+        message_id:
+          description: |
+            1. Unique message id to communicate between sender and receiver systems to realiable deliver the message over any transport layer i.e https, pub/sub, sftp etc.,
+            2. The scope of message_id end with successful ack of the message by the receiver.
+            3. To relay the message between hops, underlying relying parties may consider to store and forward the message with integirty, ie Signature intact.
+          type: string
+          example: '123'
+        message_ts:
+          $ref: '#/components/schemas/SubscriptionInfo/properties/timestamp'
+        action:
+          description: 'spdci Connect specific action. Usually verb from the URI. Helps in sync, async, store/fwd processing. Helps to identify payload type in message property.'
+          type: string
+        sender_id:
+          description: |
+            1. sender_id registered with the receiving system or gateway. 
+            2. Used for authorization, encryption, digital sign verification, etc.,
+          type: string
+          example: spmis.example.org
+        receiver_id:
+          description: 'receiver id registered with the calling system. Used for authorization, encryption, digital sign verification, etc., functions.'
+          type: string
+          example: ess.example.org
+        total_count:
+          description: Total no of requests present in the message request
+          type: integer
+          example: 21800
+        is_msg_encrypted:
+          description: Is message encrypted?
+          type: boolean
+          default: false
+        meta:
+          $ref: '#/components/schemas/MsgHeader_V1.0.0/properties/meta'
       required:
         - message_id
         - message_ts

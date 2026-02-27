@@ -1,19 +1,19 @@
 [
     {
         "processflow_id" : "processflow1",        
-        "processflow_name": "Process Flow 1 :  Referral of Social Protection Program Beneficiaries to Employment Support Programs"
+        "processflow_name": "Process Flow 1 : Referral of Social Protection Program Beneficiaries to Employment Support Programs - Ex 1: Cash assistance program refers beneficiaries to an employment support program"
     },
     {
         "processflow_id":"processflow2",
-        "processflow_name": "Process Flow 2 : Referral of Employment Support Programs Applicants to Social Assistance Programs"
+        "processflow_name": "Process Flow 2 : Referral of Employment Support Programs Applicants to Social Assistance Programs - Ex 2: Employment Support Program Refers an Applicant to a SP Program"
     },
     {
         "processflow_id":"processflow3",
-        "processflow_name": "Process Flow 3 :  Proactive Enrolment of SP Registered Households in Employment Support Programs"
+        "processflow_name": "Process Flow 3 :  Proactive Enrolment of SP Registered Households in Employment Support Programs - Ex 1 / Ex 2"
     },
     {
         "processflow_id": "processflow4",
-        "processflow_name": "Process Flow 4 :  Status Verification for Compliance Monitoring"
+        "processflow_name": "Process Flow 4 :  Program Updates for Case Management - Ex 1: Integrated Case Management for Social Services and Employment Support"
     }
 
 ] 

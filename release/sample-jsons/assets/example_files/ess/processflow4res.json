@@ -1,13 +1,31 @@
 {
-  "transaction_id": "TXN-SEARCH-001",
-  "correlation_id": "SR-ABC9876543210",
-  "enrolled_response": [
-    {
-      "reference_id": "SDFRTYUX",
-      "timestamp": "2026-02-16T15:00:10Z",
-      "status": "rcvd",
-      "status_reason_message": "Member enrolment verified successfully",
-      "enrolled_status": "Active"
-    }
-  ]
+  "signature": "Signature: namespace=\"spdci\", kidId=\"ess.example.org|unique_key_id|ed25519\", algorithm=\"ed25519\", created=\"1708070400\", expires=\"1708156800\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)\"",
+  "header": {
+    "version": "1.0.0",
+    "message_id": "MSG-ONSEARCH-STATUS-001",
+    "message_ts": "2026-02-16T13:00:00Z",
+    "action": "on-search-status",
+    "status": "success",
+    "status_reason_code": "ok",
+    "status_reason_message": "Status returned successfully",
+    "total_count": 2,
+    "completed_count": 2,
+    "sender_id": "ess.example.org",
+    "receiver_id": "spmis.example.org",
+    "is_msg_encrypted": false,
+    "meta": {}
+  },
+  "message": {
+    "transaction_id": "TXN-ONSEARCH-STATUS-001",
+    "correlation_id": "SR-ABC9876543210",
+    "enrolled_response": [
+      {
+        "reference_id": "SDFRTYUX",
+        "timestamp": "2026-02-16T15:00:10Z",
+        "status": "rcvd",
+        "status_reason_message": "Member enrolment verified successfully",
+        "enrolled_status": "Active"
+      }
+    ]
+  }
 }

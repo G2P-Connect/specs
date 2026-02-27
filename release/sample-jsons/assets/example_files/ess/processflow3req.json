@@ -5,9 +5,8 @@
     "message_id": "MSG-SEARCH-GROUP-002",
     "message_ts": "2026-02-16T12:30:00Z",
     "action": "search",
-    "sender_id": "spmis.example.org",
-    "sender_uri": "https://spmis.example.org/consumer-namespace/callback/on-search",
-    "receiver_id": "ess.example.org",
+    "sender_id": "ess.example.org",
+    "receiver_id": "spmis.example.org",
     "total_count": 0,
     "is_msg_encrypted": false,
     "meta": {}
@@ -29,25 +28,14 @@
               "expression": {
                 "collection": "Group",
                 "query": {
-                  "$and": [
+                  "$and": [          
                     {
-                      "group_size": { "$gte": 3, "$lte": 10 }
-                    },
-                    {
-                      "members": {
+                      "member_list": {
                         "$elemMatch": {
                           "employment_status": { "$eq": "not employed" },
                           "demographic_info.birth_date": { 
                             "$gte": "1962-02-16", 
                             "$lte": "2008-02-16" 
-                          },
-                          "related_person": {
-                            "$elemMatch": {
-                              "demographic_info.birth_date": {
-                                "$gte": "2009-02-16",
-                                "$lte": "2020-02-16"
-                              }
-                            }
                           }
                         }
                       }
@@ -72,7 +60,7 @@
             "@type": "Consent",
             "ts": "2026-02-16T12:30:00Z",
             "purpose": {
-              "text": "Fetch groups with working-age unemployed members with school-age children for SP interventions",
+              "text": "Fetch groups with working-age unemployed members",
               "code": "SP_GROUP_SEARCH",
               "ref_uri": "https://sp.example.org/consent-codes"
             }

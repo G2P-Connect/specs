@@ -2,7 +2,7 @@
   "signature": "Signature: namespace=\"spdci\", kidId=\"ess.example.org|unique_key_id|ed25519\", algorithm=\"ed25519\", created=\"1708070400\", expires=\"1708156800\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)\"",
   "header": {
     "version": "1.0.0",
-    "message_id": "MSG-ONSEARCH-GROUP-003",
+    "message_id": "MSG-ONSEARCH-GROUP-002",
     "message_ts": "2026-02-16T13:00:00Z",
     "action": "on-search",
     "status": "success",
@@ -10,13 +10,13 @@
     "status_reason_message": "Groups returned successfully",
     "total_count": 2,
     "completed_count": 2,
-    "sender_id": "ess.example.org",
-    "receiver_id": "spmis.example.org",
+    "sender_id": "spmis.example.org",
+    "receiver_id": "ess.example.org",
     "is_msg_encrypted": false,
     "meta": {}
   },
   "message": {
-    "transaction_id": "TXN-SP-GROUP-003",
+    "transaction_id": "TXN-SP-GROUP-002",
     "correlation_id": "SR-GROUP-BIRTHDATE-001",
     "search_response": [
       {
@@ -37,7 +37,11 @@
               },
               "@id": "https://example.org/group/001",
               "@type": "spdci:Group",
-              "group_identifier": ["GRP-001"],
+              "group_identifier": {
+                    "@type": "Identifier",
+                    "identifier_type": "UIN",
+                    "identifier_value": "GRP-001"
+                  },
               "group_type": "household",
               "geographical_location": "Bangkok",
               "group_head_info": {
@@ -51,7 +55,6 @@
                   }
                 ],
                 "demographic_info": {
-                  "@type": "PES_Person",
                   "name": {
                     "given_name": "John",
                     "surname": "Doe"
@@ -75,28 +78,45 @@
                     "email": ["john.doe@example.com"],
                     "phone_number": ["+66891234567"]
                   },
-                  "employment_status": "not employed",
-                  "related_person": [
-                    {
-                      "@type": "RelatedPerson",
-                      "relationship_type": "child",
-                      "related_member": {
-                        "@type": "spdci:Member",
-                        "@id": "https://example.org/member/child-001",
-                        "demographic_info": {
-                          "name": { "given_name": "Emily", "surname": "Doe" },
-                          "birth_date": "2010-09-20",
-                          "sex": "female"
-                        }
-                      }
-                    }
-                  ]
+                  "employment_status": "not employed"
+                },
+                {
+                  "@type": "spdci:Member",
+                  "@id": "https://example.org/member/112",
+                  "demographic_info": {
+                    "name": { "given_name": "Jane", "surname": "Doe" },
+                    "sex": "female",
+                    "birth_date": "1992-07-20"
+                  },
+                  "employment_status": "not employed"
+                },
+                {
+                  "@type": "spdci:Member",
+                  "@id": "https://example.org/member/113",
+                  "demographic_info": {
+                    "name": { "given_name": "Mark", "surname": "Doe" },
+                    "sex": "male",
+                    "birth_date": "2000-03-10"
+                  },
+                  "employment_status": "not employed"
+                },
+                {
+                  "@type": "spdci:Member",
+                  "@id": "https://example.org/member/114",
+                  "demographic_info": {
+                    "name": { "given_name": "Lisa", "surname": "Doe" },
+                    "sex": "female",
+                    "birth_date": "1985-09-05"
+                  },
+                  "employment_status": "not employed"
                 }
               ],
               "registration_date": "2026-01-15T08:00:00Z",
               "last_updated": "2026-02-15T10:00:00Z",
               "additional_attributes": [
-                { "notes": "Eligible for SP support" }
+                {
+                  "notes": "Eligible for SP support"
+                }
               ]
             },
             {
@@ -106,7 +126,11 @@
               },
               "@id": "https://example.org/group/002",
               "@type": "spdci:Group",
-              "group_identifier": ["GRP-002"],
+              "group_identifier": {
+                    "@type": "Identifier",
+                    "identifier_type": "UIN",
+                    "identifier_value": "GRP-002"
+                  },
               "group_type": "household",
               "geographical_location": "Chiang Mai",
               "group_head_info": {
@@ -120,7 +144,10 @@
                   }
                 ],
                 "demographic_info": {
-                  "name": { "given_name": "Alice", "surname": "Smith" },
+                  "name": {
+                    "given_name": "Alice",
+                    "surname": "Smith"
+                  },
                   "sex": "female",
                   "birth_date": "1988-11-30",
                   "email": ["alice.smith@example.com"],
@@ -140,28 +167,35 @@
                     "email": ["alice.smith@example.com"],
                     "phone_number": ["+66898765432"]
                   },
-                  "employment_status": "not employed",
-                  "related_person": [
-                    {
-                      "@type": "RelatedPerson",
-                      "relationship_type": "child",
-                      "related_member": {
-                        "@type": "spdci:Member",
-                        "@id": "https://example.org/member/child-002",
-                        "demographic_info": {
-                          "name": { "given_name": "Tom", "surname": "Smith" },
-                          "birth_date": "2012-05-10",
-                          "sex": "male"
-                        }
-                      }
-                    }
-                  ]
+                  "employment_status": "not employed"
+                },
+                {
+                  "@type": "spdci:Member",
+                  "@id": "https://example.org/member/223",
+                  "demographic_info": {
+                    "name": { "given_name": "Tom", "surname": "Smith" },
+                    "sex": "male",
+                    "birth_date": "1995-06-18"
+                  },
+                  "employment_status": "not employed"
+                },
+                {
+                  "@type": "spdci:Member",
+                  "@id": "https://example.org/member/224",
+                  "demographic_info": {
+                    "name": { "given_name": "Emma", "surname": "Smith" },
+                    "sex": "female",
+                    "birth_date": "2005-01-22"
+                  },
+                  "employment_status": "not employed"
                 }
               ],
               "registration_date": "2026-01-20T08:00:00Z",
               "last_updated": "2026-02-15T10:00:00Z",
               "additional_attributes": [
-                { "notes": "Eligible for SP support" }
+                {
+                  "notes": "Eligible for SP support"
+                }
               ]
             }
           ]
