@@ -28,7 +28,7 @@
           "reg_record_type": "Member",
           "reg_records": {
             "@context": {
-              "spdci": "https://schema.spdci.org/extensions/PES/v1/",
+              "spdci": "https://schema.spdci.org/extensions/ESS/v1/",
               "common": "https://schema.spdci.org/common/v1/"
             },
             "@id": "https://example.org/member/987654321",

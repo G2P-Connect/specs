@@ -23,12 +23,12 @@
         "timestamp": "2026-02-16T10:30:00Z",
         "data": {
           "version": "1.0.0",
-          "reg_type": "ns:org:RegistryType:SP",
+          "reg_type": "ns:org:RegistryType:ESS",
           "reg_event_type": "enrolment",
           "reg_record_type": "Member",
           "reg_records": {
             "@context": {
-              "spdci": "https://schema.spdci.org/extensions/PES/v1/",
+              "spdci": "https://schema.spdci.org/extensions/ESS/v1/",
               "common": "https://schema.spdci.org/common/v1/"
             },
             "@id": "https://example.org/member/123456789",
@@ -41,7 +41,7 @@
               }
             ],
             "demographic_info": {
-              "@type": "PES_Person",
+              "@type": "ESS_Person",
               "name": {
                 "@type": "Name",
                 "surname": "Johnson",

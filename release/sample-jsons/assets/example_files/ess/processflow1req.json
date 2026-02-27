@@ -5,9 +5,9 @@
 "message_id": "123",
 "message_ts": "2022-12-04T17:20:07-04:00",
 "action": "subscribe",
-"sender_id": "spmis.example.org",
-"sender_uri": "https://spmis.example.org/",
-"receiver_id": "ess.example.org",
+"sender_id": "ess.example.org",
+"sender_uri": "https://ess.example.org/on-notify",
+"receiver_id": "spmis.example.org",
 "total_count": 21800,
 "is_msg_encrypted": false,
 "meta": { }
