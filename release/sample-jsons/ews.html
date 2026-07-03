@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>DCI APIs - EWS process flow examples</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="./assets/js/json-viewer/jquery.json-viewer.css" type="text/css" rel="stylesheet">
+    <link href="./assets/css/dci-api-sample.css" type="text/css" rel="stylesheet">
+</head>
+<style>
+    .arrow::before {
+        content: "\25BA";
+        float: left;
+        transform: rotate(90deg);
+        transition: transform 0.3s;
+    }
+
+    .collapsed .arrow::before {
+        transform: rotate(0deg);
+    }
+
+    .mainusecasediv {
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+
+<body>
+    <div class="container-fluid">
+        <!-- Header with logo -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container" id="logo">
+            </div>
+        </nav>
+
+        <!-- Section of tiles -->
+        <div class="container-fluid" style="margin-top: 30px;">
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="alert alert-primary" role="alert">
+                        <h4 style="font-weight: bold;margin-bottom: 0px;">EWS Sample API</h4>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row" id="usecasesDiv">
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="./assets/js/json-viewer/jquery.json-viewer.js"></script>
+
+    <style type="text/css">
+        
+    </style>
+    <script> var folderId = 'ess'; </script>
+    <script src="./assets/js/usecase_api.js">
+
+    </script>
+
+</body>
+
+</html>

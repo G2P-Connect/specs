@@ -1,0 +1,11 @@
+[
+    {
+        "processflow_id" : "processflow1",        
+        "processflow_name": "Process Flow 1 :  SP system subscribe to EWS to receive alerts"
+    },
+    {
+        "processflow_id":"processflow2",
+        "processflow_name": "Process Flow 2 :  EWS alert SP system of potential flood"
+    }
+
+] 

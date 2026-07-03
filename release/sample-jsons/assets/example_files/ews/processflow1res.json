@@ -1,0 +1,29 @@
+{
+    "signature": "Signature: namespace=\"spdci\", kidId=\"DR|unique_key_id|ed25519\", algorithm=\"ed25519\", created=\"1691746600\", expires=\"1691833000\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)\"",
+    "header": {
+      "version": "1.0.0",
+      "message_id": "4567890124",
+      "message_ts": "2026-07-07T12:10:00.000Z",
+      "action": "subscribe",
+      "status": "acknowledged",
+      "status_reason_code": "200",
+      "status_reason_message": "Subscription request acknowledged successfully",
+      "total_count": "1",
+      "completed_count": "1",
+      "sender_id": "EWS",
+      "receiver_id": "SP-System",
+      "is_msg_encrypted": false,
+      "meta": {}
+    },
+    "message": {
+      "ack_status": "ACK",
+      "timestamp": "2026-07-07T12:10:00.000Z",
+      "correlation_id": "txn-9876543210",
+      "error": {
+        "code": "",
+        "message": ""
+      }
+    }
+  }
+  
+  

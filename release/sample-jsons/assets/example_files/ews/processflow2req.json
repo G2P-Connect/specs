@@ -1,0 +1,119 @@
+{
+  "signature": "Signature:  namespace=\"spdci\", kidId=\"{sender_id}|{unique_key_id}|{algorithm}\", algorithm=\"ed25519\", created=\"1606970629\", expires=\"1607030629\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)",
+  "header": {
+    "version": "1.0.0",
+    "message_id": "789",
+    "message_ts": "2026-07-07T17:20:07-04:00",
+    "action": "notify",
+    "status": "rcvd",
+    "status_reason_code": "rjct.version.invalid",
+    "status_reason_message": "string",
+    "total_count": 21800,
+    "completed_count": 50,
+    "sender_id": "ews.example.org",
+    "receiver_id": "spmis.example.org",
+    "is_msg_encrypted": false,
+    "meta": {}
+  },
+  "message": {
+    "transaction_id": "XZFHYTY",
+    "notify_event": [
+      {
+        "reference_id": "SDFRTYUX",
+        "timestamp": "2027-07-07T17:20:07-04:00",
+        "data": {
+          "version": "1.0.0",
+          "reg_type": "ns:org:RegistryType:ews",
+          "reg_event_type": "spdci-common:RegistryEventType:Alert",
+          "reg_record_type": "spdci-extensions-dci:GeoLocation",
+          "reg_records": {
+            "type": "object",
+            "description": "1. Attributes of a person to create fetch records, create verifiable credentials or use in search criteria.\n3. Allows Country/Registry specific implementation extensions using Attribute Name/Value pairs.\n\n@context: https://schema.spdci.org/core/v1/data/Member.jsonld <br>\n@type: \"@context\" <br>\n",
+            "example": {             
+                "type": "Feature",
+                "id": "ALERT-2026-00001",
+
+                "geometry": {
+                    "type": "MultiPolygon",
+                    "coordinates": [
+                    [
+                        [
+                        [35.45, 33.85],
+                        [35.55, 33.85],
+                        [35.55, 33.95],
+                        [35.45, 33.95],
+                        [35.45, 33.85]
+                        ]
+                    ]
+                    ]
+                },
+
+            "properties": {
+                "capAlert": {
+                "identifier": "ALERT-2026-00001",
+                "sender": "ews.gov.lb",
+                "sent": "2026-06-22T10:00:00Z",
+                "status": "Actual",
+                "msgType": "Alert",
+                "source": "National Early Warning System",
+                "scope": "Public",
+
+                "info": [
+                    {
+                    "language": "en-US",
+                    "category": [
+                        "Met"
+                    ],
+                    "event": "Flash Flood",
+                    "responseType": [
+                        "Prepare"
+                    ],
+                    "urgency": "Immediate",
+                    "severity": "Severe",
+                    "certainty": "Likely",
+
+                    "headline": "Flash Flood Warning",
+                    "description": "Heavy rainfall may cause flash flooding.",
+                    "instruction": "Move to higher ground.",
+
+                    "effective": "2026-06-22T10:00:00Z",
+                    "expires": "2026-06-22T18:00:00Z",
+
+                    "area": [
+                        {
+                        "areaDesc": "Bekaa Governorate",
+
+                        "polygon": [
+                            "33.85,35.45 33.95,35.45 33.95,35.55 33.85,35.55 33.85,35.45"
+                        ],
+
+                        "geocode": [
+                            {
+                            "valueName": "ADMIN_CODE",
+                            "value": "LB-BI"
+                            }
+                        ]
+                        },
+                        {
+                        "areaDesc": "Baalbek District",
+
+                        "geocode": [
+                            {
+                            "valueName": "SPMIS_DISTRICT_ID",
+                            "value": "DISTRICT_101"
+                            }
+                        ]
+                        }
+                    ]
+                    }
+                ]
+                    }
+                }
+            }
+          }
+        },
+        "locale": "eng"
+      }
+    ]
+  }
+}

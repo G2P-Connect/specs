@@ -1,0 +1,55 @@
+{
+"signature": "Signature:  namespace=\"spdci\", kidId=\"{sender_id}|{unique_key_id}|{algorithm}\", algorithm=\"ed25519\", created=\"1606970629\", expires=\"1607030629\", headers=\"(created) (expires) digest\", signature=\"Base64(signing content)",
+"header": {
+"version": "1.0.0",
+"message_id": "123",
+"message_ts": "2026-07-07T17:20:07-04:00",
+"action": "subscribe",
+"sender_id": "sp.example.org",
+"sender_uri": "https://sp.example.org/notify",
+"receiver_id": "ews.example.org",
+"total_count": 21800,
+"is_msg_encrypted": false,
+"meta": { }
+},
+"message": {
+      "transaction_id": "XZFHYTY",
+      "subscribe_request": [
+        {
+          "reference_id": "SDFRTYUX",
+          "timestamp": "2026-07-07T17:20:07-04:00",
+          "subscribe_criteria": {
+            "version": "1.0.0",
+            "reg_type": "ns:org:RegistryType:EWS",
+            "reg_event_type": "alert",
+            "frequency": {
+              "start_time": "2026-07-07T17:20:07-04:00",
+              "end_time": "2027-07-07T17:20:07-04:00",
+              "frequency": "real-time"
+            },
+            "filter_type": "expression",
+            "filter": {
+              "type": "ns:org:QueryType:graphql",
+              "value": {
+                "expression": " query GetHighPriorityAlerts { \n   alerts(filter: {\n  info: {\n  urgency: \"Immediate\" \n  severity: \"Severe\" \n } \n }) { \n     ...AlertFields \n     } \n  }  "
+              }
+            },
+            "notify_record_type": "GeoLocation",
+            "authorize": {
+              "@context": "https://schema.spdci.org/common/v1/api-schemas/Authorize.jsonld",
+              "@type": "Authorize",
+              "ts": {
+                "$ref": "#/components/schemas/SubscriptionInfo/properties/timestamp"
+              },
+              "purpose": {
+                "text": "Subscribe to early warning systems to be notified of severe events to plan schema",
+                "code": "EWS_alert",
+                "ref_uri": "https://example.org/purpose-codes"
+              }
+            }
+          },
+          "locale": "eng"
+        }
+      ]
+  }
+}
